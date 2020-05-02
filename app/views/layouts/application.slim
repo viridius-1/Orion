@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title Orion
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+
+  body
+    = link_to('Logout', destroy_user_session_path, method: :delete)
+    = yield 
+
