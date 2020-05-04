@@ -1,8 +1,11 @@
-p.notice
-  = notice
-p.alert
- = alert
-
-.container
- .row
-  .col-12
+.container-fluid
+  .row
+    .col-12
+    - if notice
+      p.notice
+        = notice
+    - if alert
+      p.alert
+       = alert
+    .col-12
+      h1.h5 Data Studio

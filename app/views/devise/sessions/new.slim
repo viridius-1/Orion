@@ -1,0 +1,15 @@
+= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| 
+
+  = image_tag "signmark.svg", style: 'width: 72px', class: 'mb-5'
+  h1.h4.mb-3.font-weight-normal Please sign in
+  = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Email address', class: 'form-control mb-2'
+  = f.password_field :password, autocomplete: "current-password", placeholder: 'Password', class: 'form-control mb-3'
+  - if devise_mapping.rememberable? 
+    .form-check.mb-3
+      = f.check_box :remember_me, class: 'form-check-input'
+      = f.label :remember_me, class: 'form-check-label'
+      
+  = f.submit "Sign in", class: 'btn btn-primary btn-block mb-4'
+
+
+  = render "devise/shared/links"

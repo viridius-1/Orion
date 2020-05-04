@@ -4,10 +4,14 @@ html
     title Orion
     = csrf_meta_tags
     = csp_meta_tag
-
+    link rel="shortcut icon" href=asset_url('favicon.png')
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    script src="https://kit.fontawesome.com/52147ba709.js" crossorigin="anonymous"
   body
-    = link_to('Logout', destroy_user_session_path, method: :delete)
-    = yield 
+    = render 'layouts/nav'
+    .content-wrapper.d-flex
+      = render 'layouts/side_nav'
+      .main-content
+        = yield 
 
