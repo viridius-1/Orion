@@ -4,4 +4,6 @@ Rails.application.routes.draw do
 
   root to: 'data_studios#index'
 
+  resources :users, except: :show
+
 end
