@@ -1,0 +1,9 @@
+
+= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+  = render "devise/shared/error_messages", resource: resource 
+  = image_tag "signmark.svg", style: 'width: 72px', class: 'mb-5'
+  h1.h4.mb-3.font-weight-normal Forgot your password?
+  = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Email address', class: 'form-control mb-2'
+  = f.submit "Send me password reset", class: 'btn btn-primary btn-block mb-4'
+
+  = render "devise/shared/links"

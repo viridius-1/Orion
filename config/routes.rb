@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  devise_for :users, controllers: { invitations: 'users/invitations' }
 
-  root to: 'data_studios#index'
+  root 'data_studios#index'
 
   resources :users, except: :show
-
+  resources :data_studios, only: :index
+  resources :platforms, only: :index
 end

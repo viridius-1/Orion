@@ -1,25 +1,30 @@
 nav#sidebar
+  - if current_user.has_roles?(:root_admin)
+    ul.list-unstyled.main-links
+      p Admin
+      li.clearfix class=(controller_name == 'users' ? 'active' : '')
+        .icon-container
+          i.fas.fa-users
+        = link_to "Users", users_path
+
+
   ul.list-unstyled.main-links
     p MANAGE
-    li.clearfix.active
+    li.clearfix class=(controller_name == 'data_studios' ? 'active' : '')
       .icon-container
         i.fas.fa-chalkboard-teacher 
-      a href="#" Data Studio
+      = link_to "Data Studio", data_studios_path
     li.clearfix
       .icon-container
         i.fas.fa-crop-alt
       a href="#" Creative Automatic
-    li.clearfix
+    li.clearfix class=(controller_name == 'platforms' ? 'active' : '')
       .icon-container
         i.fas.fa-crosshairs
-      a href="#" Demand Side Platforms
+      = link_to "Demand Side Platforms", platforms_path
     li.clearfix
       .icon-container
         i.fas.fa-chart-pie
-      a href="#" Unified Analytics
-    li.clearfix
-      .icon-container
-        i.fas.fa-users
-      = link_to "Users", users_path
+      a href="#" Analytics
 
 

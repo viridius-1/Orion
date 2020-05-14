@@ -1,29 +1,28 @@
 .container-fluid
   .row
     .col-12
-      .btn.btn-primary.btn-sm.mb-3.float-right Invite User
+      = link_to 'Invite User', new_user_invitation_path, class: 'btn btn-primary btn-sm mb-3 float-right'
   .row
     .col-12
       table.table.table-striped
         thead.thead-dark
           tr
-            th scope="col" ID
             th scope="col" First
             th scope="col" Last
             th scope="col" Company
             th scope="col" Email
-            th scope="col" Actions
+            th scope="col" Invite Status
+            th colspan="2" scope="col" Actions
         tbody
           - @users.each do |user|
             tr 
-              td = user.id
               td = user.first_name
               td = user.last_name
               td = user.company
               td = user.email
-              td 
-                = link_to "Edit", edit_user_path(user)
-                = link_to "Delete", destroy_user_session_path, method: :delete
+              td = user.invite_status
+              td = link_to "Edit", edit_user_path(user)
+              td = link_to "Delete", user_path(user), method: :delete, data: { confirm: 'Are you sure?' }
 
 
 
