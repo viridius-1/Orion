@@ -1,7 +1,15 @@
 
-li data-toggle='collapse' data-target='#child#{child.id}' aria-expanded='false' aria-controls="child#{child.id}"
-  = child.name
-  - if child.children.any?
-    ul.collapse id="child#{child.id}"
+- if child.children.any?
+  li
+    span.caret = child.name
+    ul.nested
       = recursive_tree(child)
+- elsif child.audiences.any?
+  li
+    span.caret = child.name
+    ul.nested
+      - child.audiences.each do |audience|
+        li.audience data-id=(audience.id) = audience.name
+- else
+  li = child.name
 

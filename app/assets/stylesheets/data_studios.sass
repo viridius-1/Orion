@@ -1,0 +1,30 @@
+/* Remove default bullets */
+#taxonomy
+  list-style-type: none
+  margin: 0
+  margin: 0
+  padding: 0
+  background: rgb(232, 232, 232)
+  .audience
+    background: red
+  ul
+    list-style-type: none
+    padding-left: 22px
+  .caret 
+    cursor: pointer
+    display: block
+    user-select: none
+    padding: 3px 10px
+    border-bottom: 2px solid #FFFFFF
+    &::before 
+      content: "\25B6"
+      color: black
+      display: inline-block
+      margin-right: 6px
+      font-size: 10px
+  .caret-down::before
+    transform: rotate(90deg)
+  .nested 
+    display: none
+  .active 
+    display: block
