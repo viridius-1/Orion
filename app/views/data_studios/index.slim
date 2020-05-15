@@ -2,10 +2,26 @@
   .row
     .col-12
       h1.h5 Data Studio
-      ul
-        - @categories.each do |category|
-          li 
-            = category.name
-            - if category.children.any?
-              ul = recursive_tree(category)
+      .card
+        .card-body
+          ul
+            - @categories.each do |category|
+              li data-toggle='collapse' data-target='#child#{category.id}' aria-expanded='false' aria-controls="child#{category.id}"
+                = category.name
+                - if category.children.any?
+                  ul.collapse id="child#{category.id}"
+                    = recursive_tree(category)
+
+
+
+// javascript:
+//   var toggler = document.getElementsByClassName("caret");
+//   var i;
+
+//   for (i = 0; i < toggler.length; i++) {
+//     toggler[i].addEventListener("click", function() {
+//       this.parentElement.querySelector(".nested").classList.toggle("active");
+//       this.classList.toggle("caret-down");
+//     });
+//   }
 

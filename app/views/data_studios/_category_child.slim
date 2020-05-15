@@ -1,7 +1,7 @@
 
-li 
+li data-toggle='collapse' data-target='#child#{child.id}' aria-expanded='false' aria-controls="child#{child.id}"
   = child.name
   - if child.children.any?
-    ul 
+    ul.collapse id="child#{child.id}"
       = recursive_tree(child)
 
