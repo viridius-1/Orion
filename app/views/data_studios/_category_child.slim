@@ -1,0 +1,7 @@
+
+li 
+  = child.name
+  - if child.children.any?
+    ul 
+      = recursive_tree(child)
+
