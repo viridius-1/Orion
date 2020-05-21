@@ -13,6 +13,7 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :confirmable,
          :recoverable, :rememberable, :validatable, :lockable
 
+  has_many :connections
 
   def full_name
     "#{first_name} #{last_name}"
@@ -27,4 +28,9 @@ class User < ApplicationRecord
       'manual'
     end
   end
+
+  def expire_tokens!
+    connections.where(is_expired: false).update_all(is_expired: true, expired_at: Time.now)
+  end
+
 end
