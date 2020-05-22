@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 2020_05_21_224401) do
   create_table "connections", force: :cascade do |t|
     t.integer "user_id"
     t.string "token"
-    t.boolean "is_expired", default: false
     t.datetime "expired_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

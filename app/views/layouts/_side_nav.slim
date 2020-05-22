@@ -25,6 +25,6 @@ nav#sidebar
     li.clearfix
       .icon-container
         i.fas.fa-chart-pie
-      a href="#" Analytics
+      = link_to 'Analytics', current_user.token_url, target: :_blank
 
 
