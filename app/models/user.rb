@@ -33,6 +33,11 @@ class User < ApplicationRecord
     connections.active.update_all(expired_at: Time.now)
   end
 
+  def refresh_token
+    expire_tokens!
+    connections.create
+  end
+
   def token_url
     session_token = connections.active.first.token
     "https://analytics.theversion2.com/app/dash/session/version2_login?token=#{session_token}"
