@@ -6,7 +6,7 @@ require 'figaro'
 # Any libraries that use thread pools should be configured to match
 # the maximum value specified for Puma. Default is set to 5 threads for minimum
 # and maximum; this matches the default thread size of Active Record.#
-
+env = ENV.fetch('RAILS_ENV') { 'development' }
 Figaro.application = Figaro::Application.new(environment: env, path: "#{root_dir}/config/application.yml")
 Figaro.load
 
