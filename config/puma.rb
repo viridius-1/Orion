@@ -8,7 +8,7 @@ require 'figaro'
 # and maximum; this matches the default thread size of Active Record.#
 environment = ENV.fetch('RAILS_ENV') { 'development' }
 root_dir = ENV.fetch('ROOT_DIR') { Dir.pwd }
-Figaro.application = Figaro::Application.new(environment: env, path: "#{root_dir}/config/application.yml")
+Figaro.application = Figaro::Application.new(environment: environment, path: "#{root_dir}/config/application.yml")
 Figaro.load
 
 max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
