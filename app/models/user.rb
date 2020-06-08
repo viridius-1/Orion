@@ -7,6 +7,7 @@ class User < ApplicationRecord
   petergate(roles: [:root_admin], multiple: false)                                      ##
   ############################################################################################ 
 
+  after_create :refresh_token
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
