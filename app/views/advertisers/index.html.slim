@@ -1,0 +1,27 @@
+h1 Listing advertisers
+
+table
+  thead
+    tr
+      th Company name
+      th Website
+      th User
+      th Logo url
+      th
+      th
+      th
+
+  tbody
+    - @advertisers.each do |advertiser|
+      tr
+        td = advertiser.company_name
+        td = advertiser.website
+        td = advertiser.user_id
+        td = advertiser.logo_url
+        td = link_to 'Show', advertiser
+        td = link_to 'Edit', edit_advertiser_path(advertiser)
+        td = link_to 'Destroy', advertiser, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Advertiser', new_advertiser_path

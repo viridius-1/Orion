@@ -8,13 +8,14 @@ class User < ApplicationRecord
   ############################################################################################ 
 
   after_create :refresh_token
-
+  validates :user_type, presence: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable, :confirmable,
          :recoverable, :rememberable, :validatable, :lockable
 
   has_many :connections
+  has_many :advertisers
 
   def full_name
     "#{first_name} #{last_name}"

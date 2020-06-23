@@ -53,7 +53,8 @@ class UsersController < ApplicationController
       :company,
       :email,
       :password,
-      :roles
+      :roles,
+      :user_type
     )
   end
 end

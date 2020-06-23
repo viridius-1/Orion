@@ -1,6 +1,6 @@
 = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| 
 
-  = image_tag "signmark.svg", style: 'width: 72px', class: 'mb-5'
+  = image_tag "logo-orion.svg", style: 'width: 153px', class: 'mb-5'
   h1.h4.mb-3.font-weight-normal Please sign in
   = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Email address', class: 'form-control mb-2'
   = f.password_field :password, autocomplete: "current-password", placeholder: 'Password', class: 'form-control mb-3'

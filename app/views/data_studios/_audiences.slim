@@ -1,0 +1,28 @@
+.card
+  .card-body
+    .row
+      .col-6
+        ul#taxonomy
+          - @categories.each do |category|
+            - if category.children.any?
+              li
+                span.caret = category.name
+                ul.nested
+                  = recursive_tree(category)
+            - else
+              li = category.name
+      .col-6
+
+
+
+javascript:
+  var toggler = document.getElementsByClassName("caret");
+  var i;
+
+  for (i = 0; i < toggler.length; i++) {
+    toggler[i].addEventListener("click", function() {
+      this.parentElement.querySelector(".nested").classList.toggle("active");
+      this.classList.toggle("caret-down");
+    });
+  }
+

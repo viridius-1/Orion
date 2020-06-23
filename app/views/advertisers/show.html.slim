@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Company name:
+  = @advertiser.company_name
+p
+  strong Website:
+  = @advertiser.website
+p
+  strong User:
+  = @advertiser.user_id
+p
+  strong Logo url:
+  = @advertiser.logo_url
+
+=> link_to 'Edit', edit_advertiser_path(@advertiser)
+'|
+=< link_to 'Back', advertisers_path

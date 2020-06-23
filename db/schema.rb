@@ -10,16 +10,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_224401) do
+ActiveRecord::Schema.define(version: 2020_06_23_230835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "advertisers", force: :cascade do |t|
+    t.string "company_name"
+    t.string "website"
+    t.integer "user_id"
+    t.string "logo_url"
+    t.string "industry"
+    t.integer "client_count"
+    t.string "preferred_service_level"
+    t.string "customer_target"
+    t.string "monthly_unique_visitors"
+    t.decimal "average_order_value"
+    t.decimal "conversion_rate"
+    t.decimal "cost_per_acquisition"
+    t.string "current_media_mix"
+    t.integer "age_range_start"
+    t.integer "age_range_end"
+    t.text "gender"
+    t.text "household_income"
+    t.text "parental_status"
+    t.text "education"
+    t.text "language"
+    t.text "affinity"
+    t.boolean "is_agency"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "audiences", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.string "provider"
     t.integer "category_id"
+  end
+
+  create_table "campaigns", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.date "flight_start_date"
+    t.date "flight_end_date"
+    t.string "goal"
+    t.string "kpi"
+    t.decimal "cpa_goal"
+    t.integer "roas_goal"
+    t.decimal "budget"
+    t.string "geography"
+    t.string "audience_targeting"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -63,6 +104,8 @@ ActiveRecord::Schema.define(version: 2020_05_21_224401) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.string "user_type"
+    t.boolean "profile_created", default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

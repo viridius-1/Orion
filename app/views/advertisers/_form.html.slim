@@ -1,0 +1,31 @@
+= simple_form_for(@advertiser) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs
+    = f.input :company_name
+    = f.input :website
+    = f.input :user_id
+    = f.input :logo_url
+    = f.input :client_count
+    = f.input :industry, collection: industry_options, include_blank: false
+    = f.input :preferred_service_level, collection: service_level_options, label_method: lambda { |option| option.to_s.humanize }, include_blank: false
+    = f.input :customer_target,  collection: customer_target_options, include_blank: false
+    = f.input :monthly_unique_visitors, collection: monthly_visitor_options, include_blank: false
+    = f.input :average_order_value
+    = f.input :conversion_rate
+    = f.input :cost_per_acquisition
+    = f.input :current_media_mix, collection: media_mix_options, input_html: { multiple: true }, include_hidden: false
+    = f.input :gender, collection: options_for_gender, input_html: { multiple: true }, include_hidden: false
+    
+    = f.input :age_range_start
+    = f.input :age_range_end
+    = f.input :household_income, collection: income_options, input_html: { multiple: true }, include_hidden: false
+    = f.input :parental_status, collection: parental_options, input_html: { multiple: true }, include_hidden: false
+    = f.input :education, collection: education_options, input_html: { multiple: true }, include_hidden: false
+    = f.input :language, collection: language_options, input_html: { multiple: true }, include_hidden: false
+    = f.input :affinity, collection: affinity_options, input_html: { multiple: true }, include_hidden: false
+
+
+  .form-actions
+    = f.button :submit

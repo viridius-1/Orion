@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   apipie
   devise_for :users, controllers: { invitations: 'users/invitations' }
 
@@ -7,10 +8,15 @@ Rails.application.routes.draw do
   resources :users, except: :show
   resources :data_studios, only: :index
   resources :platforms, only: :index
+  resources :advertisers
+  resources :campaigns
 
   namespace :api do
     namespace :v1 do 
       post 'tapclicks/authenticate', to: 'authenticate#create'
     end
   end
+
+  get 'redirect_landing', to: 'pages#redirect_landing'
+  get 'redirect', to: 'pages#redirect'
 end
