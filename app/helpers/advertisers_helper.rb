@@ -267,7 +267,7 @@ module AdvertisersHelper
   def options_for_gender
     [
       'Male',
-      'Femaile',
+      'Female',
       'Unknown'
     ]
   end

@@ -1,51 +1,24 @@
+
 .container-fluid
   .row
     .col-12
-      h1.h5 Data Studio
-      - if current_user.user_type == :agency
+      h1.h5.mb-4 Data Studio
+      - if current_user.user_type == 'agency'
         // If they are an agency
         .card
           .card-body
             .row
+              .col-12
+                h1.h5 Getting Started
+                p.light-text Tell us about your agency so we can properly serve you.
+            = render "agency_setup", advertiser: @advertiser
 
-      - else
+      - elsif current_user.user_type == 'advertiser'
         // If they are an advertiser
         .card
           .card-body
             .row
               .col-12
-                h1.h5 Getting Started - Step 1
-                p Tell us about your company so we can properly serve you.
-            = simple_form_for(@advertiser) do |f|
-              = f.input :is_agency, as: :hidden, input_html: { value: false }
-              .row
-                .col-4
-                  = f.input :company_name
-                .col-4
-                  = f.input :website, label: 'Website URL'
-                .col-4
-                  = f.input :logo_url, label: 'Upload Logo'
-
-                .col-4
-                   = f.input :industry, collection: industry_options, include_blank: false
-                .col-4
-                  = f.input :customer_target,  collection: customer_target_options, include_blank: false
-                .col-4
-                  = f.input :monthly_unique_visitors, collection: monthly_visitor_options, include_blank: false
-
-                .col-4
-                  = f.input :average_order_value, label: 'Average Order Value (AOV)'
-                .col-4
-                  = f.input :conversion_rate
-                .col-4
-                  = f.input :cost_per_acquisition, label: 'Cost Per Acquisition Goal (CPA)'
-
-                .col-4
-                  = f.input :current_media_mix, collection: media_mix_options, input_html: { multiple: true }, include_hidden: false
-
-
-
-
-               
-                .col-12
-                  = f.submit 'Save & Get Started'
+                h1.h5 Getting Started
+                p.light-text Tell us about your company so we can properly serve you.
+            = render "advertiser_setup", advertiser: @advertiser

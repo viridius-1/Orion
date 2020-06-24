@@ -8,4 +8,5 @@ class Advertiser < ApplicationRecord
   serialize :affinity, Array
 
   belongs_to :user
+  has_many :campaigns
 end

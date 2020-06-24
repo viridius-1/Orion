@@ -61,6 +61,9 @@ ActiveRecord::Schema.define(version: 2020_06_23_230835) do
     t.decimal "budget"
     t.string "geography"
     t.string "audience_targeting"
+    t.integer "advertiser_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "categories", force: :cascade do |t|

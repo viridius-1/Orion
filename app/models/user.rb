@@ -16,6 +16,7 @@ class User < ApplicationRecord
 
   has_many :connections
   has_many :advertisers
+  has_many :campaigns, through: :advertisers
 
   def full_name
     "#{first_name} #{last_name}"

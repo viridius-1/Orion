@@ -12,6 +12,9 @@ class CreateCampaigns < ActiveRecord::Migration[6.0]
       t.decimal :budget
       t.string :geography
       t.string :audience_targeting
+      t.integer :advertiser_id
+
+      t.timestamps
     end
   end
 end

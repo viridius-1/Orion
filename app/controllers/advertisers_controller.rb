@@ -27,8 +27,11 @@ class AdvertisersController < ApplicationController
     if @advertiser.save
       if !@advertiser.is_agency.nil?
         current_user.update(profile_created: true)
+        redirect_to campaigns_url, notice: 'Profile was successfully created.'
+      else
+        redirect_to campaigns_url, notice: 'Advertiser was successfully created.'
       end
-      redirect_to campaigns_url, notice: 'Advertiser was successfully created.'
+      
     else
       render :new
     end
