@@ -27,8 +27,6 @@ module AdvertisersHelper
 
   def industry_options
     [
-      "Abortion Policy/Anti-Abortion",
-      "Abortion Policy/Pro-Abortion Rights",
       "Accountants",
       "Advertising/Public Relations",
       "Aerospace, Defense Contractors",

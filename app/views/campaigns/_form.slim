@@ -1,0 +1,55 @@
+= simple_form_for @campaign, defaults: { wrapper: false } do |f|
+  .row
+    .col-4
+      .form-group.mb-4
+        = f.input :name, label: 'Campaign Name'
+    .col-4
+      .form-group.mb-4
+        = f.input :url, label: 'Campaign URL'
+    - if current_user.user_type == 'advertiser'
+      = f.input :advertiser_id, as: :hidden, input_html: { value: current_user.advertiser_profile_id }
+    - elsif current_user.user_type == 'agency'
+      .col-4
+        .form-group.mb-4
+          = f.input :advertiser_id
+    .col-4
+      .form-group.mb-4
+        = f.input :goal, collection: goal_options, include_blank: false, input_html: { class: 'select2-input form-control' }
+    .col-4
+      .form-group.mb-4
+        = f.input :kpi, label: 'KPI', collection: kpi_options, include_blank: false, input_html: { class: 'select2-input form-control' }
+    .col-4
+      .form-group.mb-4
+        = f.label :cpa_goal, label: "CPA Goal"
+        .input-group
+          .input-group-prepend
+            .input-group-text $
+          = f.input :cpa_goal, label: false, input_html: { class: 'form-control' }
+    .col-4
+      .form-group.mb-4
+        = f.label :roas_goal, label: 'ROAS Goal'
+        .input-group
+          = f.input :roas_goal, label: false, input_html: { class: 'form-control' }
+          .input-group-append
+            .input-group-text 
+              | : 1
+    .col-4
+      .form-group.mb-4
+        = f.label :budget, label: "Total Budget"
+        .input-group
+          .input-group-prepend
+            .input-group-text $
+          = f.input :budget, label: false, input_html: { class: 'form-control' }
+    .col-4
+      .form-group.mb-4
+        = f.input :geography
+    .col-4
+      .form-group.mb-4
+        = f.input :audience_targeting, label: 'Audience Targeting'
+
+    .col-4
+      .form-group.mb-4
+        = f.input :flight_start_date
+        / = f.input :flight_end_date
+    .col-12
+      = f.button :submit

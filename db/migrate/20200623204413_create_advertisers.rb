@@ -4,7 +4,6 @@ class CreateAdvertisers < ActiveRecord::Migration[6.0]
       t.string  :company_name
       t.string  :website
       t.integer :user_id
-      t.string  :logo_url
       t.string  :industry
       t.integer :client_count
       t.string  :preferred_service_level

@@ -45,4 +45,8 @@ class User < ApplicationRecord
     session_token = connections.active.first.token
     "https://analytics.theversion2.com/app/dash/session/version2_login?token=#{session_token}"
   end
+
+  def advertiser_profile_id
+    advertisers.where.not(is_agency: nil).first.id
+  end
 end

@@ -7,9 +7,6 @@
     .col-4
       .form-group.mb-4
         = f.input :website, label: 'Website URL'
-    .col-4
-      .form-group.mb-4
-        = f.input :logo_url, label: 'Upload Logo'
 
     .col-4
       .form-group.mb-4
@@ -19,7 +16,7 @@
         = f.input :customer_target,  collection: customer_target_options, include_blank: false, input_html: { class: 'select2-input form-control' }
     .col-4
       .form-group.mb-4
-        = f.input :monthly_unique_visitors, collection: monthly_visitor_options, include_blank: false, input_html: { class: 'select2-input form-control' }
+        = f.input :monthly_unique_visitors, input_html: { class: 'form-control' }
 
     .col-4
       .form-group.mb-4

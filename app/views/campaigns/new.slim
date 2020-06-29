@@ -1,0 +1,25 @@
+
+
+.container-fluid
+  .row
+    .col-12
+      h1.h5.mb-4 Data Studio > Create Campaign
+      .card
+        .card-body
+          .row
+            .col-12
+              h1.h5 Create Campaign
+              p.light-text Please enter the details of your new campaign
+
+          == render 'form'
+
+          = link_to 'Back', advertisers_path
+
+          javascript:
+            $(document).ready(function() {
+              $('.select2-input').select2({
+                theme: 'bootstrap',
+                width: 'null',
+                containerCssClass: ':all:'
+              });
+            });

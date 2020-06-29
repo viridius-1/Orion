@@ -10,6 +10,13 @@ class CampaignsController < ApplicationController
   end
 
   def create
+    @campaign = Campaign.new(campaign_params)
+
+    if @campaign.save
+      redirect_to campaigns_url, notice: 'Campaign was successfully created.'
+    else
+      render :new
+    end
   end
 
   def update
