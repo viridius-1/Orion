@@ -1,8 +1,17 @@
-h1 Editing advertiser
+.container-fluid
+  .row
+    .col-12
+      - if @advertiser.is_agency.nil?
+        h1.h5.mb-4 Edit Advertiser
+      - else
+        h1.h5.mb-4 Edit Profile
 
-== render 'form'
+      .card
+        .card-body
+          .row
+            .col-12
 
-=> link_to 'Show', @advertiser
-'|
-=< link_to 'Back', advertisers_path
-
+              - if current_user.user_type == 'advertiser'  || @advertiser.is_agency.nil? 
+                == render 'form_advertiser'
+              - elsif current_user.user_type == 'agency'
+                == render 'form_agency'

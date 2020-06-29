@@ -40,7 +40,12 @@ class AdvertisersController < ApplicationController
   # PATCH/PUT /advertisers/1
   def update
     if @advertiser.update(advertiser_params)
-      redirect_to @advertiser, notice: 'Advertiser was successfully updated.'
+      if !@advertiser.is_agency.nil?
+        redirect_to campaigns_url, notice: 'Profile was successfully updated.'
+      else 
+        redirect_to @advertiser, notice: 'Advertiser was successfully updated.'
+      end
+      
     else
       render :edit
     end

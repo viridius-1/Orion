@@ -1,5 +1,5 @@
 class CampaignsController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :destroy]
+  before_action :set_campaign, only: [:edit, :update, :destroy]
 
   def index
     @campaigns = current_user.campaigns
@@ -13,6 +13,14 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.new(campaign_params)
 
     if @campaign.save
+      request_type = params[:request_type]
+      if request_type == 'recommendation'
+        CampaignMailer.internal_notification(current_user, @campaign, 'recommendation').deliver_later
+        CampaignMailer.customer_recommendation_confirmation(current_user, @campaign).deliver_later
+      elsif request_type == 'insertion_order'
+        CampaignMailer.internal_notification(current_user, @campaign, 'insertion_order').deliver_later
+        CampaignMailer.customer_io_confirmation(current_user, @campaign).deliver_later
+      end
       redirect_to campaigns_url, notice: 'Campaign was successfully created.'
     else
       render :new

@@ -1,0 +1,159 @@
+
+
+
+
+h3 Requesting Customer:
+
+ul 
+  li 
+    strong Name: 
+    = @user.full_name
+  li 
+    strong E-mail: 
+    = @user.email
+  li 
+    strong Company Name: 
+    = @user.company
+  li 
+    strong Company Type: 
+    = @user.user_type&.capitalize
+  - if @user.user_type == 'agency'
+    li 
+      strong Industry: 
+      = @user_ad_profile.industry
+    li 
+      strong Client Count: 
+      = @user_ad_profile.client_count
+    li 
+      strong Preferred Service Level: 
+      = @user_ad_profile.preferred_service_level
+
+
+h3 Campaign Details:
+
+ul 
+  li 
+    strong ID: 
+    = @campaign.id
+  li 
+    strong Name: 
+    = @campaign.name
+  li
+    strong URL: 
+    = @campaign.url
+  li 
+    strong Flight Length: 
+    | #{@campaign.flight_start_date&.strftime("%m/%d/%Y")} - #{@campaign.flight_end_date&.strftime("%m/%d/%Y")}
+  li 
+    strong Goal: 
+    = @campaign.goal
+  li 
+    strong KPI: 
+    = @campaign.kpi
+  li 
+    strong CPA Goal: 
+    = number_to_currency(@campaign.cpa_goal)
+  li 
+    strong ROAS Goal: 
+    | #{@campaign.roas_goal} : 1
+  li 
+    strong Budget: 
+    = number_to_currency(@campaign.budget)
+  li 
+    strong Geography: 
+    = @campaign.geography
+  li 
+    strong Audience Targeting: 
+    = @campaign.audience_targeting
+  li 
+    strong Date Requested: 
+    = @campaign.created_at&.strftime("%B %d %Y")
+
+
+h3 Advertiser Details:
+
+ul 
+  li 
+    strong ID: 
+    = @advertiser.id
+  li 
+    strong Company Name: 
+    = @advertiser.company_name
+  li 
+    strong URL: 
+    = @advertiser.website
+  li 
+    strong Industry: 
+    = @advertiser.industry
+  li 
+    strong Customer Target: 
+    = @advertiser.customer_target
+
+  li 
+    strong Monthly Unique Visitors: 
+    = number_with_delimiter(@advertiser.monthly_unique_visitors, delimiter: ',')
+
+  li 
+    strong Average Order Value: 
+    = number_to_currency(@advertiser.average_order_value)
+
+  li 
+    strong Conversion Rate: 
+    = @advertiser.conversion_rate
+
+  li 
+    strong Cost Per Acquisition: 
+    = = number_to_currency(@advertiser.cost_per_acquisition)
+
+  li 
+    strong Current Media Mix: 
+    - if !@advertiser.current_media_mix.empty?
+      ul
+        - @advertiser.current_media_mix.each do |item|
+          li = item
+
+  li 
+    strong Age Range: 
+    | #{@advertiser.age_range_start} - #{@advertiser.age_range_end}
+
+  li 
+    strong Gender: 
+    - if !@advertiser.gender.empty?
+      ul
+        - @advertiser.gender.each do |item|
+          li = item
+
+  li 
+    strong Household Income: 
+    - if !@advertiser.household_income.empty?
+      ul
+        - @advertiser.household_income.each do |item|
+          li = item
+
+  li 
+    strong Parental Status: 
+    - if !@advertiser.parental_status.empty?
+      ul
+        - @advertiser.parental_status.each do |item|
+          li = item
+
+  li 
+    strong Education: 
+    - if !@advertiser.education.empty?
+      ul
+        - @advertiser.education.each do |item|
+          li = item
+
+  li 
+    strong Language: 
+    - if !@advertiser.language.empty?
+      ul
+        - @advertiser.language.each do |item|
+          li = item
+
+  li 
+    strong Affinity: 
+    - if !@advertiser.affinity.empty?
+      ul
+        - @advertiser.affinity.each do |item|
+          li = item

@@ -2,7 +2,8 @@
 .container-fluid
   .row
     .col-12
-      h1.h5.mb-4 Data Studio > Campaigns
+      h1.h5.mb-4.float-left Data Studio > Campaigns
+      = link_to 'Edit Profile', edit_advertiser_path(current_user.advertiser_profile_id), class: 'btn btn-primary float-right'
   .row
     .col-12
       ul.nav.nav-tabs
@@ -25,13 +26,12 @@
                     th scope="col" Name
                     th scope="col" Flight
                     th scope="col" Goal
-                    th scope="col" colspan="2" Action
+                    th scope="col" Action
                   tbody
                     - @campaigns.each do |campaign|
                       tr 
                         td = campaign.advertiser.company_name
                         td = campaign.name
-                        td = "#{campaign.flight_start_date} - #{campaign.flight_end_date}"
+                        td = "#{campaign.flight_start_date&.strftime("%m/%d/%Y")} - #{campaign.flight_end_date&.strftime("%m/%d/%Y")}"
                         td = campaign.goal
-                        td = link_to "Edit", edit_campaign_path(campaign)
                         td = link_to "Delete", campaign_path(campaign), method: :delete, data: { confirm: 'Are you sure?' }
