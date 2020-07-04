@@ -1,15 +1,15 @@
-
 - if child.children.any?
-  li
-    span.caret = child.name
-    ul.nested
-      = recursive_tree(child)
+  .tree-top
+    .caret class="level#{level}" = child.name
+    .nested
+      = recursive_tree(child, level + 1)
 - elsif child.audiences.any?
-  li
-    span.caret = child.name
-    ul.nested
+
+  .tree-top
+    .caret class="level#{level}" = child.name
+    .nested
       - child.audiences.each do |audience|
-        li.audience data-id=(audience.id) = audience.name
+        .audience type='submit' class="level#{level + 1}" data-id=(audience.id) = audience.name
 - else
   li = child.name
 

@@ -5,8 +5,10 @@ Rails.application.routes.draw do
 
   root 'data_studios#index'
 
+  get 'studios/audiences', to: 'data_studios#audiences'
+
   resources :users, except: :show
-  resources :data_studios, only: :index
+  resources :data_studios, only: [:index, :create, :destroy]
   resources :platforms, only: :index
   resources :advertisers
   resources :campaigns

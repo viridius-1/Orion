@@ -1,8 +1,9 @@
 
-.container-fluid
-  .row
-    .col-12
-      - if notice
-        .alert.alert-primary = notice
-      - if alert
-        .alert.alert-danger = alert
+- if notice || alert
+  .container-fluid
+    .row
+      .col-12
+        - if notice
+          .alert.alert-primary = notice
+        - if alert
+          .alert.alert-danger = alert

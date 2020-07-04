@@ -14,9 +14,13 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :confirmable,
          :recoverable, :rememberable, :validatable, :lockable
 
+  
   has_many :connections
   has_many :advertisers
   has_many :campaigns, through: :advertisers
+  has_many :favorites
+  has_many :audiences, through: :favorites
+
 
   def full_name
     "#{first_name} #{last_name}"

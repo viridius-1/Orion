@@ -1,33 +1,11 @@
-/* Remove default bullets */
-#taxonomy
-  list-style-type: none
-  margin: 0
-  margin: 0
-  padding: 0
-  background: rgb(232, 232, 232)
-  .audience
-    background: red
-  ul
-    list-style-type: none
-    padding-left: 22px
-  .caret 
-    cursor: pointer
-    display: block
-    user-select: none
-    padding: 3px 10px
-    border-bottom: 2px solid #FFFFFF
-    &::before 
-      content: "\25B6"
-      color: black
-      display: inline-block
-      margin-right: 6px
-      font-size: 10px
-  .caret-down::before
-    transform: rotate(90deg)
-  .nested 
-    display: none
-  .active 
-    display: block
+$padding: 15px
+$levels: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+@mixin level($number)
+ .level#{$number}
+  padding-left: $padding * ($number + 1) !important
+@mixin create-levels
+  @each $level in $levels
+    +level($level)
 
 
 .select2-container--bootstrap 
@@ -43,3 +21,66 @@
 
 .light-text
   color: #7B8094
+
+.audiences
+  .tree-container
+    height: 100%
+    overflow: auto
+    +create-levels
+    .tree-top
+      position: relative
+    .caret 
+      cursor: pointer
+      display: block
+      user-select: none
+      padding: 3px 10px
+      background-color: #e8e8e8
+      margin-bottom: 3px
+      &::before 
+        content: "\25B6"
+        color: black
+        display: inline-block
+        margin-right: 6px
+        font-size: 10px
+    .caret-down::before
+      transform: rotate(90deg)
+    .nested 
+      display: none
+    .active 
+      display: block
+    .audience
+      padding: 4px 2px
+      background-color: #fafafa
+      border: 1px solid #e8e8e8
+      margin-bottom: 3px
+      cursor: pointer
+      &:hover
+        border-color: #863399
+      &::before
+        font-family: "Font Awesome 5 Free"
+        color: #863399
+        content: "\f055"
+        font-weight: 900
+        margin-right: 10px
+  .favorites
+    .audience
+      list-style-type: none
+      padding: 4px 2px
+      background-color: #fafafa
+      border: 1px solid #e8e8e8
+      margin-bottom: 3px
+      cursor: pointer
+      &::before
+        font-family: "Font Awesome 5 Free"
+        color: #15C39A
+        content: "\f058"
+        font-weight: 900
+        margin: 0 10px
+        transition: all 0.2s linear
+      &:hover
+        &::before
+          content: "\f2ed"
+          color: #dc3545
+          margin-right: 20px
+
+

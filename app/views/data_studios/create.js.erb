@@ -1,0 +1,17 @@
+$(".favorites").html("<%= j render :partial => 'data_studios/favorites' %>");
+var destroyFavorite = function(favorite_id) {
+    $.ajax({
+      url: '/data_studios/1',
+      type: 'delete',
+      data: { favorite_id: favorite_id }
+    }).done(function() {
+      console.log('Success');
+    }).fail(function(error) {
+      console.log('Error', error)
+    })
+  }
+
+  $('.favorites .audience').click(function() {
+    var favorite_id = $(this).data('id');
+    destroyFavorite(favorite_id);
+  })
