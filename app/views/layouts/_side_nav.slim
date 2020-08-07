@@ -17,7 +17,7 @@ nav#sidebar
     li.clearfix
       .icon-container
         i.fas.fa-crop-alt
-      a href="#" Creative Automatic
+      = link_to 'Creative Automatic', "https://creativeautomatic.com/client/login.html", target: :_blank
     li.clearfix class=(controller_name == 'platforms' ? 'active' : '')
       .icon-container
         i.fas.fa-crosshairs
@@ -25,6 +25,14 @@ nav#sidebar
     li.clearfix
       .icon-container
         i.fas.fa-chart-pie
-      = link_to 'Analytics', current_user.token_url, target: :_blank
+      = link_to 'Analytics', current_user.token_url, class: 'tapclicks-link', target: :_blank
 
 
+javascript:
+  // Add page refresh after clicking on Analytics link
+  // This allows the token that is being put on the URL to be refreshed and current.
+  $('.tapclicks-link').click(function() {
+    setTimeout(function() {
+      location.reload();
+    }, 1000)
+  })
