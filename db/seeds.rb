@@ -11,11 +11,12 @@
 # Create default root_admin user
 
 User.create!(
-  first_name: 'Shane', 
-  last_name: 'Taylor', 
-  company: 'N/A', 
-  email: 'admin@theversion2.com', 
-  password: 'password', 
-  confirmed_at: Time.now, 
-  roles: :root_admin
+  first_name: 'Shane',
+  last_name: 'Taylor',
+  company: 'N/A',
+  email: 'admin@theversion2.com',
+  password: 'password',
+  confirmed_at: Time.now,
+  roles: :root_admin,
+  user_type: 'agency'
 )
