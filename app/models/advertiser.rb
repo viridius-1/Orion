@@ -9,4 +9,6 @@ class Advertiser < ApplicationRecord
 
   belongs_to :user
   has_many :campaigns
+
+  validates :company_name, presence: true
 end

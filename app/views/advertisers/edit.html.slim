@@ -11,7 +11,7 @@
           .row
             .col-12
 
-              - if current_user.user_type == 'advertiser'  || @advertiser.is_agency.nil? 
-                == render 'form_advertiser'
+              - if current_user.user_type == 'advertiser'  || @advertiser.is_agency.nil?
+                = render 'form_advertiser'
               - elsif current_user.user_type == 'agency'
-                == render 'form_agency'
+                = render 'form_agency'
