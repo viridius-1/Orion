@@ -47,7 +47,7 @@
         = f.input :geography
     .col-4
       .form-group.mb-4
-        = f.input :audience_targeting, label: 'Audience Targeting'
+        = f.input :audience_targeting, collection: current_user.audiences, label_method: :name,  value_method: :id, label: 'Audience Targeting', input_html: { multiple: true }
 
     .col-4
       .row

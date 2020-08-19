@@ -1,5 +1,3 @@
-
-
 .container-fluid
   .row
     .col-12
@@ -11,14 +9,13 @@
               h1.h5 Create Campaign
               p.light-text Please enter the details of your new campaign
 
-          == render 'form'
+          = render 'form'
 
-
-          javascript:
-            $(document).ready(function() {
-              $('.select2-input').select2({
-                theme: 'bootstrap',
-                width: 'null',
-                containerCssClass: ':all:'
-              });
-            });
+javascript:
+  $(document).ready(function() {
+    $('.select2-input').select2({
+      theme: 'bootstrap',
+      width: 'null',
+      containerCssClass: ':all:'
+    });
+  });
