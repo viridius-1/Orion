@@ -5,7 +5,7 @@ class User < ApplicationRecord
   ## The :root_admin can access any page regardless of access settings. Use with caution!   ##
   ## The multiple option can be set to true if you need users to have multiple roles.       ##
   petergate(roles: [:root_admin], multiple: false)                                      ##
-  ############################################################################################ 
+  ############################################################################################
 
   after_create :refresh_token
   validates :user_type, presence: true
@@ -14,7 +14,7 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :confirmable,
          :recoverable, :rememberable, :validatable, :lockable
 
-  
+
   has_many :connections
   has_many :advertisers
   has_many :campaigns, through: :advertisers
@@ -50,7 +50,7 @@ class User < ApplicationRecord
     "https://analytics.theversion2.com/app/dash/session/version2_login?token=#{session_token}"
   end
 
-  def advertiser_profile_id
-    advertisers.where.not(is_agency: nil).first.id
+  def advertiser_profile
+    advertisers.where.not(is_agency: nil).first
   end
 end
