@@ -4,7 +4,7 @@ class CampaignMailer < ApplicationMailer
     @user = user
     @campaign = campaign
     @advertiser = campaign.advertiser
-    @user_ad_profile = Advertiser.find(user.advertiser_profile_id)
+    @user_ad_profile = Advertiser.find(user.advertiser_profile.id)
     if type == 'recommendation'
       mail(to: 'strategy@theversion2.com', subject: 'Recommendation Request', from: 'Version2 Strategy <strategy@theversion2.com>')
     elsif type == 'insertion_order'

@@ -2,7 +2,7 @@
   .row
     .col-12
       h1.h5.mb-4.float-left Data Studio > Audiences
-      = link_to 'Edit Profile', edit_advertiser_path(current_user.advertiser_profile_id), class: 'btn btn-primary float-right'
+      = link_to "Edit #{current_user.advertiser_profile.company_name} Profile", edit_advertiser_path(current_user.advertiser_profile.id), class: 'btn btn-primary float-right'
   .row
     .col-12
       ul.nav.nav-tabs
@@ -30,7 +30,7 @@
                         = recursive_tree(category, 1)
             .col-5
               h1.h5 Favorite Audiences
-              .favorites 
+              .favorites
                 = render 'favorites'
 
 
