@@ -27,9 +27,11 @@ class CampaignsController < ApplicationController
     end
   end
 
+  def edit; end
+
   def update
     if @campaign.update(campaign_params)
-      redirect_to campaign_path, notice: 'Campaign has been successfully updated.'
+      redirect_to campaigns_path, notice: 'Campaign has been successfully updated.'
     else
       errors = { alert: { danger: @campaign.errors.full_messages.join(', ') } }
       redirect_to edit_campaign_path(@campaign, campaign: campaign_params), errors
