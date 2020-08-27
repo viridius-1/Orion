@@ -33,7 +33,7 @@
                         td = campaign.advertiser.company_name
                         td = campaign.name
                         td = "#{campaign.flight_start_date&.strftime("%m/%d/%Y")} - #{campaign.flight_end_date&.strftime("%m/%d/%Y")}"
-                        td = "$ #{campaign.budget.floor}"
+                        td = "$ #{campaign&.budget&.floor}"
                         td = campaign.goal
                         td
                           = link_to "Edit", edit_campaign_path(campaign), class: 'action-link'
