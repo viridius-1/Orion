@@ -45,11 +45,7 @@
     .col-4
       .form-group.mb-4
         = f.input :geography
-    .col-4
-      .form-group.mb-4
-        = f.input :audience_targeting, collection: current_user.audiences, label_method: :name,  value_method: :id, label: 'Audience Targeting', input_html: { multiple: true }
-
-    .col-4
+    .col-6
       .row
         .col-12
           = f.label '', label: "Flight Length (Start to End)"
@@ -59,9 +55,14 @@
           p.mt-2.text-center to
         .col-5
           = f.input :flight_end_date, as: 'string', label: false, placeholder: 'End Date', input_html: { class: 'datepicker form-control' }
+    .col-6
+      .form-group.mb-4
+        = f.label :audience_targeting
+        .audience-targeting
+          = f.association :audiences, collection: current_user.audiences, label_method: :name, value_method: :id, as: :check_boxes, label: "Add more from the audience tab"
     .col-12
-      = f.button :button, "Request IO",type: 'submit', name: "request_type", value: "insertion_order", class: 'btn btn-primary float-right ml-3'
-      = f.button :button, "Request Recommendations",type: 'submit', name: "request_type", value: "recommendation", class: 'btn btn-primary float-right'
+      = f.button :button, "Request IO", type: 'submit', name: "request_type", value: "insertion_order", class: 'btn btn-primary float-right ml-3'
+      = f.button :button, "Request Recommendations", type: 'submit', name: "request_type", value: "recommendation", class: 'btn btn-primary float-right'
 
 javascript:
   $(document).ready(function() {

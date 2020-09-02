@@ -7,6 +7,7 @@ class CampaignsController < ApplicationController
 
   def new
     @campaign = Campaign.new
+    @campaign.campaign_audiences.build
   end
 
   def create
@@ -70,8 +71,8 @@ class CampaignsController < ApplicationController
       :roas_goal,
       :budget,
       :geography,
-      :audience_targeting,
-      :advertiser_id
+      :advertiser_id,
+      audience_ids: []
     )
   end
 end
