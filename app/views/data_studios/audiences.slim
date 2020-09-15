@@ -1,8 +1,11 @@
 .container-fluid.audiences
   .row
-    .col-12
+
+    .col-10
       h1.h5.mb-4.float-left Data Studio > Audiences
-      = link_to "Edit #{current_user.advertiser_profile.company_name} Profile", edit_advertiser_path(current_user.advertiser_profile.id), class: 'btn btn-primary float-right'
+    .col-2.d-flex.flex-column.text-right
+      = current_user.advertiser_profile.company_name
+      = link_to "Edit", edit_advertiser_path(current_user.advertiser_profile.id), class: 'small'
   .row
     .col-12
       ul.nav.nav-tabs
