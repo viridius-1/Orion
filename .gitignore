@@ -42,3 +42,6 @@ yarn-debug.log*
 .rubocop.yml
 
 .DS_Store
+
+# Ignore data dump
+dump.rdb
