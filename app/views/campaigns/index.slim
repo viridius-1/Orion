@@ -3,17 +3,17 @@
     .col-10
       h1.h5.mb-4.float-left
         | Data Studio >
-        = link_to "#{current_user.company}", advertiser_path(current_user.advertiser_profile.id)
+        = link_to "#{current_user.company}", edit_advertiser_path(current_user.advertiser_profile.id)
         | >
-        = link_to ' Advertisers', advertisers_path
+        = link_to "#{@advertiser.company_name}", advertisers_path
         |  > Campaigns
   .row
     .col-12
       ul.nav.nav-tabs
         li.nav-item
-          = link_to 'Campaigns', campaigns_path, class: 'nav-link active'
+          = link_to 'Campaigns', campaigns_path(advertiser: params[:advertiser]), class: 'nav-link active'
         li.nav-item
-          = link_to 'Audiences', studios_audiences_path, class: 'nav-link'
+          = link_to 'Audiences', studios_audiences_path(advertiser: params[:advertiser]), class: 'nav-link'
 
       .card
         .card-body
@@ -25,7 +25,6 @@
               table.table.table-striped
                 thead.thead-dark
                   tr
-                    th scope="col" Advertiser
                     th scope="col" Campaign
                     th scope="col" Flight
                     th scope='col' Budget
@@ -34,7 +33,6 @@
                   tbody
                     - @campaigns.each do |campaign|
                       tr
-                        td = campaign.advertiser.company_name
                         td = campaign.name
                         td = "#{campaign.flight_start_date&.strftime("%m/%d/%Y")} - #{campaign.flight_end_date&.strftime("%m/%d/%Y")}"
                         td = "$ #{campaign&.budget&.floor}"

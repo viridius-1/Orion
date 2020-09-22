@@ -8,6 +8,7 @@ class DataStudiosController < ApplicationController
   end
 
   def audiences
+    @advertiser = Advertiser.find(params[:advertiser])
     @categories = Category.root
     @audiences = current_user.audiences
     respond_to do |format|
