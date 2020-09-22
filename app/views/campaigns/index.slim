@@ -1,12 +1,14 @@
 .container-fluid.campaigns
   .row
-    .col-10
+    .col-12
       h1.h5.mb-4.float-left
         | Data Studio >
-        = link_to "#{current_user.company}", edit_advertiser_path(current_user.advertiser_profile.id)
-        | >
-        = link_to "#{@advertiser.company_name}", advertisers_path
-        |  > Campaigns
+        - if current_user.user_type == 'agency'
+          = link_to "#{current_user.company} ", edit_advertiser_path(current_user.advertiser_profile.id)
+          | > #{@advertiser.company_name} > Campaigns
+        - else
+          = link_to "#{@advertiser.company_name} ", edit_advertiser_path(@advertiser.id)
+          | > Campaigns
   .row
     .col-12
       ul.nav.nav-tabs
@@ -19,7 +21,7 @@
         .card-body
           .row
             .col-12
-              = link_to 'Create Campaign', new_campaign_path, class: 'btn btn-primary float-right mb-3'
+              = link_to 'Create Campaign', new_campaign_path(advertiser: params[:advertiser]), class: 'btn btn-primary float-right mb-3'
           .row
             .col-12
               table.table.table-striped
@@ -38,5 +40,8 @@
                         td = "$ #{campaign&.budget&.floor}"
                         td = campaign.goal
                         td
-                          = link_to "Edit", edit_campaign_path(campaign), class: 'action-link'
+                          = link_to "Edit", edit_campaign_path(campaign, advertiser: params[:advertiser]), class: 'action-link'
                           = link_to "Delete", campaign_path(campaign), method: :delete, data: { confirm: 'Are you sure?' }, class: 'action-link'
+            - if current_user.user_type == 'agency'
+              .col-12
+                = link_to 'Back', advertisers_path

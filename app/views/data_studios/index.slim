@@ -7,15 +7,15 @@
           .card-body
             .row
               .col-12
-                h1.h5 Getting Started
+                h1.h5 New Agency
                 p.light-text Tell us about your agency so we can properly serve you.
             = render "agency_setup", advertiser: @advertiser
 
-      - elsif current_user.user_type == 'advertiser'
+      - else
         .card
           .card-body
             .row
               .col-12
-                h1.h5 Getting Started
+                h1.h5 New Advertiser
                 p.light-text Tell us about your company so we can properly serve you.
             = render "advertiser_setup", advertiser: @advertiser

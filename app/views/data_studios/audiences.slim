@@ -3,10 +3,12 @@
     .col-12
       h1.h5.mb-4.float-left
         | Data Studio >
-        = link_to "#{current_user.company}", edit_advertiser_path(current_user.advertiser_profile.id)
-        | >
-        = link_to "#{@advertiser.company_name}", advertisers_path
-        |  > Campaigns
+        - if current_user.user_type == 'agency'
+          = link_to "#{current_user.company} ", edit_advertiser_path(current_user.advertiser_profile.id)
+          | > #{@advertiser.company_name} > Campaigns
+        - else
+          = link_to "#{@advertiser.company_name} ", edit_advertiser_path(@advertiser.id)
+          | > Campaigns
   .row
     .col-12
       ul.nav.nav-tabs

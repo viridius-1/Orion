@@ -7,6 +7,7 @@ class CampaignsController < ApplicationController
   end
 
   def new
+    @advertiser = Advertiser.find(params[:advertiser])
     @campaign = Campaign.new
     @campaign.campaign_audiences.build
   end
@@ -16,24 +17,27 @@ class CampaignsController < ApplicationController
 
     if @campaign.save
       request_type = params[:request_type]
+      CampaignMailer.internal_notification(current_user, @campaign, "#{request_type}").deliver_later
+
       if request_type == 'recommendation'
-        CampaignMailer.internal_notification(current_user, @campaign, 'recommendation').deliver_later
         CampaignMailer.customer_recommendation_confirmation(current_user, @campaign).deliver_later
       elsif request_type == 'insertion_order'
-        CampaignMailer.internal_notification(current_user, @campaign, 'insertion_order').deliver_later
         CampaignMailer.customer_io_confirmation(current_user, @campaign).deliver_later
       end
-      redirect_to campaigns_url, notice: 'Campaign was successfully created.'
+
+      redirect_to campaigns_path(advertiser: campaign_params[:advertiser_id]), notice: 'Campaign was successfully created.'
     else
       render :new
     end
   end
 
-  def edit; end
+  def edit
+    @advertiser = Advertiser.find(params[:advertiser])
+  end
 
   def update
     if @campaign.update(campaign_params)
-      redirect_to campaigns_path, notice: 'Campaign has been successfully updated.'
+      redirect_to campaigns_path(advertiser: campaign_params[:advertiser_id]), notice: 'Campaign has been successfully updated.'
     else
       errors = { alert: { danger: @campaign.errors.full_messages.join(', ') } }
       redirect_to edit_campaign_path(@campaign, campaign: campaign_params), errors
@@ -49,7 +53,6 @@ class CampaignsController < ApplicationController
 
     redirect_back(fallback_location: root_path)
   end
-
 
   private
 

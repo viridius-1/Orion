@@ -25,13 +25,12 @@ class AdvertisersController < ApplicationController
     @advertiser = current_user.advertisers.new(advertiser_params)
 
     if @advertiser.save
-      if !@advertiser.is_agency.nil?
-        current_user.update(profile_created: true)
-        redirect_to campaigns_url, notice: 'Profile was successfully created.'
+      current_user.update(profile_created: true)
+      if @advertiser.is_agency.nil?
+        redirect_to advertisers_path, notice: "#{@advertiser.company_name} was successfully created."
       else
-        redirect_to campaigns_url, notice: 'Advertiser was successfully created.'
+        redirect_to campaigns_path(advertiser: @advertiser.id)
       end
-
     else
       render :new
     end
@@ -40,12 +39,7 @@ class AdvertisersController < ApplicationController
   # PATCH/PUT /advertisers/1
   def update
     if @advertiser.update(advertiser_params)
-      if !@advertiser.is_agency.nil?
-        redirect_to campaigns_url, notice: 'Profile was successfully updated.'
-      else
-        redirect_to @advertiser, notice: 'Advertiser was successfully updated.'
-      end
-
+      redirect_to data_studios_path, notice: "#{@advertiser.company_name} was successfully updated."
     else
       render :edit
     end
