@@ -7,13 +7,7 @@
       .form-group.mb-4
         = f.input :url, label: 'Campaign URL'
 
-    - if current_user.user_type == 'advertiser'
-      = f.input :advertiser_id, as: :hidden, input_html: { value: current_user.advertiser_profile.id }
-
-    - elsif current_user.user_type == 'agency'
-      .col-4
-        .form-group.mb-4
-          = f.association :advertiser, collection: current_user.advertisers, label_method: :company_name, value_method: :id, include_blank: '-- Please select --'
+      = f.input :advertiser_id, as: :hidden, input_html: { value:  @advertiser.id }
     .col-4
       .form-group.mb-4
         = f.input :goal, collection: goal_options, include_blank: false, input_html: { class: 'select2-input form-control' }
@@ -60,7 +54,9 @@
         = f.label :audience_targeting
         .audience-targeting
           = f.association :audiences, collection: current_user.audiences, label_method: :name, value_method: :id, as: :check_boxes, label: "Add more from the audience tab"
-    .col-12
+    .col-6
+      = link_to 'Cancel', campaigns_path(advertiser: params[:advertiser])
+    .col-6
       = f.button :button, "Request IO", type: 'submit', name: "request_type", value: "insertion_order", class: 'btn btn-primary float-right ml-3'
       = f.button :button, "Request Recommendations", type: 'submit', name: "request_type", value: "recommendation", class: 'btn btn-primary float-right'
 
