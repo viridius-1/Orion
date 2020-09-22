@@ -1,9 +1,10 @@
 # frozen_string_literal: true
-class DataStudiosController < ApplicationController
 
+class DataStudiosController < ApplicationController
   def index
     @advertiser = current_user.advertisers.new
-    redirect_to campaigns_url if current_user.profile_created
+    path = current_user.user_type == 'agency' ? advertisers_path : campaigns_url
+    redirect_to path
   end
 
   def audiences
@@ -13,9 +14,7 @@ class DataStudiosController < ApplicationController
       format.html
       format.js
     end
-
   end
-
 
   def create
     favorite_id = params[:favorite_id]

@@ -1,10 +1,8 @@
-
 .container-fluid
   .row
     .col-12
       h1.h5.mb-4 Data Studio
       - if current_user.user_type == 'agency'
-        // If they are an agency
         .card
           .card-body
             .row
@@ -14,7 +12,6 @@
             = render "agency_setup", advertiser: @advertiser
 
       - elsif current_user.user_type == 'advertiser'
-        // If they are an advertiser
         .card
           .card-body
             .row

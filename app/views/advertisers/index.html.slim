@@ -1,27 +1,28 @@
-h1 Listing advertisers
-
-table
-  thead
-    tr
-      th Company name
-      th Website
-      th User
-      th Logo url
-      th
-      th
-      th
-
-  tbody
-    - @advertisers.each do |advertiser|
-      tr
-        td = advertiser.company_name
-        td = advertiser.website
-        td = advertiser.user_id
-        td = advertiser.logo_url
-        td = link_to 'Show', advertiser
-        td = link_to 'Edit', edit_advertiser_path(advertiser)
-        td = link_to 'Destroy', advertiser, data: { confirm: 'Are you sure?' }, method: :delete
-
-br
-
-= link_to 'New Advertiser', new_advertiser_path
+.container-fluid.advertisers
+  .row
+    .col-10
+      h1.h5.mb-4.float-left
+        | Data Studio >
+        = link_to "#{current_user.company}", advertiser_path(current_user.advertiser_profile.id)
+        | > Advertisers
+    .col-2
+      = link_to 'New Advertiser', new_advertiser_path
+  .row
+    .col-12
+      .card
+        .card-body
+          table.table.table-striped
+            thead.thead-dark
+              tr
+                th Name
+                th Campaign(s)
+                th Actions
+            tbody
+              - @advertisers.each do |advertiser|
+                tr
+                  td = advertiser.company_name
+                  td = advertiser&.campaigns&.count
+                  td
+                    = link_to 'Campaigns', campaigns_path(advertiser: advertiser)
+                    = link_to 'Edit', edit_advertiser_path(advertiser)
+                    = link_to 'Destroy', advertiser, data: { confirm: 'Are you sure?' }, method: :delete

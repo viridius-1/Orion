@@ -1,10 +1,12 @@
 .container-fluid.campaigns
   .row
     .col-10
-      h1.h5.mb-4.float-left Data Studio > Campaigns
-    .col-2.d-flex.flex-column.text-right
-      = current_user.advertiser_profile.company_name
-      = link_to "Edit", edit_advertiser_path(current_user.advertiser_profile.id), class: 'small'
+      h1.h5.mb-4.float-left
+        | Data Studio >
+        = link_to "#{current_user.company}", advertiser_path(current_user.advertiser_profile.id)
+        | >
+        = link_to ' Advertisers', advertisers_path
+        |  > Campaigns
   .row
     .col-12
       ul.nav.nav-tabs

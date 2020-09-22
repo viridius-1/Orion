@@ -2,7 +2,8 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:edit, :update, :destroy]
 
   def index
-    @campaigns = current_user.campaigns
+    @advertiser = Advertiser.find(params[:advertiser])
+    @campaigns = @advertiser.campaigns
   end
 
   def new

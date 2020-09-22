@@ -4,7 +4,7 @@ class AdvertisersController < ApplicationController
 
   # GET /advertisers
   def index
-    @advertisers = Advertiser.all
+    @advertisers = Advertiser.where(is_agency: nil)
   end
 
   # GET /advertisers/1
@@ -31,7 +31,7 @@ class AdvertisersController < ApplicationController
       else
         redirect_to campaigns_url, notice: 'Advertiser was successfully created.'
       end
-      
+
     else
       render :new
     end
@@ -42,10 +42,10 @@ class AdvertisersController < ApplicationController
     if @advertiser.update(advertiser_params)
       if !@advertiser.is_agency.nil?
         redirect_to campaigns_url, notice: 'Profile was successfully updated.'
-      else 
+      else
         redirect_to @advertiser, notice: 'Advertiser was successfully updated.'
       end
-      
+
     else
       render :edit
     end
@@ -66,9 +66,9 @@ class AdvertisersController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def advertiser_params
       params.require(:advertiser).permit(
-        :company_name, 
-        :website, 
-        :user_id, 
+        :company_name,
+        :website,
+        :user_id,
         :logo_url,
         :industry,
         :client_count,
