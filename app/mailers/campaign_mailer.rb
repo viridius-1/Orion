@@ -3,6 +3,7 @@ class CampaignMailer < ApplicationMailer
   def internal_notification(user, campaign, type)
     @user = user
     @campaign = campaign
+    @agency = user.advertisers.find_by(is_agency: true)
     @advertiser = campaign.advertiser
     @user_ad_profile = Advertiser.find(user.advertiser_profile.id)
     if type == 'recommendation'
