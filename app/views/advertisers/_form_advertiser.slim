@@ -75,10 +75,9 @@
         = f.input :affinity, collection: affinity_options, input_html: { multiple: true, class: 'select2-input form-control', data: { placeholder: 'Select Affinity' } }, include_hidden: false
     .col-6
     .col-6
-      = link_to 'Cancel', data_studios_path(advertiser: @advertiser)
+      = link_to 'Cancel', advertiser_path
     .col-6
       = f.submit 'Update', class: 'btn btn-primary float-right'
-
 
 
     javascript:

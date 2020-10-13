@@ -1,13 +1,12 @@
 class CampaignsController < ApplicationController
+  before_action :set_company, only: [:index, :new, :create, :edit]
   before_action :set_campaign, only: [:edit, :update, :destroy]
 
   def index
-    @advertiser = Advertiser.find(params[:advertiser])
-    @campaigns = @advertiser.campaigns
+    @campaigns = @company.campaigns
   end
 
   def new
-    @advertiser = Advertiser.find(params[:advertiser])
     @campaign = Campaign.new
     @campaign.campaign_audiences.build
   end
@@ -16,24 +15,35 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.new(campaign_params)
 
     if @campaign.save
+      CompanyCampaign.create(company_id: @company.id,
+                             company_type: current_user.company_type,
+                             campaign_id: @campaign.id)
+
       request_type = params[:request_type]
-      CampaignMailer.internal_notification(current_user, @campaign, "#{request_type}").deliver_later
+      CampaignMailer.internal_notification(current_user,
+                                           @campaign,
+                                           request_type.to_s)
+                    .deliver_later
 
-      if request_type == 'recommendation'
-        CampaignMailer.customer_recommendation_confirmation(current_user, @campaign).deliver_later
-      elsif request_type == 'insertion_order'
-        CampaignMailer.customer_io_confirmation(current_user, @campaign).deliver_later
-      end
+      recommendation = CampaignMailer.customer_recommendation_confirmation(current_user,
+                                                                           @campaign)
+                                     .deliver_later
 
-      redirect_to campaigns_path(advertiser: campaign_params[:advertiser_id]), notice: 'Campaign was successfully created.'
+      io_order = CampaignMailer.customer_io_confirmation(current_user,
+                                                   @campaign)
+                               .deliver_later
+
+      deliver_mail = { recommendation: recommendation, insertion_order: io_order }
+
+      deliver_mail[request_type.to_sym]
+
+      redirect_to campaigns_path, notice: 'Campaign was successfully created.'
     else
       render :new
     end
   end
 
-  def edit
-    @advertiser = Advertiser.find(params[:advertiser])
-  end
+  def edit; end
 
   def update
     if @campaign.update(campaign_params)
@@ -56,9 +66,12 @@ class CampaignsController < ApplicationController
 
   private
 
+  def set_company
+    @company = current_user.company
+  end
   # Use callbacks to share common setup or constraints between actions.
   def set_campaign
-    @campaign = current_user.campaigns.find(params[:id])
+    @campaign = current_user.company.campaigns.find_by(id: params[:id])
   end
 
   # Never trust parameters from the scary internet,

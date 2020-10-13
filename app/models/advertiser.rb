@@ -7,8 +7,10 @@ class Advertiser < ApplicationRecord
   serialize :language, Array
   serialize :affinity, Array
 
-  belongs_to :user
-  has_many :campaigns
+  has_many :company_members, as: :company
+  has_many :users, through: :company_members
+  has_many :company_campaigns, as: :company
+  has_many :campaigns, through: :company_campaigns
 
   validates :company_name, presence: true
 end

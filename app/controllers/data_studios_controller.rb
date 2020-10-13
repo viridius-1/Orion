@@ -1,14 +1,8 @@
 # frozen_string_literal: true
 
 class DataStudiosController < ApplicationController
-  def index
-    @advertiser = current_user.advertisers.new
-    path = current_user.user_type == 'agency' ? advertisers_path : campaigns_path(advertiser: params[:advertiser] || current_user.advertisers.first)
-    redirect_to path if current_user.profile_created
-  end
-
   def audiences
-    @advertiser = Advertiser.find(params[:advertiser])
+    @company = current_user.company
     @categories = Category.root
     @audiences = current_user.audiences
     respond_to do |format|

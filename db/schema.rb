@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_02_194245) do
+ActiveRecord::Schema.define(version: 2020_10_13_185433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,13 @@ ActiveRecord::Schema.define(version: 2020_09_02_194245) do
     t.text "language"
     t.text "affinity"
     t.boolean "is_agency"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "agencies", force: :cascade do |t|
+    t.string "name"
+    t.text "website"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -78,6 +85,30 @@ ActiveRecord::Schema.define(version: 2020_09_02_194245) do
     t.index ["category_id"], name: "index_categories_on_category_id"
   end
 
+  create_table "clients", force: :cascade do |t|
+    t.string "name"
+    t.text "website"
+    t.string "industry"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "company_campaigns", force: :cascade do |t|
+    t.integer "company_id"
+    t.string "company_type"
+    t.integer "campaign_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "company_members", force: :cascade do |t|
+    t.integer "company_id"
+    t.string "company_type"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "connections", force: :cascade do |t|
     t.integer "user_id"
     t.string "token"
@@ -98,7 +129,6 @@ ActiveRecord::Schema.define(version: 2020_09_02_194245) do
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.string "company"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -122,7 +152,6 @@ ActiveRecord::Schema.define(version: 2020_09_02_194245) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.string "user_type"
     t.boolean "profile_created", default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
