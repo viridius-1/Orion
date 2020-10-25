@@ -4,6 +4,7 @@ class CreateClients < ActiveRecord::Migration[6.0]
       t.string :name
       t.text :website
       t.string :industry
+      t.integer :agency_id
 
       t.timestamps
     end

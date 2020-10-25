@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 2020_10_13_185433) do
     t.string "name"
     t.text "website"
     t.string "industry"
+    t.integer "agency_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
