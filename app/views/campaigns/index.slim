@@ -4,7 +4,7 @@
       h1.h5.mb-4.float-left
         | Data Studio >
         - if current_user.company_type == 'Advertiser'
-          = link_to "#{current_user.company.company_name}", advertiser_path(current_user.company.id)
+          = link_to "#{current_user.company.name}", advertiser_path(current_user.company.id)
           |  > Campaigns
   .row
     .col-12

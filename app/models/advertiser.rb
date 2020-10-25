@@ -12,5 +12,5 @@ class Advertiser < ApplicationRecord
   has_many :company_campaigns, as: :company
   has_many :campaigns, through: :company_campaigns
 
-  validates :company_name, presence: true
+  validates :name, presence: true
 end

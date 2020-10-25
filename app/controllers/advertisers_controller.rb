@@ -16,7 +16,7 @@ class AdvertisersController < ApplicationController
 
     if @advertiser.save
       if @advertiser.is_agency.nil?
-        redirect_to campaigns_path, notice: "#{@advertiser.company_name} was successfully created."
+        redirect_to campaigns_path, notice: "#{@advertiser.name} was successfully created."
       else
         redirect_to campaigns_path(advertiser: @advertiser.id)
       end
@@ -28,7 +28,7 @@ class AdvertisersController < ApplicationController
   # PATCH/PUT /advertisers/1
   def update
     if @advertiser.update(advertiser_params)
-      redirect_to advertiser_path, notice: "#{@advertiser.company_name} was successfully updated."
+      redirect_to advertiser_path, notice: "#{@advertiser.name} was successfully updated."
     else
       render :edit
     end
@@ -49,7 +49,7 @@ class AdvertisersController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def advertiser_params
     params.require(:advertiser).permit(
-      :company_name,
+      :name,
       :website,
       :user_id,
       :logo_url,

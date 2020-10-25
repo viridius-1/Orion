@@ -17,7 +17,7 @@ class AdvertisersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create advertiser" do
     assert_difference('Advertiser.count') do
-      post advertisers_url, params: { advertiser: { company_name: @advertiser.company_name, logo_url: @advertiser.logo_url, user_id: @advertiser.user_id, website: @advertiser.website } }
+      post advertisers_url, params: { advertiser: { name: @advertiser.name, logo_url: @advertiser.logo_url, user_id: @advertiser.user_id, website: @advertiser.website } }
     end
 
     assert_redirected_to advertiser_url(Advertiser.last)
@@ -34,7 +34,7 @@ class AdvertisersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update advertiser" do
-    patch advertiser_url(@advertiser), params: { advertiser: { company_name: @advertiser.company_name, logo_url: @advertiser.logo_url, user_id: @advertiser.user_id, website: @advertiser.website } }
+    patch advertiser_url(@advertiser), params: { advertiser: { name: @advertiser.name, logo_url: @advertiser.logo_url, user_id: @advertiser.user_id, website: @advertiser.website } }
     assert_redirected_to advertiser_url(@advertiser)
   end
 

@@ -6,8 +6,6 @@
     .col-4
       .form-group.mb-4
         = f.input :url, label: 'Campaign URL'
-
-      = f.input :advertiser_id, as: :hidden, input_html: { value:  @company.id }
     .col-4
       .form-group.mb-4
         = f.input :goal, collection: goal_options, include_blank: false, input_html: { class: 'select2-input form-control' }

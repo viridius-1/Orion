@@ -3,7 +3,7 @@
   .row.form-page-1
     .col-4
       .form-group.mb-4
-        = f.input :company_name
+        = f.input :name
     .col-4
       .form-group.mb-4
         = f.input :website, label: 'Website URL'
@@ -17,7 +17,7 @@
     .col-4
       .form-group.mb-4
         = f.input :preferred_service_level, collection: service_level_options, label_method: lambda { |option| option.to_s.humanize }, include_blank: false, label: 'Preferred Service Level', input_html: { class: 'select2-input form-control' }
-  
+
     .col-12
       = f.submit 'Save & Get Started', class: 'btn btn-primary float-right'
 
