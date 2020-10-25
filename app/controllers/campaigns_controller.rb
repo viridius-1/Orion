@@ -15,27 +15,12 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.new(campaign_params)
 
     if @campaign.save
-      CompanyCampaign.create(company_id: @company.id,
-                             company_type: current_user.company_type,
-                             campaign_id: @campaign.id)
+      create_company_campaign
 
       request_type = params[:request_type]
-      CampaignMailer.internal_notification(current_user,
-                                           @campaign,
-                                           request_type.to_s)
-                    .deliver_later
 
-      recommendation = CampaignMailer.customer_recommendation_confirmation(current_user,
-                                                                           @campaign)
-                                     .deliver_later
-
-      io_order = CampaignMailer.customer_io_confirmation(current_user,
-                                                   @campaign)
-                               .deliver_later
-
-      deliver_mail = { recommendation: recommendation, insertion_order: io_order }
-
-      deliver_mail[request_type.to_sym]
+      send_internal_notification(request_type)
+      send_customer_confirmation(request_type)
 
       redirect_to campaigns_path, notice: 'Campaign was successfully created.'
     else
@@ -88,8 +73,27 @@ class CampaignsController < ApplicationController
       :roas_goal,
       :budget,
       :geography,
-      :advertiser_id,
       audience_ids: []
     )
+  end
+
+  def create_company_campaign
+    CompanyCampaign.create(company_id: @company.id,
+                           company_type: current_user.company_type,
+                           campaign_id: @campaign.id)
+  end
+
+  def send_internal_notification(request_type)
+    CampaignMailer.internal_notification(current_user,
+                                         @campaign,
+                                         request_type.to_sym)
+                  .deliver_later
+  end
+
+  def send_customer_confirmation(request_type)
+    CampaignMailer.customer_confirmation(current_user,
+                                         @campaign,
+                                         request_type.to_sym)
+                  .deliver_later
   end
 end

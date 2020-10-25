@@ -8,42 +8,16 @@ ul
     = @user&.email
   li
     strong Company Name:
-    = @user&.company
-  li
-    strong Company Type:
-    = @user&.user_type&.capitalize
+    = @user&.company.name
   li
     strong Industry:
-    = @user_ad_profile&.industry
+    = @company&.industry
   li
     strong Client Count:
-    = @user_ad_profile&.client_count
+    = @company&.client_count
   li
     strong Preferred Service Level:
-    = @user_ad_profile&.preferred_service_level
-
-- if @user&.user_type == 'agency'
-  h3 Agency Details:
-  ul
-    li
-      strong ID:
-      = @agency&.id
-    li
-      strong Company Name:
-      = @agency&.company_name
-    li
-      strong URL:
-      = @agency&.website
-    li
-      strong Industry:
-      = @agency&.industry
-    li
-      strong Customer Target:
-      = @agency&.customer_target
-
-    li
-      strong Monthly Unique Visitors:
-      = number_with_delimiter(@agency&.monthly_unique_visitors, delimiter: ',')
+    = @company&.preferred_service_level
 
     li
       strong Average Order Value:
@@ -110,91 +84,91 @@ ul
           - @agency&.affinity.each do |item|
             li = item
 
-h3 Advertiser Details:
+h3 Company Details:
 ul
   li
     strong ID:
-    = @advertiser&.id
+    = @company&.id
   li
     strong Company Name:
-    = @advertiser&.company_name
+    = @company&.name
   li
     strong URL:
-    = @advertiser&.website
+    = @company&.website
   li
     strong Industry:
-    = @advertiser&.industry
+    = @company&.industry
   li
     strong Customer Target:
-    = @advertiser&.customer_target
+    = @company&.customer_target
 
   li
     strong Monthly Unique Visitors:
-    = number_with_delimiter(@advertiser&.monthly_unique_visitors, delimiter: ',')
+    = number_with_delimiter(@company&.monthly_unique_visitors, delimiter: ',')
 
   li
     strong Average Order Value:
-    = number_to_currency(@advertiser&.average_order_value)
+    = number_to_currency(@company&.average_order_value)
 
   li
     strong Conversion Rate:
-    = @advertiser&.conversion_rate
+    = @company&.conversion_rate
 
   li
     strong Cost Per Acquisition:
-    = number_to_currency(@advertiser&.cost_per_acquisition)
+    = number_to_currency(@company&.cost_per_acquisition)
 
   li
     strong Current Media Mix:
-    - if !@advertiser&.current_media_mix.empty?
+    - if !@company&.current_media_mix.empty?
       ul
-        - @advertiser&.current_media_mix.each do |item|
+        - @company&.current_media_mix.each do |item|
           li = item
 
   li
     strong Age Range:
-    | #{@advertiser&.age_range_start} - #{@advertiser&.age_range_end}
+    | #{@company&.age_range_start} - #{@company&.age_range_end}
 
   li
     strong Gender:
-    - if !@advertiser&.gender.empty?
+    - if !@company&.gender.empty?
       ul
-        - @advertiser&.gender.each do |item|
+        - @company&.gender.each do |item|
           li = item
 
   li
     strong Household Income:
-    - if !@advertiser&.household_income.empty?
+    - if !@company&.household_income.empty?
       ul
-        - @advertiser&.household_income.each do |item|
+        - @company&.household_income.each do |item|
           li = item
 
   li
     strong Parental Status:
-    - if !@advertiser&.parental_status.empty?
+    - if !@company&.parental_status.empty?
       ul
-        - @advertiser&.parental_status.each do |item|
+        - @company&.parental_status.each do |item|
           li = item
 
   li
     strong Education:
-    - if !@advertiser&.education.empty?
+    - if !@company&.education.empty?
       ul
-        - @advertiser&.education.each do |item|
+        - @company&.education.each do |item|
           li = item
 
   li
     strong Language:
-    - if !@advertiser&.language.empty?
+    - if !@company&.language.empty?
       ul
-        - @advertiser&.language.each do |item|
+        - @company&.language.each do |item|
           li = item
 
   li
     strong Affinity:
-    - if !@advertiser&.affinity.empty?
+    - if !@company&.affinity.empty?
       ul
-        - @advertiser&.affinity.each do |item|
+        - @company&.affinity.each do |item|
           li = item
 
 h3 Campaign Details:
