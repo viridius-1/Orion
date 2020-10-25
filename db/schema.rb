@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_13_185433) do
+ActiveRecord::Schema.define(version: 2020_10_25_155732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(version: 2020_10_13_185433) do
     t.text "education"
     t.text "language"
     t.text "affinity"
-    t.boolean "is_agency"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -73,7 +72,6 @@ ActiveRecord::Schema.define(version: 2020_10_13_185433) do
     t.decimal "budget"
     t.string "geography"
     t.string "audience_targeting"
-    t.integer "advertiser_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
