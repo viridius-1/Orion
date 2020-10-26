@@ -3,7 +3,7 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:edit, :update, :destroy]
 
   def index
-    @campaigns = @company.campaigns
+    @campaigns = @company&.campaigns
   end
 
   def new

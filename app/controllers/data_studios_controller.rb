@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 class DataStudiosController < ApplicationController
+  def index
+
+    if current_user.company_type == 'Advertiser'
+      redirect_to campaigns_path
+    elsif current_user.company_type == 'Agency'
+      redirect_to agency_clients_path(agency_id: current_user.company.id)
+    end
+  end
   def audiences
     @company = current_user.company
     @categories = Category.root

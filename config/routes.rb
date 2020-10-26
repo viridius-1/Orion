@@ -2,20 +2,23 @@ Rails.application.routes.draw do
   apipie
   devise_for :users, controllers: { invitations: 'users/invitations' }
 
-  root 'campaigns#index'
+  root 'data_studios#index'
 
   get 'studios/audiences', to: 'data_studios#audiences'
 
   # resources :users
   resources :data_studios, only: [:create, :destroy]
   resources :platforms, only: :index
+
   resources :agencies do
     resources :users
+    resources :clients
   end
 
   resources :advertisers do
     resources :users
   end
+
   resources :campaigns
 
   namespace :api do

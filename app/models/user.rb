@@ -13,7 +13,7 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :confirmable,
          :recoverable, :rememberable, :validatable, :lockable
 
-  has_one :company_member
+  has_one :company_member, dependent: :destroy
   has_many :connections
   has_many :favorites
   has_many :audiences, through: :favorites
