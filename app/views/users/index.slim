@@ -1,28 +1,32 @@
 .container-fluid
   .row
     .col-12
-      = link_to 'Invite User', new_user_invitation_path, class: 'btn btn-primary btn-sm mb-3 float-right'
+      h1.h5.mb-4.float-left
+        | Data Studio >
+        = link_to "#{current_user.company.name}", advertiser_path(current_user.company.id)
+        | > Users
+
   .row
     .col-12
-      table.table.table-striped
-        thead.thead-dark
-          tr
-            th scope="col" First
-            th scope="col" Last
-            th scope="col" Company
-            th scope="col" Email
-            th scope="col" Invite Status
-            th colspan="2" scope="col" Actions
-        tbody
-          - @users.each do |user|
-            tr 
-              td = user.first_name
-              td = user.last_name
-              td = user.company
-              td = user.email
-              td = user.invite_status
-              td = link_to "Edit", edit_user_path(user)
-              td = link_to "Delete", user_path(user), method: :delete, data: { confirm: 'Are you sure?' }
-
-
-
+      .card
+        .card-body
+          .col-12
+            = link_to 'Invite User', new_user_invitation_path(company_type: @company.class, company_id: @company.id), class: 'btn btn-primary btn-sm mb-3'
+          .col-12
+            table.table.table-striped
+              thead.thead-dark
+                tr
+                  th scope="col" First
+                  th scope="col" Last
+                  th scope="col" Email
+                  th scope="col" Invite Status
+                  th colspan="2" scope="col" Actions
+              tbody
+                - @users.each do |user|
+                  tr
+                    td = user.first_name
+                    td = user.last_name
+                    td = user.email
+                    td = user.invite_status
+                    td = link_to "Edit", edit_advertiser_user_path(advertiser_id: params[:advertiser_id], id: user.id)
+                    td = link_to "Delete", advertiser_user_path(advertiser_id: params[:advertiser_id], id: user.id), method: :delete, data: { confirm: 'Are you sure?' }

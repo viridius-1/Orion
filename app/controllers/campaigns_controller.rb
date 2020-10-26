@@ -18,7 +18,6 @@ class CampaignsController < ApplicationController
       create_company_campaign
 
       request_type = params[:request_type]
-
       send_internal_notification(request_type)
       send_customer_confirmation(request_type)
 

@@ -27,5 +27,5 @@
                       td = @advertiser.users.count
                       td
                         = link_to 'Edit', edit_advertiser_path
-                        = link_to 'User(s)', users_path
+                        = link_to 'User(s)', advertiser_users_path(@advertiser)
                         = link_to 'Campaign(s)', campaigns_path

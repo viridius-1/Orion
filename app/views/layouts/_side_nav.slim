@@ -1,13 +1,4 @@
 nav#sidebar
-  - if current_user.has_roles?(:root_admin)
-    ul.list-unstyled.main-links
-      p Admin
-      li.clearfix class=(controller_name == 'users' ? 'active' : '')
-        .icon-container
-          i.fas.fa-users
-        = link_to "Users", users_path
-
-
   ul.list-unstyled.main-links
     p MANAGE
     li.clearfix class=(controller_name == 'data_studios' ? 'active' : '')

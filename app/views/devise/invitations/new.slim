@@ -4,14 +4,11 @@
       .card
         .card-body
           h4 = t "devise.invitations.new.header"
-          = simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f| 
+          = simple_form_for(resource, as: resource_name, url: invitation_path(resource_name, company_type: params[:company_type], company_id: params[:company_id]), html: { method: :post }) do |f|
             = f.error_notification
-
             = f.input :first_name
             = f.input :last_name
-            = f.input :company
-            = f.input :user_type, collection: [['Agency', :agency], ['Advertiser', :advertiser]], as: :select
-            = f.input :roles, collection: [['Super Admin', :root_admin], ['User', :user]], as: :radio_buttons, selected: @user.role, checked: @user.role
+
             - resource.class.invite_key_fields.each do |field|
               .form-inputs
                 = f.input field

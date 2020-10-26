@@ -1,5 +1,5 @@
 class Campaign < ApplicationRecord
-  has_one :company_campaign
+  has_one :company_campaign, dependent: :destroy
   has_many :campaign_audiences
   has_many :audiences, through: :campaign_audiences
 
