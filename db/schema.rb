@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_25_155732) do
+ActiveRecord::Schema.define(version: 2020_10_25_162435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "advertisers", force: :cascade do |t|
-    t.string "company_name"
+    t.string "name"
     t.string "website"
     t.integer "user_id"
     t.string "industry"
@@ -85,9 +85,24 @@ ActiveRecord::Schema.define(version: 2020_10_25_155732) do
 
   create_table "clients", force: :cascade do |t|
     t.string "name"
+    t.integer "agency_id"
     t.text "website"
     t.string "industry"
-    t.integer "agency_id"
+    t.string "preferred_service_level"
+    t.string "customer_target"
+    t.string "monthly_unique_visitors"
+    t.decimal "average_order_value"
+    t.decimal "conversion_rate"
+    t.decimal "cost_per_acquisition"
+    t.string "current_media_mix"
+    t.integer "age_range_start"
+    t.integer "age_range_end"
+    t.text "gender"
+    t.text "household_income"
+    t.text "parental_status"
+    t.text "education"
+    t.text "language"
+    t.text "affinity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
