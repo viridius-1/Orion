@@ -22,10 +22,14 @@ class CampaignsController < ApplicationController
       send_customer_confirmation(request_type)
 
       company_type = current_user.company_type.downcase.to_sym
-      campaign_paths = { agency: agency_client_campaigns_path(agency_id: @company.agency_id, client_id: @company.id),
-                         advertiser: advertiser_campaigns_path(advertiser_id: @company.id) }
+      campaign_paths = if company_type == :agency
+                        agency_client_campaigns_path(agency_id: @company.agency_id, client_id: @company.id)
+                      elsif company_type == :advertiser
+                        advertiser_campaigns_path(advertiser_id: @company.id)
+                      end
 
-      redirect_to campaign_paths[company_type], notice: 'Campaign was successfully created.'
+
+      redirect_to campaign_paths, notice: 'Campaign was successfully created.'
     else
       render :new
     end
@@ -35,14 +39,17 @@ class CampaignsController < ApplicationController
 
   def update
     company_type = current_user.company_type.downcase.to_sym
-    campaign_paths = { agency: agency_client_campaigns_path(agency_id: @company.agency_id, client_id: @company.id),
-                       advertiser: advertiser_campaigns_path(advertiser_id: @company.id) }
+    campaign_paths = if company_type == :agency
+                      agency_client_campaigns_path(agency_id: @company.agency_id, client_id: @company.id)
+                    elsif company_type == :advertiser
+                      advertiser_campaigns_path(advertiser_id: @company.id)
+                    end
 
     if @campaign.update(campaign_params)
-      redirect_to campaign_paths[company_type], notice: 'Campaign has been successfully updated.'
+      redirect_to campaign_paths, notice: 'Campaign has been successfully updated.'
     else
       errors = { alert: { danger: @campaign.errors.full_messages.join(', ') } }
-      redirect_to campaign_paths[company_type], errors
+      redirect_to campaign_paths, errors
     end
   end
 
@@ -60,10 +67,12 @@ class CampaignsController < ApplicationController
 
   def set_company
     company_type = current_user.company_type.downcase.to_sym
-    company_obj = { agency: Client.find(params[:client_id]),
-                    advertiser: current_user.company }
 
-    @company = company_obj[company_type]
+    @company = if company_type == :agency
+                Client.find(params[:client_id])
+              elsif company_type == :advertiser
+                current_user.company
+              end
   end
 
   # Use callbacks to share common setup or constraints between actions.

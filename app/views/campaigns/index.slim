@@ -10,7 +10,7 @@
           = link_to "#{current_user.company.name}", edit_agency_path(current_user.company.id)
           | >
           / Client's Link
-          = link_to "#{@company.name}", agency_client_path(agency_id: @company.agency_id, id: @company.id)
+          = link_to "#{@company.name}", edit_agency_client_path(agency_id: @company.agency_id, id: @company.id)
         |  > Campaigns
 
   .row
@@ -55,12 +55,12 @@
                             = link_to "Delete", agency_client_campaign_path(id: campaign, agency_id: @company.agency_id, client_id: @company.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'action-link'
 
                           - elsif current_user.company_type == 'Advertiser'
-                            = link_to "Edit", edit_advertiser_campaign(id: campaign, advertiser: params[:advertiser]), class: 'action-link'
+                            = link_to "Edit", edit_advertiser_campaign_path(id: campaign, advertiser: params[:advertiser]), class: 'action-link'
                             = link_to "Delete", advertiser_campaign_path(id: campaign, advertiser: params[:advertiser]), method: :delete, data: { confirm: 'Are you sure?' }, class: 'action-link'
 
             - if current_user.company_type == 'Agency'
               .col-12
-                = link_to 'Back', agency_clients_path
+                = link_to 'Back to clients', agency_clients_path
 
 
 
