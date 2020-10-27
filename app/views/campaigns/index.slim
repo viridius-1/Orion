@@ -7,7 +7,7 @@
           = link_to "#{current_user.company.name}", advertiser_path(current_user.company.id)
         - else current_user.company_type == 'Agency'
           / Agency's Link
-          = link_to "#{current_user.company.name}", agency_path(current_user.company.id)
+          = link_to "#{current_user.company.name}", edit_agency_path(current_user.company.id)
           | >
           / Client's Link
           = link_to "#{@company.name}", agency_client_path(agency_id: @company.agency_id, id: @company.id)
