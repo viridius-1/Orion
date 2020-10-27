@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_company
   before_action :set_user, only: [:edit, :update, :destroy]
-  access user: []
 
   def index
     @users = @company.users
@@ -18,7 +17,14 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to advertiser_users_path, notice: 'User has been successfully updated.'
+      company_type = current_user.company_type.downcase.to_sym
+      correct_paths = if company_type == :agency
+                        agency_users_path
+                      elsif company_type == :advertiser
+                        advertiser_users_path
+                      end
+
+      redirect_to correct_paths, notice: 'User has been successfully updated.'
     else
       errors = { alert: @user.errors.full_messages.join(', ') }
       redirect_to edit_advertiser_user_path(@user, user: user_params), errors
@@ -41,20 +47,12 @@ class UsersController < ApplicationController
   private
 
   def set_company
-    @company = if params[:advertiser_id]
-                 CompanyMember.find_by(company_id: params[:advertiser_id]).company
-               elsif params[:agency_id]
-                 CompanyMember.find_by(company_id: params[:agency_id]).company
-               end
+    @company = current_user.company
   end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-    @user = if params[:advertiser_id]
-             CompanyMember.find_by(company_id: params[:advertiser_id], user_id: params[:id]).user
-           elsif params[:agency_id]
-             CompanyMember.find_by(company_id: params[:agency_id], user_id: params[:id]).user
-           end
+    @user = User.find(params[:id])
   end
 
   # Never trust parameters from the scary internet,

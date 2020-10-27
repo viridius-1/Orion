@@ -3,7 +3,10 @@
     .col-12
       h1.h5.mb-4.float-left
         | Data Studio >
-        = link_to "#{current_user.company.name}", advertiser_path(current_user.company.id)
+        - if current_user.company_type == 'Advertiser'
+          = link_to "#{current_user.company.name}", advertiser_path(current_user.company.id)
+        - else current_user.company_type == 'Agency'
+          = link_to "#{current_user.company.name}", agency_path(current_user.company.id)
         | > Users
 
   .row
@@ -28,5 +31,13 @@
                     td = user.last_name
                     td = user.email
                     td = user.invite_status
-                    td = link_to "Edit", edit_advertiser_user_path(advertiser_id: params[:advertiser_id], id: user.id)
-                    td = link_to "Delete", advertiser_user_path(advertiser_id: params[:advertiser_id], id: user.id), method: :delete, data: { confirm: 'Are you sure?' }
+
+                    - if current_user.company_type == 'Agency'
+                      td
+                        = link_to "Edit", edit_agency_user_path(agency_id: @company.id, id: user.id)
+                        = link_to "Delete", agency_user_path(agency_id: @company.id, id: user.id), method: :delete, data: { confirm: 'Are you sure?' }
+
+                    - elsif current_user.company_type == 'Advertiser'
+                      td
+                         = link_to "Edit", edit_advertiser_user_path(advertiser_id: @company.id, id: user.id)
+                         = link_to "Delete", advertiser_user_path(advertiser_id: @company.id, id: user.id), method: :delete, data: { confirm: 'Are you sure?' }

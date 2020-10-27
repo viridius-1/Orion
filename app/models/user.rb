@@ -49,10 +49,6 @@ class User < ApplicationRecord
     "https://analytics.theversion2.com/app/dash/session/version2_login?token=#{session_token}"
   end
 
-  def advertiser_profile
-    advertisers.where.not(is_agency: nil).first
-  end
-
   def company
     company_member.company
   end

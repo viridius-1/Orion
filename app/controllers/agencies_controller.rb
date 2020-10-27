@@ -1,6 +1,8 @@
 class AgenciesController < ApplicationController
   before_action :set_company
 
+  def show; end
+
   def edit; end
 
   def update
