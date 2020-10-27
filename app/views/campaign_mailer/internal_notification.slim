@@ -1,4 +1,7 @@
-h3 Requesting Customer:
+- if @user.company_type == 'Agency'
+  h3 Requesting Agency:
+- else
+  h3 Requesting Advertiser:
 ul
   li
     strong Name:
@@ -6,18 +9,11 @@ ul
   li
     strong E-mail:
     = @user&.email
-  li
-    strong Company Name:
-    = @user&.company.name
-  li
-    strong Industry:
-    = @company&.industry
-  li
-    strong Client Count:
-    = @company&.client_count
-  li
-    strong Preferred Service Level:
-    = @company&.preferred_service_level
+
+  - if @user.company_type == 'Agency'
+    li
+      strong Agency Details:
+      = @company.agency.name
 
     li
       strong Average Order Value:
@@ -84,7 +80,12 @@ ul
           - @agency&.affinity.each do |item|
             li = item
 
-h3 Company Details:
+- if @user.company_type == 'Agency'
+  h3 Agency's Client Details:
+
+- elsif @user.company_type == 'Advertiser'
+  h3 Advertiser Details:
+
 ul
   li
     strong ID:
@@ -98,71 +99,6 @@ ul
   li
     strong Industry:
     = @company&.industry
-  li
-    strong Customer Target:
-    = @company&.customer_target
-
-  li
-    strong Monthly Unique Visitors:
-    = number_with_delimiter(@company&.monthly_unique_visitors, delimiter: ',')
-
-  li
-    strong Average Order Value:
-    = number_to_currency(@company&.average_order_value)
-
-  li
-    strong Conversion Rate:
-    = @company&.conversion_rate
-
-  li
-    strong Cost Per Acquisition:
-    = number_to_currency(@company&.cost_per_acquisition)
-
-  li
-    strong Current Media Mix:
-    - if !@company&.current_media_mix.empty?
-      ul
-        - @company&.current_media_mix.each do |item|
-          li = item
-
-  li
-    strong Age Range:
-    | #{@company&.age_range_start} - #{@company&.age_range_end}
-
-  li
-    strong Gender:
-    - if !@company&.gender.empty?
-      ul
-        - @company&.gender.each do |item|
-          li = item
-
-  li
-    strong Household Income:
-    - if !@company&.household_income.empty?
-      ul
-        - @company&.household_income.each do |item|
-          li = item
-
-  li
-    strong Parental Status:
-    - if !@company&.parental_status.empty?
-      ul
-        - @company&.parental_status.each do |item|
-          li = item
-
-  li
-    strong Education:
-    - if !@company&.education.empty?
-      ul
-        - @company&.education.each do |item|
-          li = item
-
-  li
-    strong Language:
-    - if !@company&.language.empty?
-      ul
-        - @company&.language.each do |item|
-          li = item
 
   li
     strong Affinity:

@@ -5,12 +5,22 @@
         | Data Studio >
         - if current_user.company_type == 'Advertiser'
           = link_to "#{current_user.company.name}", advertiser_path(current_user.company.id)
-          |  > Campaigns
+        - else current_user.company_type == 'Agency'
+          / Agency's Link
+          = link_to "#{current_user.company.name}", agency_path(current_user.company.id)
+          | >
+          / Client's Link
+          = link_to "#{@company.name}", agency_client_path(agency_id: @company.agency_id, id: @company.id)
+        |  > Campaigns
+
   .row
     .col-12
       ul.nav.nav-tabs
         li.nav-item
-          = link_to 'Campaigns', campaigns_path(advertiser: params[:advertiser]), class: 'nav-link active'
+        - if current_user.company_type == 'Agency'
+          = link_to 'Campaigns', agency_client_campaigns_path(agency_id: @company.agency_id, client_id: @company.id), class: 'nav-link active'
+        - elsif current_user.company_type == 'Advertiser'
+          = link_to 'Campaigns', advertiser_campaigns_path(advertiser_id: @company.id), class: 'nav-link active'
         li.nav-item
           = link_to 'Audiences', studios_audiences_path(advertiser: params[:advertiser]), class: 'nav-link'
 
@@ -18,7 +28,10 @@
         .card-body
           .row
             .col-12
-              = link_to 'Create Campaign', new_campaign_path(advertiser: params[:advertiser]), class: 'btn btn-primary float-right mb-3'
+              - if current_user.company_type == 'Agency'
+                = link_to 'Create Campaign', new_agency_client_campaign_path(agency_id: @company.agency_id, client_id: @company.id), class: 'btn btn-primary float-right mb-3'
+              - elsif current_user.company_type == 'Advertiser'
+                = link_to 'Create Campaign', new_advertiser_campaign_path(advertiser: params[:advertiser], client_id: params[:client_id]), class: 'btn btn-primary float-right mb-3'
           .row
             .col-12
               table.table.table-striped
@@ -37,8 +50,19 @@
                         td = "$ #{campaign&.budget&.floor}"
                         td = campaign.goal
                         td
-                          = link_to "Edit", edit_campaign_path(campaign, advertiser: params[:advertiser]), class: 'action-link'
-                          = link_to "Delete", campaign_path(campaign), method: :delete, data: { confirm: 'Are you sure?' }, class: 'action-link'
-            / - if current_user.user_type == 'agency'
-            /   .col-12
-            /     = link_to 'Back', advertisers_path
+                          - if current_user.company_type == 'Agency'
+                            = link_to "Edit", edit_agency_client_campaign_path(id: campaign, agency_id: @company.agency_id, client_id: @company.id), class: 'action-link'
+                            = link_to "Delete", agency_client_campaign_path(id: campaign, agency_id: @company.agency_id, client_id: @company.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'action-link'
+
+                          - elsif current_user.company_type == 'Advertiser'
+                            = link_to "Edit", edit_advertiser_campaign(id: campaign, advertiser: params[:advertiser]), class: 'action-link'
+                            = link_to "Delete", advertiser_campaign_path(id: campaign, advertiser: params[:advertiser]), method: :delete, data: { confirm: 'Are you sure?' }, class: 'action-link'
+
+            - if current_user.company_type == 'Agency'
+              .col-12
+                = link_to 'Back', agency_clients_path
+
+
+
+
+

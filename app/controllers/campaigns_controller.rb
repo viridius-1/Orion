@@ -1,5 +1,5 @@
 class CampaignsController < ApplicationController
-  before_action :set_company, only: [:index, :new, :create, :edit]
+  before_action :set_company
   before_action :set_campaign, only: [:edit, :update, :destroy]
 
   def index
@@ -21,7 +21,11 @@ class CampaignsController < ApplicationController
       send_internal_notification(request_type)
       send_customer_confirmation(request_type)
 
-      redirect_to campaigns_path, notice: 'Campaign was successfully created.'
+      company_type = current_user.company_type.downcase.to_sym
+      campaign_paths = { agency: agency_client_campaigns_path(agency_id: @company.agency_id, client_id: @company.id),
+                         advertiser: advertiser_campaigns_path(advertiser_id: @company.id) }
+
+      redirect_to campaign_paths[company_type], notice: 'Campaign was successfully created.'
     else
       render :new
     end
@@ -30,11 +34,15 @@ class CampaignsController < ApplicationController
   def edit; end
 
   def update
+    company_type = current_user.company_type.downcase.to_sym
+    campaign_paths = { agency: agency_client_campaigns_path(agency_id: @company.agency_id, client_id: @company.id),
+                       advertiser: advertiser_campaigns_path(advertiser_id: @company.id) }
+
     if @campaign.update(campaign_params)
-      redirect_to campaigns_path(advertiser: campaign_params[:advertiser_id]), notice: 'Campaign has been successfully updated.'
+      redirect_to campaign_paths[company_type], notice: 'Campaign has been successfully updated.'
     else
       errors = { alert: { danger: @campaign.errors.full_messages.join(', ') } }
-      redirect_to edit_campaign_path(@campaign, campaign: campaign_params), errors
+      redirect_to campaign_paths[company_type], errors
     end
   end
 
@@ -51,11 +59,16 @@ class CampaignsController < ApplicationController
   private
 
   def set_company
-    @company = current_user.company
+    company_type = current_user.company_type.downcase.to_sym
+    company_obj = { agency: Client.find(params[:client_id]),
+                    advertiser: current_user.company }
+
+    @company = company_obj[company_type]
   end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_campaign
-    @campaign = current_user.company.campaigns.find_by(id: params[:id])
+    @campaign = @company.campaigns.find_by(id: params[:id])
   end
 
   # Never trust parameters from the scary internet,
@@ -72,19 +85,23 @@ class CampaignsController < ApplicationController
       :roas_goal,
       :budget,
       :geography,
+      :agency_id,
+      :client_id,
+      :advertiser_id,
       audience_ids: []
     )
   end
 
   def create_company_campaign
     CompanyCampaign.create(company_id: @company.id,
-                           company_type: current_user.company_type,
+                           company_type: @company.class,
                            campaign_id: @campaign.id)
   end
 
   def send_internal_notification(request_type)
     CampaignMailer.internal_notification(current_user,
                                          @campaign,
+                                         @company,
                                          request_type.to_sym)
                   .deliver_later
   end
@@ -92,6 +109,7 @@ class CampaignsController < ApplicationController
   def send_customer_confirmation(request_type)
     CampaignMailer.customer_confirmation(current_user,
                                          @campaign,
+                                         @company,
                                          request_type.to_sym)
                   .deliver_later
   end

@@ -6,20 +6,23 @@ Rails.application.routes.draw do
 
   get 'studios/audiences', to: 'data_studios#audiences'
 
-  # resources :users
-  resources :data_studios, only: [:create, :destroy]
+  resources :data_studios, only: [:index, :create, :destroy]
   resources :platforms, only: :index
 
   resources :agencies do
     resources :users
-    resources :clients
+
+    resources :clients do
+      resources :campaigns
+    end
   end
 
   resources :advertisers do
     resources :users
+    resources :campaigns
   end
 
-  resources :campaigns
+
 
   namespace :api do
     namespace :v1 do

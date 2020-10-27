@@ -1,0 +1,14 @@
+.container-fluid
+  .row
+    .col-12
+      h1.h5.mb-4.float-left
+        | Data Studio >
+        = link_to "#{current_user.company.name}", advertiser_path(current_user.company.id)
+
+  .row
+    .col-12
+      .card
+        .card-body
+          .row
+            .col-12
+              = render 'form'

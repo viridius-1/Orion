@@ -3,7 +3,7 @@
     .col-12
       h1.h5.mb-4.float-left
         | Data Studio >
-        = link_to "#{current_user.company.name}", advertiser_path(current_user.company.id)
+        = link_to "#{current_user.company.name}", agency_path(current_user.company.id)
         |  > Clients
   .row
     .col-12
@@ -28,5 +28,6 @@
                         td = client.website
                         td = client.industry
                         td
+                          = link_to "Campaign(s)", agency_client_campaigns_path(client_id: client.id)
                           = link_to "Edit", edit_agency_client_path(client, agency_id: params[:agency_id]), class: 'action-link'
                           = link_to "Delete", agency_client_path(client, agency_id: params[:agency_id]), method: :delete, data: { confirm: 'Are you sure?' }, class: 'action-link'

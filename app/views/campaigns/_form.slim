@@ -1,4 +1,6 @@
-= simple_form_for @campaign, defaults: { wrapper: false } do |f|
+- company_campaign_obj = current_user.company_type == 'Agency' ? [@company.agency, @company, @campaign] : [@company, @campaign]
+
+= simple_form_for company_campaign_obj, defaults: { wrapper: false } do |f|
   .row
     .col-4
       .form-group.mb-4
@@ -53,7 +55,8 @@
         .audience-targeting
           = f.association :audiences, collection: current_user.audiences, label_method: :name, value_method: :id, as: :check_boxes, label: "Add more from the audience tab"
     .col-6
-      = link_to 'Cancel', campaigns_path
+      - if current_user.company_type == 'Agency'
+        = link_to 'Cancel', agency_client_campaigns_path(agency_id: @company.agency.id, client_id: params[:client_id])
     .col-6
       = f.button :button, "Request IO", type: 'submit', name: "request_type", value: "insertion_order", class: 'btn btn-primary float-right ml-3'
       = f.button :button, "Request Recommendations", type: 'submit', name: "request_type", value: "recommendation", class: 'btn btn-primary float-right'
