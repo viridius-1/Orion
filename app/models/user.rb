@@ -9,8 +9,8 @@ class User < ApplicationRecord
 
   after_create :refresh_token
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :registerable, :invitable, :database_authenticatable, :confirmable,
+  # :registerable, :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :invitable, :database_authenticatable, :confirmable,
          :recoverable, :rememberable, :validatable, :lockable
 
   has_one :company_member, dependent: :destroy
