@@ -1,13 +1,12 @@
 class CampaignsController < ApplicationController
+  before_action :set_company
   before_action :set_campaign, only: [:edit, :update, :destroy]
 
   def index
-    @advertiser = Advertiser.find(params[:advertiser])
-    @campaigns = @advertiser.campaigns
+    @campaigns = @company&.campaigns
   end
 
   def new
-    @advertiser = Advertiser.find(params[:advertiser])
     @campaign = Campaign.new
     @campaign.campaign_audiences.build
   end
@@ -16,31 +15,41 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.new(campaign_params)
 
     if @campaign.save
+      create_company_campaign
+
       request_type = params[:request_type]
-      CampaignMailer.internal_notification(current_user, @campaign, "#{request_type}").deliver_later
+      send_internal_notification(request_type)
+      send_customer_confirmation(request_type)
 
-      if request_type == 'recommendation'
-        CampaignMailer.customer_recommendation_confirmation(current_user, @campaign).deliver_later
-      elsif request_type == 'insertion_order'
-        CampaignMailer.customer_io_confirmation(current_user, @campaign).deliver_later
-      end
+      company_type = current_user.company_type.downcase.to_sym
+      campaign_paths = if company_type == :agency
+                        agency_client_campaigns_path(agency_id: @company.agency_id, client_id: @company.id)
+                      elsif company_type == :advertiser
+                        advertiser_campaigns_path(advertiser_id: @company.id)
+                      end
 
-      redirect_to campaigns_path(advertiser: campaign_params[:advertiser_id]), notice: 'Campaign was successfully created.'
+
+      redirect_to campaign_paths, notice: 'Campaign was successfully created.'
     else
       render :new
     end
   end
 
-  def edit
-    @advertiser = Advertiser.find(params[:advertiser])
-  end
+  def edit; end
 
   def update
+    company_type = current_user.company_type.downcase.to_sym
+    campaign_paths = if company_type == :agency
+                      agency_client_campaigns_path(agency_id: @company.agency_id, client_id: @company.id)
+                    elsif company_type == :advertiser
+                      advertiser_campaigns_path(advertiser_id: @company.id)
+                    end
+
     if @campaign.update(campaign_params)
-      redirect_to campaigns_path(advertiser: campaign_params[:advertiser_id]), notice: 'Campaign has been successfully updated.'
+      redirect_to campaign_paths, notice: 'Campaign has been successfully updated.'
     else
       errors = { alert: { danger: @campaign.errors.full_messages.join(', ') } }
-      redirect_to edit_campaign_path(@campaign, campaign: campaign_params), errors
+      redirect_to campaign_paths, errors
     end
   end
 
@@ -56,9 +65,19 @@ class CampaignsController < ApplicationController
 
   private
 
+  def set_company
+    company_type = current_user.company_type.downcase.to_sym
+
+    @company = if company_type == :agency
+                Client.find(params[:client_id])
+              elsif company_type == :advertiser
+                current_user.company
+              end
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_campaign
-    @campaign = current_user.campaigns.find(params[:id])
+    @campaign = @company.campaigns.find_by(id: params[:id])
   end
 
   # Never trust parameters from the scary internet,
@@ -75,8 +94,32 @@ class CampaignsController < ApplicationController
       :roas_goal,
       :budget,
       :geography,
+      :agency_id,
+      :client_id,
       :advertiser_id,
       audience_ids: []
     )
+  end
+
+  def create_company_campaign
+    CompanyCampaign.create(company_id: @company.id,
+                           company_type: @company.class,
+                           campaign_id: @campaign.id)
+  end
+
+  def send_internal_notification(request_type)
+    CampaignMailer.internal_notification(current_user,
+                                         @campaign,
+                                         @company,
+                                         request_type.to_sym)
+                  .deliver_later
+  end
+
+  def send_customer_confirmation(request_type)
+    CampaignMailer.customer_confirmation(current_user,
+                                         @campaign,
+                                         @company,
+                                         request_type.to_sym)
+                  .deliver_later
   end
 end

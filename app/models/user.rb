@@ -8,19 +8,18 @@ class User < ApplicationRecord
   ############################################################################################
 
   after_create :refresh_token
-  validates :user_type, presence: true
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # :registerable, :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable, :confirmable,
          :recoverable, :rememberable, :validatable, :lockable
 
-
+  has_one :company_member, dependent: :destroy
   has_many :connections
-  has_many :advertisers
-  has_many :campaigns, through: :advertisers
   has_many :favorites
   has_many :audiences, through: :favorites
 
+  validates :first_name, :last_name, presence: true
+  validates :email, presence: true, uniqueness: true
 
   def full_name
     "#{first_name} #{last_name}"
@@ -50,7 +49,11 @@ class User < ApplicationRecord
     "https://analytics.theversion2.com/app/dash/session/version2_login?token=#{session_token}"
   end
 
-  def advertiser_profile
-    advertisers.where.not(is_agency: nil).first
+  def company
+    company_member.company
+  end
+
+  def company_type
+    company_member.company_type
   end
 end

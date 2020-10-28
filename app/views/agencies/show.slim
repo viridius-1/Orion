@@ -1,0 +1,31 @@
+.container-fluid.advertiser
+  .row
+    .col-12
+      h1.h5.mb-4.float-left
+        | Data Studio >
+        = link_to "#{current_user.company.name}", advertiser_path(current_user.company.id)
+
+  .row
+    .col-12
+      .card
+        .card-body
+          .row
+            .col-12
+              table.table.table-striped
+                thead.thead-dark
+                  tr
+                    th Name
+                    th Website
+                    th Client Count
+                    th User Count
+                    th Action
+                  tbody
+                    tr
+                      td = @agency.name
+                      td = @agency.website
+                      td = @agency.clients.count
+                      td = @agency.users.count
+                      td
+                        = link_to 'Edit', edit_agency_path
+                        = link_to 'Client(s)', agency_clients_path(@agency)
+                        = link_to 'User(s)', agency_users_path(@agency)

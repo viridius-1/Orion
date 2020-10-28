@@ -1,17 +1,14 @@
 .container-fluid
   .row
     .col-12
-      - if @advertiser.is_agency.nil?
-        h1.h5.mb-4 Edit Advertiser
-      - else
-        h1.h5.mb-4 Edit Profile
+      h1.h5.mb-4.float-left
+        | Data Studio >
+        = link_to "#{current_user.company.name}", advertiser_path(current_user.company.id)
 
+  .row
+    .col-12
       .card
         .card-body
           .row
             .col-12
-
-              - if current_user.user_type == 'advertiser'  || @advertiser.is_agency.nil?
-                = render 'form_advertiser'
-              - elsif current_user.user_type == 'agency'
-                = render 'form_agency'
+              = render 'form_advertiser'

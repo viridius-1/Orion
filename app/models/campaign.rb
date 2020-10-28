@@ -1,10 +1,13 @@
 class Campaign < ApplicationRecord
-  belongs_to :advertiser
-
+  has_one :company_campaign, dependent: :destroy
   has_many :campaign_audiences
   has_many :audiences, through: :campaign_audiences
 
-  validates :name, :advertiser, presence: true
+  validates :name, presence: true
 
   accepts_nested_attributes_for :audiences
+
+  def company
+    company_campaign.company
+  end
 end

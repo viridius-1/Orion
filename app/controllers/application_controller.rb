@@ -13,7 +13,6 @@ class ApplicationController < ActionController::Base
       else
         'application'
       end
-      
     end
   end
 end

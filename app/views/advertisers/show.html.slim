@@ -1,16 +1,31 @@
-p#notice = notice
+.container-fluid.advertiser
+  .row
+    .col-12
+      h1.h5.mb-4.float-left
+        | Data Studio >
+        = link_to "#{current_user.company.name}", advertiser_path(current_user.company.id)
 
-p
-  strong Company name:
-  = @advertiser.company_name
-p
-  strong Website:
-  = @advertiser.website
-p
-  strong User:
-  = @advertiser.user_id
-p
-
-=> link_to 'Edit', edit_advertiser_path(@advertiser)
-'|
-=< link_to 'Back', advertisers_path
+  .row
+    .col-12
+      .card
+        .card-body
+          .row
+            .col-12
+              table.table.table-striped
+                thead.thead-dark
+                  tr
+                    th Name
+                    th Website
+                    th Campaign Count
+                    th User Count
+                    th Action
+                  tbody
+                    tr
+                      td = @advertiser.name
+                      td = @advertiser.website
+                      td = @advertiser.campaigns.count
+                      td = @advertiser.users.count
+                      td
+                        = link_to 'Edit', edit_advertiser_path
+                        = link_to 'Campaign(s)', advertiser_campaigns_path(@advertiser)
+                        = link_to 'User(s)', advertiser_users_path(@advertiser)
