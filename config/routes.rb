@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   apipie
-  devise_for :users, controllers: { invitations: 'users/invitations' }
+
+  devise_for :users, controllers: { invitations: 'users/invitations',
+                                    registrations: 'users/registrations' }
 
   root 'data_studios#index'
 
@@ -21,8 +23,6 @@ Rails.application.routes.draw do
     resources :users
     resources :campaigns
   end
-
-
 
   namespace :api do
     namespace :v1 do
