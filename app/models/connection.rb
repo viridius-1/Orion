@@ -11,5 +11,4 @@ class Connection < ApplicationRecord
       self.token = Devise.friendly_token
     end while self.class.exists?(token: token)
   end
-
 end
