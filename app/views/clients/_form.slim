@@ -1,0 +1,92 @@
+= simple_form_for [@agency, @client] do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .row.form-page-1
+    .col-4
+      .form-group.mb-4
+        = f.input :name
+    .col-4
+      .form-group.mb-4
+        = f.input :website, label: 'Website URL'
+
+    .col-4
+      .form-group.mb-4
+        = f.input :industry, collection: industry_options, include_blank: false, input_html: { class: 'select2-input form-control' }
+    .col-4
+      .form-group.mb-4
+        = f.input :customer_target,  collection: customer_target_options, include_blank: false, input_html: { class: 'select2-input form-control' }
+    .col-4
+      .form-group.mb-4
+        = f.input :monthly_unique_visitors, input_html: { class: 'form-control' }
+
+    .col-4
+      .form-group.mb-4
+        = f.label :average_order_value, label: "Average Order Value (AOV)"
+        .input-group
+          .input-group-prepend
+            .input-group-text $
+          = f.input :average_order_value, label: false, input_html: { class: 'form-control' }
+    .col-4
+      .form-group.mb-4
+        = f.label :conversion_rate
+        .input-group
+          = f.input :conversion_rate, label: false, input_html: { class: 'form-control' }
+          .input-group-append
+            .input-group-text %
+    .col-4
+      .form-group.mb-4
+        = f.label :cost_per_acquisition, label: 'Cost Per Acquisition Goal (CPA)'
+        .input-group
+          .input-group-prepend
+            .input-group-text $
+          = f.input :cost_per_acquisition, label: false, input_html: { class: 'form-control'}
+
+    .col-4
+      .form-group.mb-4
+        = f.input :current_media_mix, collection: media_mix_options, input_html: { multiple: true, class: 'select2-input form-control', data: { placeholder: 'Select Mix' } }, include_hidden: false
+    .col-4
+      .row
+        .col-12
+          = f.label 'Age Range'
+        .col-5
+          = f.input :age_range_start, collection: 18..100, label: false, include_blank: false
+        .col-2
+          p.mt-2.text-center to
+        .col-5
+          = f.input :age_range_end, collection: 18..100, label: false, include_blank: false
+
+    .col-4
+      .form-group.mb-4
+         = f.input :gender, collection: options_for_gender, input_html: { multiple: true, class: 'select2-input form-control', data: { placeholder: 'Select Genders' }}, include_hidden: false
+    .col-4
+      .form-group.mb-4
+        = f.input :household_income, collection: income_options, input_html: { multiple: true, class: 'select2-input form-control', data: { placeholder: 'Select Income' }}, include_hidden: false
+    .col-4
+      .form-group.mb-4
+        = f.input :parental_status, collection: parental_options, input_html: { multiple: true, class: 'select2-input form-control', data: { placeholder: 'Select Status' } }, include_hidden: false
+    .col-4
+      .form-group.mb-4
+        = f.input :education, collection: education_options, input_html: { multiple: true, class: 'select2-input form-control', data: { placeholder: 'Select Education' } }, include_hidden: false
+    .col-4
+      .form-group.mb-4
+        = f.input :language, collection: language_options, input_html: { multiple: true, class: 'select2-input form-control', data: { placeholder: 'Select Languages' } }, include_hidden: false
+    .col-6
+      .form-group.mb-4
+        = f.input :affinity, collection: affinity_options, input_html: { multiple: true, class: 'select2-input form-control', data: { placeholder: 'Select Affinity' } }, include_hidden: false
+    .col-6
+    .col-6
+      = link_to 'Cancel', agency_clients_path
+    .col-6
+      = f.submit 'Update', class: 'btn btn-primary float-right'
+
+
+    javascript:
+      $(document).ready(function() {
+        $('.select2-input').select2({
+          theme: 'bootstrap',
+          width: 'null',
+          containerCssClass: ':all:'
+        });
+
+      });

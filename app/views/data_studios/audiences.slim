@@ -2,13 +2,8 @@
   .row
     .col-12
       h1.h5.mb-4.float-left
-        | Data Studio >
-        - if current_user.user_type == 'agency'
-          = link_to "#{current_user.company} ", edit_advertiser_path(current_user.advertiser_profile.id)
-          | > #{@advertiser.company_name} > Campaigns
-        - else
-          = link_to "#{@advertiser.company_name} ", edit_advertiser_path(@advertiser.id)
-          | > Campaigns
+        - if current_user.company_type == 'Advertiser'
+          | #{@company.name}'s Campaigns
   .row
     .col-12
       ul.nav.nav-tabs

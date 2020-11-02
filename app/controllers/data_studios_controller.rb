@@ -2,13 +2,17 @@
 
 class DataStudiosController < ApplicationController
   def index
-    @advertiser = current_user.advertisers.new
-    path = current_user.user_type == 'agency' ? advertisers_path : campaigns_path(advertiser: params[:advertiser] || current_user.advertisers.first)
-    redirect_to path if current_user.profile_created
-  end
+    company_type = current_user.company_type.downcase.to_sym
+    correct_paths = if company_type == :agency
+                      agency_clients_path(agency_id: current_user.company.id)
+                    elsif company_type == :advertiser
+                      advertiser_campaigns_path(advertiser_id: current_user.company.id)
+                    end
 
+    redirect_to correct_paths
+  end
   def audiences
-    @advertiser = Advertiser.find(params[:advertiser])
+    @company = current_user.company
     @categories = Category.root
     @audiences = current_user.audiences
     respond_to do |format|

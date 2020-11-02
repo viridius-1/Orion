@@ -14,7 +14,7 @@ class AdvertisersTest < ApplicationSystemTestCase
     visit advertisers_url
     click_on "New Advertiser"
 
-    fill_in "Company name", with: @advertiser.company_name
+    fill_in "Company name", with: @advertiser.name
     fill_in "Logo url", with: @advertiser.logo_url
     fill_in "User", with: @advertiser.user_id
     fill_in "Website", with: @advertiser.website
@@ -28,7 +28,7 @@ class AdvertisersTest < ApplicationSystemTestCase
     visit advertisers_url
     click_on "Edit", match: :first
 
-    fill_in "Company name", with: @advertiser.company_name
+    fill_in "Company name", with: @advertiser.name
     fill_in "Logo url", with: @advertiser.logo_url
     fill_in "User", with: @advertiser.user_id
     fill_in "Website", with: @advertiser.website

@@ -1,8 +1,5 @@
-= simple_form_for @user do |f|
+= simple_form_for [@company, @user] do |f|
   = f.input :first_name
   = f.input :last_name
-  = f.input :company
   = f.input :email, as: :email
-  = f.input :user_type, collection: [['Agency', :agency], ['Advertiser', :advertiser]], as: :select
-  = f.input :roles, collection: User::ROLES, as: :radio_buttons, selected: @user.role, checked: @user.role
   = f.button :submit, class: 'btn btn-primary btn-sm'

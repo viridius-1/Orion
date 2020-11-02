@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
+  before_action :set_company
   before_action :set_user, only: [:edit, :update, :destroy]
-  access user: []
 
   def index
-    @users = User.all
+    @users = @company.users
   end
 
   def new
@@ -17,10 +17,17 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to users_path, notice: 'User has been successfully updated.'
+      company_type = current_user.company_type.downcase.to_sym
+      correct_paths = if company_type == :agency
+                        agency_users_path
+                      elsif company_type == :advertiser
+                        advertiser_users_path
+                      end
+
+      redirect_to correct_paths, notice: 'User has been successfully updated.'
     else
-      errors = { alert: { danger: @user.errors.full_messages.join(', ') } }
-      redirect_to edit_user_path(@user, user: user_params), errors
+      errors = { alert: @user.errors.full_messages.join(', ') }
+      redirect_to edit_advertiser_user_path(@user, user: user_params), errors
     end
   end
 
@@ -39,6 +46,10 @@ class UsersController < ApplicationController
 
   private
 
+  def set_company
+    @company = current_user.company
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find(params[:id])
@@ -53,8 +64,7 @@ class UsersController < ApplicationController
       :company,
       :email,
       :password,
-      :roles,
-      :user_type
+      :roles
     )
   end
 end
