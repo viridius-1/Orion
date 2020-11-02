@@ -4,6 +4,7 @@ class CreateCompanyMembers < ActiveRecord::Migration[6.0]
       t.integer :company_id
       t.string :company_type
       t.integer :user_id
+      t.string :roles
 
       t.timestamps
     end

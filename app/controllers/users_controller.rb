@@ -63,8 +63,7 @@ class UsersController < ApplicationController
       :last_name,
       :company,
       :email,
-      :password,
-      :roles
+      :password
     )
   end
 end

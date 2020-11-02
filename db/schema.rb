@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 2020_10_28_143443) do
     t.integer "company_id"
     t.string "company_type"
     t.integer "user_id"
+    t.string "roles"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -177,7 +178,6 @@ ActiveRecord::Schema.define(version: 2020_10_28_143443) do
     t.datetime "locked_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "roles"
     t.string "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
