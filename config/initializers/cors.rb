@@ -8,4 +8,4 @@
       end
     end
 
-    Rails.application.config.hosts << ['theversion2.com', 'localhost']
+    Rails.application.config.hosts << ['theversion2.com', 'localhost', 'orion-version2.herokuapp.com']

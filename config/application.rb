@@ -17,8 +17,8 @@ module Orion
       address: 'smtp.sendgrid.net',
       port: '587',
       authentication: :plain,
-      user_name: ENV['sendgrid_username'],
-      password: ENV['sendgrid_password'],
+      user_name: Rails.application.credentials.sendgrid_username,
+      password: Rails.application.credentials.sendgrid_password,
       domain: 'theversion2.com',
       enable_starttls_auto: true
     }

@@ -9,7 +9,7 @@ class Api::BaseController < ActionController::Base
   private
 
   def token_verified?
-    return true if request.authorization == ENV['tapclicks_api_key']
+    return true if request.authorization == Rails.application.credentials.secret_key_base
     render status: :unauthorized, json: { error: 'Access denied - invalid API Key' }
   end
 
