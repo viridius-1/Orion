@@ -28,6 +28,6 @@ module Orion
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    config.secret_key_base = Figaro.env.secret_key_base
+    config.secret_key_base = Rails.application.credentials.secret_key_base
   end
 end

@@ -21,7 +21,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 gem 'devise'
 gem 'devise_invitable', '~> 2.0.0'
-gem 'figaro'
+
 # Roles are managed with petergate
 gem 'petergate'
 
