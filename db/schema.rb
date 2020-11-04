@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2020_11_04_163114) do
 
   create_table "audience_categories", force: :cascade do |t|
     t.string "name"
+    t.text "description"
     t.integer "provider_id"
     t.integer "category_id"
     t.datetime "created_at", precision: 6, null: false
