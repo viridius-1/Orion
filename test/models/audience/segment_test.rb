@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CampaignAudienceSegmentTest < ActiveSupport::TestCase
+class Audience::SegmentTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

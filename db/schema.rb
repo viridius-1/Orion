@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_04_155137) do
+ActiveRecord::Schema.define(version: 2020_11_04_163114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,8 +67,21 @@ ActiveRecord::Schema.define(version: 2020_11_04_155137) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "audience_categories", force: :cascade do |t|
+    t.string "name"
+    t.integer "provider_id"
+    t.integer "category_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "audience_providers", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "audience_segments", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -81,9 +94,9 @@ ActiveRecord::Schema.define(version: 2020_11_04_155137) do
     t.index ["category_id"], name: "index_audiences_on_category_id"
   end
 
-  create_table "campaign_audiences", force: :cascade do |t|
+  create_table "campaign_audience_segments", force: :cascade do |t|
     t.integer "campaign_id"
-    t.integer "audience_id"
+    t.integer "segment_id"
   end
 
   create_table "campaigns", force: :cascade do |t|
