@@ -8,16 +8,20 @@ $levels: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
     +level($level)
 
 
-.select2-container--bootstrap 
+.select2-container--bootstrap
   .select2-selection--single
     height: 38px
     padding: 8px 24px 8px 12px
   .select2-selection--multiple
     height: 38px
+    overflow: auto
     .select2-search--inline
       .select2-search__field
         height: 36px
 
+.affinity-select
+  .select2-selection--multiple
+    height: 75px
 
 .light-text
   color: #7B8094
@@ -29,14 +33,14 @@ $levels: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
     +create-levels
     .tree-top
       position: relative
-    .caret 
+    .caret
       cursor: pointer
       display: block
       user-select: none
       padding: 3px 10px
       background-color: #e8e8e8
       margin-bottom: 3px
-      &::before 
+      &::before
         content: "\25B6"
         color: black
         display: inline-block
@@ -44,9 +48,9 @@ $levels: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
         font-size: 10px
     .caret-down::before
       transform: rotate(90deg)
-    .nested 
+    .nested
       display: none
-    .active 
+    .active
       display: block
     .audience
       padding: 4px 2px
