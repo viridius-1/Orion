@@ -23,7 +23,6 @@
               table.table.table-striped
                 thead.thead-dark
                   tr
-                    th scope="col" Advertiser
                     th scope="col" Campaign
                     th scope="col" Flight
                     th scope='col' Budget
@@ -32,7 +31,6 @@
                   tbody
                     - @campaigns.each do |campaign|
                       tr
-                        td = campaign.advertiser.company_name
                         td = campaign.name
                         td = "#{campaign.flight_start_date&.strftime("%m/%d/%Y")} - #{campaign.flight_end_date&.strftime("%m/%d/%Y")}"
                         td = "$ #{campaign&.budget&.floor}"
