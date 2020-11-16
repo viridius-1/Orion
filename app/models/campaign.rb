@@ -5,7 +5,6 @@ class Campaign < ApplicationRecord
 
   validates :name, presence: true
 
-
   def company
     company_campaign.company
   end
