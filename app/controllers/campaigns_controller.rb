@@ -8,7 +8,6 @@ class CampaignsController < ApplicationController
 
   def new
     @campaign = Campaign.new
-    @campaign.campaign_audiences.build
   end
 
   def create
@@ -96,8 +95,7 @@ class CampaignsController < ApplicationController
       :geography,
       :agency_id,
       :client_id,
-      :advertiser_id,
-      audience_ids: []
+      :advertiser_id
     )
   end
 

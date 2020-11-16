@@ -5,7 +5,6 @@ class Campaign < ApplicationRecord
 
   validates :name, presence: true
 
-  accepts_nested_attributes_for :audiences
 
   def company
     company_campaign.company
