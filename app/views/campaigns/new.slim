@@ -19,4 +19,4 @@ javascript:
     });
   });
 
-= react_component("CampaignNew", prerender: false)
+= react_component("CampaignNew", props: { providers: @providers, categories: @categories, segments: @segments }, prerender: false)

@@ -8,6 +8,9 @@ class CampaignsController < ApplicationController
 
   def new
     @campaign = Campaign.new
+    @providers = Audience::Provider.all
+    @categories = Audience::Category.all
+    @segments = Audience::Segment.all
   end
 
   def create
