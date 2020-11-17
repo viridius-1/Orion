@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from "react";
 
+import AudienceFields from "./components/AudienceFields";
+
 export default class New extends Component {
   constructor(props) {
     super(props);
@@ -49,7 +51,7 @@ export default class New extends Component {
   }
 
   showCampaignForm(formFields) {
-    const { errors, ...fields } = formFields;
+    const { errors, categories, ...fields } = formFields;
 
     return Object.entries(fields).map(([key, value]) => {
       return (
@@ -62,64 +64,10 @@ export default class New extends Component {
               type={`${key}`}
               onChange={this.handleInputChange}
             />
-            {errors[key].length > 0 && (
-              <span className="error-msg">{errors[key]}</span>
-            )}
           </div>
         </div>
       );
     });
-  }
-
-  getCategoriesData(provider) {
-    // Grab the provider id and call the Audience Cat and the sub cat
-    return (
-      <div className="col col-6">
-        <div className="form-group category">
-          <label>Audience Category</label>
-          <select className="form-control">
-            {categories.map((category) => (
-              <option>{`${category.name}`}</option>
-            ))}
-          </select>
-        </div>
-      </div>
-    );
-  }
-
-  getSegmentsData(category) {
-    // Grab the audience cat and get the segment
-    return (
-      <div className="col col-6">
-        <div className="form-group segment">
-          <label>Audience Segment</label>
-          <select className="form-control">
-            {segments.map((segment) => (
-              <option>{`${segment.name}`}</option>
-            ))}
-          </select>
-        </div>
-      </div>
-    );
-  }
-
-  showAudienceFields(props) {
-    const { providers, categories, segments } = props;
-
-    return (
-      <Fragment>
-        <div className="col col-6">
-          <div className="form-group provider">
-            <label>Audience Provider</label>
-            <select className="form-control">
-              {providers.map((provider) => (
-                <option>{`${provider.name}`}</option>
-              ))}
-            </select>
-          </div>
-        </div>
-      </Fragment>
-    );
   }
 
   addMoreCampaignAudience() {
@@ -128,6 +76,8 @@ export default class New extends Component {
 
   // Move the campaign audience selection to the next page
   render() {
+    console.log("this.props", this.props);
+
     return (
       <div className="container-fluid campaigns">
         <div className="row">
@@ -145,8 +95,7 @@ export default class New extends Component {
                 <form>
                   <div className="row">
                     {this.showCampaignForm(this.state)}
-                    {this.showAudienceFields(this.props)}
-                    {this.addMoreCampaignAudience()}
+                    <AudienceFields audiences={this.props} />
                   </div>
                 </form>
               </div>
