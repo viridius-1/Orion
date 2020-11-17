@@ -25,19 +25,18 @@ class ImportAudience
 
       segment_name = list_of_audiences.pop
 
-
       parent_category = nil
 
       list_of_audiences.map do |name|
         parent_category = Audience::Category.find_or_create_by!(name: name,
                                                                 category_id: parent_category&.id,
                                                                 provider_id: provider&.id)
-
       end
 
       segment = Audience::Segment.find_or_create_by!(name: segment_name,
                                                      description: row_hash[:segment_description],
                                                      category_id: parent_category&.id)
+
     end
   end
 end

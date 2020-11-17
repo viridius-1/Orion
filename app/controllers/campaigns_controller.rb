@@ -9,7 +9,7 @@ class CampaignsController < ApplicationController
   def new
     @campaign = Campaign.new
     @providers = Audience::Provider.all
-    @categories = Audience::Category.all
+    @categories = Audience::Category.family_tree
     @segments = Audience::Segment.all
   end
 
