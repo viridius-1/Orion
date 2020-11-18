@@ -76,8 +76,6 @@ export default class New extends Component {
 
   // Move the campaign audience selection to the next page
   render() {
-    console.log("this.props", this.props);
-
     return (
       <div className="container-fluid campaigns">
         <div className="row">

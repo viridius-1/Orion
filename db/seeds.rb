@@ -38,5 +38,4 @@ Admin.create!(first_name: 'Admin',
 
 # Create Audiences
 provider = Audience::Provider.create!(name: 'Provider 1')
-category = Audience::Category.create!(name: 'Category 1', provider_id: 1, category_id: nil)
-segment = Audience::Segment.create!(name: 'Segment', description: 'This is a demo audience segment', category_id: category.id)
+category = Audience::Category.create!(name: 'Category 1', description: 'This is a demo audience segment', provider_id: 1, category_id: nil)

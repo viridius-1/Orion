@@ -3,7 +3,6 @@ class Audience::Category < ApplicationRecord
   belongs_to :parent, class_name: 'Audience::Category', optional: true, foreign_key: :category_id
 
   has_many :children, class_name: 'Audience::Category', dependent: :destroy
-  has_many :segments, class_name: 'Audience::Segment', dependent: :destroy
 
   validates :name, presence: true
 
@@ -20,7 +19,7 @@ class Audience::Category < ApplicationRecord
 
     def get_descentants(ancestor_category)
       ancestor_category.map do |category|
-        family_tree = { value: category }
+        family_tree = { label: category.name, value: category.id, provider_id: category.provider_id }
 
         descentants = if category&.children&.any?
                         get_descentants(category&.children)

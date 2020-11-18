@@ -1,22 +1,2 @@
-.container-fluid.campaigns
-  .row
-    .col-12
-      h1.h5.mb-4 Create Campaign
-      .card
-        .card-body
-          .row
-            .col-12
-              p.light-text Please enter the details of your new campaign
 
-          = render 'form'
-
-javascript:
-  $(document).ready(function() {
-    $('.select2-input').select2({
-      theme: 'bootstrap',
-      width: 'null',
-      containerCssClass: ':all:'
-    });
-  });
-
-= react_component("CampaignNew", props: { providers: @providers, categories: @categories, segments: @segments }, prerender: false)
+= react_component("CampaignNew", props: { providers: @providers, categories: @categories }, prerender: false)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_04_163114) do
+ActiveRecord::Schema.define(version: 2020_11_04_155718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2020_11_04_163114) do
 
   create_table "audience_categories", force: :cascade do |t|
     t.string "name"
+    t.text "description"
     t.integer "provider_id"
     t.integer "category_id"
     t.datetime "created_at", precision: 6, null: false
@@ -81,17 +82,9 @@ ActiveRecord::Schema.define(version: 2020_11_04_163114) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "audience_segments", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.integer "category_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "campaign_audience_segments", force: :cascade do |t|
+  create_table "campaign_audiences", force: :cascade do |t|
     t.integer "campaign_id"
-    t.integer "segment_id"
+    t.integer "category_id"
   end
 
   create_table "campaigns", force: :cascade do |t|

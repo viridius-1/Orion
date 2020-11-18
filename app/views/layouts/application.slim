@@ -4,11 +4,18 @@ html
     title Orion
     = csrf_meta_tags
     = csp_meta_tag
+
     link rel="shortcut icon" href=asset_url('favicon.png')
-    link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" 
-    link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" 
+    link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"
+    link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet"
+
+    link href="https://unpkg.com/react-dropdown-tree-select/dist/styles.css" rel="stylesheet"
+
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+
+    script src="https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js
+
     script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"
     script src="https://kit.fontawesome.com/52147ba709.js" crossorigin="anonymous"
     link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
@@ -21,5 +28,5 @@ html
       = render 'layouts/side_nav'
       .main-content
         = render 'layouts/alert'
-        = yield 
+        = yield
 
