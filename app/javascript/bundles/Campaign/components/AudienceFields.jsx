@@ -45,7 +45,8 @@ export default class AudienceFields extends Component {
         </div>
         <CategoryFields
           listOfCategories={providerCategories}
-          getChildState={this.props.getChildState}
+          audienceState={this.props.audiences}
+          setAudienceState={this.props.setAudienceState}
         />
       </Fragment>
     );

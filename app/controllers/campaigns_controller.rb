@@ -1,15 +1,15 @@
 class CampaignsController < ApplicationController
   before_action :set_company
   before_action :set_campaign, only: [:edit, :update, :destroy]
-
+  skip_before_action :verify_authenticity_token, only: [:create]
   def index
     @campaigns = @company&.campaigns
   end
 
   def new
-    @campaign = Campaign.new
     @providers = Audience::Provider.all
     @categories = Audience::Category.family_tree.as_json
+    @is_client = true if @company_type == :agency
   end
 
   def create
@@ -17,6 +17,7 @@ class CampaignsController < ApplicationController
 
     if @campaign.save
       create_company_campaign
+      create_campaign_audiences(@campaign, audience_params)
 
       request_type = params[:request_type]
       send_internal_notification(request_type)
@@ -67,11 +68,11 @@ class CampaignsController < ApplicationController
   private
 
   def set_company
-    company_type = current_user.company_type.downcase.to_sym
+    @company_type = current_user.company_type.downcase.to_sym
 
-    @company = if company_type == :agency
+    @company = if @company_type == :agency
                 Client.find(params[:client_id])
-              elsif company_type == :advertiser
+              elsif @company_type == :advertiser
                 current_user.company
               end
   end
@@ -101,10 +102,20 @@ class CampaignsController < ApplicationController
     )
   end
 
+  def audience_params
+    params.require(:audience).permit(ids: [])
+  end
+
   def create_company_campaign
     CompanyCampaign.create(company_id: @company.id,
                            company_type: @company.class,
                            campaign_id: @campaign.id)
+  end
+
+  def create_campaign_audiences(campaign, audience_params)
+    audience_params[:ids].each do |id|
+      CampaignAudience.create!(campaign_id: campaign.id, category_id: id.to_i)
+    end
   end
 
   def send_internal_notification(request_type)

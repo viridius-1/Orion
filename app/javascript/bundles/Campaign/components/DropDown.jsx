@@ -11,11 +11,7 @@ export default class DropDown extends Component {
   }
 
   updateSelectedCategories = (value) => {
-    this.setState({ selectedCategories: value }, () => {
-      if (this.props.getChildState) {
-        this.props.getChildState(this.state);
-      }
-    });
+    this.props.setAudienceState(value);
   };
 
   render() {
@@ -23,7 +19,7 @@ export default class DropDown extends Component {
 
     const tProps = {
       treeData: categories,
-      value: this.state.selectedCategories,
+      value: this.props.audienceState,
       onChange: this.updateSelectedCategories,
       treeCheckable: true,
       showCheckedStrategy: SHOW_PARENT,

@@ -9,7 +9,8 @@ export default class CategoryFields extends Component {
       return (
         <DropDown
           categories={categories}
-          getChildState={this.props.getChildState}
+          audienceState={this.props.audiences}
+          setAudienceState={this.props.setAudienceState}
         />
       );
     } else {

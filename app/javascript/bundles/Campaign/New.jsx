@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 
 import AudienceFields from "./components/AudienceFields";
+import CreateCampaign from "./components/CreateCampaign";
 
 export default class New extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ export default class New extends Component {
       geography: "",
       flight_start_date: "",
       flight_end_date: "",
+      audiences: [],
       errors: {
         name: "",
         url: "",
@@ -51,7 +53,7 @@ export default class New extends Component {
   }
 
   showCampaignForm(formFields) {
-    const { errors, categories, ...fields } = formFields;
+    const { errors, categories, audiences, ...fields } = formFields;
 
     return Object.entries(fields).map(([key, value]) => {
       return (
@@ -70,12 +72,15 @@ export default class New extends Component {
     });
   }
 
-  getChildState = (data) => {
-    return data;
+  setAudienceState = (data) => {
+    event.preventDefault();
+
+    this.setState({ audiences: data });
   };
 
-  // Move the campaign audience selection to the next page
   render() {
+    const { company, is_client } = this.props;
+
     return (
       <div className="container-fluid campaigns">
         <div className="row">
@@ -95,13 +100,14 @@ export default class New extends Component {
                     {this.showCampaignForm(this.state)}
                     <AudienceFields
                       audiences={this.props}
-                      getChildState={this.getChildState}
+                      audienceState={this.state.audiences}
+                      setAudienceState={this.setAudienceState}
                     />
-                    <div className="col col-12">
-                      <button className="btn btn-primary">
-                        Create Campaign
-                      </button>
-                    </div>
+                    <CreateCampaign
+                      company={company}
+                      isClient={is_client}
+                      stateProps={this.state}
+                    />
                   </div>
                 </form>
               </div>
