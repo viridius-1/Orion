@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
-import DropdownTreeSelect from "react-dropdown-tree-select";
+
+import CategoryFields from "./CategoryFields";
 
 export default class AudienceFields extends Component {
   constructor(props) {
@@ -7,27 +8,7 @@ export default class AudienceFields extends Component {
 
     this.state = {
       providerCategories: [],
-      selectedCategory: {},
     };
-  }
-
-  showOptions(values) {
-    console.log("values", values);
-    if (values.length > 0) {
-      return (
-        <DropdownTreeSelect
-          data={values}
-          texts={{ placeholder: "Select Categories" }}
-          className="categories-select"
-        />
-      );
-    } else {
-      return (
-        <select className="form-control">
-          <option>Select A Provider</option>
-        </select>
-      );
-    }
   }
 
   getCategoriesData(event, categories) {
@@ -40,17 +21,6 @@ export default class AudienceFields extends Component {
     );
 
     this.setState({ providerCategories });
-  }
-
-  showCategoryField(categories) {
-    return (
-      <div className="col col-6">
-        <div className="form-group category">
-          <label>Audience Category</label>
-          {this.showOptions(categories)}
-        </div>
-      </div>
-    );
   }
 
   showAudienceFields(audiences) {
@@ -73,7 +43,10 @@ export default class AudienceFields extends Component {
             </select>
           </div>
         </div>
-        {this.showCategoryField(providerCategories)}
+        <CategoryFields
+          listOfCategories={providerCategories}
+          getChildState={this.props.getChildState}
+        />
       </Fragment>
     );
   }

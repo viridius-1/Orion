@@ -19,7 +19,10 @@ class Audience::Category < ApplicationRecord
 
     def get_descentants(ancestor_category)
       ancestor_category.map do |category|
-        family_tree = { label: category.name, value: category.id, provider_id: category.provider_id }
+        family_tree = { label: "#{category.name}",
+                        value: "#{category.id}",
+                        key: "#{category.id}",
+                        provider_id: category.provider_id }
 
         descentants = if category&.children&.any?
                         get_descentants(category&.children)

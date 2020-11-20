@@ -70,9 +70,9 @@ export default class New extends Component {
     });
   }
 
-  addMoreCampaignAudience() {
-    // Button to add more showAudienceFields
-  }
+  getChildState = (data) => {
+    return data;
+  };
 
   // Move the campaign audience selection to the next page
   render() {
@@ -93,7 +93,15 @@ export default class New extends Component {
                 <form>
                   <div className="row">
                     {this.showCampaignForm(this.state)}
-                    <AudienceFields audiences={this.props} />
+                    <AudienceFields
+                      audiences={this.props}
+                      getChildState={this.getChildState}
+                    />
+                    <div className="col col-12">
+                      <button className="btn btn-primary">
+                        Create Campaign
+                      </button>
+                    </div>
                   </div>
                 </form>
               </div>
