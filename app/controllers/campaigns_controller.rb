@@ -3,6 +3,8 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:edit, :update, :destroy]
   skip_before_action :verify_authenticity_token, only: [:create]
 
+  include ErrorMessages
+
   def index
     @campaigns = @company&.campaigns
   end
@@ -33,7 +35,7 @@ class CampaignsController < ApplicationController
 
       redirect_to campaign_paths, notice: 'Campaign was successfully created.'
     else
-      render :new
+      render json: { messages: display_validation(@campaign), redirectTo: '', status: 422 }
     end
   end
 

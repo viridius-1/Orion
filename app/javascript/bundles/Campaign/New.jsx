@@ -99,6 +99,15 @@ export default class New extends Component {
     }
   }
 
+  showError(key, errors) {
+    if (key == "name") {
+      return (
+        errors.name.length > 0 && (
+          <span className="error-msg">{errors.name}</span>
+        )
+      );
+    }
+  }
   showCampaignForm(formFields, goal, kpi) {
     const { errors, categories, audiences, ...fields } = formFields;
 
@@ -108,6 +117,7 @@ export default class New extends Component {
           <div className={`form-group ${key}`} key={key}>
             <label key={key}>{showLabel(key)}</label>
             {this.showInput(key, value, errors, goal, kpi)}
+            {this.showError(key, errors)}
           </div>
         </div>
       );
@@ -118,6 +128,10 @@ export default class New extends Component {
     event.preventDefault();
 
     this.setState({ audiences: data });
+  };
+
+  setErrorMessages = (errors) => {
+    this.setState({ errors });
   };
 
   render() {
@@ -149,11 +163,11 @@ export default class New extends Component {
                       audienceState={this.state.audiences}
                       setAudienceState={this.setAudienceState}
                     />
-
                     <CreateCampaign
                       company={company}
                       isClient={is_client}
                       stateProps={this.state}
+                      setErrorMessages={this.setErrorMessages}
                     />
                   </div>
                 </form>

@@ -10,9 +10,9 @@ export default class CreateCampaign extends Component {
     }
   }
 
-  sendCampaign = (company, isClient, stateProps) => {
+  sendCampaign = (props) => {
     event.preventDefault();
-
+    const { company, isClient, stateProps, setErrorMessages } = this.props;
     const campaignPath = this.getPath(company, isClient);
     const { audiences, errors, ...campaign } = stateProps;
 
@@ -23,12 +23,23 @@ export default class CreateCampaign extends Component {
         request_type: { type: event.target.value },
       })
       .then((response) => {
-        console.log("response", response);
+        let errors = stateProps.errors;
+
+        const { messages, redirectTo, status } = response.data;
+
+        if (status === 422) {
+          {
+            Object.entries(messages).map(
+              ([key, value]) => (errors[key] = value)
+            );
+          }
+          setErrorMessages(errors);
+        }
       });
   };
 
   render() {
-    const { company, isClient, stateProps } = this.props;
+    const { company, isClient } = this.props;
 
     return (
       <div className="col col-12 d-flex submit-btns">
@@ -37,14 +48,14 @@ export default class CreateCampaign extends Component {
         </a>
         <button
           className="btn btn-primary p-2 io-btn"
-          onClick={(event) => this.sendCampaign(company, isClient, stateProps)}
+          onClick={(event) => this.sendCampaign(this.props)}
           value={"insertion_order"}
         >
           Request IO
         </button>
         <button
           className="btn btn-primary p-2 recommedation-btn"
-          onClick={(event) => this.sendCampaign(company, isClient, stateProps)}
+          onClick={(event) => this.sendCampaign(this.props)}
           value={"recommendation"}
         >
           Request Recommendations
