@@ -15,15 +15,6 @@
 
   .row
     .col-12
-      ul.nav.nav-tabs
-        li.nav-item
-        - if current_user.company_type == 'Agency'
-          = link_to 'Campaigns', agency_client_campaigns_path(agency_id: @company.agency_id, client_id: @company.id), class: 'nav-link active'
-        - elsif current_user.company_type == 'Advertiser'
-          = link_to 'Campaigns', advertiser_campaigns_path(advertiser_id: @company.id), class: 'nav-link active'
-        li.nav-item
-          = link_to 'Audiences', studios_audiences_path(advertiser: params[:advertiser]), class: 'nav-link'
-
       .card
         .card-body
           .row

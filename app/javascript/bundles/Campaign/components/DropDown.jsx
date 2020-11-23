@@ -4,12 +4,6 @@ import { TreeSelect } from "antd";
 const { SHOW_PARENT } = TreeSelect;
 
 export default class DropDown extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { selectedCategories: [] };
-  }
-
   updateSelectedCategories = (value) => {
     this.props.setAudienceState(value);
   };

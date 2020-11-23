@@ -20,21 +20,24 @@ export default class CreateCampaign extends Component {
     axios.post(campaignPath, {
       campaign: campaign,
       audience: { ids: audiences },
-    });
+      request_type: {type: event.target.value}
+    }).then((response) => {console.log('response', response)});
   };
 
   render() {
     return (
-      <div className="col col-12">
+      <div className="col col-12 d-flex submit-btns">
         <button
-          className="btn btn-primary"
+          className="btn btn-primary io-btn"
           onClick={(event) => this.sendCampaign(this.props)}
+          value={'insertion_order'}
         >
           Request IO
         </button>
         <button
-          className="btn btn-primary"
+          className="btn btn-primary recommedation-btn"
           onClick={(event) => this.sendCampaign(this.props)}
+          value={'recommendation'}
         >
           Request Recommendations
         </button>

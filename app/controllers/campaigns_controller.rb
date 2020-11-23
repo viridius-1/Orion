@@ -2,6 +2,7 @@ class CampaignsController < ApplicationController
   before_action :set_company
   before_action :set_campaign, only: [:edit, :update, :destroy]
   skip_before_action :verify_authenticity_token, only: [:create]
+
   def index
     @campaigns = @company&.campaigns
   end
@@ -19,7 +20,7 @@ class CampaignsController < ApplicationController
       create_company_campaign
       create_campaign_audiences(@campaign, audience_params)
 
-      request_type = params[:request_type]
+      request_type = request_type_params[:type].to_sym
       send_internal_notification(request_type)
       send_customer_confirmation(request_type)
 
@@ -29,7 +30,6 @@ class CampaignsController < ApplicationController
                       elsif company_type == :advertiser
                         advertiser_campaigns_path(advertiser_id: @company.id)
                       end
-
 
       redirect_to campaign_paths, notice: 'Campaign was successfully created.'
     else
@@ -106,6 +106,10 @@ class CampaignsController < ApplicationController
     params.require(:audience).permit(ids: [])
   end
 
+  def request_type_params
+    params.require(:request_type).permit(:type)
+  end
+
   def create_company_campaign
     CompanyCampaign.create(company_id: @company.id,
                            company_type: @company.class,
@@ -114,7 +118,7 @@ class CampaignsController < ApplicationController
 
   def create_campaign_audiences(campaign, audience_params)
     audience_params[:ids].each do |id|
-      CampaignAudience.create!(campaign_id: campaign.id, category_id: id.to_i)
+      CampaignAudience.create(campaign_id: campaign.id, category_id: id.to_i)
     end
   end
 
@@ -122,7 +126,7 @@ class CampaignsController < ApplicationController
     CampaignMailer.internal_notification(current_user,
                                          @campaign,
                                          @company,
-                                         request_type.to_sym)
+                                         request_type)
                   .deliver_later
   end
 
@@ -130,7 +134,7 @@ class CampaignsController < ApplicationController
     CampaignMailer.customer_confirmation(current_user,
                                          @campaign,
                                          @company,
-                                         request_type.to_sym)
+                                         request_type)
                   .deliver_later
   end
 end
