@@ -1,7 +1,11 @@
 import React, { Component, Fragment } from "react";
+import NumericInput from "react-numeric-input";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import AudienceFields from "./components/AudienceFields";
 import CreateCampaign from "./components/CreateCampaign";
+import { showErrorStyles, showLabel } from "./common/";
 
 export default class New extends Component {
   constructor(props) {
@@ -16,8 +20,8 @@ export default class New extends Component {
       roas_goal: "",
       budget: "",
       geography: "",
-      flight_start_date: "",
-      flight_end_date: "",
+      flight_start_date: new Date(),
+      flight_end_date: new Date(),
       audiences: [],
       errors: {
         name: "",
@@ -44,28 +48,66 @@ export default class New extends Component {
     this.setState({ errors, [name]: value });
   };
 
-  showErrorStyles(error) {
-    if (error === "") {
-      return "form-control";
+  handleDateSelect = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+
+    this.setState({ errors, [name]: value });
+  };
+
+  showInput(key, value, errors, goals, kpis) {
+    if (key == "cpa_goal" || key == "budget" || key == "roas_goal") {
+      return (
+        <NumericInput
+          className={showErrorStyles(errors[key])}
+          name={`${key}`}
+          min={1}
+          onChange={(event) => this.handleInputChange}
+        />
+      );
+    } else if (key == "flight_start_date" || key == "flight_end_date") {
+      return (
+        <DatePicker
+          className={showErrorStyles(errors[key])}
+          name={`${key}`}
+          onSelect={(event) => this.handleDateSelect}
+          selected={value}
+        />
+      );
+    } else if (key == "goal" || key == "kpi") {
+      const obj = key == "goal" ? goals : kpis;
+
+      return (
+        <select
+          className={showErrorStyles(errors[key])}
+          name={`${key}`}
+          onSelect={(event) => this.handleInputChange}
+        >
+          {obj.map((goal) => {
+            return <option>{goal}</option>;
+          })}
+        </select>
+      );
     } else {
-      return "form-control error-field";
+      return (
+        <input
+          className={showErrorStyles(errors[key])}
+          name={`${key}`}
+          onChange={(event) => this.handleInputChange}
+        />
+      );
     }
   }
 
-  showCampaignForm(formFields) {
+  showCampaignForm(formFields, goal, kpi) {
     const { errors, categories, audiences, ...fields } = formFields;
 
     return Object.entries(fields).map(([key, value]) => {
       return (
         <div className="col col-6">
           <div className={`form-group ${key}`} key={key}>
-            <label key={key}>{`${key.split("_").join(" ")}`}</label>
-            <input
-              className={this.showErrorStyles(errors[key])}
-              name={`${key}`}
-              type={`${key}`}
-              onChange={this.handleInputChange}
-            />
+            <label key={key}>{showLabel(key)}</label>
+            {this.showInput(key, value, errors, goal, kpi)}
           </div>
         </div>
       );
@@ -79,7 +121,7 @@ export default class New extends Component {
   };
 
   render() {
-    const { company, is_client } = this.props;
+    const { company, is_client, goal_options, kpi_options } = this.props;
 
     return (
       <div className="container-fluid campaigns">
@@ -97,12 +139,17 @@ export default class New extends Component {
                 </div>
                 <form>
                   <div className="row">
-                    {this.showCampaignForm(this.state)}
+                    {this.showCampaignForm(
+                      this.state,
+                      goal_options,
+                      kpi_options
+                    )}
                     <AudienceFields
                       audiences={this.props}
                       audienceState={this.state.audiences}
                       setAudienceState={this.setAudienceState}
                     />
+
                     <CreateCampaign
                       company={company}
                       isClient={is_client}
