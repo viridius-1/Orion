@@ -12,7 +12,7 @@ export default class CreateCampaign extends Component {
 
   sendCampaign = (props) => {
     event.preventDefault();
-    const { company, isClient, stateProps, setErrorMessages } = this.props;
+    const { company, isClient, stateProps, setErrorMessages } = props;
     const campaignPath = this.getPath(company, isClient);
     const { audiences, errors, ...campaign } = stateProps;
 
@@ -34,6 +34,8 @@ export default class CreateCampaign extends Component {
             );
           }
           setErrorMessages(errors);
+        } else {
+          window.location.assign(redirectTo);
         }
       });
   };

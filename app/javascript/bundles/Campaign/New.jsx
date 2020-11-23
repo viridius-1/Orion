@@ -48,11 +48,8 @@ export default class New extends Component {
     this.setState({ errors, [name]: value });
   };
 
-  handleDateSelect = (event) => {
-    event.preventDefault();
-    const { name, value } = event.target;
-
-    this.setState({ errors, [name]: value });
+  handleDateNumSelect = (key, event) => {
+    this.setState({ [key]: event });
   };
 
   showInput(key, value, errors, goals, kpis) {
@@ -62,7 +59,7 @@ export default class New extends Component {
           className={showErrorStyles(errors[key])}
           name={`${key}`}
           min={1}
-          onChange={(event) => this.handleInputChange}
+          onChange={(event) => this.handleDateNumSelect(key, event)}
         />
       );
     } else if (key == "flight_start_date" || key == "flight_end_date") {
@@ -70,7 +67,7 @@ export default class New extends Component {
         <DatePicker
           className={showErrorStyles(errors[key])}
           name={`${key}`}
-          onSelect={(event) => this.handleDateSelect}
+          onSelect={(event) => this.handleDateNumSelect(key, event)}
           selected={value}
         />
       );
@@ -81,7 +78,7 @@ export default class New extends Component {
         <select
           className={showErrorStyles(errors[key])}
           name={`${key}`}
-          onSelect={(event) => this.handleInputChange}
+          onSelect={this.handleInputChange}
         >
           {obj.map((goal) => {
             return <option>{goal}</option>;
@@ -93,7 +90,7 @@ export default class New extends Component {
         <input
           className={showErrorStyles(errors[key])}
           name={`${key}`}
-          onChange={(event) => this.handleInputChange}
+          onChange={this.handleInputChange}
         />
       );
     }

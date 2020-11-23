@@ -33,7 +33,7 @@ class CampaignsController < ApplicationController
                         advertiser_campaigns_path(advertiser_id: @company.id)
                       end
 
-      redirect_to campaign_paths, notice: 'Campaign was successfully created.'
+      render json: { messages: 'Campaign was successfully created.', redirectTo: campaign_paths, status: 200 }
     else
       render json: { messages: display_validation(@campaign), redirectTo: '', status: 422 }
     end
