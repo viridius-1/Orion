@@ -151,13 +151,21 @@ export default class New extends Component {
   };
 
   render() {
-    const { company, is_client, goal_options, kpi_options } = this.props;
+    const {
+      page_type,
+      company,
+      is_client,
+      goal_options,
+      kpi_options,
+    } = this.props;
 
     return (
       <div className="container-fluid campaigns">
         <div className="row">
           <div className="col col-12">
-            <h1 className="h5 mb-4">Create Campaign</h1>
+            <h1 className="h5 mb-4">
+              {page_type == "Edit" ? "Edit Campaign" : "Create Campaign"}
+            </h1>
             <div className="card">
               <div className="card-body">
                 <div className="row">

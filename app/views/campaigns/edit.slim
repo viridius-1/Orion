@@ -1,9 +1,1 @@
-.container-fluid.campaigns
-  .row
-    .col-12
-      h1.h5.mb-4 Edit Campaign
-      .card
-        .card-body
-          = render 'form'
-
-= react_component("CampaignNew", props: { campaign: @campaign, campaign_audiences: @campaign.audience_ids.map(&:to_s), providers: @providers, categories: @categories, company: @company, is_client: @is_client, goal_options: goal_options, kpi_options: kpi_options}, prerender: false)
+= react_component("CampaignNew", props: { page_type: 'Edit', campaign: @campaign, campaign_audiences: @campaign.audience_ids.map(&:to_s), providers: @providers, categories: @categories, company: @company, is_client: @is_client, goal_options: goal_options, kpi_options: kpi_options}, prerender: false)
