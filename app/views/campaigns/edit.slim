@@ -5,3 +5,5 @@
       .card
         .card-body
           = render 'form'
+
+= react_component("CampaignNew", props: { campaign: @campaign, campaign_audiences: @campaign.audience_ids.map(&:to_s), providers: @providers, categories: @categories, company: @company, is_client: @is_client, goal_options: goal_options, kpi_options: kpi_options}, prerender: false)

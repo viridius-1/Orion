@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import NumericInput from "react-numeric-input";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
 
 import AudienceFields from "./components/AudienceFields";
 import CreateCampaign from "./components/CreateCampaign";
@@ -11,18 +12,33 @@ export default class New extends Component {
   constructor(props) {
     super(props);
 
+    const { campaign, campaign_audiences } = this.props;
+
+    const {
+      name,
+      url,
+      goal,
+      kpi,
+      cpa_goal,
+      roas_goal,
+      budget,
+      geography,
+      flight_start_date,
+      flight_end_date,
+    } = campaign;
+
     this.state = {
-      name: "",
-      url: "",
-      goal: "",
-      kpi: "",
-      cpa_goal: "",
-      roas_goal: "",
-      budget: "",
-      geography: "",
-      flight_start_date: new Date(),
-      flight_end_date: new Date(),
-      audiences: [],
+      name: name || "",
+      url: url || "",
+      goal: goal || "",
+      kpi: kpi || "",
+      cpa_goal: cpa_goal || "",
+      roas_goal: roas_goal || "",
+      budget: budget || "",
+      geography: geography || "",
+      flight_start_date: new Date(flight_start_date) || new Date(),
+      flight_end_date: new Date(flight_end_date) || new Date(),
+      audiences: campaign_audiences || [],
       errors: {
         name: "",
         url: "",
@@ -60,6 +76,7 @@ export default class New extends Component {
           name={`${key}`}
           min={1}
           onChange={(event) => this.handleDateNumSelect(key, event)}
+          value={value}
         />
       );
     } else if (key == "flight_start_date" || key == "flight_end_date") {
@@ -91,6 +108,7 @@ export default class New extends Component {
           className={showErrorStyles(errors[key])}
           name={`${key}`}
           onChange={this.handleInputChange}
+          value={value}
         />
       );
     }
@@ -105,6 +123,7 @@ export default class New extends Component {
       );
     }
   }
+
   showCampaignForm(formFields, goal, kpi) {
     const { errors, categories, audiences, ...fields } = formFields;
 

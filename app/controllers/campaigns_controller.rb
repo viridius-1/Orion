@@ -10,8 +10,9 @@ class CampaignsController < ApplicationController
   end
 
   def new
+    @campaign = Campaign.new
     @providers = Audience::Provider.all
-    @categories = Audience::Category.family_tree.as_json
+    @audiences = Audience::Category.family_tree.as_json
     @is_client = true if @company_type == :agency
   end
 
@@ -26,29 +27,19 @@ class CampaignsController < ApplicationController
       send_internal_notification(request_type)
       send_customer_confirmation(request_type)
 
-      company_type = current_user.company_type.downcase.to_sym
-      campaign_paths = if company_type == :agency
-                        agency_client_campaigns_path(agency_id: @company.agency_id, client_id: @company.id)
-                      elsif company_type == :advertiser
-                        advertiser_campaigns_path(advertiser_id: @company.id)
-                      end
-
       render json: { messages: 'Campaign was successfully created.', redirectTo: campaign_paths, status: 200 }
     else
       render json: { messages: display_validation(@campaign), redirectTo: '', status: 422 }
     end
   end
 
-  def edit; end
+  def edit
+    @providers = Audience::Provider.all
+    @categories = Audience::Category.family_tree.as_json
+    @is_client = true if @company_type == :agency
+  end
 
   def update
-    company_type = current_user.company_type.downcase.to_sym
-    campaign_paths = if company_type == :agency
-                      agency_client_campaigns_path(agency_id: @company.agency_id, client_id: @company.id)
-                    elsif company_type == :advertiser
-                      advertiser_campaigns_path(advertiser_id: @company.id)
-                    end
-
     if @campaign.update(campaign_params)
       redirect_to campaign_paths, notice: 'Campaign has been successfully updated.'
     else
@@ -116,6 +107,15 @@ class CampaignsController < ApplicationController
     CompanyCampaign.create(company_id: @company.id,
                            company_type: @company.class,
                            campaign_id: @campaign.id)
+  end
+
+  def campaign_paths
+    company_type = current_user.company_type.downcase.to_sym
+    if company_type == :agency
+      agency_client_campaigns_path(agency_id: @company.agency_id, client_id: @company.id)
+    elsif company_type == :advertiser
+      advertiser_campaigns_path(advertiser_id: @company.id)
+    end
   end
 
   def create_campaign_audiences(campaign, audience_params)

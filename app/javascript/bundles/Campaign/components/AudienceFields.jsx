@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import Select from "react-select";
 
 import CategoryFields from "./CategoryFields";
 
@@ -7,24 +8,44 @@ export default class AudienceFields extends Component {
     super(props);
 
     this.state = {
+      providers: this.providersObj() || [],
       providerCategories: [],
     };
   }
 
   getCategoriesData(event, categories) {
-    event.preventDefault();
+    const provider = event;
 
-    const providerId = event.target.value;
+    const providerId = event
+      .map((provider) => {
+        return provider.id;
+      })
+      .pop();
 
     const providerCategories = categories.filter(
       (category) => category.provider_id == providerId
     );
 
-    this.setState({ providerCategories });
+    this.setState({
+      providers: provider,
+      providerCategories,
+    });
   }
 
-  showAudienceFields(audiences) {
-    const { providers, categories } = audiences;
+  providersObj() {
+    const { providers } = this.props.audiences;
+
+    providers.map((provider) => {
+      provider["value"] = provider.id;
+      provider["label"] = provider.name;
+    });
+
+    return providers;
+  }
+
+  showAudienceFields(props) {
+    const { audiences, audienceState, setAudienceState } = props;
+    const { categories } = audiences;
     const { providerCategories } = this.state;
 
     return (
@@ -32,29 +53,28 @@ export default class AudienceFields extends Component {
         <div className="col col-6">
           <div className="form-group provider">
             <label>Audience Provider</label>
-            <select
-              className="form-control"
+
+            <Select
+              defaultValue={this.state.providers}
+              isMulti
+              name="colors"
+              options={this.providersObj()}
+              className="basic-multi-select"
+              classNamePrefix="select"
               onChange={(event) => this.getCategoriesData(event, categories)}
-            >
-              <option>Select A Provider</option>
-              {providers.map((provider) => (
-                <option value={provider.id}>{`${provider.name}`}</option>
-              ))}
-            </select>
+            />
           </div>
         </div>
         <CategoryFields
           listOfCategories={providerCategories}
-          audienceState={this.props.audiences}
-          setAudienceState={this.props.setAudienceState}
+          audienceState={audienceState}
+          setAudienceState={setAudienceState}
         />
       </Fragment>
     );
   }
 
   render() {
-    const audiences = this.props.audiences;
-
-    return <Fragment>{this.showAudienceFields(audiences)}</Fragment>;
+    return <Fragment>{this.showAudienceFields(this.props)}</Fragment>;
   }
 }
