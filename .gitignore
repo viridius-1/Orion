@@ -30,8 +30,8 @@
 /config/credentials/production.key
 
 # /public/assets
-/public/packs/css
-/public/packs/js
+# /public/packs/css
+# /public/packs/js
 /node_modules
 /yarn-error.log
 yarn-debug.log*
