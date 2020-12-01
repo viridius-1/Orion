@@ -1,0 +1,173 @@
+/* line 12, app/assets/stylesheets/data_studios.sass */
+.select2-container--bootstrap .select2-selection--single {
+  height: 38px;
+  padding: 8px 24px 8px 12px;
+}
+
+/* line 15, app/assets/stylesheets/data_studios.sass */
+.select2-container--bootstrap .select2-selection--multiple {
+  height: 38px;
+}
+
+/* line 18, app/assets/stylesheets/data_studios.sass */
+.select2-container--bootstrap .select2-selection--multiple .select2-search--inline .select2-search__field {
+  height: 36px;
+}
+
+/* line 22, app/assets/stylesheets/data_studios.sass */
+.light-text {
+  color: #7B8094;
+}
+
+/* line 26, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container {
+  height: 100%;
+  overflow: auto;
+}
+
+/* line 4, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .level1 {
+  padding-left: 30px !important;
+}
+
+/* line 4, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .level2 {
+  padding-left: 45px !important;
+}
+
+/* line 4, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .level3 {
+  padding-left: 60px !important;
+}
+
+/* line 4, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .level4 {
+  padding-left: 75px !important;
+}
+
+/* line 4, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .level5 {
+  padding-left: 90px !important;
+}
+
+/* line 4, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .level6 {
+  padding-left: 105px !important;
+}
+
+/* line 4, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .level7 {
+  padding-left: 120px !important;
+}
+
+/* line 4, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .level8 {
+  padding-left: 135px !important;
+}
+
+/* line 4, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .level9 {
+  padding-left: 150px !important;
+}
+
+/* line 4, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .level10 {
+  padding-left: 165px !important;
+}
+
+/* line 4, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .level11 {
+  padding-left: 180px !important;
+}
+
+/* line 30, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .tree-top {
+  position: relative;
+}
+
+/* line 32, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .caret {
+  cursor: pointer;
+  display: block;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  padding: 3px 10px;
+  background-color: #e8e8e8;
+  margin-bottom: 3px;
+}
+
+/* line 39, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 10px;
+}
+
+/* line 45, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .caret-down::before {
+  transform: rotate(90deg);
+}
+
+/* line 47, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .nested {
+  display: none;
+}
+
+/* line 49, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .active {
+  display: block;
+}
+
+/* line 51, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .audience {
+  padding: 4px 2px;
+  background-color: #fafafa;
+  border: 1px solid #e8e8e8;
+  margin-bottom: 3px;
+  cursor: pointer;
+}
+
+/* line 57, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .audience:hover {
+  border-color: #863399;
+}
+
+/* line 59, app/assets/stylesheets/data_studios.sass */
+.audiences .tree-container .audience::before {
+  font-family: "Font Awesome 5 Free";
+  color: #863399;
+  content: "\f055";
+  font-weight: 900;
+  margin-right: 10px;
+}
+
+/* line 66, app/assets/stylesheets/data_studios.sass */
+.audiences .favorites .audience {
+  list-style-type: none;
+  padding: 4px 2px;
+  background-color: #fafafa;
+  border: 1px solid #e8e8e8;
+  margin-bottom: 3px;
+  cursor: pointer;
+}
+
+/* line 73, app/assets/stylesheets/data_studios.sass */
+.audiences .favorites .audience::before {
+  font-family: "Font Awesome 5 Free";
+  color: #15C39A;
+  content: "\f058";
+  font-weight: 900;
+  margin: 0 10px;
+  transition: all 0.2s linear;
+}
+
+/* line 81, app/assets/stylesheets/data_studios.sass */
+.audiences .favorites .audience:hover::before {
+  content: "\f2ed";
+  color: #dc3545;
+  margin-right: 20px;
+}
