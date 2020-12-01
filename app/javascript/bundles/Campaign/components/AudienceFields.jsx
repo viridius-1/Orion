@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import Select from "react-select";
-import "antd/dist/antd.css";
 
 import DropDown from "./DropDown";
 
