@@ -9,6 +9,6 @@ class Campaign < ApplicationRecord
   end
 
   def audience_ids
-    audiences.pluck(:category_id)
+    audiences.pluck(:audience_id)
   end
 end

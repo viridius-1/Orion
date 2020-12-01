@@ -9,10 +9,10 @@ export default class DropDown extends Component {
   };
 
   render() {
-    const { listOfCategories, audienceState } = this.props;
+    const { audiences, audienceState } = this.props;
 
     const tProps = {
-      treeData: listOfCategories,
+      treeData: audiences,
       value: audienceState,
       onChange: this.updateSelectedCategories,
       treeCheckable: true,

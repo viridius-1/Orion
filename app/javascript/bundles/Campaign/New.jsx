@@ -125,7 +125,7 @@ export default class New extends Component {
   }
 
   showCampaignForm(formFields, goal, kpi) {
-    const { errors, categories, audiences, ...fields } = formFields;
+    const { errors, audiences, ...fields } = formFields;
 
     return Object.entries(fields).map(([key, value]) => {
       return (
@@ -157,6 +157,9 @@ export default class New extends Component {
       is_client,
       goal_options,
       kpi_options,
+      audiences,
+      campaign,
+      campaign_audiences,
     } = this.props;
 
     return (
@@ -183,7 +186,7 @@ export default class New extends Component {
                       kpi_options
                     )}
                     <AudienceFields
-                      audiences={this.props}
+                      audiences={audiences}
                       audienceState={this.state.audiences}
                       setAudienceState={this.setAudienceState}
                     />

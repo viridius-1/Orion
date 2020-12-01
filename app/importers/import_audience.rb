@@ -14,9 +14,7 @@ class ImportAudience
         row_hash[new_key] = value
       end
 
-      provider = Audience::Provider.find_or_create_by!(name: row_hash[:provider])
-
-      list_of_audiences = row_hash[:segment_name].split(' > ').drop(1)
+      list_of_audiences = row_hash[:segment_name].split(' > ')
 
       # Some audiences has 1 layer to pull from
       # This will recreate the 2nd layer for Audience Catgeory and Segment
@@ -25,9 +23,7 @@ class ImportAudience
       parent_category = nil
 
       list_of_audiences.map do |name|
-        parent_category = Audience::Category.find_or_create_by!(name: name,
-                                                                category_id: parent_category&.id,
-                                                                provider_id: provider&.id)
+        parent_category = Audience.find_or_create_by!(name: name, audience_id: parent_category&.id)
       end
     end
   end

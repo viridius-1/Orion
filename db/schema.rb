@@ -67,24 +67,17 @@ ActiveRecord::Schema.define(version: 2020_11_04_155718) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "audience_categories", force: :cascade do |t|
+  create_table "audiences", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "provider_id"
-    t.integer "category_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "audience_providers", force: :cascade do |t|
-    t.string "name"
+    t.integer "audience_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "campaign_audiences", force: :cascade do |t|
     t.integer "campaign_id"
-    t.integer "category_id"
+    t.integer "audience_id"
   end
 
   create_table "campaigns", force: :cascade do |t|
