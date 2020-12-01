@@ -29,9 +29,6 @@
 /config/credentials/development.key
 /config/credentials/production.key
 
-# /public/assets
-# /public/packs/css
-# /public/packs/js
 /node_modules
 /yarn-error.log
 yarn-debug.log*
