@@ -7,9 +7,9 @@ class CampaignMailer < ApplicationMailer
 
     type_titles = {recommendation: 'Recommendation', insertion_order: "Campaign IO"}
 
-    mail(to: 'ben.cheng@theversion2.com',
+    mail(to: 'strategy@theversion2.com',
          subject: "#{type_titles[type]} Request",
-         from: 'Version2 Strategy <ben.cheng@theversion2.com>')
+         from: 'Version2 Strategy <strategy@theversion2.com>')
   end
 
   def customer_confirmation(user, campaign, company, type)
