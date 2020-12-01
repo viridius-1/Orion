@@ -141,7 +141,8 @@ ul
     = @campaign&.geography
   li
     strong Audience Targeting:
-    = @campaign&.audience_targeting
+    - @campaign&.audience_names.each do |name|
+      = name
   li
     strong Date Requested:
     = @campaign&.created_at&.strftime("%B %d %Y")

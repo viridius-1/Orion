@@ -11,8 +11,7 @@ class CampaignsController < ApplicationController
 
   def new
     @campaign = Campaign.new
-    @providers = Audience::Provider.all
-    @audiences = Audience::Category.family_tree.as_json
+    @audiences = Audience.family_tree.as_json
     @is_client = true if @company_type == :agency
   end
 
@@ -34,8 +33,7 @@ class CampaignsController < ApplicationController
   end
 
   def edit
-    @providers = Audience::Provider.all
-    @categories = Audience::Category.family_tree.as_json
+    @audiences = Audience.family_tree.as_json
     @is_client = true if @company_type == :agency
   end
 
@@ -120,7 +118,7 @@ class CampaignsController < ApplicationController
 
   def create_campaign_audiences(campaign, audience_params)
     audience_params[:ids].each do |id|
-      CampaignAudience.create(campaign_id: campaign.id, category_id: id.to_i)
+      CampaignAudience.create(campaign_id: campaign.id, audience_id: id.to_i)
     end
   end
 

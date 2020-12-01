@@ -9,6 +9,10 @@ class Campaign < ApplicationRecord
   end
 
   def audience_ids
-    audiences.pluck(:category_id)
+    audiences.pluck(:audience_id)
+  end
+
+  def audience_names
+    audiences.map { |ca| ca.audience.name }
   end
 end

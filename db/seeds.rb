@@ -17,7 +17,10 @@ agency_user = User.create!(first_name: 'First',
                            password: 'password',
                            confirmed_at: Time.now)
 
-CompanyMember.create!(company_id: agency.id, company_type: 'Agency', user_id: agency_user.id, roles: 'user')
+CompanyMember.create!(company_id: agency.id,
+                      company_type: 'Agency',
+                      user_id: agency_user.id,
+                      roles: 'user')
 
 # Create Advertiser && Advertiser's User
 adv = Advertiser.create!(name: 'First Advertiser')
@@ -28,7 +31,10 @@ adv_user = User.create!(first_name: 'First',
                         password: 'password',
                         confirmed_at: Time.now)
 
-CompanyMember.create!(company_id: adv.id, company_type: 'Advertiser', user_id: adv_user.id, roles: 'user')
+CompanyMember.create!(company_id: adv.id,
+                      company_type: 'Advertiser',
+                      user_id: adv_user.id,
+                      roles: 'user')
 
 # Create Interal Admin
 Admin.create!(first_name: 'Admin',
@@ -37,5 +43,6 @@ Admin.create!(first_name: 'Admin',
               email: 'admin@theversion2.com')
 
 # Create Audiences
-provider = Audience::Provider.create!(name: 'Provider 1')
-category = Audience::Category.create!(name: 'Category 1', description: 'This is a demo audience segment', provider_id: 1, category_id: nil)
+category = Audience.create!(name: 'Category 1',
+                            description: 'This is a demo audience segment',
+                            audience_id: nil)
