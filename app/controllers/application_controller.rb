@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  layout :layout_by_resource
   before_action :authenticate_user!
 
   private
@@ -13,6 +12,19 @@ class ApplicationController < ActionController::Base
       else
         'application'
       end
+    end
+  end
+
+  def after_sign_in_path_for(resource)
+    is_admin = resource.class == Admin
+    invite_awaits = resource.class == User && resource.invitation_token.nil?
+
+    if is_admin
+      rails_admin_path
+    elsif invite_awaits
+      root_path
+    elsif !invite_awaits
+      accept_user_invitation_path
     end
   end
 end

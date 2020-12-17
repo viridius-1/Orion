@@ -1,0 +1,14 @@
+.container-fluid.h-100
+  .row.h-100.d-flex.align-items-center
+    .col-4
+    .col-4
+      .card
+        .card-body
+          = form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
+            = render "devise/shared/error_messages", resource: resource
+            .col.d-flex.flex-column.align-items-center
+              = image_tag "logo-orion.svg", style: 'width: 153px', class: 'mb-5'
+              h1.h5.mb-3.font-weight-normal Resend unlock instructions
+              = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Email address', class: 'form-control mb-2'
+              = f.submit "Resend unlock instructions", class: 'btn btn-primary btn-block mb-4'
+              = render "devise/shared/links"

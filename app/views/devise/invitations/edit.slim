@@ -1,13 +1,20 @@
-
-
-= simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put, class: 'new_user' }) do |f| 
-  = f.error_notification
-  = f.hidden_field :invitation_token
-  = image_tag "signmark.svg", style: 'width: 72px', class: 'mb-5'
-  h1.h4.mb-3.font-weight-normal Please create your account password
-  = f.input :password, class: 'form-control mb-2'
-  = f.input :password_confirmation, class: 'form-control mb-2'
-
-  = f.button :submit, t("devise.invitations.edit.submit_button"), class: 'btn btn-primary btn-block mb-4'
-
-
+.container-fluid.h-100
+  .row.h-100.d-flex.align-items-center
+    .col-4
+    .col-4
+      .card
+        .card-body
+          = simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put, class: 'new_user' }) do |f|
+            = f.error_notification
+            = f.hidden_field :invitation_token
+            .col.d-flex.flex-column.align-items-center
+              = image_tag "signmark.svg", style: 'width: 72px', class: 'mb-5'
+            .col
+              h1.h5.mb-3.font-weight-normal Please create your account password
+            .col
+              = f.input :password, class: 'form-control mb-2'
+            .col
+              = f.input :password_confirmation, class: 'form-control mb-2'
+            .col
+              = f.button :submit, t("devise.invitations.edit.submit_button"), class: 'btn btn-primary btn-block mb-4'
+    .col-4

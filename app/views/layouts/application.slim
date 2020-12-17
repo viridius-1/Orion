@@ -15,18 +15,19 @@ html
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
 
     script src="https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js"
-
     script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"
     script src="https://kit.fontawesome.com/52147ba709.js" crossorigin="anonymous"
     link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
     script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
 
-
   body
-    = render 'layouts/nav'
-    .content-wrapper.d-flex
-      = render 'layouts/side_nav'
-      .main-content
-        = render 'layouts/alert'
-        = yield
+    - if current_user
+      = render 'layouts/nav'
+      .content-wrapper.d-flex
+        = render 'layouts/side_nav'
+        .main-content
+          = render 'layouts/alert'
+          = yield
+    - else
+      = yield
 
