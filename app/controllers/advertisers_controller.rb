@@ -1,8 +1,6 @@
 class AdvertisersController < ApplicationController
   before_action :set_advertiser, only: [:show, :edit, :update, :destroy]
-  access all: [:edit, :update, :destroy], user: :all
 
-  # GET /advertisers/1/edit
   def show; end
 
   def edit; end
