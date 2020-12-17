@@ -1,6 +1,5 @@
 class Users::InvitationsController < Devise::InvitationsController
   before_action :configure_permitted_parameters
-  access user: [], all: [:edit]
 
   def create
     self.resource = invite_resource
