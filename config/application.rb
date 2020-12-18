@@ -11,7 +11,6 @@ module Orion
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
-
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
       address: 'smtp.sendgrid.net',
@@ -22,6 +21,8 @@ module Orion
       domain: 'theversion2.com',
       enable_starttls_auto: true
     }
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.raise_delivery_errors = true
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
