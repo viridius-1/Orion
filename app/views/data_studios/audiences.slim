@@ -1,18 +1,16 @@
 .container-fluid.audiences
   .row
-
-    .col-10
-      h1.h5.mb-4.float-left Data Studio > Audiences
-    .col-2.d-flex.flex-column.text-right
-      = current_user.advertiser_profile.company_name
-      = link_to "Edit", edit_advertiser_path(current_user.advertiser_profile.id), class: 'small'
+    .col-12
+      h1.h5.mb-4.float-left
+        - if current_user.company_type == 'Advertiser'
+          | #{@company.name}'s Campaigns
   .row
     .col-12
       ul.nav.nav-tabs
         li.nav-item
-          = link_to 'Campaigns', campaigns_path, class: 'nav-link'
+          = link_to 'Campaigns', campaigns_path(advertiser: params[:advertiser]), class: 'nav-link'
         li.nav-item
-          = link_to 'Audiences', studios_audiences_path, class: 'nav-link active'
+          = link_to 'Audiences', studios_audiences_path(advertiser: params[:advertiser]), class: 'nav-link active'
 
     .col-12
       .card

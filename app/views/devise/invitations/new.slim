@@ -1,21 +1,36 @@
 .container-fluid
   .row
     .col-12.col-md-6
+      h1.h5.mb-4.float-left
+        | Data Studio >
+        - if current_user.company_type == 'Advertiser'
+          = link_to "#{current_user.company.name}", advertiser_path(current_user.company.id)
+        - else current_user.company_type == 'Agency'
+          = link_to "#{current_user.company.name}", agency_path(current_user.company.id)
+        | > Users
+  .row
+    .col-6
       .card
         .card-body
           h4 = t "devise.invitations.new.header"
-          = simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f| 
-            = f.error_notification
+          = simple_form_for(resource, as: resource_name, url: invitation_path(resource_name, company_type: params[:company_type], company_id: params[:company_id]), html: { method: :post }) do |f|
+            .row
+              = f.error_notification
+              .col-12
+                = f.input :first_name
+              .col-12
+                = f.input :last_name
 
-            = f.input :first_name
-            = f.input :last_name
-            = f.input :company
-            = f.input :user_type, collection: [['Agency', :agency], ['Advertiser', :advertiser]], as: :select
-            = f.input :roles, collection: [['Super Admin', :root_admin], ['User', :user]], as: :radio_buttons, selected: @user.role, checked: @user.role
-            - resource.class.invite_key_fields.each do |field|
-              .form-inputs
-                = f.input field
-            .form-actions
-              = f.button :submit, t("devise.invitations.new.submit_button"), class: 'btn btn-primary btn-sm'
+              - resource.class.invite_key_fields.each do |field|
+                .col-12
+                  .form-inputs
+                    = f.input field
+              .col-12.d-flex.flex-row style="justify-content: space-between"
+                - if current_user.company_type == 'Advertiser'
+                  = link_to "Cancel", advertiser_users_path(current_user.company.id)
+                - else current_user.company_type == 'Agency'
+                  = link_to "Cancel", agency_users_path(current_user.company.id)
+
+                = f.button :submit, t("devise.invitations.new.submit_button"), class: 'btn btn-primary btn-sm'
 
 

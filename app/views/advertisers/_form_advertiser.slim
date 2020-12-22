@@ -4,7 +4,7 @@
   .row.form-page-1
     .col-4
       .form-group.mb-4
-        = f.input :company_name
+        = f.input :name
     .col-4
       .form-group.mb-4
         = f.input :website, label: 'Website URL'
@@ -70,11 +70,14 @@
     .col-4
       .form-group.mb-4
         = f.input :language, collection: language_options, input_html: { multiple: true, class: 'select2-input form-control', data: { placeholder: 'Select Languages' } }, include_hidden: false
-    .col-12
-      .form-group.mb-4.affinity-select
+    .col-6
+      .form-group.mb-4
         = f.input :affinity, collection: affinity_options, input_html: { multiple: true, class: 'select2-input form-control', data: { placeholder: 'Select Affinity' } }, include_hidden: false
-    .col-12
-      = f.submit 'Update', class: 'btn btn-primary float-right'
+    .col-6
+    .col-6
+      = link_to 'Cancel', advertiser_path
+    .col-6
+      = f.submit 'Submit', class: 'btn btn-primary float-right'
 
     javascript:
       $(document).ready(function() {

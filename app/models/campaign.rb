@@ -1,10 +1,18 @@
 class Campaign < ApplicationRecord
-  belongs_to :advertiser
+  has_one :company_campaign, dependent: :destroy
+  has_many :audiences, class_name: 'CampaignAudience'
 
-  has_many :campaign_audiences
-  has_many :audiences, through: :campaign_audiences
+  validates :name, presence: true
 
-  validates :name, :advertiser, presence: true
+  def company
+    company_campaign.company
+  end
 
-  accepts_nested_attributes_for :audiences
+  def audience_ids
+    audiences.pluck(:audience_id)
+  end
+
+  def audience_names
+    audiences.map { |ca| ca.audience.name }
+  end
 end

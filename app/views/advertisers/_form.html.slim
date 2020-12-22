@@ -4,7 +4,7 @@
   .row.form-page-1
     .col-4
       .form-group.mb-4
-        = f.input :company_name
+        = f.input :name
     .col-4
       .form-group.mb-4
         = f.input :website, label: 'Website URL'
@@ -75,8 +75,7 @@
         = f.input :affinity, collection: affinity_options, input_html: { multiple: true, class: 'select2-input form-control', data: { placeholder: 'Select Affinity' } }, include_hidden: false
 
     .col-12
-
-      = f.submit 'Update Profile', class: 'btn btn-primary float-right'
+      = f.submit 'Create Profile', class: 'btn btn-primary float-right'
 
 
 

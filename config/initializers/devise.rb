@@ -18,7 +18,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'Version2 <support@theversion2.com>'
+  config.mailer_sender = 'Version2 <strategy@theversion2.com>'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -348,11 +348,11 @@ Devise.setup do |config|
 
   # Callback for after a user is authenticated
   Warden::Manager.after_authentication do |user,auth,opts|
-    user.connections.create
+    user.connections.create if user && user.class == User
   end
 
   # Callback for before a user logs out
   Warden::Manager.before_logout do |user,auth,opts|
-    user.expire_tokens!
+    user.expire_tokens! if user && user.class == User
   end
 end

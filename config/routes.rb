@@ -1,20 +1,40 @@
 Rails.application.routes.draw do
-  
+
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  devise_for :admin, skip: [:sessions]
+  devise_scope :admin do
+    get 'admins/sign_in', to: 'admins/sessions#new', as: :new_admin_session
+    post 'admins/sign_in', to: 'admins/sessions#create', as: :admin_session
+    delete 'admins/destroy', to: 'admins/sessions#destroy', as: :destroy_admin_session
+  end
+
   apipie
-  devise_for :users, controllers: { invitations: 'users/invitations' }
+
+  devise_for :users, controllers: { invitations: 'users/invitations',
+                                    registrations: 'users/registrations' }
 
   root 'data_studios#index'
 
   get 'studios/audiences', to: 'data_studios#audiences'
 
-  resources :users, except: :show
   resources :data_studios, only: [:index, :create, :destroy]
   resources :platforms, only: :index
-  resources :advertisers
-  resources :campaigns
+
+  resources :agencies do
+    resources :users
+
+    resources :clients do
+      resources :campaigns
+    end
+  end
+
+  resources :advertisers do
+    resources :users
+    resources :campaigns
+  end
 
   namespace :api do
-    namespace :v1 do 
+    namespace :v1 do
       post 'tapclicks/authenticate', to: 'authenticate#create'
     end
   end
