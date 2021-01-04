@@ -8,4 +8,4 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors, :debug => true,
   end
 end
 
-Rails.application.config.hosts << ['theversion2.com', 'localhost', 'staging-orion-version2.herokuapp.com', 'production-orion-version2.herokuapp.com', '*.theversion2.com']
+Rails.application.config.hosts << ['theversion2.com', 'localhost', 'staging-orion-version2.herokuapp.com', 'production-orion-version2.herokuapp.com', 'orion.theversion2.com']
