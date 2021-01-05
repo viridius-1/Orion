@@ -10,7 +10,7 @@ class ImportAudience
       row_hash = {}
 
       row.to_h.each do |key, value|
-        new_key = key.downcase.split(' ').join('_').to_sym
+        new_key = key&.downcase&.split(' ')&.join('_')&.to_sym
         row_hash[new_key] = value
       end
 
@@ -28,4 +28,3 @@ class ImportAudience
     end
   end
 end
-
