@@ -6,7 +6,7 @@ class ImportAudience
   end
 
   def import
-    CSV.foreach("tmp/#{@file_name}", headers: true) do |row|
+    CSV.foreach("#{@file_name}", headers: true) do |row|
       row_hash = {}
 
       row.to_h.each do |key, value|
