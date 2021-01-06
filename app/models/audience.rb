@@ -7,7 +7,8 @@ class Audience < ApplicationRecord
 
   class << self
     def list_of_ancestors
-      where(audience_id: nil)
+      # where(audience_id: nil)
+      where(name: 'Lotame')
     end
 
     def family_tree
@@ -24,7 +25,8 @@ class Audience < ApplicationRecord
                         audience_id: audience.id }
 
         descentants = if audience&.children&.any?
-                        get_descentants(audience&.children)
+                        # Remove the first 5
+                        get_descentants(audience&.children&.first(5))
                       end
 
         family_tree[:children] = descentants
