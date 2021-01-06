@@ -14,6 +14,8 @@ class ImportAudience
         row_hash[new_key] = value
       end
 
+      next if row_hash[:segment_name].blank?
+
       list_of_audiences = row_hash[:segment_name].split('>').map(&:strip)
 
       # Some audiences has 1 layer to pull from
