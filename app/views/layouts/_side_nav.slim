@@ -24,7 +24,7 @@ nav#sidebar
     li.clearfix
       .icon-container
         i.fas.fa-chart-pie
-      = link_to 'Analytics', current_user.token_url, class: 'tapclicks-link', target: :_blank
+      = link_to 'Analytics', current_user&.token_url, class: 'tapclicks-link', target: :_blank
 
 
 javascript:
