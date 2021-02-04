@@ -37,8 +37,9 @@ class User < ApplicationRecord
   end
 
   def token_url
-    session_token = connections.active.first.token
-    "https://analytics.theversion2.com/app/dash/session/version2_login?token=#{session_token}"
+    # session_token = connections.active.first.token
+    # "https://analytics.theversion2.com/app/dash/session/version2_login?token=#{session_token}"
+    "https://analytics.theversion2.com/client/analytics/dist/#/login"
   end
 
   def company
