@@ -16,13 +16,11 @@ class Api::V1::AuthenticateController < Api::BaseController
     else
       render status: :bad_request, json: { message: 'The submitted token is not active or does not exist'}
     end
-   
   end
 
-  private 
+  private
 
   def permitted_params
     params.permit(:token)
   end
-
 end

@@ -5,12 +5,11 @@ class Api::BaseController < ActionController::Base
     render status: :unprocessable_entity, json: { message: e.to_s }
   end
 
-
   private
 
   def token_verified?
-    return true if request.authorization == Rails.application.credentials.secret_key_base
+    return true if request.authorization == Rails.application.credentials.tapclicks_api_key
+
     render status: :unauthorized, json: { error: 'Access denied - invalid API Key' }
   end
-
 end
