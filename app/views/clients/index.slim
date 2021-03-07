@@ -1,33 +1,8 @@
-.container-fluid.campaigns
-  .row
-    .col-12
-      h1.h5.mb-4.float-left
-        | Data Studio >
-        = link_to "#{current_user.company.name}", agency_path(current_user.company.id)
-        |  > Advertisers
-  .row
-    .col-12
-      .card
-        .card-body
-          .row
-            .col-12
-              = link_to 'Create Advertiser', new_agency_client_path(agency_id: params[:agency_id]), class: 'btn btn-primary float-right mb-3'
-          .row
-            .col-12
-              table.table.table-striped
-                thead.thead-dark
-                  tr
-                    th scope="col" Advertiser
-                    th scope="col" Website
-                    th scope='col' Industry
-                    th scope="col" Action
-                  tbody
-                    - @clients.each do |client|
-                      tr
-                        td = client.name
-                        td = client.website
-                        td = client.industry
-                        td
-                          = link_to "Campaign(s)", agency_client_campaigns_path(client_id: client.id)
-                          = link_to "Edit", edit_agency_client_path(client, agency_id: params[:agency_id]), class: 'action-link'
-                          = link_to "Delete", agency_client_path(client, agency_id: params[:agency_id]), method: :delete, data: { confirm: 'Are you sure?' }, class: 'action-link'
+.agency-dashboard
+  h1 #{@agency.name}'s Dashboard
+  .dropdown-menu-button
+    = react_component("LinkDropdownMenuComponent",
+            props: {icon: "fas fa-cog gear-icon", items: [{text: "Edit Profile", icon:"fas fa-pen", link:"/agencies/#{current_user.company.id}/users/#{current_user.id}/edit"}]},
+            prerender: false)
+
+= react_component("AgencyDashboardComponent", props: {agency: @agency, clients: @clients_with_campaigns}, prerender: false)

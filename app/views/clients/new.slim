@@ -1,15 +1,11 @@
-.container-fluid
+.agency-dashboard
+  h1 Create an Advertiser
+  .dropdown-menu-button
+    = react_component("LinkDropdownMenuComponent",
+            props: {icon: "fas fa-cog gear-icon", items: [{text: "Edit Profile", icon: "fas fa-pen", link: "/agencies/#{current_user.company.id}/users/#{current_user.id}/edit"}]},
+            prerender: false)
   .row
     .col-12
-      h1.h5.mb-4.float-left
-        | Data Studio >
-        = link_to "#{current_user.company.name}", agency_path(current_user.company.id)
-        | > Create Advertiser
-
-  .row
-    .col-12
-      .card
+      .card.card-v2
         .card-body
-          .row
-            .col-12
-              = render 'form'
+          = render 'form'
