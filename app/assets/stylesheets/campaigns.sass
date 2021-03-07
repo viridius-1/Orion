@@ -8,16 +8,22 @@
         color: #EFEFEF
     h5
       color: #7C3B94
-    .basic-input
+    .basic-input, .react-tagsinput
+      border: 1px solid #BDBDBD
+      border-radius: 8px
       height: 55px
-  .back-btn
+  .back-btn, .select-btn
     border: 1px solid #58107C
     box-sizing: border-box
     border-radius: 8px
     color: #58107C
+    font-size: 14px
+  .back-btn
     width: 150px
     height: 50px
-    font-size: 14px
+  .select-btn
+    width: 85px
+    height: 30px
   .next-btn
     width: 300px
     height: 50px
@@ -26,6 +32,18 @@
     border-radius: 8px
     color: white
     font-size: 14px
+  .react-tagsinput
+    display: flex
+    align-items: center
+    padding: 0 0 0 10px
+  .react-tagsinput--focused, .react-tagsinput-tag
+    border: 1px solid #DCC3E6
+  .react-tagsinput-tag
+    color: #4F4F4F
+    background-color: #FCF2FF
+  .react-tagsinput-input
+    font-size: 14px
+    margin: unset
   .action-link
     margin-right: 10px
   .audience-targeting
@@ -36,6 +54,7 @@
     border: 1px solid #ced4da
   label
     text-transform: capitalize
+    color: #434649
   .submit-btns
     .io-btn
       margin-right: 15px

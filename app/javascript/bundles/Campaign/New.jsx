@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import CampaignBasic from "./components/CampaignBasic";
 import CampaignGoal from "./components/CampaignGoal";
+import CampaignAudience from "./components/CampaignAudience";
 
 export default class New extends Component {
   constructor(props) {
@@ -16,17 +17,18 @@ export default class New extends Component {
       cpa_goal: "",
       roas_goal: "",
       budget: "",
-      geography: "",
+      geography: [],
       flight_start_date: null,
       flight_end_date: null,
       audiences: [],
       coversion_rate: "",
       aov: "",
-      gender: "",
-      age_range: "",
+      gender: { male: false, female: false },
+      age_range: [18, 99],
       education: "",
       parental_status: "",
       data_providers: "",
+      income: [50, 500],
       errors: {
         name: "",
         url: "",
@@ -36,8 +38,9 @@ export default class New extends Component {
         roas_goal: "",
         budget: "",
         geography: "",
-        flight_start_date: "",
-        flight_end_date: "",
+        flight_start_date: "null",
+        flight_end_date: "null",
+        audiences: "",
         coversion_rate: "",
         aov: "",
         gender: "",
@@ -48,6 +51,23 @@ export default class New extends Component {
       },
     };
   }
+
+  handleInputTags = (tags, key) => {
+    this.setState({ [key]: tags });
+  };
+
+  handleOnClick = (key, data, option) => {
+    this.setState({
+      [key]: { ...this.state.gender, [data]: option ? false : true },
+    });
+  };
+
+  handleRange = (event, range) => {
+    event.preventDefault();
+    let key = event.target.parentElement.ariaLabel;
+
+    this.setState({ [key]: range });
+  };
 
   handleInputChange = (event) => {
     event.preventDefault();
@@ -100,16 +120,22 @@ export default class New extends Component {
       cpa_goal,
       roas_goal,
       budget,
-      geography,
       coversion_rate,
       aov,
       gender,
       age_range,
+      income,
       education,
       parental_status,
+      geography,
     } = fields;
 
-    const { goal_options, kpi_options } = this.props;
+    const {
+      goal_options,
+      kpi_options,
+      education_options,
+      parental_options,
+    } = this.props;
 
     if (step == 0) {
       return (
@@ -135,6 +161,27 @@ export default class New extends Component {
           goalOptions={goal_options}
           kpiOptions={kpi_options}
           handleInputChange={this.handleInputChange}
+        />
+      );
+    } else if (step == 2) {
+      return (
+        <CampaignAudience
+          fields={{
+            errors,
+            gender,
+            age_range,
+            income,
+            education,
+            parental_status,
+            geography,
+          }}
+          educationOptions={education_options}
+          parentOptions={parental_options}
+          genderOptions={gender}
+          handleInputChange={this.handleInputChange}
+          handleRange={this.handleRange}
+          handleOnClick={this.handleOnClick}
+          handleInputTags={this.handleInputTags}
         />
       );
     } else {
