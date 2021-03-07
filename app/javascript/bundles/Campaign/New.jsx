@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import CampaignBasic from "./components/CampaignBasic";
+import CampaignGoal from "./components/CampaignGoal";
 
 export default class New extends Component {
   constructor(props) {
@@ -108,14 +109,31 @@ export default class New extends Component {
       parental_status,
     } = fields;
 
+    const { goal_options, kpi_options } = this.props;
+
     if (step == 0) {
       return (
         <CampaignBasic
           fields={{ errors, name, url, flight_start_date, flight_end_date }}
-          currentStep={step}
-          prevStep={this.prevStep}
-          nextStep={this.nextStep}
           handleDateNumSelect={this.handleDateNumSelect}
+          handleInputChange={this.handleInputChange}
+        />
+      );
+    } else if (step == 1) {
+      return (
+        <CampaignGoal
+          fields={{
+            errors,
+            goal,
+            kpi,
+            cpa_goal,
+            roas_goal,
+            budget,
+            coversion_rate,
+            aov,
+          }}
+          goalOptions={goal_options}
+          kpiOptions={kpi_options}
           handleInputChange={this.handleInputChange}
         />
       );
@@ -151,7 +169,7 @@ export default class New extends Component {
                       className="btn-lg d-flex align-items-center justify-content-center back-btn"
                       onClick={step == 0 ? this.redirectTo : this.prevStep}
                     >
-                      Cancel
+                      {step == 0 ? "Cancel" : "Back"}
                     </div>
                     <div
                       className="btn-lg d-flex align-items-center justify-content-center next-btn"

@@ -37,7 +37,7 @@ export default class CampaignBasic extends Component {
   }
 
   render() {
-    const { currentStep, handleDateNumSelect, handleInputChange } = this.props;
+    const { handleDateNumSelect, handleInputChange } = this.props;
     const { errors, ...formFields } = this.props.fields;
 
     return (
