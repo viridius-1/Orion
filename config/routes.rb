@@ -12,11 +12,12 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { invitations: 'users/invitations',
                                     registrations: 'users/registrations' }
 
-  root 'data_studios#index'
+  root 'dashboard#index'
 
   get 'studios/audiences', to: 'data_studios#audiences'
 
-  resources :data_studios, only: [:index, :create, :destroy]
+  resources :dashboard, only: :index
+  resources :data_studios, only: [:create, :destroy]
   resources :platforms, only: :index
 
   resources :agencies do

@@ -1,10 +1,12 @@
 nav#sidebar
+  = link_to root_path, class: 'navbar-brand' do
+    = image_tag "logo-orion.svg", style: 'width: 94px; margin-left: 13px'
   ul.list-unstyled.main-links
     p MANAGE
-    li.clearfix class=(controller_name == 'data_studios' ? 'active' : '')
+    li.clearfix class=(controller_name == 'dashboard' ? 'active' : '')
       .icon-container
         i.fas.fa-chalkboard-teacher
-      = link_to "Data Studio", data_studios_path
+      = link_to "Dashboard", dashboard_index_path
     li.clearfix
       .icon-container
         i.fas.fa-crop-alt
