@@ -11,11 +11,12 @@ class CampaignsController < ApplicationController
 
   def new
     @campaign = Campaign.new
-    @audiences = Audience.family_tree.as_json
+    @data_providers = Audience.data_providers
     @is_client = true if @company_type == :agency
   end
 
   def create
+    byebug
     @campaign = Campaign.new(campaign_params)
 
     if @campaign.save

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 import CampaignBasic from "./components/CampaignBasic";
 import CampaignGoal from "./components/CampaignGoal";
 import CampaignAudience from "./components/CampaignAudience";
+import DataProvider from "./components/DataProvider";
 
 export default class New extends Component {
   constructor(props) {
@@ -20,15 +22,16 @@ export default class New extends Component {
       geography: [],
       flight_start_date: null,
       flight_end_date: null,
-      audiences: [],
       coversion_rate: "",
       aov: "",
       gender: { male: false, female: false },
       age_range: [18, 99],
       education: "",
       parental_status: "",
-      data_providers: "",
+      audiences: [],
+      selectedAudiences: [],
       income: [50, 500],
+      data_providers: "",
       errors: {
         name: "",
         url: "",
@@ -40,7 +43,6 @@ export default class New extends Component {
         geography: "",
         flight_start_date: "null",
         flight_end_date: "null",
-        audiences: "",
         coversion_rate: "",
         aov: "",
         gender: "",
@@ -48,9 +50,40 @@ export default class New extends Component {
         education: "",
         parental_status: "",
         data_providers: "",
+        audiences: "",
       },
     };
   }
+
+  resetAudiences = () => {
+    this.setState({ audiences: [] });
+  };
+
+  setSelectedAudiences = (values) => {
+    event.preventDefault();
+    let selectedAudiences = this.state.selectedAudiences;
+
+    this.setState({
+      selectedAudiences: selectedAudiences.concat([
+        { [values.label]: values.key },
+      ]),
+    });
+  };
+
+  getAudiences = (key, value) => {
+    axios.get(`/audiences/${value}`).then((response) => {
+      const { audiences, status } = response.data;
+      let audienceState = this.state.audiences;
+
+      if (key == "data_provider" && status == 200) {
+        this.setState({ data_provider: value, audiences: audiences });
+      } else if (key == "audience" && status == 200) {
+        return audiences;
+      } else {
+        return 400;
+      }
+    });
+  };
 
   handleInputTags = (tags, key) => {
     this.setState({ [key]: tags });
@@ -102,12 +135,22 @@ export default class New extends Component {
     window.location.assign(url);
   };
 
+  handleSubmit = () => {
+    const { company } = this.props;
+    const url = `/agencies/${company.agency_id}/clients/${company.id}/campaigns`;
+    const { errors, audiences, ...campaign } = this.state;
+
+    axios.post(url, { campaign });
+
+    window.location.assign(url);
+  };
+
   handleDateNumSelect = (key, event) => {
     this.setState({ [key]: event });
   };
 
   handleCreationFlow(state) {
-    const { step, data_providers, ...fields } = this.state;
+    const { step, ...fields } = this.state;
 
     const {
       errors,
@@ -128,6 +171,9 @@ export default class New extends Component {
       education,
       parental_status,
       geography,
+      audiences,
+      data_providers,
+      selectedAudiences,
     } = fields;
 
     const {
@@ -135,6 +181,7 @@ export default class New extends Component {
       kpi_options,
       education_options,
       parental_options,
+      data_provider_options,
     } = this.props;
 
     if (step == 0) {
@@ -186,7 +233,14 @@ export default class New extends Component {
       );
     } else {
       return (
-        <DataProvider dataProviders={data_providers} prevStep={this.prevStep} />
+        <DataProvider
+          fields={{ errors, data_providers, audiences }}
+          selectedAudiences={selectedAudiences}
+          dataProviderOptions={data_provider_options}
+          getAudiences={this.getAudiences}
+          resetAudiences={this.resetAudiences}
+          setSelectedAudiences={this.setSelectedAudiences}
+        />
       );
     }
   }
@@ -220,9 +274,9 @@ export default class New extends Component {
                     </div>
                     <div
                       className="btn-lg d-flex align-items-center justify-content-center next-btn"
-                      onClick={this.nextStep}
+                      onClick={step == 3 ? this.handleSubmit : this.nextStep}
                     >
-                      Continue to Goal
+                      {step == 3 ? "Finish" : "Continue"}
                     </div>
                   </div>
                 </div>
