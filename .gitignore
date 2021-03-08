@@ -44,4 +44,4 @@ dump.rdb
 yarn.lock
 
 .idea/*
-public/packs/*
+# public/packs/*
