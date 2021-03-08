@@ -15,6 +15,11 @@ class CampaignsController < ApplicationController
     @is_client = true if @company_type == :agency
   end
 
+  def show
+    @campaign = Campaign.find(params[:id])
+    byebug
+  end
+
   def create
     @campaign = Campaign.new(campaign_params)
 

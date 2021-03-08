@@ -48,6 +48,7 @@ export default class AdvertiserCardComponent extends Component {
                         <LinkDropdownMenuComponent
                             class="dropdown-menu-button"
                             icon="fas fa-ellipsis-v card-drawer-icon"
+                            token={this.props.token}
                             items={[
                                 {
                                     text: "Edit",
@@ -62,7 +63,8 @@ export default class AdvertiserCardComponent extends Component {
                                 {
                                     text: "Delete",
                                     icon: "fas fa-times-circle",
-                                    link: `#`
+                                    link: `/agencies/${this.props.client.agency_id}/clients/${this.props.client.id}`,
+                                    action: 'delete'
                                 }
                             ]}
                         />

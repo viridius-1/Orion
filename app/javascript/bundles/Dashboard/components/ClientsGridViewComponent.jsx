@@ -19,11 +19,11 @@ export default class ClientsGridViewComponent extends Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col-4 advertiser-grid-item">
+                    <div className="col-4 grid-item">
                         <input className="form-control" type="text" placeholder="Search advertisers"
                                onChange={event => this.onSearchInputChange(event.target.value)}/>
                     </div>
-                    <div className="col-4 advertiser-grid-item">
+                    <div className="col-4 grid-item">
                         <div className="input-group">
                             <input type="text" className="form-control" style={{borderRight: "none"}} placeholder="Filter by annual revenue"/>
                             <div className="input-group-append">
@@ -33,7 +33,7 @@ export default class ClientsGridViewComponent extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className='col-4 advertiser-grid-item'>
+                    <div className='col-4 grid-item'>
                         <LinkButtonComponent
                             text="Add Advertiser"
                             link={addAdvertiserLink}
@@ -50,8 +50,8 @@ export default class ClientsGridViewComponent extends Component {
                         }
                     }).map(client => {
                         return (
-                            <div className='col-4 advertiser-grid-item' key={client.id}>
-                                <AdvertiserCardComponent client={client}></AdvertiserCardComponent>
+                            <div className='col-4 grid-item' key={client.id}>
+                                <AdvertiserCardComponent client={client} token={this.props.token}/>
                             </div>
                         );
                     })}
