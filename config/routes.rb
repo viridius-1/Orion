@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   resources :data_studios, only: [:create, :destroy]
   resources :platforms, only: :index
 
+  get 'audiences/:id', to: 'audiences#show', as: :audiences
+
   resources :agencies do
     resources :users
 

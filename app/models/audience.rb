@@ -6,30 +6,24 @@ class Audience < ApplicationRecord
   validates :name, presence: true
 
   class << self
-    def list_of_ancestors
-      # where(audience_id: nil)
-      where(name: 'Lotame')
+    def data_providers
+      where(audience_id: nil)
     end
 
     def family_tree
-      get_descentants(list_of_ancestors)
+      get_descentants(data_providers)
     end
-
-    private
 
     def get_descentants(ancestor_audience)
       ancestor_audience.map do |audience|
         family_tree = { label: "#{audience.name}",
-                        value: "#{audience.id}",
-                        key: "#{audience.id}",
-                        audience_id: audience.id }
+                        key: "#{audience.id}" }
 
         descentants = if audience&.children&.any?
-                        # Remove the first 5
-                        get_descentants(audience&.children&.first(5))
+                        get_descentants(audience&.children)
                       end
 
-        family_tree[:children] = descentants
+        family_tree[:nodes] = descentants
 
         family_tree
       end
