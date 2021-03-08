@@ -137,10 +137,18 @@ export default class New extends Component {
 
   handleSubmit = () => {
     const { company } = this.props;
-    const url = `/agencies/${company.agency_id}/clients/${company.id}/campaigns`;
-    const { errors, audiences, ...campaign } = this.state;
+    const postUrl = `/agencies/${company.agency_id}/clients/${company.id}/campaigns`;
 
-    axios.post(url, { campaign });
+    const {
+      errors,
+      audiences,
+      name,
+      url,
+      flight_start_date,
+      flight_end_date,
+    } = this.state;
+
+    axios.post(postUrl, { name, url, flight_start_date, flight_end_date });
 
     window.location.assign(url);
   };

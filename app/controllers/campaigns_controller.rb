@@ -16,7 +16,6 @@ class CampaignsController < ApplicationController
   end
 
   def create
-    byebug
     @campaign = Campaign.new(campaign_params)
 
     if @campaign.save
