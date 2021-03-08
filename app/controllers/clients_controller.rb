@@ -4,6 +4,11 @@ class ClientsController < ApplicationController
 
   def index
     @clients = @agency.clients
+    @clients_with_campaigns = @clients.map do |client|
+      new_client = client.attributes
+      new_client[:campaigns] = client.company_campaigns
+      new_client
+    end
   end
 
   def new

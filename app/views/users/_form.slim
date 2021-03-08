@@ -1,5 +1,14 @@
 = simple_form_for [@company, @user] do |f|
-  = f.input :first_name
-  = f.input :last_name
-  = f.input :email, as: :email
-  = f.button :submit, class: 'btn btn-primary btn-sm'
+
+  .form-v2
+    .form-group
+      = f.label :first_name, class: 'label-v2'
+      = f.input_field :first_name, class: 'input-v2 form-control'
+    .form-group
+      = f.label :last_name, class: 'label-v2'
+      = f.input_field :last_name, class: 'input-v2 form-control'
+    .form-group
+      = f.label :email, class: 'label-v2'
+      = f.input_field :email, as: :email, class: 'input-v2 form-control'
+
+    = f.button :submit, class: 'btn btn-primary-v2 btn-sm'

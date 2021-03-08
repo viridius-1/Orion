@@ -42,3 +42,6 @@ yarn-debug.log*
 dump.rdb
 
 yarn.lock
+
+.idea/*
+# public/packs/*

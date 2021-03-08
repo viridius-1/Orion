@@ -20,12 +20,11 @@ class CampaignsController < ApplicationController
 
     if @campaign.save
       create_company_campaign
-      create_campaign_audiences(@campaign, audience_params)
+      # create_campaign_audiences(@campaign, audience_params)
 
-      request_type = request_type_params[:type].to_sym
-      send_internal_notification(request_type)
-      send_customer_confirmation(request_type)
-
+      # request_type = request_type_params[:type].to_sym
+      # send_internal_notification(request_type)
+      # send_customer_confirmation(request_type)
       render json: { messages: 'Campaign was successfully created.', redirectTo: campaign_paths, status: 200 }
     else
       render json: { messages: display_validation(@campaign), redirectTo: '', status: 422 }

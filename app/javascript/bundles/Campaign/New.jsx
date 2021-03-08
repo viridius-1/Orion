@@ -150,7 +150,7 @@ export default class New extends Component {
 
     axios.post(postUrl, { name, url, flight_start_date, flight_end_date });
 
-    window.location.assign(url);
+    window.location.assign(postUrl);
   };
 
   handleDateNumSelect = (key, event) => {

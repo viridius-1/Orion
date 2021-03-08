@@ -20,7 +20,6 @@ import "bootstrap";
 import ReactOnRails from "react-on-rails";
 
 import CampaignNew from "../bundles/Campaign/New";
-
-ReactOnRails.register({
-  CampaignNew,
-});
+import AgencyDashboardComponent from "../bundles/Dashboard/AgencyDashboardComponent"
+import LinkDropdownMenuComponent from "../components/LinkDropdownMenuComponent"
+ReactOnRails.register({CampaignNew, AgencyDashboardComponent, LinkDropdownMenuComponent});
