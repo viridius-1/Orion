@@ -17,7 +17,6 @@ class CampaignsController < ApplicationController
 
   def show
     @campaign = Campaign.find(params[:id])
-    byebug
   end
 
   def create
