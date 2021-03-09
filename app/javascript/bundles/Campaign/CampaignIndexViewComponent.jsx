@@ -55,11 +55,11 @@ export default class CampaignIndexViewComponent extends Component {
         return `hsl(${hue}, 100%, 40%)`;
     }
 
-    moneyFormatter(row) {
-        const formatter = new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "USD",
-            maximumFractionDigits: 0,
+    static moneyFormatter(row) {
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            maximumFractionDigits: 0
         });
         return `${formatter.format(row)} CAD`;
     }
@@ -117,7 +117,7 @@ export default class CampaignIndexViewComponent extends Component {
             text: "Total Budget",
             sort: true,
             sortCaret: this.getSortCaret,
-            formatter: this.moneyFormatter,
+            formatter: CampaignIndexViewComponent.moneyFormatter,
             style: () => {
                 return { textAlign: "center" };
             },

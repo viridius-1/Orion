@@ -3,7 +3,7 @@ class ClientsController < ApplicationController
   before_action :set_client, only: [:edit, :update, :destroy]
 
   def index
-    @clients = @agency.clients
+    @clients = @agency.clients.order(updated_at: :desc)
     @clients_with_campaigns = @clients.map do |client|
       new_client = client.attributes
       new_client[:campaigns] = client.company_campaigns

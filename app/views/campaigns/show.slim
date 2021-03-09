@@ -1,0 +1,24 @@
+.agency-dashboard
+  .dropdown-menu-button.float-left
+    = react_component("LinkDropdownMenuComponent",
+            props: {icon: "fas fa-ellipsis-h",
+                    token: form_authenticity_token,
+                    buttonClass: 'btn-cancel-v2 btn-drawer',
+                    items: [{text: "Edit", icon: "fas fa-pen", link: @button_links[:edit]},
+                            {text: "Duplicate", icon: "fas fa-copy", link: @button_links[:duplicate]},
+                            {text: "Delete", icon: "fas fa-times-circle", link: @button_links[:delete], redirectLink: @button_links[:back], action: 'delete'}]},
+            prerender: false)
+
+  h1 #{@campaign.name}
+
+  .dropdown-menu-button
+    = react_component("LinkButtonComponent",
+            props: {text: 'Back to campaigns', icon: '', buttonClass: 'btn-cancel-v2 btn-campaign-back', link: @button_links[:back]},
+            prerender: false)
+    = react_component("LinkDropdownMenuComponent",
+            props: {icon: "fas fa-cog gear-icon", items: [{text: "Edit Profile", icon: "fas fa-pen", link: "/agencies/#{current_user.company.id}/users/#{current_user.id}/edit"}]},
+            prerender: false)
+
+  = react_component("CampaignDetailsComponent",
+          props: {campaign: @campaign, client: @client},
+          prerender: false)

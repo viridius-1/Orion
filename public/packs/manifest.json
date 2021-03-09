@@ -1,22 +1,16 @@
 {
-  "application.css": "/packs/css/application-e1e74831.css",
-  "application.css.map": "/packs/css/application-e1e74831.css.map",
-  "application.js": "/packs/js/application-3d6da342218942cc1d2f.js",
-  "application.js.map": "/packs/js/application-3d6da342218942cc1d2f.js.map",
+  "application.js": "/packs/js/application-bd8616c7a09016e666f3.js",
+  "application.js.map": "/packs/js/application-bd8616c7a09016e666f3.js.map",
   "entrypoints": {
     "application": {
-      "css": [
-        "/packs/css/application-e1e74831.css"
-      ],
       "js": [
-        "/packs/js/application-3d6da342218942cc1d2f.js"
-      ],
-      "css.map": [
-        "/packs/css/application-e1e74831.css.map"
+        "/packs/js/application-bd8616c7a09016e666f3.js"
       ],
       "js.map": [
-        "/packs/js/application-3d6da342218942cc1d2f.js.map"
+        "/packs/js/application-bd8616c7a09016e666f3.js.map"
       ]
     }
-  }
+  },
+  "media/images/affinities-card.svg": "/packs/media/images/affinities-card-47e24f67.svg",
+  "media/images/geography-campaign.svg": "/packs/media/images/geography-campaign-1914e274.svg"
 }
