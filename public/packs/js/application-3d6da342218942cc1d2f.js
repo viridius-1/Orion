@@ -142,54 +142,54 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
     _this.columns = [{
-      dataField: 'status',
-      text: 'Status',
+      dataField: "status",
+      text: "Status",
       formatter: _this.statusFormatter,
       headerStyle: function headerStyle() {
         return {
-          width: '80px'
+          width: "80px"
         };
       }
     }, {
-      dataField: 'name',
-      text: 'Campaign',
+      dataField: "name",
+      text: "Campaign",
       sort: true,
       sortCaret: _this.getSortCaret
     }, {
-      dataField: 'flight',
-      text: 'Flight',
+      dataField: "flight",
+      text: "Flight",
       sort: true,
       sortCaret: _this.getSortCaret
     }, {
-      dataField: 'budget',
-      text: 'Total Budget',
+      dataField: "budget",
+      text: "Total Budget",
       sort: true,
       sortCaret: _this.getSortCaret,
       formatter: _this.moneyFormatter,
       style: function style() {
         return {
-          textAlign: 'center'
+          textAlign: "center"
         };
       },
       headerStyle: function headerStyle() {
         return {
-          textAlign: 'center'
+          textAlign: "center"
         };
       }
     }, {
-      dataField: 'budget_used',
-      text: 'Budget Used',
+      dataField: "budget_used",
+      text: "Budget Used",
       sort: true,
       sortCaret: _this.getSortCaret,
       formatter: _this.budgetUsedFormatter,
       headerStyle: function headerStyle() {
         return {
-          textAlign: 'center'
+          textAlign: "center"
         };
       }
     }, {
-      dataField: 'goals',
-      text: 'Goals',
+      dataField: "goals",
+      text: "Goals",
       sort: true,
       sortCaret: function sortCaret() {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -197,15 +197,15 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
           __self: _assertThisInitialized(_this),
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 139,
-            columnNumber: 25
+            lineNumber: 143,
+            columnNumber: 24
           }
         });
       }
     }];
     _this.state = {
-      searchTerm: '',
-      tableData: _this.getUpdatedTableData('')
+      searchTerm: "",
+      tableData: _this.getUpdatedTableData("")
     };
     return _this;
   }
@@ -232,7 +232,9 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
         }
       });
       data.map(function (campaign) {
-        campaign.flight = "".concat(campaign.flight_start_date.replaceAll('-', '/'), " - ").concat(campaign.flight_end_date.replaceAll('-', '/'));
+        var _campaign$flight_star, _campaign$flight_end_;
+
+        campaign.flight = "".concat(campaign === null || campaign === void 0 ? void 0 : (_campaign$flight_star = campaign.flight_start_date) === null || _campaign$flight_star === void 0 ? void 0 : _campaign$flight_star.replaceAll("-", "/"), " - ").concat(campaign === null || campaign === void 0 ? void 0 : (_campaign$flight_end_ = campaign.flight_end_date) === null || _campaign$flight_end_ === void 0 ? void 0 : _campaign$flight_end_.replaceAll("-", "/"));
         campaign.budget_used = Math.floor(Math.random() * 91) + 10;
         campaign.link = "".concat(_this2.props.link).concat(campaign.id);
       });
@@ -248,7 +250,7 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 45,
+          lineNumber: 47,
           columnNumber: 13
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -256,7 +258,7 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 46,
+          lineNumber: 48,
           columnNumber: 17
         }
       }));
@@ -264,9 +266,9 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
   }, {
     key: "moneyFormatter",
     value: function moneyFormatter(row) {
-      var formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
+      var formatter = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
         maximumFractionDigits: 0
       });
       return "".concat(formatter.format(row), " CAD");
@@ -280,14 +282,14 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 67,
+          lineNumber: 70,
           columnNumber: 13
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 68,
+          lineNumber: 71,
           columnNumber: 17
         }
       }, "".concat(row, "%")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -295,7 +297,7 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 69,
+          lineNumber: 72,
           columnNumber: 17
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -307,7 +309,7 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 70,
+          lineNumber: 73,
           columnNumber: 21
         }
       })));
@@ -320,8 +322,8 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 82,
-          columnNumber: 17
+          lineNumber: 86,
+          columnNumber: 16
         }
       });
     }
@@ -340,7 +342,7 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 145,
+          lineNumber: 150,
           columnNumber: 13
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -348,7 +350,7 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 146,
+          lineNumber: 151,
           columnNumber: 17
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -356,7 +358,7 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 147,
+          lineNumber: 152,
           columnNumber: 21
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -369,7 +371,7 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 148,
+          lineNumber: 153,
           columnNumber: 25
         }
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -377,7 +379,7 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 151,
+          lineNumber: 162,
           columnNumber: 21
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_LinkButtonComponent__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -388,7 +390,7 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 152,
+          lineNumber: 163,
           columnNumber: 25
         }
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_table_next__WEBPACK_IMPORTED_MODULE_2___default.a, {
@@ -403,7 +405,7 @@ var CampaignIndexViewComponent = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 159,
+          lineNumber: 171,
           columnNumber: 17
         }
       }));
@@ -110417,4 +110419,4 @@ module.exports = function (module) {
 /***/ })
 
 /******/ });
-//# sourceMappingURL=application-826b2c53b9f5b5227ae9.js.map
+//# sourceMappingURL=application-3d6da342218942cc1d2f.js.map
