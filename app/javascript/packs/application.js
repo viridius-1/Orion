@@ -20,7 +20,17 @@ import "bootstrap";
 import ReactOnRails from "react-on-rails";
 
 import CampaignNew from "../bundles/Campaign/New";
+import CampaignDetailsComponent from "../bundles/Campaign/CampaignDetailsComponent.jsx";
 import CampaignIndexViewComponent from "../bundles/Campaign/CampaignIndexViewComponent.jsx";
 import AgencyDashboardComponent from "../bundles/Dashboard/AgencyDashboardComponent";
 import LinkDropdownMenuComponent from "../components/LinkDropdownMenuComponent";
-ReactOnRails.register({CampaignNew, AgencyDashboardComponent, LinkDropdownMenuComponent, CampaignIndexViewComponent});
+import LinkButtonComponent from "../components/LinkButtonComponent";
+
+ReactOnRails.register({
+    CampaignNew,
+    AgencyDashboardComponent,
+    LinkDropdownMenuComponent,
+    CampaignIndexViewComponent,
+    CampaignDetailsComponent,
+    LinkButtonComponent
+});
