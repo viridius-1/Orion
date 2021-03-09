@@ -17,11 +17,13 @@ class CampaignsController < ApplicationController
   end
 
   def show
-    @client = Client.find(params[:client_id])
     @campaign = Campaign.find(params[:id])
     if current_user.company_type == 'Advertiser'
+      @website = 'www.website.com'
       back = advertiser_campaigns_path(params[:advertiser_id])
     else
+      @website = Client.find(params[:client_id]).website
+
       back = agency_client_campaigns_path(params[:agency_id], params[:client_id])
     end
     @button_links = {
