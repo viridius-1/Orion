@@ -5,7 +5,6 @@ import LinkButtonComponent from "../../components/LinkButtonComponent";
 export default class AgencyDashboardComponent extends Component {
     constructor(props) {
         super(props);
-        console.log(props)
     }
 
     render() {
@@ -13,7 +12,7 @@ export default class AgencyDashboardComponent extends Component {
         const numOfClients = this.props.clients ? this.props.clients.length : 0;
         const addAdvertiserLink = `/agencies/${this.props.agency.id}/clients/new`;
         if (numOfClients > 0) {
-            content = <ClientsGridViewComponent clients={this.props.clients} agency={this.props.agency}/>;
+            content = <ClientsGridViewComponent clients={this.props.clients} agency={this.props.agency} token={this.props.token}/>;
         } else {
             content =
                 <div className="row">

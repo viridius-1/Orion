@@ -6,7 +6,7 @@ export default class LinkButtonComponent extends Component {
     }
 
     render() {
-        const buttonClass =`btn ${this.props.buttonClass}`;
+        const buttonClass = `btn ${this.props.buttonClass}`;
         const iconClass = `icon ${this.props.icon}`;
         return (
             <a href={this.props.link}>

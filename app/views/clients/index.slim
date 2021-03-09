@@ -5,4 +5,4 @@
             props: {icon: "fas fa-cog gear-icon", items: [{text: "Edit Profile", icon:"fas fa-pen", link:"/agencies/#{current_user.company.id}/users/#{current_user.id}/edit"}]},
             prerender: false)
 
-= react_component("AgencyDashboardComponent", props: {agency: @agency, clients: @clients_with_campaigns}, prerender: false)
+= react_component("AgencyDashboardComponent", props: {agency: @agency, clients: @clients_with_campaigns, token: form_authenticity_token}, prerender: false)

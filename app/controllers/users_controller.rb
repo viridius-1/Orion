@@ -17,14 +17,14 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      company_type = current_user.company_type.downcase.to_sym
-      correct_paths = if company_type == :agency
-                        agency_users_path
-                      elsif company_type == :advertiser
-                        advertiser_users_path
-                      end
+      # company_type = current_user.company_type.downcase.to_sym
+      # correct_paths = if company_type == :agency
+      #                   agency_users_path
+      #                 elsif company_type == :advertiser
+      #                   advertiser_users_path
+      #                 end
 
-      redirect_to correct_paths, notice: 'User has been successfully updated.'
+      redirect_to dashboard_index_path, notice: 'User has been successfully updated.'
     else
       errors = { alert: @user.errors.full_messages.join(', ') }
       redirect_to edit_advertiser_user_path(@user, user: user_params), errors

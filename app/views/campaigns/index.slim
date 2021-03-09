@@ -1,59 +1,10 @@
-.container-fluid.campaigns
-  .row
-    .col-12
-      h1.h5.mb-4.float-left
-        | Data Studio >
-        - if current_user.company_type == 'Advertiser'
-          = link_to "#{current_user.company.name}", advertiser_path(current_user.company.id)
-        - else current_user.company_type == 'Agency'
-          / Agency's Link
-          = link_to "#{current_user.company.name}", edit_agency_path(current_user.company.id)
-          | >
-          / Client's Link
-          = link_to "#{@company.name}", edit_agency_client_path(agency_id: @company.agency_id, id: @company.id)
-        |  > Campaigns
-
-  .row
-    .col-12
-      .card
-        .card-body
-          .row
-            .col-12
-              - if current_user.company_type == 'Agency'
-                = link_to 'Create Campaign', new_agency_client_campaign_path(agency_id: @company.agency_id, client_id: @company.id), class: 'btn btn-primary float-right mb-3'
-              - elsif current_user.company_type == 'Advertiser'
-                = link_to 'Create Campaign', new_advertiser_campaign_path(advertiser: params[:advertiser], client_id: params[:client_id]), class: 'btn btn-primary float-right mb-3'
-          .row
-            .col-12
-              table.table.table-striped
-                thead.thead-dark
-                  tr
-                    th scope="col" Campaign
-                    th scope="col" Flight
-                    th scope='col' Budget
-                    th scope="col" Goal
-                    th scope="col" Action
-                  tbody
-                    - @campaigns.each do |campaign|
-                      tr
-                        td = campaign.name
-                        td = "#{campaign.flight_start_date&.strftime("%m/%d/%Y")} - #{campaign.flight_end_date&.strftime("%m/%d/%Y")}"
-                        td = "$ #{campaign&.budget&.floor}"
-                        td = campaign.goal
-                        td
-                          - if current_user.company_type == 'Agency'
-                            = link_to "Edit", edit_agency_client_campaign_path(id: campaign, agency_id: @company.agency_id, client_id: @company.id), class: 'action-link'
-                            = link_to "Delete", agency_client_campaign_path(id: campaign, agency_id: @company.agency_id, client_id: @company.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'action-link'
-
-                          - elsif current_user.company_type == 'Advertiser'
-                            = link_to "Edit", edit_advertiser_campaign_path(id: campaign, advertiser: params[:advertiser]), class: 'action-link'
-                            = link_to "Delete", advertiser_campaign_path(id: campaign, advertiser: params[:advertiser]), method: :delete, data: { confirm: 'Are you sure?' }, class: 'action-link'
-
-            - if current_user.company_type == 'Agency'
-              .col-12
-                = link_to 'Back to advertiser(s)', agency_clients_path
-
-
-
-
-
+.agency-dashboard
+  h1 #{@company.name}
+  .dropdown-menu-button
+    = react_component("LinkDropdownMenuComponent",
+            props: {icon: "fas fa-cog gear-icon", items: [{text: "Edit Profile", icon: "fas fa-pen", link: "/agencies/#{current_user.company.id}/users/#{current_user.id}/edit"}]},
+            prerender: false)
+  - if current_user.company_type == 'Agency'
+    = react_component("CampaignIndexViewComponent", props: {campaigns: @campaigns, link:"/agencies/#{@company.agency_id}/clients/#{@company.id}/campaigns/"}, prerender: false)
+  - elsif current_user.company_type == 'Advertiser'
+    = react_component("CampaignIndexViewComponent", props: {campaigns: @campaigns, link:"/advertisers/#{@company.id}/campaigns/"}, prerender: false)
