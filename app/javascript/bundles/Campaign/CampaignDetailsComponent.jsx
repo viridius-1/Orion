@@ -179,7 +179,7 @@ export default class CampaignDetailsComponent extends Component {
                     <div className="col-4 grid-item">
                         <div className="details-card">
                             <h6>Destination URL</h6>
-                            <label>{this.props.client.website}</label>
+                            <label>{this.props.website}</label>
                         </div>
                     </div>
                 </div>
