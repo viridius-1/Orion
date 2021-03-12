@@ -12,7 +12,7 @@ export default class CampaignGoal extends Component {
       cpa_goal: "Target CPA ($)",
       roas_goal: "Target ROAS",
       budget: "Budget ($)",
-      coversion_rate: "Conversion Rate ($)",
+      coversion_rate: "Conversion Rate (%)",
       aov: "AOV ($)",
     };
 
