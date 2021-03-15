@@ -26,4 +26,12 @@ module CampaignsHelper
     ['Parent',
      'Not Parent']
   end
+
+  def income_options
+    ['<$50k',
+     '$50-100k',
+     '$100-200k',
+     '$200-500k',
+     '$500k+']
+  end
 end

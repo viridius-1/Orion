@@ -6,7 +6,6 @@ class CampaignsController < ApplicationController
   include ErrorMessages
 
   def index
-
     @campaigns = @company&.campaigns
   end
 
@@ -26,6 +25,7 @@ class CampaignsController < ApplicationController
 
       back = agency_client_campaigns_path(params[:agency_id], params[:client_id])
     end
+
     @button_links = {
         back: back,
         edit: "#{request.path}/edit",
