@@ -30,7 +30,7 @@ export default class New extends Component {
       parental_status: "",
       audiences: [],
       selectedAudiences: [],
-      income: [50, 500],
+      income: "",
       data_providers: "",
       errors: {
         name: "",
@@ -190,6 +190,7 @@ export default class New extends Component {
       education_options,
       parental_options,
       data_provider_options,
+      income_options,
     } = this.props;
 
     if (step == 0) {
@@ -233,6 +234,7 @@ export default class New extends Component {
           educationOptions={education_options}
           parentOptions={parental_options}
           genderOptions={gender}
+          incomeOptions={income_options}
           handleInputChange={this.handleInputChange}
           handleRange={this.handleRange}
           handleOnClick={this.handleOnClick}
