@@ -21,7 +21,7 @@ export default class CampaignGoal extends Component {
 
       return (
         <select
-          className={`basic-input ${showErrorStyles(errors[key])}`}
+          className={`basic-input form-control`}
           name={key}
           value={value}
           onChange={(event) => handleInputChange(event)}
@@ -41,7 +41,7 @@ export default class CampaignGoal extends Component {
     } else {
       return (
         <input
-          className={`basic-input ${showErrorStyles(errors[key])}`}
+          className={`basic-input form-control`}
           name={`${key}`}
           onChange={(event) => handleInputChange(event)}
           value={value}

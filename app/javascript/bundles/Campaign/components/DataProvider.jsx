@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-
 import TreeMenu from "react-simple-tree-menu";
 import "react-simple-tree-menu/dist/main.css";
 import TagsInput from "react-tagsinput";

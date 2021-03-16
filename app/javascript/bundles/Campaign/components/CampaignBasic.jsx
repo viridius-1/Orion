@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { showErrorStyles } from "../common/";
 
 export default class CampaignBasic extends Component {
-  showInput(key, value, errors, handleDateNumSelect, handleInputChange) {
+  showInput(key, value, handleDateNumSelect, handleInputChange) {
     let keyNames = {
       name: "Campaign Name",
       url: "Campaign URL",
@@ -16,7 +16,7 @@ export default class CampaignBasic extends Component {
     if (key == "flight_start_date" || key == "flight_end_date") {
       return (
         <DatePicker
-          className={`basic-input ${showErrorStyles(errors[key])}`}
+          className={"basic-input form-control"}
           name={`${key}`}
           onSelect={(event) => handleDateNumSelect(key, event)}
           selected={value}
@@ -26,7 +26,7 @@ export default class CampaignBasic extends Component {
     } else {
       return (
         <input
-          className={`basic-input ${showErrorStyles(errors[key])}`}
+          className={"basic-input form-control"}
           name={`${key}`}
           onChange={(event) => handleInputChange(event)}
           value={value}
@@ -37,21 +37,19 @@ export default class CampaignBasic extends Component {
   }
 
   render() {
-    const { handleDateNumSelect, handleInputChange } = this.props;
-    const { errors, ...formFields } = this.props.fields;
+    const { fields, handleDateNumSelect, handleInputChange } = this.props;
 
     return (
       <Fragment>
         <h5 className="mb-4">Campaign Basic</h5>
 
         <div className="row d-flex flex-column">
-          {Object.entries(formFields).map(([key, value]) => {
+          {Object.entries(fields).map(([key, value]) => {
             return (
               <div className="col-6 mb-4">
                 {this.showInput(
                   key,
                   value,
-                  errors,
                   handleDateNumSelect,
                   handleInputChange
                 )}

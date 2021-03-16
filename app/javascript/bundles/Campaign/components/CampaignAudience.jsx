@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import TagsInput from "react-tagsinput";
-
 import "react-tagsinput/react-tagsinput.css";
 
 import { showErrorStyles } from "../common/";
@@ -43,7 +42,7 @@ export default class CampaignAudience extends Component {
     if (key == "education" || key == "parental_status" || key == "income") {
       return (
         <select
-          className={`basic-input ${showErrorStyles(errors[key])}`}
+          className={`basic-input form-control`}
           name={key}
           value={value}
           onChange={(event) => handleInputChange(event)}
@@ -119,7 +118,7 @@ export default class CampaignAudience extends Component {
     } else {
       return (
         <input
-          className={`basic-input ${showErrorStyles(errors[key])}`}
+          className={`basic-input form-control`}
           name={`${key}`}
           onChange={(event) => handleInputChange(event)}
           value={value}
