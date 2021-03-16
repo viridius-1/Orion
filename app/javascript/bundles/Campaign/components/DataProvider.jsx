@@ -43,7 +43,11 @@ export default class DataProvider extends Component {
   }
 
   showAudiences(props) {
-    const { selectedAudiences, resetAudiences, setSelectedAudiences } = props;
+    const {
+      selectedAudiences,
+      resetDataProvider,
+      setSelectedAudiences,
+    } = props;
     const { audiences, data_providers } = props.fields;
     let audValue = this.getAffinitesTag(selectedAudiences);
 
@@ -54,7 +58,7 @@ export default class DataProvider extends Component {
           <div className="btn btn-primary-outline d-flex align-items-center justify-content-center mb-3 provider-btn">
             {audiences[0].label}
           </div>
-          <div onClick={resetAudiences}>Reset</div>
+          <div onClick={resetDataProvider}>Reset</div>
         </div>
         <div className="row">
           <div className="col-6">

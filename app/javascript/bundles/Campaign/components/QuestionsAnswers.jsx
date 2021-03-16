@@ -13,7 +13,7 @@ export default class QuestionsAnswers extends Component {
       handleDateNumSelect,
       redirectTo,
       handleInputChange,
-      resetAudiences,
+      resetDataProvider,
       setSelectedAudiences,
       getAudiences,
       handleInputTags,
@@ -107,7 +107,7 @@ export default class QuestionsAnswers extends Component {
           selectedAudiences={selectedAudiences}
           dataProviderOptions={data_provider_options}
           getAudiences={getAudiences}
-          resetAudiences={resetAudiences}
+          resetDataProvider={resetDataProvider}
           setSelectedAudiences={setSelectedAudiences}
         />
       );

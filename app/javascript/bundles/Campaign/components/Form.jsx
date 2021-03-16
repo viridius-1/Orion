@@ -51,7 +51,7 @@ export default class Form extends Component {
     };
   }
 
-  resetAudiences = () => {
+  resetDataProvider = () => {
     this.setState({ audiences: [] });
   };
 
@@ -109,8 +109,8 @@ export default class Form extends Component {
   };
 
   redirectTo = () => {
-    const { company } = this.props;
-    const url = `/agencies/${company.agency_id}/clients/${company.id}/campaigns`;
+    const { currentCompany } = this.props;
+    const url = `/agencies/${currentCompany.agency_id}/clients/${currentCompany.id}/campaigns`;
 
     window.location.assign(url);
   };
@@ -122,8 +122,8 @@ export default class Form extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    const { company } = this.props;
-    const postUrl = `/agencies/${company.agency_id}/clients/${company.id}/campaigns`;
+    const { currentCompany } = this.props;
+    const postUrl = `/agencies/${currentCompany.agency_id}/clients/${currentCompany.id}/campaigns`;
 
     const {
       errors,
@@ -174,7 +174,13 @@ export default class Form extends Component {
       (this.props.currentStep == 2 && gender["male"]) ||
       (gender["female"] && income.length > 1 && geography.length > 1);
 
-    if (stepOne || stepTwo || stepThree || stepFour) {
+    if (
+      stepOne ||
+      stepTwo ||
+      stepThree ||
+      stepFour ||
+      selectedAudiences.length > 1
+    ) {
       return false;
     } else {
       return true;
@@ -193,6 +199,14 @@ export default class Form extends Component {
     this.props.prevStep();
   };
 
+  showStep(step) {
+    return (
+      <img
+        src={require(`../../../../assets/images/star_step_${step + 1}.svg`)}
+      />
+    );
+  }
+
   render() {
     const { currentStep, options } = this.props;
     let stateKey = Object.keys(this.state)[currentStep];
@@ -204,7 +218,9 @@ export default class Form extends Component {
             <h1 className="h3 mb-4">Campaign Setup</h1>
             <div className="card campaign-card">
               <div className="card-body d-flex flex-column campaign-card-body">
-                <hr></hr>
+                {this.showStep(currentStep)}
+
+                <hr className="w-100" />
 
                 <QuestionsAnswers
                   currentStep={currentStep}
@@ -212,7 +228,7 @@ export default class Form extends Component {
                   handleDateNumSelect={this.handleDateNumSelect}
                   redirectTo={this.redirectTo}
                   handleInputChange={this.handleInputChange}
-                  resetAudiences={this.resetAudiences}
+                  resetDataProvider={this.resetDataProvider}
                   setSelectedAudiences={this.setSelectedAudiences}
                   getAudiences={this.getAudiences}
                   handleInputTags={this.handleInputTags}

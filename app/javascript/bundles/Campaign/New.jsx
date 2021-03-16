@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
 import Form from "./components/Form";
 
@@ -30,12 +30,11 @@ export default class New extends Component {
   render() {
     let step = this.state.step;
     const { page_type, campaign, company, is_client, ...options } = this.props;
-    {
-      /* Render step comp here */
-    }
+
     return (
       <Form
         currentStep={step}
+        currentCompany={company}
         prevStep={this.prevStep}
         nextStep={this.nextStep}
         options={options}
