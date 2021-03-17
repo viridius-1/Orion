@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import TagsInput from "react-tagsinput";
-
 import "react-tagsinput/react-tagsinput.css";
 
 import { showErrorStyles } from "../common/";
@@ -19,6 +18,7 @@ export default class CampaignAudience extends Component {
       handleOnClick,
       handleInputTags,
       educationOptions,
+      incomeOptions,
       parentOptions,
       genderOptions,
     } = rest;
@@ -36,13 +36,13 @@ export default class CampaignAudience extends Component {
       education: educationOptions,
       parental_status: parentOptions,
       age_range: [18, 99],
-      income: [50, 500],
+      income: incomeOptions,
     };
 
-    if (key == "education" || key == "parental_status") {
+    if (key == "education" || key == "parental_status" || key == "income") {
       return (
         <select
-          className={`basic-input ${showErrorStyles(errors[key])}`}
+          className={`basic-input form-control`}
           name={key}
           value={value}
           onChange={(event) => handleInputChange(event)}
@@ -67,7 +67,7 @@ export default class CampaignAudience extends Component {
             {Object.entries(genderOptions).map(([gender, option]) => {
               return (
                 <div
-                  className="btn btn-primary-outline d-flex align-items-center justify-content-center select-btn"
+                  className="btn btn-primary-outline d-flex align-items-center justify-content-center select-btn gender"
                   style={this.renderStyle(option)}
                   name={gender}
                   value={gender}
@@ -80,7 +80,7 @@ export default class CampaignAudience extends Component {
           </div>
         </div>
       );
-    } else if (key == "age_range" || key == "income") {
+    } else if (key == "age_range") {
       let [first, second] = keyObj[key];
 
       return (
@@ -118,7 +118,7 @@ export default class CampaignAudience extends Component {
     } else {
       return (
         <input
-          className={`basic-input ${showErrorStyles(errors[key])}`}
+          className={`basic-input form-control`}
           name={`${key}`}
           onChange={(event) => handleInputChange(event)}
           value={value}

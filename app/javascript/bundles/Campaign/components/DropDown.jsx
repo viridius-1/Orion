@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { TreeSelect } from "antd";
-
+const { TreeNode } = TreeSelect;
+import "antd/dist/antd.css";
 const { SHOW_PARENT } = TreeSelect;
 
 export default class DropDown extends Component {
   updateSelectedCategories = (value) => {
-    this.props.setAudienceState(value);
+    this.props.setSelectedAudiences(value);
   };
 
   render() {
@@ -22,7 +23,6 @@ export default class DropDown extends Component {
         width: "100%",
       },
     };
-
     return <TreeSelect {...tProps} />;
   }
 }

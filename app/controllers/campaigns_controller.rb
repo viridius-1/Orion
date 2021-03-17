@@ -6,14 +6,7 @@ class CampaignsController < ApplicationController
   include ErrorMessages
 
   def index
-
     @campaigns = @company&.campaigns
-  end
-
-  def new
-    @campaign = Campaign.new
-    @data_providers = Audience.data_providers
-    @is_client = true if @company_type == :agency
   end
 
   def show
@@ -26,6 +19,7 @@ class CampaignsController < ApplicationController
 
       back = agency_client_campaigns_path(params[:agency_id], params[:client_id])
     end
+
     @button_links = {
         back: back,
         edit: "#{request.path}/edit",
@@ -34,16 +28,22 @@ class CampaignsController < ApplicationController
     }
   end
 
+  def new
+    @campaign = Campaign.new
+    @data_providers = Audience.data_providers
+    @is_client = true if @company_type == :agency
+  end
+
   def create
     @campaign = Campaign.new(campaign_params)
 
     if @campaign.save
       create_company_campaign
-      # create_campaign_audiences(@campaign, audience_params)
+      create_campaign_audiences(@campaign, audience_params)
+      request_type = request_type_params.to_sym
+      send_internal_notification(request_type)
+      send_customer_confirmation(request_type)
 
-      # request_type = request_type_params[:type].to_sym
-      # send_internal_notification(request_type)
-      # send_customer_confirmation(request_type)
       render json: { messages: 'Campaign was successfully created.', redirectTo: campaign_paths, status: 200 }
     else
       render json: { messages: display_validation(@campaign), redirectTo: '', status: 422 }
@@ -112,11 +112,11 @@ class CampaignsController < ApplicationController
   end
 
   def audience_params
-    params.require(:audience).permit(ids: [])
+    params.require(:audience)
   end
 
   def request_type_params
-    params.require(:request_type).permit(:type)
+    params.require(:request_type)
   end
 
   def create_company_campaign
@@ -135,7 +135,7 @@ class CampaignsController < ApplicationController
   end
 
   def create_campaign_audiences(campaign, audience_params)
-    audience_params[:ids].each do |id|
+    audience_params.each do |id|
       CampaignAudience.create(campaign_id: campaign.id, audience_id: id.to_i)
     end
   end
