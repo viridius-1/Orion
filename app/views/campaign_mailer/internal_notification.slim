@@ -29,9 +29,9 @@ ul
 
     li
       strong Current Media Mix:
-      - if !@agency&.current_media_mix.empty?
+      - if !@agency&.current_media_mix&.empty?
         ul
-          - @agency&.current_media_mix.each do |item|
+          - @agency&.current_media_mix&.each do |item|
             li = item
 
     li
@@ -40,44 +40,44 @@ ul
 
     li
       strong Gender:
-      - if !@agency&.gender.empty?
+      - if !@agency&.gender&.empty?
         ul
-          - @agency&.gender.each do |item|
+          - @agency&.gender&.each do |item|
             li = item
 
     li
       strong Household Income:
-      - if !@agency&.household_income.empty?
+      - if !@agency&.household_income&.empty?
         ul
-          - @agency&.household_income.each do |item|
+          - @agency&.household_income&.each do |item|
             li = item
 
     li
       strong Parental Status:
-      - if !@agency&.parental_status.empty?
+      - if !@agency&.parental_status&.empty?
         ul
-          - @agency&.parental_status.each do |item|
+          - @agency&.parental_status&.each do |item|
             li = item
 
     li
       strong Education:
-      - if !@agency&.education.empty?
+      - if !@agency&.education&.empty?
         ul
-          - @agency&.education.each do |item|
+          - @agency&.education&.each do |item|
             li = item
 
     li
       strong Language:
-      - if !@agency&.language.empty?
+      - if !@agency&.language&.empty?
         ul
-          - @agency&.language.each do |item|
+          - @agency&.language&.each do |item|
             li = item
 
     li
       strong Affinity:
-      - if !@agency&.affinity.empty?
+      - if !@agency&.affinity&.empty?
         ul
-          - @agency&.affinity.each do |item|
+          - @agency&.affinity&.each do |item|
             li = item
 
 - if @user.company_type == 'Agency'
@@ -102,9 +102,9 @@ ul
 
   li
     strong Affinity:
-    - if !@company&.affinity.empty?
+    - if !@company&.affinity&.empty?
       ul
-        - @company&.affinity.each do |item|
+        - @company&.affinity&.each do |item|
           li = item
 
 h3 Campaign Details:
@@ -141,7 +141,7 @@ ul
     = @campaign&.geography
   li
     strong Audience Targeting:
-    - @campaign&.audience_names.each do |name|
+    - @campaign&.audience_names&.each do |name|
       = name
   li
     strong Date Requested:

@@ -4,6 +4,12 @@ import "react-simple-tree-menu/dist/main.css";
 import TagsInput from "react-tagsinput";
 import "react-tagsinput/react-tagsinput.css";
 
+import { TreeSelect } from "antd";
+const { TreeNode } = TreeSelect;
+import "antd/dist/antd.css";
+
+import DropDown from "./DropDown";
+
 export default class DataProvider extends Component {
   showDataProviders(props) {
     const { getAudiences, dataProviderOptions, fields } = props;
@@ -47,8 +53,11 @@ export default class DataProvider extends Component {
       selectedAudiences,
       resetDataProvider,
       setSelectedAudiences,
+      handleInputTags,
     } = props;
+
     const { audiences, data_providers } = props.fields;
+
     let audValue = this.getAffinitesTag(selectedAudiences);
 
     return (
@@ -61,16 +70,13 @@ export default class DataProvider extends Component {
           <div onClick={resetDataProvider}>Reset</div>
         </div>
         <div className="row">
-          <div className="col-6">
-            <TreeMenu
-              className="audience-tree"
-              data={audiences}
-              onClickItem={setSelectedAudiences}
+          <div className="col-12">
+            <label>Select Affinities</label>
+            <DropDown
+              audiences={audiences}
+              audienceState={selectedAudiences}
+              setSelectedAudiences={setSelectedAudiences}
             />
-          </div>
-          <div className="col-6">
-            <label>Selected Affinities</label>
-            <TagsInput value={audValue} />
           </div>
         </div>
       </Fragment>

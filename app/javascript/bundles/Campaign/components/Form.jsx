@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import QuestionsAnswers from "./QuestionsAnswers";
+import CampaignModal from "./CampaignModal";
 
 export default class Form extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ export default class Form extends Component {
       selectedAudiences: [],
       income: "",
       data_providers: "",
+      isOpen: false,
       errors: {
         name: "",
         url: "",
@@ -57,12 +59,9 @@ export default class Form extends Component {
 
   setSelectedAudiences = (values) => {
     event.preventDefault();
-    let selectedAudiences = this.state.selectedAudiences;
 
     this.setState({
-      selectedAudiences: selectedAudiences.concat([
-        { [values.label]: values.key },
-      ]),
+      selectedAudiences: values,
     });
   };
 
@@ -127,16 +126,46 @@ export default class Form extends Component {
 
     const {
       errors,
-      audiences,
+      selectedAudiences,
       name,
       url,
       flight_start_date,
       flight_end_date,
+      goal,
+      kpi,
+      cpa_goal,
+      roas_goal,
+      budget,
+      geography,
     } = this.state;
 
-    axios.post(postUrl, { name, url, flight_start_date, flight_end_date });
+    let request_type = event.target.value;
+
+    axios.post(postUrl, {
+      name,
+      url,
+      flight_start_date,
+      flight_end_date,
+      audience: selectedAudiences,
+      request_type: request_type,
+      agency_id: currentCompany.agency_id,
+      client_id: currentCompany.id,
+      advertiser_id: null,
+    });
 
     window.location.assign(postUrl);
+  };
+
+  showModal = (event) => {
+    event.preventDefault();
+
+    this.setState({ isOpen: true });
+  };
+
+  hideModal = (event) => {
+    event.preventDefault;
+
+    this.setState({ isOpen: false });
   };
 
   checkState() {
@@ -157,7 +186,6 @@ export default class Form extends Component {
       age_range,
       education,
       parental_status,
-      audiences,
       selectedAudiences,
       income,
       data_providers,
@@ -179,7 +207,7 @@ export default class Form extends Component {
       stepTwo ||
       stepThree ||
       stepFour ||
-      selectedAudiences.length > 1
+      selectedAudiences.length >= 1
     ) {
       return false;
     } else {
@@ -248,7 +276,7 @@ export default class Form extends Component {
                     <button
                       className="btn-lg d-flex align-items-center justify-content-center next-btn"
                       onClick={
-                        currentStep == 3 ? this.handleSubmit : this.continue
+                        currentStep == 3 ? this.showModal : this.continue
                       }
                       disabled={this.checkState()}
                     >
@@ -260,6 +288,11 @@ export default class Form extends Component {
             </div>
           </div>
         </div>
+        <CampaignModal
+          isOpen={this.state.isOpen}
+          handleSubmit={this.handleSubmit}
+          hideModal={this.hideModal}
+        />
       </div>
     );
   }

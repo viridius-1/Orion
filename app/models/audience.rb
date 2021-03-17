@@ -17,13 +17,15 @@ class Audience < ApplicationRecord
     def get_descentants(ancestor_audience)
       ancestor_audience.map do |audience|
         family_tree = { label: "#{audience.name}",
-                        key: "#{audience.id}" }
+                        value: "#{audience.id}",
+                        key: "#{audience.id}",
+                        audience_id: audience.id }
 
         descentants = if audience&.children&.any?
                         get_descentants(audience&.children)
                       end
 
-        family_tree[:nodes] = descentants
+        family_tree[:children] = descentants
 
         family_tree
       end

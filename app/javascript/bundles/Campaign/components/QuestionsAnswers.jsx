@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
 import CampaignBasic from "./CampaignBasic";
 import CampaignGoal from "./CampaignGoal";
@@ -14,12 +14,12 @@ export default class QuestionsAnswers extends Component {
       redirectTo,
       handleInputChange,
       resetDataProvider,
-      setSelectedAudiences,
-      getAudiences,
       handleInputTags,
       handleOnClick,
       handleRange,
       options,
+      getAudiences,
+      setSelectedAudiences,
     } = this.props;
 
     const {
@@ -106,9 +106,10 @@ export default class QuestionsAnswers extends Component {
           fields={{ data_providers, audiences }}
           selectedAudiences={selectedAudiences}
           dataProviderOptions={data_provider_options}
-          getAudiences={getAudiences}
           resetDataProvider={resetDataProvider}
+          getAudiences={getAudiences}
           setSelectedAudiences={setSelectedAudiences}
+          handleInputTags={handleInputTags}
         />
       );
     }

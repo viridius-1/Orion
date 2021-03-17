@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_04_155718) do
+ActiveRecord::Schema.define(version: 2021_03_16_154834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,13 @@ ActiveRecord::Schema.define(version: 2020_11_04_155718) do
     t.string "audience_targeting"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "coversion_rate"
+    t.string "gender", default: [], array: true
+    t.float "average_order_value"
+    t.string "age_range", default: [], array: true
+    t.string "education"
+    t.string "parental_status"
+    t.string "income"
   end
 
   create_table "clients", force: :cascade do |t|
