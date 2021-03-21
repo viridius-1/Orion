@@ -2,19 +2,22 @@ nav#sidebar
   = link_to root_path, class: 'navbar-brand' do
     = image_tag "logo-orion.svg", style: 'width: 94px; margin-left: 13px'
   ul.list-unstyled.main-links
-    li.clearfix class=(controller_name == 'clients' ? 'active' : '')
+    li.clearfix class=(controller_name == 'clients' || (controller_name == 'campaigns' && controller.action_name) == 'index' ? 'active' : '')
       .icon-container
         i.fas.fa-home
-      = link_to "Dashboard", dashboard_index_path
-    li.clearfix class=(controller_name == 'campaigns' ? 'active' : '')
+      - if current_user.company_type == 'Advertiser'
+        = link_to "Dashboard", advertiser_campaigns_path(advertiser_id: current_user.company.id)
+      - else
+        = link_to "Dashboard", dashboard_index_path
+    li.clearfix class=(controller_name == 'campaigns' && controller.action_name == 'new' ? 'active' : '')
       .icon-container
         i.fas.fa-crosshairs
       - if current_user.company_type == 'Advertiser'
-        = link_to "Campaign Planner", advertiser_campaigns_path(advertiser_id: current_user.company.id)
+        = link_to "Campaign Planner", new_advertiser_campaign_path(advertiser_id: current_user.company.id)
       - else current_user.company_type == 'Agency'
-        = link_to "Campaign Planner", agency_client_campaigns_path(agency_id: current_user.company.id, client_id: 1)
+        = link_to "Campaign Planner", new_agency_client_campaign_path(agency_id: current_user.company.id, client_id: 1)
     li.clearfix
-      .icon-container
+      .icon-container 
         i.fas.fa-paint-brush
       = link_to 'Creative Automatic', "https://creativeautomatic.com/client/login.html", target: :_blank
     li.clearfix class=(controller_name == 'platforms' ? 'active' : '')
