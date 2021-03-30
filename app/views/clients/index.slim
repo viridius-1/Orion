@@ -1,5 +1,5 @@
 .agency-dashboard
-  h1 #{@agency.name}'s Dashboard
+  h1 #{@agency.name} Dashboard
   .dropdown-menu-button
     = react_component("LinkDropdownMenuComponent",
             props: {icon: "fas fa-cog gear-icon", items: [{text: "Edit Profile", icon:"fas fa-pen", link:"/agencies/#{current_user.company.id}/users/#{current_user.id}/edit"}]},

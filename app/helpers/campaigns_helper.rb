@@ -2,16 +2,14 @@ module CampaignsHelper
   def goal_options
     ['Reach',
      'Awareness',
-     'Acquisition',
-     'TBD']
+     'Acquisition']
   end
 
   def kpi_options
     ['Impressions',
      'Click Through Rate (CTR)',
      'Cost Per Acquisition (CPA)',
-     'Video Completion Rate',
-     'TBD']
+     'Video Completion Rate']
   end
 
   def education_options
@@ -24,7 +22,8 @@ module CampaignsHelper
 
   def parental_options
     ['Parent',
-     'Not Parent']
+     'Not Parent',
+     'N/A']
   end
 
   def income_options
