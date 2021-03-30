@@ -17,7 +17,7 @@ nav#sidebar
       - else current_user.company_type == 'Agency'
         = link_to "Campaign Planner", new_agency_client_campaign_path(agency_id: current_user.company.id, client_id: 1)
     li.clearfix
-      .icon-container 
+      .icon-container
         i.fas.fa-paint-brush
       = link_to 'Creative Automatic', "https://creativeautomatic.com/client/login.html", target: :_blank
     li.clearfix class=(controller_name == 'platforms' ? 'active' : '')
@@ -28,10 +28,6 @@ nav#sidebar
       .icon-container
         i.fas.fa-address-card
       = link_to 'Customer Intelligence', 'https://smartpixl.com/Login/Login/Login', target: :_blank
-    li.clearfix
-      .icon-container
-        i.fas.fa-map-marker-alt
-      = link_to 'Where to Buy', 'https://insights.pricespider.com/login', target: :_blank
     li.clearfix
       .icon-container
         i.fas.fa-chart-pie
