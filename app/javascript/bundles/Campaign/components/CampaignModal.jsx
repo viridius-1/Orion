@@ -20,12 +20,14 @@ export default class CampaignModal extends Component {
 
           <Modal.Body>
             <Container>
-              <Row className="d-flex flex-column">
-                <h3>How do you want to proceed?</h3>
-                <p>
-                  You have 2 options for how to proceed depending on what you
-                  need.
-                </p>
+              <Row className="campaign-modal d-flex flex-column">
+                <Col>
+                  <h3>How do you want to proceed?</h3>
+                  <p>
+                    You have 2 options for how to proceed depending on what you
+                    need.
+                  </p>
+                </Col>
                 <Col>
                   <Button
                     className="btn-lg d-flex align-items-center justify-content-center next-btn"
@@ -49,7 +51,9 @@ export default class CampaignModal extends Component {
           </Modal.Body>
 
           <Modal.Footer>
-            <div onClick={hideModal}>Cancel</div>
+            <div className="hide-modal" onClick={hideModal}>
+              Cancel
+            </div>
           </Modal.Footer>
         </Modal>
       );
