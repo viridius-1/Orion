@@ -1,14 +1,14 @@
 {
   "application.css": "/packs/css/application-8c2c96f4.css",
   "application.css.map": "/packs/css/application-8c2c96f4.css.map",
-  "application.js": "/packs/js/application-d823ee45e18ca6648931.js",
-  "application.js.map": "/packs/js/application-d823ee45e18ca6648931.js.map",
+  "application.js": "/packs/js/application-42c3279d34f3a12d23ab.js",
+  "application.js.map": "/packs/js/application-42c3279d34f3a12d23ab.js.map",
   "entrypoints": {
     "application": {
       "css": ["/packs/css/application-8c2c96f4.css"],
-      "js": ["/packs/js/application-d823ee45e18ca6648931.js"],
+      "js": ["/packs/js/application-42c3279d34f3a12d23ab.js"],
       "css.map": ["/packs/css/application-8c2c96f4.css.map"],
-      "js.map": ["/packs/js/application-d823ee45e18ca6648931.js.map"]
+      "js.map": ["/packs/js/application-42c3279d34f3a12d23ab.js.map"]
     }
   },
   "media/images/affinities-card.svg": "/packs/media/images/affinities-card-47e24f67.svg",

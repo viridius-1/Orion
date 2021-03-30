@@ -32,4 +32,3 @@ class Audience < ApplicationRecord
     end
   end
 end
-
