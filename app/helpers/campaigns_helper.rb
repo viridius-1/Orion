@@ -17,7 +17,8 @@ module CampaignsHelper
      'High school graduate',
      'Some college or associates degree',
      'Bachelor’s degree',
-     'Graduate or professional degree']
+     'Graduate or professional degree',
+     'N/A']
   end
 
   def parental_options
@@ -31,6 +32,7 @@ module CampaignsHelper
      '$50-100k',
      '$100-200k',
      '$200-500k',
-     '$500k+']
+     '$500k+',
+     'N/A']
   end
 end
