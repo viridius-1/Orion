@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import LinkButtonComponent from "../../../components/LinkButtonComponent";
+import LinkButton from "../../../components/LinkButton";
 import AdvertiserCardComponent from "./AdvertiserCardComponent";
 
 export default class ClientsGridViewComponent extends Component {
@@ -34,7 +34,7 @@ export default class ClientsGridViewComponent extends Component {
                         </div>
                     </div>
                     <div className='col-4 grid-item'>
-                        <LinkButtonComponent
+                        <LinkButton
                             text="Add Advertiser"
                             link={addAdvertiserLink}
                             icon="fas fa-plus-circle icon"

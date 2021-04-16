@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import LinkDropdownMenuComponent from "../../../components/LinkDropdownMenuComponent";
-import LinkButtonComponent from "../../../components/LinkButtonComponent";
+import LinkDropdownMenu from "../../../components/LinkDropdownMenu";
+import LinkButton from "../../../components/LinkButton";
 
 export default class AdvertiserCardComponent extends Component {
   constructor(props) {
@@ -15,12 +15,12 @@ export default class AdvertiserCardComponent extends Component {
       return (
         <div className="advertiser-card-container">
           <div className='content-bottom'>
-            <LinkButtonComponent
+            <LinkButton
               text={`${this.numberOfCampaigns} Active Campaigns`}
               buttonClass="active-campaigns-btn"
               icon=""
               link={`/agencies/${this.props.client.agency_id}/clients/${this.props.client.id}/campaigns`}>
-            </LinkButtonComponent>
+            </LinkButton>
           </div>
         </div>
       );
@@ -28,12 +28,12 @@ export default class AdvertiserCardComponent extends Component {
       return (
         <div className="advertiser-card-container">
           <div className='content-center'>
-            <LinkButtonComponent
+            <LinkButton
               text={'Create campaigns'}
               icon="fas fa-plus-circle icon"
               buttonClass="create-campaigns-btn"
               link={`/agencies/${this.props.client.agency_id}/clients/${this.props.client.id}/campaigns/new`}>
-            </LinkButtonComponent>
+            </LinkButton>
           </div>
         </div>
       );
@@ -46,7 +46,7 @@ export default class AdvertiserCardComponent extends Component {
         <div className={this.hasActiveCampaigns ? 'advertiser-card-top' : 'advertiser-card-top' + ' grey'}>
           <div>
             <h4>{this.props.client.name}</h4>
-            <LinkDropdownMenuComponent
+            <LinkDropdownMenu
               class="dropdown-menu-button"
               icon="fas fa-ellipsis-v card-drawer-icon"
               token={this.props.token}
@@ -73,12 +73,12 @@ export default class AdvertiserCardComponent extends Component {
           {this.getTopCardContent()}
         </div>
         <div className='advertiser-card-bottom'>
-          <LinkButtonComponent
+          <LinkButton
             text={`See details`}
             icon=""
             buttonClass="see-details-btn"
             link={`/agencies/${this.props.client.agency_id}/clients/${this.props.client.id}/campaigns`}>
-          </LinkButtonComponent>
+          </LinkButton>
         </div>
       </div>
     );

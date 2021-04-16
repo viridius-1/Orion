@@ -21,16 +21,18 @@ import ReactOnRails from "react-on-rails";
 
 import CampaignNew from "../bundles/Campaign/New";
 import CampaignDetailsComponent from "../bundles/Campaign/CampaignDetailsComponent.jsx";
-import CampaignIndexViewComponent from "../bundles/Campaign/CampaignIndexViewComponent.jsx";
+import CampaignIndexComponent from "../bundles/Campaign/CampaignIndexComponent.jsx";
+import AdvertiserForm from "../bundles/Advertiser/AdvertiserForm.jsx";
 import AgencyDashboardComponent from "../bundles/Dashboard/AgencyDashboardComponent";
-import LinkDropdownMenuComponent from "../components/LinkDropdownMenuComponent";
-import LinkButtonComponent from "../components/LinkButtonComponent";
+import LinkDropdownMenu from "../components/LinkDropdownMenu";
+import LinkButton from "../components/LinkButton";
 
 ReactOnRails.register({
     CampaignNew,
     AgencyDashboardComponent,
-    LinkDropdownMenuComponent,
-    CampaignIndexViewComponent,
+    LinkDropdownMenu,
+    CampaignIndexComponent,
     CampaignDetailsComponent,
-    LinkButtonComponent
+    LinkButton,
+    AdvertiserForm
 });

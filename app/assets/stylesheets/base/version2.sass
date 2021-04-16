@@ -23,6 +23,7 @@
     border-radius: 8px
 
   input
+    font-size: 14px
     height: 50px
     border-radius: 8px
 
@@ -45,7 +46,6 @@
 
     .input-v2
       padding-top: 20px
-      background: transparent
       height: 50px
       border-radius: 8px
 
@@ -335,3 +335,48 @@
     button.active
       border-bottom: 3px solid $purple-2
 
+
+  .selectV2__control--is-focused
+    border-color: #80bdff
+    box-shadow: 0 0 0 0.2rem rgba(0,123, 255, 0.25)
+
+  .selectV2__control
+    border-radius: 8px
+    background: transparent
+    .selectV2__value-container
+
+      .selectV2__placeholder
+        top: 64%
+
+      .selectV2__single-value
+        top: 64%
+
+      .selectV2__input
+        padding-top: 8px
+        margin-bottom: -8px
+
+        input
+          height: 36px
+
+  .multiSelectV2__control--is-focused
+    border-color: #80bdff
+    box-shadow: 0 0 0 0.2rem rgba(0,123, 255, 0.25)
+
+  .multiSelectV2__control
+    border-radius: 8px
+    background: transparent
+
+    .multiSelectV2__value-container
+      padding-top: 20px
+
+      .multiSelectV2__placeholder
+        top: 64%
+
+      .multiSelectV2__multi-value
+        background: #FCF2FF
+        border: 1px solid #DCC3E6
+        box-sizing: border-box
+        border-radius: 8px
+
+      input
+        height: 20px
