@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-export default class LinkButtonComponent extends Component {
+export default class LinkButton extends Component {
     constructor(props) {
         super(props);
     }

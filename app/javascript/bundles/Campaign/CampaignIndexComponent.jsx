@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import LinkButtonComponent from "../../components/LinkButtonComponent";
+import LinkButton from "../../components/LinkButton";
 import BootstrapTable from "react-bootstrap-table-next";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 
-export default class CampaignIndexViewComponent extends Component {
+export default class CampaignIndexComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -65,7 +65,7 @@ export default class CampaignIndexViewComponent extends Component {
     }
 
     budgetUsedFormatter(row) {
-        const color = CampaignIndexViewComponent.getProgressBarColor(row);
+        const color = CampaignIndexComponent.getProgressBarColor(row);
         return (
             <div className="budget-used-cell">
                 <p>{`${row}%`}</p>
@@ -117,7 +117,7 @@ export default class CampaignIndexViewComponent extends Component {
             text: "Total Budget",
             sort: true,
             sortCaret: this.getSortCaret,
-            formatter: CampaignIndexViewComponent.moneyFormatter,
+            formatter: CampaignIndexComponent.moneyFormatter,
             style: () => {
                 return { textAlign: "center" };
             },
@@ -160,7 +160,7 @@ export default class CampaignIndexViewComponent extends Component {
                         />
                     </div>
                     <div className="col-4 grid-item">
-                        <LinkButtonComponent
+                        <LinkButton
                             text="Plan a campaign"
                             link={`${this.props.link}new`}
                             icon="fas fa-plus-circle icon"

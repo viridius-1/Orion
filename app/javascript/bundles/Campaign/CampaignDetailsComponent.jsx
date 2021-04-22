@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Tabs } from "react-simple-tabs-component";
-import CampaignIndexViewComponent from "./CampaignIndexViewComponent";
+import CampaignIndexComponent from "./CampaignIndexComponent";
 
 export default class CampaignDetailsComponent extends Component {
     constructor(props) {
@@ -35,7 +35,7 @@ export default class CampaignDetailsComponent extends Component {
                             <div className="col-3 grid-item">
                                 <h6>Budget</h6>
                                 <label>
-                                    {CampaignIndexViewComponent.moneyFormatter(
+                                    {CampaignIndexComponent.moneyFormatter(
                                         450000
                                     )}
                                 </label>
@@ -96,7 +96,7 @@ export default class CampaignDetailsComponent extends Component {
                             <div className="col-4 grid-item">
                                 <h6>Household Income</h6>
                                 <label>
-                                    {CampaignIndexViewComponent.moneyFormatter(
+                                    {CampaignIndexComponent.moneyFormatter(
                                         120000
                                     )}
                                 </label>

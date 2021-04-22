@@ -17,11 +17,8 @@ class ClientsController < ApplicationController
 
   def create
     @client = @agency.clients.new(client_params)
-
     if @client.save
-      redirect_to agency_clients_path, notice: 'Campaign was successfully created.'
-    else
-      render :new
+      redirect_to agency_clients_path, notice: 'Client was successfully created.'
     end
   end
 
@@ -29,7 +26,7 @@ class ClientsController < ApplicationController
 
   def update
     if @client.update(client_params)
-      redirect_to agency_clients_path, notice: 'Client has been successfully updated.'
+      redirect_to agency_clients_path(agency_id: current_user.company.id), notice: 'Client has been successfully updated.'
     else
       errors = { alert: @user.errors.full_messages.join(', ') }
       redirect_to edit_advertiser_client_path(@client, client: client_params), errors
@@ -60,6 +57,6 @@ class ClientsController < ApplicationController
 
 
   def client_params
-    params.require(:client).permit(:name, :website, :industry)
+    params.require(:client).permit(:name, :website, :industry, :monthly_unique_visitors, :customer_target, :current_media_mix)
   end
 end

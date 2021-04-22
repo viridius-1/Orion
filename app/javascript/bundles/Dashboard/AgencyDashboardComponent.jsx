@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import ClientsGridViewComponent from './components/ClientsGridViewComponent';
-import LinkButtonComponent from "../../components/LinkButtonComponent";
+import LinkButton from "../../components/LinkButton";
 
 export default class AgencyDashboardComponent extends Component {
     constructor(props) {
@@ -19,7 +19,7 @@ export default class AgencyDashboardComponent extends Component {
                     <div className="col-12">
                         <div className="card no-clients-card">
                             <p>You don’t have any advertisers yet.</p>
-                            <LinkButtonComponent
+                            <LinkButton
                                 text="Add Advertiser"
                                 link={addAdvertiserLink}
                                 icon="fas fa-plus-circle icon"
