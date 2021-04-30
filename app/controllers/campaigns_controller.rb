@@ -29,12 +29,16 @@ class CampaignsController < ApplicationController
   end
 
   def new
+    @client = Client.find(params[:client_id])
     @campaign = Campaign.new
-    @data_providers = Audience.data_providers
-    @is_client = true if @company_type == :agency
+    providers_nested = File.read('./lib/data_providers/acxiom-data-nested.json')
+    providers_key_value = File.read('./lib/data_providers/acxiom-data-key-value.json')
+    @data_providers_nested = JSON.parse(providers_nested)
+    @data_providers_key_value= JSON.parse(providers_key_value)
   end
 
   def create
+    byebug
     @campaign = Campaign.new(campaign_params)
 
     if @campaign.save

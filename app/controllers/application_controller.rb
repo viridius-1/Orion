@@ -1,5 +1,13 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
+  helper_method :get_first_client_id
+
+
+  # This will probably go away when we decouple advertiser and client
+  def get_first_client_id
+    agency = Agency.find(current_user.company.id)
+    agency.clients.first.id
+  end
 
   private
 

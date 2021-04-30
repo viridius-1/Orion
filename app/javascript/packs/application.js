@@ -10,6 +10,7 @@ require("channels");
 
 import "bootstrap";
 
+import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -20,9 +21,10 @@ import "bootstrap";
 import ReactOnRails from "react-on-rails";
 
 import CampaignNew from "../bundles/Campaign/New";
-import CampaignDetailsComponent from "../bundles/Campaign/CampaignDetailsComponent.jsx";
-import CampaignIndexComponent from "../bundles/Campaign/CampaignIndexComponent.jsx";
-import AdvertiserForm from "../bundles/Advertiser/AdvertiserForm.jsx";
+import CampaignDetailsComponent from "../bundles/Campaign/CampaignDetailsComponent";
+import CampaignIndexComponent from "../bundles/Campaign/CampaignIndexComponent";
+import CampaignForm from '../bundles/Campaign/CampaignForm'
+import AdvertiserForm from "../bundles/Advertiser/AdvertiserForm";
 import AgencyDashboardComponent from "../bundles/Dashboard/AgencyDashboardComponent";
 import LinkDropdownMenu from "../components/LinkDropdownMenu";
 import LinkButton from "../components/LinkButton";
@@ -34,5 +36,6 @@ ReactOnRails.register({
     CampaignIndexComponent,
     CampaignDetailsComponent,
     LinkButton,
-    AdvertiserForm
+    AdvertiserForm,
+    CampaignForm
 });

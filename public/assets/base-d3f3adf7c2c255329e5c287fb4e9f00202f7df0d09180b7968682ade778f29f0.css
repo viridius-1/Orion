@@ -270,24 +270,25 @@ a {
 
 /* line 25, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard input {
+  font-size: 14px;
   height: 50px;
   border-radius: 8px;
 }
 
-/* line 29, app/assets/stylesheets/base/version2.sass */
+/* line 30, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .dropdown-menu-button {
   display: inline-flex;
   float: right;
 }
 
-/* line 33, app/assets/stylesheets/base/version2.sass */
+/* line 34, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .gear-icon {
   color: #828282;
   font-size: 21px;
   padding: 6px;
 }
 
-/* line 39, app/assets/stylesheets/base/version2.sass */
+/* line 40, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .form-v2 .label-v2 {
   color: #58107C;
   margin-bottom: -50px;
@@ -296,10 +297,9 @@ a {
   position: absolute;
 }
 
-/* line 46, app/assets/stylesheets/base/version2.sass */
+/* line 47, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .form-v2 .input-v2 {
   padding-top: 20px;
-  background: transparent;
   height: 50px;
   border-radius: 8px;
 }
@@ -546,11 +546,21 @@ a {
 /* line 206, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .advertiser-card-bottom {
   height: 51.95px;
-  display: flex;
+  display: grid;
   align-items: center;
 }
 
 /* line 211, app/assets/stylesheets/base/version2.sass */
+.agency-dashboard .advertiser-card-bottom .see-details-btn {
+  float: right;
+}
+
+/* line 214, app/assets/stylesheets/base/version2.sass */
+.agency-dashboard .advertiser-card-bottom .see-details-btn:focus {
+  box-shadow: none;
+}
+
+/* line 217, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .advertiser-card-bottom label {
   margin-left: auto;
   margin-right: 10px;
@@ -558,62 +568,62 @@ a {
   color: #4F4F4F;
 }
 
-/* line 217, app/assets/stylesheets/base/version2.sass */
+/* line 223, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaigns-index-table {
   font-size: 14px;
   border: 1px solid #D9D9D9;
 }
 
-/* line 221, app/assets/stylesheets/base/version2.sass */
+/* line 227, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaigns-index-table .sort-caret {
   padding-left: 6px;
   font-size: 13px;
 }
 
-/* line 225, app/assets/stylesheets/base/version2.sass */
+/* line 231, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaigns-index-table .header-classes {
   background: #F7E9FD;
 }
 
-/* line 228, app/assets/stylesheets/base/version2.sass */
+/* line 234, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaigns-index-table tr {
   border: none;
 }
 
-/* line 231, app/assets/stylesheets/base/version2.sass */
+/* line 237, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaigns-index-table tr:hover {
   zoom: 105%;
 }
 
-/* line 234, app/assets/stylesheets/base/version2.sass */
+/* line 240, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaigns-index-table tr:nth-child(even) {
   background-color: #F2F2F2;
 }
 
-/* line 237, app/assets/stylesheets/base/version2.sass */
+/* line 243, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaigns-index-table th {
   border: none;
 }
 
-/* line 240, app/assets/stylesheets/base/version2.sass */
+/* line 246, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaigns-index-table td {
   border: none;
   vertical-align: middle;
 }
 
-/* line 245, app/assets/stylesheets/base/version2.sass */
+/* line 251, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaigns-index-table .budget-used-cell {
   margin: auto;
 }
 
-/* line 248, app/assets/stylesheets/base/version2.sass */
+/* line 254, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaigns-index-table .budget-used-cell p {
   margin-bottom: 0;
   text-align: center;
   line-height: 20px;
 }
 
-/* line 253, app/assets/stylesheets/base/version2.sass */
+/* line 259, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaigns-index-table .budget-used-bar {
   width: 100px;
   height: 11px;
@@ -624,14 +634,14 @@ a {
   margin: auto;
 }
 
-/* line 262, app/assets/stylesheets/base/version2.sass */
+/* line 268, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaigns-index-table .budget-used-bar-inside {
   height: 11px;
   border-radius: 8px;
   margin: -1px;
 }
 
-/* line 268, app/assets/stylesheets/base/version2.sass */
+/* line 274, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .dot.orange {
   height: 12px;
   width: 12px;
@@ -641,7 +651,7 @@ a {
   margin: auto;
 }
 
-/* line 277, app/assets/stylesheets/base/version2.sass */
+/* line 283, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaign-details h6 {
   font-size: 14px;
   font-weight: 700;
@@ -650,7 +660,7 @@ a {
   text-align: left;
 }
 
-/* line 284, app/assets/stylesheets/base/version2.sass */
+/* line 290, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaign-details label {
   font-size: 14px;
   font-weight: 400;
@@ -660,7 +670,7 @@ a {
   margin-bottom: 0;
 }
 
-/* line 292, app/assets/stylesheets/base/version2.sass */
+/* line 298, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaign-details label.goal-label {
   font-size: 21px;
   line-height: 16px;
@@ -668,12 +678,12 @@ a {
   color: #3289CB;
 }
 
-/* line 299, app/assets/stylesheets/base/version2.sass */
+/* line 305, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaign-details .dot.orange {
   margin-right: 5px;
 }
 
-/* line 302, app/assets/stylesheets/base/version2.sass */
+/* line 308, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaign-details .details-card {
   background: white;
   border: 1px solid #D9D9D9;
@@ -682,18 +692,18 @@ a {
   padding: 15px;
 }
 
-/* line 309, app/assets/stylesheets/base/version2.sass */
+/* line 315, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .campaign-details .details-card.filled {
   padding: 0px;
 }
 
-/* line 313, app/assets/stylesheets/base/version2.sass */
+/* line 319, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .tabs-component div[role=tablist] {
   border-bottom: 1px solid #D9D9D9;
   background: transparent;
 }
 
-/* line 317, app/assets/stylesheets/base/version2.sass */
+/* line 323, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .tabs-component button {
   background: transparent;
   height: 50px;
@@ -703,12 +713,80 @@ a {
   border-right: 1px solid #D9D9D9;
 }
 
-/* line 326, app/assets/stylesheets/base/version2.sass */
+/* line 332, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .tabs-component button:focus {
   outline: none;
 }
 
-/* line 329, app/assets/stylesheets/base/version2.sass */
+/* line 335, app/assets/stylesheets/base/version2.sass */
 .agency-dashboard .tabs-component button.active {
   border-bottom: 3px solid #58107C;
+}
+
+/* line 339, app/assets/stylesheets/base/version2.sass */
+.agency-dashboard .selectV2__control--is-focused {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* line 343, app/assets/stylesheets/base/version2.sass */
+.agency-dashboard .selectV2__control {
+  border-radius: 8px;
+  background: transparent;
+}
+
+/* line 348, app/assets/stylesheets/base/version2.sass */
+.agency-dashboard .selectV2__control .selectV2__value-container .selectV2__placeholder {
+  top: 64%;
+}
+
+/* line 351, app/assets/stylesheets/base/version2.sass */
+.agency-dashboard .selectV2__control .selectV2__value-container .selectV2__single-value {
+  top: 64%;
+}
+
+/* line 354, app/assets/stylesheets/base/version2.sass */
+.agency-dashboard .selectV2__control .selectV2__value-container .selectV2__input {
+  padding-top: 8px;
+  margin-bottom: -8px;
+}
+
+/* line 358, app/assets/stylesheets/base/version2.sass */
+.agency-dashboard .selectV2__control .selectV2__value-container .selectV2__input input {
+  height: 36px;
+}
+
+/* line 361, app/assets/stylesheets/base/version2.sass */
+.agency-dashboard .multiSelectV2__control--is-focused {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* line 365, app/assets/stylesheets/base/version2.sass */
+.agency-dashboard .multiSelectV2__control {
+  border-radius: 8px;
+  background: transparent;
+}
+
+/* line 369, app/assets/stylesheets/base/version2.sass */
+.agency-dashboard .multiSelectV2__control .multiSelectV2__value-container {
+  padding-top: 20px;
+}
+
+/* line 372, app/assets/stylesheets/base/version2.sass */
+.agency-dashboard .multiSelectV2__control .multiSelectV2__value-container .multiSelectV2__placeholder {
+  top: 64%;
+}
+
+/* line 375, app/assets/stylesheets/base/version2.sass */
+.agency-dashboard .multiSelectV2__control .multiSelectV2__value-container .multiSelectV2__multi-value {
+  background: #FCF2FF;
+  border: 1px solid #DCC3E6;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+/* line 381, app/assets/stylesheets/base/version2.sass */
+.agency-dashboard .multiSelectV2__control .multiSelectV2__value-container input {
+  height: 20px;
 }

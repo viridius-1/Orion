@@ -44,13 +44,80 @@
       padding-top: 2px
       position: absolute
 
+    .label-v2.default-position
+      color: $purple-2
+      position: relative
+
     .input-v2
       padding-top: 20px
       height: 50px
       border-radius: 8px
 
+    .input-v2-append
+      float: right
+      width: 8%
+      align-items: center
+      height: 50px
+      background: #e9ecef
+      border-radius: 0 8px 8px 0
+      border: 1px solid #ced4da
+      border-left: none
+      text-align: center
+      vertical-align: middle
+      line-height: 50px
+      margin-left: -1px
+      color: #495057
+
+    .input-v2.left
+      border-radius: 8px 0 0 8px
+      display: inline-block
+      width: 92%
+
+    .input-v2-prepend
+      float: left
+      width: 8%
+      align-items: center
+      height: 50px
+      background: #e9ecef
+      border-radius: 8px 0 0 8px
+      border: 1px solid #ced4da
+      border-right: none
+      text-align: center
+      vertical-align: middle
+      line-height: 50px
+      margin-left: -1px
+      color: #495057
+
+    .input-v2.right
+      border-radius: 0 8px 8px 0
+      display: inline-block
+      width: 92%
+
     .select2-selection--multiple
       height: auto !important
+
+    .slider-group
+      .slider
+        display: inline-block
+        width: 60%
+
+      .before-label
+        width: 20%
+        align-items: center
+        vertical-align: middle
+        text-align: center
+        float: left
+        padding-top: 3px
+        padding-right: 5px
+
+      .after-label
+        width: 20%
+        align-items: center
+        vertical-align: middle
+        text-align: center
+        float: right
+        padding-top: 3px
+        padding-left: 5px
 
 
   .menu-item
@@ -71,13 +138,14 @@
     border-radius: 8px
     padding: 10px 13px 10px 13px
     color: white
+    border: none
 
     .icon
       font-size: 18px
       padding-right: 8px
       vertical-align: middle
 
-  .btn-cancel-v2
+  .btn-secondary-v2
     color: $purple-2
     background: white
     font-weight: 400
@@ -88,18 +156,26 @@
     padding: 10px 13px 10px 13px
     border: 1px solid $purple-2
 
-  .btn-cancel-v2.btn-drawer
+  .btn-secondary-v2.btn-drawer
     width: 34px
     height: 34px
     margin-right: 15px
 
-  .btn-cancel-v2.btn-campaign-back
+  .btn-secondary-v2.btn-campaign-back
     width: 193px
     height: 34px
     margin-right: 15px
     padding: 0
 
-  .btn-secondary-v2
+  .slim
+    padding: 0
+    height: auto
+    width: auto
+
+  .no-focus
+    outline: none
+
+  .btn-append-right-v2
     background: white
     border-color: #ced4da
     border-left: none
@@ -338,11 +414,12 @@
 
   .selectV2__control--is-focused
     border-color: #80bdff
-    box-shadow: 0 0 0 0.2rem rgba(0,123, 255, 0.25)
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25)
 
   .selectV2__control
     border-radius: 8px
     background: transparent
+
     .selectV2__value-container
 
       .selectV2__placeholder
@@ -360,7 +437,7 @@
 
   .multiSelectV2__control--is-focused
     border-color: #80bdff
-    box-shadow: 0 0 0 0.2rem rgba(0,123, 255, 0.25)
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25)
 
   .multiSelectV2__control
     border-radius: 8px

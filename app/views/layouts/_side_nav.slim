@@ -15,7 +15,7 @@ nav#sidebar
       - if current_user.company_type == 'Advertiser'
         = link_to "Campaign Planner", new_advertiser_campaign_path(advertiser_id: current_user.company.id)
       - else current_user.company_type == 'Agency'
-        = link_to "Campaign Planner", new_agency_client_campaign_path(agency_id: current_user.company.id, client_id: 1)
+        = link_to "Campaign Planner", new_agency_client_campaign_path(agency_id: current_user.company.id, client_id: get_first_client_id)
     li.clearfix
       .icon-container
         i.fas.fa-paint-brush
