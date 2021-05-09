@@ -38,7 +38,7 @@ class CampaignsController < ApplicationController
   end
 
   def create
-    @campaign = Campaign.new(campaign_params)
+    @campaign = Campaign.new(campaign_params.merge(status: "pending_approval"))
     if @campaign.save
       create_company_campaign
       request_type = request_type_params.to_sym

@@ -1,182 +1,155 @@
 import React, { Component } from "react";
+import { statusColor } from "../../constants";
 import LinkButton from "../../components/LinkButton";
 import BootstrapTable from "react-bootstrap-table-next";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 
 export default class CampaignIndexComponent extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            searchTerm: "",
-            tableData: this.getUpdatedTableData(""),
-        };
-    }
+  constructor(props) {
+    super(props);
 
-    onSearchInputChange(searchText) {
-        this.setState({
-            searchTerm: searchText,
-            tableData: this.getUpdatedTableData(searchText),
-        });
-    }
+    const tableData = this.setupTableData();
+    this.state = {
+      searchTerm: "",
+      tableData,
+      campaigns: tableData
+    };
+  }
 
-    getUpdatedTableData(searchText) {
-        let data = this.props.campaigns;
-        data = data.filter((campaign) => {
-            if (searchText === "") {
-                return campaign;
-            } else if (
-                campaign.name.toLowerCase().includes(searchText.toLowerCase())
-            ) {
-                return campaign;
-            }
-        });
-        data.map((campaign) => {
-            campaign.flight = `${campaign?.flight_start_date?.replaceAll(
-                "-",
-                "/"
-            )} - ${campaign?.flight_end_date?.replaceAll("-", "/")}`;
-            campaign.budget_used = Math.floor(Math.random() * 91) + 10;
-            campaign.link = `${this.props.link}${campaign.id}`;
-        });
+  setupTableData() {
+    const { campaigns, link } = this.props;
+    const data = campaigns.map(({ id, status, name, start_date, end_date, budget, goal }) => ({
+        status,
+        name,
+        flight: `${new Date(start_date).toLocaleDateString("en-US")} - ${new Date(end_date).toLocaleDateString("en-US")}`,
+        budget,
+        goal,
+        link: `${link}${id}`
+      })
+    );
 
-        return data;
-    }
+    return data;
+  }
 
-    statusFormatter() {
-        return (
-            <div style={{ display: "flex" }}>
-                <span className="dot orange" />
-            </div>
-        );
-    }
+  onSearchInputChange(searchTerm) {
+    this.setState({
+      searchTerm,
+      tableData: this.getFilterTableData(searchTerm),
+    });
+  }
 
-    static getProgressBarColor(value) {
-        const hue = (value * 1.2).toString(10);
-        return `hsl(${hue}, 100%, 40%)`;
-    }
+  getFilterTableData(searchTerm) {
+    const { campaigns } = this.state;
+    const data = searchTerm !== "" ? campaigns.filter((campaign) => campaign.name.toLowerCase().includes(searchTerm.toLowerCase())) : [...campaigns];
 
-    static moneyFormatter(row) {
-        const formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            maximumFractionDigits: 0
-        });
-        return `${formatter.format(row)} CAD`;
-    }
+    return data;
+  }
 
-    budgetUsedFormatter(row) {
-        const color = CampaignIndexComponent.getProgressBarColor(row);
-        return (
-            <div className="budget-used-cell">
-                <p>{`${row}%`}</p>
-                <div className="budget-used-bar">
-                    <div
-                        className="budget-used-bar-inside"
-                        style={{
-                            background: color,
-                            width: `${row}px`,
-                        }}
-                    />
-                </div>
-            </div>
-        );
-    }
+  statusFormatter(status) {
+    return (
+      <div style={{ display: "flex" }}>
+        <span className={`dot ${statusColor[status]}`} />
+      </div>
+    );
+  }
 
-    getSortCaret() {
-        return <i className="fas fa-sort sort-caret" />;
-    }
+  static moneyFormatter(row) {
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      maximumFractionDigits: 0
+    });
+    return `${formatter.format(row)} CAD`;
+  }
 
-    onRowClick(row, cell) {
-        console.log(cell);
-        window.location.assign(cell.link);
-    }
+  getSortCaret() {
+    return <i className="fas fa-sort sort-caret" />;
+  }
 
-    columns = [
-        {
-            dataField: "status",
-            text: "Status",
-            formatter: this.statusFormatter,
-            headerStyle: () => {
-                return { width: "80px" };
-            },
-        },
-        {
-            dataField: "name",
-            text: "Campaign",
-            sort: true,
-            sortCaret: this.getSortCaret,
-        },
-        {
-            dataField: "flight",
-            text: "Flight",
-            sort: true,
-            sortCaret: this.getSortCaret,
-        },
-        {
-            dataField: "budget",
-            text: "Total Budget",
-            sort: true,
-            sortCaret: this.getSortCaret,
-            formatter: CampaignIndexComponent.moneyFormatter,
-            style: () => {
-                return { textAlign: "center" };
-            },
-            headerStyle: () => {
-                return { textAlign: "center" };
-            },
-        },
-        {
-            dataField: "budget_used",
-            text: "Budget Used",
-            sort: true,
-            sortCaret: this.getSortCaret,
-            formatter: this.budgetUsedFormatter,
-            headerStyle: () => {
-                return { textAlign: "center" };
-            },
-        },
-        {
-            dataField: "goals",
-            text: "Goals",
-            sort: true,
-            sortCaret: () => {
-                return <i className="fas fa-sort sort-caret" />;
-            },
-        },
-    ];
+  onRowClick(row, cell) {
+    window.location.assign(cell.link);
+  }
 
-    render() {
-        return (
-            <div>
-                <div className="row">
-                    <div className="col-4 grid-item">
-                        <input
-                            className="form-control"
-                            type="text"
-                            placeholder="Search campaigns"
-                            onChange={(event) =>
-                                this.onSearchInputChange(event.target.value)
-                            }
-                        />
-                    </div>
-                    <div className="col-4 grid-item">
-                        <LinkButton
-                            text="Plan a campaign"
-                            link={`${this.props.link}new`}
-                            icon="fas fa-plus-circle icon"
-                            buttonClass="btn btn-primary btn-primary-v2"
-                        />
-                    </div>
-                </div>
-                <BootstrapTable
-                    keyField="id"
-                    data={this.state.tableData}
-                    columns={this.columns}
-                    classes="campaigns-index-table"
-                    headerClasses="header-classes"
-                    rowEvents={{ onClick: this.onRowClick }}
-                />
-            </div>
-        );
-    }
+  columns = [
+    {
+      dataField: "status",
+      text: "Status",
+      formatter: this.statusFormatter,
+      headerStyle: () => {
+        return { width: "84px" };
+      },
+      sort: true,
+      sortCaret: this.getSortCaret,
+    },
+    {
+      dataField: "name",
+      text: "Campaign",
+      sort: true,
+      sortCaret: this.getSortCaret,
+    },
+    {
+      dataField: "flight",
+      text: "Flight",
+      sort: true,
+      sortCaret: this.getSortCaret,
+    },
+    {
+      dataField: "budget",
+      text: "Total Budget",
+      sort: true,
+      sortCaret: this.getSortCaret,
+      formatter: CampaignIndexComponent.moneyFormatter,
+      style: () => {
+        return { textAlign: "center" };
+      },
+      headerStyle: () => {
+        return { textAlign: "center" };
+      },
+      sortFunc: (a, b, order) => {
+        if (order === 'asc') return a - b;
+        else return b - a;
+      }
+    },
+    {
+      dataField: "goal",
+      text: "Goal",
+      sort: true,
+      sortCaret: this.getSortCaret,
+    },
+  ];
+
+  render() {
+    return (
+      <div>
+        <div className="row">
+          <div className="col-4 grid-item">
+            <input
+              className="form-control"
+              type="text"
+              placeholder="Search campaigns"
+              onChange={(event) =>
+                this.onSearchInputChange(event.target.value)
+              }
+            />
+          </div>
+          <div className="col-4 grid-item">
+            <LinkButton
+              text="Plan a campaign"
+              link={`${this.props.link}new`}
+              icon="fas fa-plus-circle icon"
+              buttonClass="btn btn-primary btn-primary-v2"
+            />
+          </div>
+        </div>
+        <BootstrapTable
+          keyField="id"
+          data={this.state.tableData}
+          columns={this.columns}
+          classes="campaigns-index-table"
+          headerClasses="header-classes"
+          rowEvents={{ onClick: this.onRowClick }}
+        />
+      </div>
+    );
+  }
 }

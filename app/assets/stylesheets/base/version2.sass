@@ -44,7 +44,6 @@
   width: auto
 
 .agency-dashboard
-  width: 1160px
   padding-left: 47px
   padding-right: 47px
   font-family: Nunito
@@ -329,13 +328,21 @@
       margin: -1px
 
 
-  .dot.orange
+  .dot
     height: 12px
     width: 12px
     border-radius: 50%
     display: inline-block
-    background: #F2994A
     margin: auto
+
+    &.orange
+      background: $orange
+
+    &.red
+      background: $red
+
+    &.green
+      background: $green
 
   .campaign-details
     h6
