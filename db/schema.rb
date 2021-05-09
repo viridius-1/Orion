@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_16_154834) do
+ActiveRecord::Schema.define(version: 2021_05_01_230040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,27 +37,16 @@ ActiveRecord::Schema.define(version: 2021_03_16_154834) do
 
   create_table "advertisers", force: :cascade do |t|
     t.string "name"
-    t.string "website"
-    t.integer "user_id"
+    t.string "website_url"
     t.string "industry"
-    t.integer "client_count"
-    t.string "preferred_service_level"
-    t.string "customer_target"
-    t.string "monthly_unique_visitors"
-    t.decimal "average_order_value"
-    t.decimal "conversion_rate"
-    t.decimal "cost_per_acquisition"
     t.string "current_media_mix"
-    t.integer "age_range_start"
-    t.integer "age_range_end"
-    t.text "gender"
-    t.text "household_income"
-    t.text "parental_status"
-    t.text "education"
-    t.text "language"
-    t.text "affinity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "agency_id"
+    t.string "business_type"
+    t.integer "annual_revenue"
+    t.integer "monthly_unique_visitors"
   end
 
   create_table "agencies", force: :cascade do |t|
@@ -82,25 +71,30 @@ ActiveRecord::Schema.define(version: 2021_03_16_154834) do
 
   create_table "campaigns", force: :cascade do |t|
     t.string "name"
-    t.string "url"
-    t.date "flight_start_date"
-    t.date "flight_end_date"
+    t.string "campaign_url"
+    t.date "start_date"
+    t.date "end_date"
     t.string "goal"
     t.string "kpi"
-    t.decimal "cpa_goal"
-    t.integer "roas_goal"
+    t.decimal "target_cpa"
+    t.integer "target_roas"
     t.decimal "budget"
     t.string "geography"
-    t.string "audience_targeting"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "coversion_rate"
-    t.string "gender", default: [], array: true
     t.float "average_order_value"
-    t.string "age_range", default: [], array: true
     t.string "education"
     t.string "parental_status"
-    t.string "income"
+    t.integer "advertiser_id"
+    t.decimal "conversion_rate"
+    t.integer "age_range_male", array: true
+    t.integer "age_range_female", array: true
+    t.integer "household_income", array: true
+    t.jsonb "affinities"
+    t.string "status"
+    t.string "languages"
+    t.integer "budget_used"
   end
 
   create_table "clients", force: :cascade do |t|

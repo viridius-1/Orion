@@ -48,27 +48,14 @@ class AdvertisersController < ApplicationController
   def advertiser_params
     params.require(:advertiser).permit(
       :name,
-      :website,
+      :website_url,
       :user_id,
-      :logo_url,
+      :agency_id,
       :industry,
-      :client_count,
-      :preferred_service_level,
-      :customer_target,
+      :business_type,
+      :annual_revenue
       :monthly_unique_visitors,
-      :average_order_value,
-      :conversion_rate,
-      :cost_per_acquisition,
-      :age_range_start,
-      :age_range_end,
-      :is_agency,
       :current_media_mix => [],
-      :gender => [],
-      :household_income => [],
-      :parental_status => [],
-      :education => [],
-      :language => [],
-      :affinity => []
       )
   end
 end
