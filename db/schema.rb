@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_01_230040) do
+ActiveRecord::Schema.define(version: 2021_05_09_090859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,11 +38,11 @@ ActiveRecord::Schema.define(version: 2021_05_01_230040) do
   create_table "advertisers", force: :cascade do |t|
     t.string "name"
     t.string "website_url"
+    t.integer "user_id"
     t.string "industry"
     t.string "current_media_mix"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
     t.integer "agency_id"
     t.string "business_type"
     t.integer "annual_revenue"

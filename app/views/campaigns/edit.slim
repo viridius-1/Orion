@@ -1,1 +1,19 @@
-= react_component("CampaignNew", props: { page_type: 'Edit', campaign: @campaign, campaign_audiences: @campaign.audience_ids.map(&:to_s), providers: @providers, audiences: @audiences, company: @company, is_client: @is_client, goal_options: goal_options, kpi_options: kpi_options}, prerender: false)
+.agency-dashboard
+  h1 Edit Campaign
+  .dropdown-menu-button
+    = react_component("LinkDropdownMenu",
+            props: {icon: "fas fa-cog gear-icon", items: [{text: "Edit Profile", icon: "fas fa-pen", link: "/agencies/#{current_user.company.id}/users/#{current_user.id}/edit"}]},
+            prerender: false)
+  .row
+    .col-12
+      .card.card-v2
+        .card-body
+          = react_component("CampaignForm",
+                  props: {campaign: @campaign,
+                          client: @client,
+                          new: false,
+                          token: form_authenticity_token,
+                          options: options,
+                          data_providers: @data_providers_nested,
+                          data_providers_key_value: @data_providers_key_value},
+                  prerender: false)

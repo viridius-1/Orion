@@ -2,8 +2,6 @@ class Campaign < ApplicationRecord
   has_one :company_campaign, dependent: :destroy
   has_many :audiences, class_name: 'CampaignAudience'
 
-  belongs_to :advertiser
-
   validates :name, presence: true
 
   def company

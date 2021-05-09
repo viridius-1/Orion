@@ -38,25 +38,26 @@ class CampaignsController < ApplicationController
   end
 
   def create
-    byebug
     @campaign = Campaign.new(campaign_params)
-
     if @campaign.save
       create_company_campaign
-      create_campaign_audiences(@campaign, audience_params)
       request_type = request_type_params.to_sym
       send_internal_notification(request_type)
       send_customer_confirmation(request_type)
 
-      render json: { messages: 'Campaign was successfully created.', redirectTo: campaign_paths, status: 200 }
+      redirect_to campaign_paths, notice: 'Campaign has been successfully created.'
     else
       render json: { messages: display_validation(@campaign), redirectTo: '', status: 422 }
     end
   end
 
   def edit
-    @audiences = Audience.family_tree.as_json
-    @is_client = true if @company_type == :agency
+    @client = Client.find(params[:client_id])
+    @campaign = Campaign.find(params[:id])
+    providers_nested = File.read('./lib/data_providers/acxiom-data-nested.json')
+    providers_key_value = File.read('./lib/data_providers/acxiom-data-key-value.json')
+    @data_providers_nested = JSON.parse(providers_nested)
+    @data_providers_key_value= JSON.parse(providers_key_value)
   end
 
   def update
@@ -95,23 +96,26 @@ class CampaignsController < ApplicationController
     @campaign = @company.campaigns.find_by(id: params[:id])
   end
 
-  # Never trust parameters from the scary internet,
-  # only allow the white list through.
   def campaign_params
     params.require(:campaign).permit(
       :name,
-      :url,
-      :flight_start_date,
-      :flight_end_date,
+      :campaign_url,
+      :start_date,
+      :end_date,
       :goal,
       :kpi,
-      :cpa_goal,
-      :roas_goal,
+      :conversion_rate,
+      :average_order_value,
+      :target_cpa,
+      :target_roas,
       :budget,
+      {:age_range_male => []},
+      {:age_range_female => []},
+      {:household_income => []},
+      :education,
+      :parental_status,
       :geography,
-      :agency_id,
-      :client_id,
-      :advertiser_id
+      :affinities => {}
     )
   end
 

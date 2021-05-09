@@ -36,16 +36,16 @@ export default class CampaignBasicsFormFragment extends Component {
                   </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group controlId="website">
-                  <Form.Label className="label-v2">Destination URL</Form.Label>
+                <Form.Group controlId="campaign_url">
+                  <Form.Label className="label-v2">Campaign URL</Form.Label>
                   <Form.Control className="input-v2"
                                 required
-                                name="website"
+                                name="campaign_url"
                                 type="url"
                                 onChange={this.props.handleChange}
-                                value={this.props.website}/>
+                                value={this.props.campaign_url}/>
                   <Form.Control.Feedback type="invalid">
-                    Destination URL is invalid
+                    Campaign URL is invalid
                   </Form.Control.Feedback>
                 </Form.Group>
 

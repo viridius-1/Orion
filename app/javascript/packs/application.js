@@ -20,7 +20,6 @@ import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 
 import ReactOnRails from "react-on-rails";
 
-import CampaignNew from "../bundles/Campaign/New";
 import CampaignDetailsComponent from "../bundles/Campaign/CampaignDetailsComponent";
 import CampaignIndexComponent from "../bundles/Campaign/CampaignIndexComponent";
 import CampaignForm from '../bundles/Campaign/CampaignForm'
@@ -30,7 +29,6 @@ import LinkDropdownMenu from "../components/LinkDropdownMenu";
 import LinkButton from "../components/LinkButton";
 
 ReactOnRails.register({
-    CampaignNew,
     AgencyDashboardComponent,
     LinkDropdownMenu,
     CampaignIndexComponent,

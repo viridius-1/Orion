@@ -60,15 +60,15 @@ export default class CampaignGoalsFormFragment extends Component {
                   </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group controlId="aov">
+                <Form.Group controlId="average_order_value">
                   <Form.Label className="label-v2">AOV</Form.Label>
                   <Form.Control className="input-v2 right"
                                 required
-                                name="aov"
+                                name="average_order_value"
                                 type="number"
                                 onKeyDown={FormUtils.blockNonNum}
                                 onChange={this.props.handleChange}
-                                value={this.props.aov}
+                                value={this.props.average_order_value}
                   />
                   <div className="input-v2-prepend"><span>$</span></div>
                   <Form.Control.Feedback type="invalid">

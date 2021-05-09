@@ -16,13 +16,13 @@ export default class CampaignForm extends Component {
     const initialState = {};
     const campaign = this.props.campaign;
     initialState.name = campaign.name ? campaign.name : "";
-    initialState.website = campaign.website ? campaign.website : "";
+    initialState.campaign_url = campaign.campaign_url ? campaign.campaign_url : "";
     initialState.start_date = campaign.start_date ? campaign.start_date : "";
     initialState.end_date = campaign.end_date ? campaign.end_date : "";
     initialState.goal = campaign.goal ? FormUtils.buildOption(campaign.goal) : null;
     initialState.kpi = campaign.kpi ? FormUtils.buildOption(campaign.kpi) : null;
     initialState.conversion_rate = campaign.conversion_rate ? campaign.conversion_rate : "";
-    initialState.aov = campaign.aov ? campaign.aov : "";
+    initialState.average_order_value = campaign.average_order_value ? campaign.average_order_value : "";
     initialState.target_cpa = campaign.target_cpa ? campaign.target_cpa : "";
     initialState.target_roas = campaign.target_roas ? campaign.target_roas : "";
     initialState.budget = campaign.budget ? campaign.budget : "";
@@ -31,14 +31,14 @@ export default class CampaignForm extends Component {
     initialState.female_selected = !!campaign.age_range_female;
     initialState.age_range_female = campaign.age_range_female ? campaign.age_range_female : [18, 99];
     initialState.household_income = campaign.household_income ? campaign.household_income : [50, 500];
-    initialState.education = campaign.education ? FormUtils.buildOption(campaign.education) : "";
-    initialState.parental_status = campaign.parental_status ? FormUtils.buildOption(campaign.parental_status) : "";
-    initialState.geography = campaign.geography ? FormUtils.buildOptions(campaign.geography.split()) : "";
+    initialState.education = campaign.education ? FormUtils.buildOption(campaign.education) : null;
+    initialState.parental_status = campaign.parental_status ? FormUtils.buildOption(campaign.parental_status) : null;
+    initialState.geography = campaign.geography ? FormUtils.buildOptions(campaign.geography.split(',')) : null;
     initialState.geography_input = "";
     initialState.affinities = campaign.affinities ? campaign.affinities : {};
     initialState.affinities_checked = this._getAffinityKeys(initialState.affinities);
 
-    initialState.current_step = 4;
+    initialState.current_step = 1;
 
     return initialState;
   }
@@ -84,7 +84,7 @@ export default class CampaignForm extends Component {
     const requestOptions = {
       method,
       headers: {'Content-Type': 'application/json'},
-      body: this._getSubmitBody()
+      body: this._getSubmitBody(event)
     };
 
     console.log(requestOptions);
@@ -96,7 +96,7 @@ export default class CampaignForm extends Component {
       });
   };
 
-  _getSubmitBody() {
+  _getSubmitBody(event) {
     const submitState = this.state;
     submitState.goal = submitState.goal?.value;
     submitState.kpi = submitState.kpi?.value;
@@ -110,6 +110,7 @@ export default class CampaignForm extends Component {
     console.log(submitState);
     const body = JSON.stringify({
       campaign: submitState,
+      request_type: event.target.value,
       authenticity_token: this.props.token
     });
     return body;
@@ -172,18 +173,28 @@ export default class CampaignForm extends Component {
 
   onAffinityChecked = (checked) => {
     console.log(checked);
-    console.log(this.state.affinities_checked);
-    this.setState({affinities_checked: checked, affinities: this._getAffinities(checked)}, () => {
-      console.log(this.state.affinities_checked);
-      console.log(this.state.affinities);
-    })
+    this.setState({
+      affinities_checked: checked,
+      affinities: this._getAffinities(checked)
+    });
+  };
+
+  onCloseAffinity = (key) => {
+    const checked = this.state.affinities_checked;
+    const index = checked.indexOf(key);
+    if (index !== -1) {
+      checked.splice(index, 1);
+    }
+    this.onAffinityChecked(checked);
   };
 
   _getAffinities = (checked) => {
     const output = {};
     for (const key of checked) {
+      console.log(key);
       output[key] = this.props.data_providers_key_value[key];
     }
+    console.log(output);
     return output;
   };
 
@@ -192,7 +203,7 @@ export default class CampaignForm extends Component {
       case 1:
         return (<CampaignBasicsFormFragment validated={this.state.validated}
                                             name={this.state.name}
-                                            website={this.state.website}
+                                            campaign_url={this.state.campaign_url}
                                             start_date={this.state.start_date}
                                             end_date={this.state.end_date}
                                             handleCancel={this.handleCancel}
@@ -205,7 +216,7 @@ export default class CampaignForm extends Component {
                                            kpi={this.state.kpi}
                                            options={this.props.options}
                                            conversion_rate={this.state.conversion_rate}
-                                           aov={this.state.aov}
+                                           average_order_value={this.state.average_order_value}
                                            target_cpa={this.state.target_cpa}
                                            target_roas={this.state.target_roas}
                                            budget={this.state.budget}
@@ -244,6 +255,7 @@ export default class CampaignForm extends Component {
                                                 onAffinityChecked={this.onAffinityChecked}
                                                 handleCancel={this.handleCancel}
                                                 handleSubmit={this.handleSubmit}
+                                                onCloseAffinity={this.onCloseAffinity}
         />);
     }
   };

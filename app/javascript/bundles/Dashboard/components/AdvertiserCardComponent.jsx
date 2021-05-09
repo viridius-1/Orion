@@ -72,14 +72,6 @@ export default class AdvertiserCardComponent extends Component {
           </div>
           {this.getTopCardContent()}
         </div>
-        <div className='advertiser-card-bottom'>
-          <LinkButton
-            text={`See details`}
-            icon=""
-            buttonClass="see-details-btn"
-            link={`/agencies/${this.props.client.agency_id}/clients/${this.props.client.id}/campaigns`}>
-          </LinkButton>
-        </div>
       </div>
     );
   }

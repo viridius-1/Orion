@@ -26,7 +26,7 @@ namespace :acxiom_parser do
       parent.slice!(" > #{current_name}")
       acxiom_kv[row[0]] = {
           name: current_name,
-          provider:'Acxiom US',
+          provider: 'Acxiom US',
           description: row[3]
       }
 
@@ -48,8 +48,12 @@ namespace :acxiom_parser do
     counter = 0
     output = []
     hash.each do |key, value|
+
       id = value.delete("id")
       description = value.delete("description")
+      unless id
+        puts key
+      end
       output[counter] = {
           value: id,
           label: key,
@@ -59,7 +63,7 @@ namespace :acxiom_parser do
       if children.size > 0
         output[counter]["children"] = children
       end
-      counter = counter+1
+      counter = counter + 1
     end
     return output
   end
