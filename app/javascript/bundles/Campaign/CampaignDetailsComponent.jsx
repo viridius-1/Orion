@@ -20,9 +20,9 @@ export default class CampaignDetailsComponent extends Component {
         return (
             <div style={{ padding: "0 20px" }}>
                 <div className="row">
-                    <div className="col-8 grid-item">
+                    <div className="col-12 grid-item">
                         <div className="row">
-                            <div className="col-10 grid-item">
+                            <div className="col-12 grid-item">
                                 <div className="details-card">
                                     <h6>Goal</h6>
                                     <label className="goal-label">
@@ -32,7 +32,7 @@ export default class CampaignDetailsComponent extends Component {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-3 grid-item">
+                            <div className="col-4 grid-item">
                                 <h6>Budget</h6>
                                 <label>
                                     {CampaignIndexComponent.moneyFormatter(
@@ -40,7 +40,7 @@ export default class CampaignDetailsComponent extends Component {
                                     )}
                                 </label>
                             </div>
-                            <div className="col-3 grid-item">
+                            <div className="col-4 grid-item">
                                 <h6>CPA Goal</h6>
                                 <label>$20</label>
                             </div>
@@ -50,21 +50,15 @@ export default class CampaignDetailsComponent extends Component {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-3 grid-item">
+                            <div className="col-4 grid-item">
                                 <h6>ROAS Goal</h6>
                                 <label>230%</label>
                             </div>
-                            <div className="col-3 grid-item">
+                            <div className="col-4 grid-item">
                                 <h6>KPI</h6>
                                 <label>Impressions</label>
                             </div>
                         </div>
-                    </div>
-                    <div className="col-4 grid-item">
-                        <img
-                            src={require("../../../assets/images/geography-campaign.svg")}
-                            style={{ zoom: "81%" }}
-                        />
                     </div>
                 </div>
             </div>
@@ -75,7 +69,7 @@ export default class CampaignDetailsComponent extends Component {
         return (
             <div style={{ padding: "0 20px" }}>
                 <div className="row">
-                    <div className="col-8 grid-item">
+                    <div className="col-12 grid-item">
                         <div className="row">
                             <div className="col-4 grid-item">
                                 <h6>Gender</h6>
@@ -126,12 +120,6 @@ export default class CampaignDetailsComponent extends Component {
                                 />
                             </div>
                         </div>
-                    </div>
-                    <div className="col-4 grid-item">
-                        <img
-                            src={require("../../../assets/images/geography-campaign.svg")}
-                            style={{ zoom: "81%" }}
-                        />
                     </div>
                 </div>
             </div>
