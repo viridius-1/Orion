@@ -33,7 +33,7 @@ export default class CampaignForm extends Component {
     initialState.household_income = campaign.household_income ? campaign.household_income : [50, 500];
     initialState.education = campaign.education ? FormUtils.buildOption(campaign.education) : null;
     initialState.parental_status = campaign.parental_status ? FormUtils.buildOption(campaign.parental_status) : null;
-    initialState.geography = campaign.geography ? FormUtils.buildOptions(campaign.geography.split(',')) : null;
+    initialState.geography = campaign.geography ? FormUtils.buildOptions(campaign.geography.split(',')) : [];
     initialState.geography_input = "";
     initialState.affinities = campaign.affinities ? campaign.affinities : {};
     initialState.affinities_checked = this._getAffinityKeys(initialState.affinities);
