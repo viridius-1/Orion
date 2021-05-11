@@ -1,20 +1,21 @@
 {
-  "application.js": "/packs/js/application-68eb4a984b172dc66908.js",
-  "application.js.map": "/packs/js/application-68eb4a984b172dc66908.js.map",
+  "application.js": "/packs/js/application-bc89343b3c90be041882.js",
+  "application.js.map": "/packs/js/application-bc89343b3c90be041882.js.map",
   "entrypoints": {
     "application": {
       "js": [
-        "/packs/js/application-68eb4a984b172dc66908.js"
+        "/packs/js/application-bc89343b3c90be041882.js"
       ],
       "js.map": [
-        "/packs/js/application-68eb4a984b172dc66908.js.map"
+        "/packs/js/application-bc89343b3c90be041882.js.map"
       ]
     }
   },
   "media/images/affinities-card.svg": "/packs/media/images/affinities-card-47e24f67.svg",
+  "media/images/cancel.svg": "/packs/media/images/cancel-cad70081.svg",
   "media/images/geography-campaign.svg": "/packs/media/images/geography-campaign-3e306e4f.svg",
-  "media/images/star_step_1.svg": "/packs/media/images/star_step_1-b80e0f76.svg",
-  "media/images/star_step_2.svg": "/packs/media/images/star_step_2-6772b73a.svg",
-  "media/images/star_step_3.svg": "/packs/media/images/star_step_3-2b2db77c.svg",
-  "media/images/star_step_4.svg": "/packs/media/images/star_step_4-1c687465.svg"
+  "media/images/star_step_1.svg": "/packs/media/images/star_step_1-f6aaa4b2.svg",
+  "media/images/star_step_2.svg": "/packs/media/images/star_step_2-0a7de30a.svg",
+  "media/images/star_step_3.svg": "/packs/media/images/star_step_3-2f0d10c4.svg",
+  "media/images/star_step_4.svg": "/packs/media/images/star_step_4-479bbe1d.svg"
 }

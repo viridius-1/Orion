@@ -1,4 +1,48 @@
 @import "colors"
+.btn-primary-v2
+  background: $purple-gradient-linear
+  font-weight: 400
+  font-size: 14px
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
+  height: 50px
+  border-radius: 8px
+  padding: 10px 20px
+  color: white
+  border: none
+
+  .icon
+    font-size: 18px
+    padding-right: 8px
+    vertical-align: middle
+
+
+.btn-secondary-v2
+  color: $purple-2
+  background: white
+  font-weight: 400
+  font-size: 14px
+  height: 50px
+  width: 167px
+  border-radius: 8px
+  padding: 10px 13px 10px 13px
+  border: 1px solid $purple-2
+
+.btn-secondary-v2.btn-drawer
+  width: 34px
+  height: 34px
+  margin-right: 15px
+
+.btn-secondary-v2.btn-campaign-back
+  width: 193px
+  height: 34px
+  margin-right: 15px
+  padding: 0
+
+.slim
+  padding: 0
+  height: auto
+  width: auto
+
 .agency-dashboard
   width: 1160px
   padding-left: 47px
@@ -44,13 +88,80 @@
       padding-top: 2px
       position: absolute
 
+    .label-v2.default-position
+      color: $purple-2
+      position: relative
+
     .input-v2
       padding-top: 20px
       height: 50px
       border-radius: 8px
 
+    .input-v2-append
+      float: right
+      width: 8%
+      align-items: center
+      height: 50px
+      background: #e9ecef
+      border-radius: 0 8px 8px 0
+      border: 1px solid #ced4da
+      border-left: none
+      text-align: center
+      vertical-align: middle
+      line-height: 50px
+      margin-left: -1px
+      color: #495057
+
+    .input-v2.left
+      border-radius: 8px 0 0 8px
+      display: inline-block
+      width: 92%
+
+    .input-v2-prepend
+      float: left
+      width: 8%
+      align-items: center
+      height: 50px
+      background: #e9ecef
+      border-radius: 8px 0 0 8px
+      border: 1px solid #ced4da
+      border-right: none
+      text-align: center
+      vertical-align: middle
+      line-height: 50px
+      margin-left: -1px
+      color: #495057
+
+    .input-v2.right
+      border-radius: 0 8px 8px 0
+      display: inline-block
+      width: 92%
+
     .select2-selection--multiple
       height: auto !important
+
+    .slider-group
+      .slider
+        display: inline-block
+        width: 60%
+
+      .before-label
+        width: 20%
+        align-items: center
+        vertical-align: middle
+        text-align: center
+        float: left
+        padding-top: 3px
+        padding-right: 5px
+
+      .after-label
+        width: 20%
+        align-items: center
+        vertical-align: middle
+        text-align: center
+        float: right
+        padding-top: 3px
+        padding-left: 5px
 
 
   .menu-item
@@ -61,45 +172,10 @@
       font-size: 14px
       padding-right: 15px
 
-  .btn-primary-v2
-    background: $purple-gradient-linear
-    font-weight: 400
-    font-size: 14px
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
-    height: 50px
-    width: 167px
-    border-radius: 8px
-    padding: 10px 13px 10px 13px
-    color: white
+  .no-focus
+    outline: none
 
-    .icon
-      font-size: 18px
-      padding-right: 8px
-      vertical-align: middle
-
-  .btn-cancel-v2
-    color: $purple-2
-    background: white
-    font-weight: 400
-    font-size: 14px
-    height: 50px
-    width: 167px
-    border-radius: 8px
-    padding: 10px 13px 10px 13px
-    border: 1px solid $purple-2
-
-  .btn-cancel-v2.btn-drawer
-    width: 34px
-    height: 34px
-    margin-right: 15px
-
-  .btn-cancel-v2.btn-campaign-back
-    width: 193px
-    height: 34px
-    margin-right: 15px
-    padding: 0
-
-  .btn-secondary-v2
+  .btn-append-right-v2
     background: white
     border-color: #ced4da
     border-left: none
@@ -155,8 +231,8 @@
 
   .advertiser-card-top
     background: $purple-gradient-angular
-    height: 188.05px
-    border-radius: 8px 8px 0px 0px
+    height: 220px
+    border-radius: 8px 8px 8px 8px
     padding: 25px
 
     h4
@@ -183,16 +259,15 @@
 
     .advertiser-card-container
       position: relative
-      height: 100%
+      height: 80%
       display: flex
 
       .content-bottom
         position: absolute
-        bottom: 30px
+        bottom: 0px
 
       .content-center
         margin: auto
-        padding-bottom: 10px
 
   .advertiser-card-top.grey
     background: #F2F2F2
@@ -202,23 +277,6 @@
 
     .card-drawer-icon
       color: #4F4F4F
-
-  .advertiser-card-bottom
-    height: 51.95px
-    display: grid
-    align-items: center
-
-    .see-details-btn
-      float: right
-
-    .see-details-btn:focus
-      box-shadow: none
-
-    label
-      margin-left: auto
-      margin-right: 10px
-      margin-bottom: 0
-      color: $gray-2
 
   .campaigns-index-table
     font-size: 14px
@@ -338,11 +396,12 @@
 
   .selectV2__control--is-focused
     border-color: #80bdff
-    box-shadow: 0 0 0 0.2rem rgba(0,123, 255, 0.25)
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25)
 
   .selectV2__control
     border-radius: 8px
     background: transparent
+
     .selectV2__value-container
 
       .selectV2__placeholder
@@ -360,7 +419,7 @@
 
   .multiSelectV2__control--is-focused
     border-color: #80bdff
-    box-shadow: 0 0 0 0.2rem rgba(0,123, 255, 0.25)
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25)
 
   .multiSelectV2__control
     border-radius: 8px
@@ -380,3 +439,33 @@
 
       input
         height: 20px
+
+  .affinities-tree
+    height: 500px
+    overflow-y: scroll
+    margin: 15px 10px 15px 0
+
+  ::-webkit-scrollbar
+    width: 8px
+
+  ::-webkit-scrollbar-track
+    background: #E0E0E0
+    border-radius: 8px
+
+  ::-webkit-scrollbar-thumb
+    background: #7C3B94
+    border-radius: 8px
+
+  ::-webkit-scrollbar-thumb:hover
+    background: #7C3B94
+
+  .affinity
+    background: #FCF2FF
+    border: 1px solid #DCC3E6
+    box-sizing: border-box
+    border-radius: 8px
+    width: fit-content
+    padding: 5px
+    display: inline-flex
+    margin: 5px
+    vertical-align: top

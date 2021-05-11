@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Form} from 'react-bootstrap';
 import Select from "react-select";
+import FormUtils from '../../common/FormUtils'
 
 let industry_options = [];
 let customer_target_options = [];
@@ -16,29 +17,19 @@ export default class AdvertiserForm extends Component {
     const initialState = {};
     const advertiser = this.props.advertiser;
     initialState.name = advertiser.name ? advertiser.name : "";
-    initialState.industry = advertiser.industry ? this._buildOption(advertiser.industry) : null;
+    initialState.industry = advertiser.industry ? FormUtils.buildOption(advertiser.industry) : null;
     initialState.website = advertiser.website ? advertiser.website : "";
     initialState.monthly_unique_visitors = advertiser.monthly_unique_visitors ? advertiser.monthly_unique_visitors : "";
-    initialState.customer_target = advertiser.customer_target ? this._buildOption(advertiser.customer_target) : null;
-    initialState.current_media_mix = advertiser.current_media_mix ? this._buildOptions(advertiser.current_media_mix.split(',')) : null;
+    initialState.customer_target = advertiser.customer_target ? FormUtils.buildOption(advertiser.customer_target) : null;
+    initialState.current_media_mix = advertiser.current_media_mix ? FormUtils.buildOptions(advertiser.current_media_mix.split(',')) : null;
 
     return initialState;
   }
 
   _initSelectOptions() {
-    industry_options = this._buildOptions(this.props.industry_options);
-    customer_target_options = this._buildOptions(this.props.customer_target_options);
-    media_mix_options = this._buildOptions(this.props.media_mix_options);
-  }
-
-  _buildOptions(options) {
-    return options.map((option) => {
-      return this._buildOption(option)
-    });
-  }
-
-  _buildOption(option) {
-    return {value: option, label: option}
+    industry_options = FormUtils.buildOptions(this.props.industry_options);
+    customer_target_options = FormUtils.buildOptions(this.props.customer_target_options);
+    media_mix_options = FormUtils.buildOptions(this.props.media_mix_options);
   }
 
   _getSubmitBody() {
@@ -102,14 +93,8 @@ export default class AdvertiserForm extends Component {
     this.setState({[name]: selectedOption});
   };
 
-  blockKeys(e) {
-    if (e.key === 'e' || e.key === 'E' || e.key === '.') {
-      e.preventDefault();
-    }
-  }
-
   render() {
-    const {name, industry, website, monthly_unique_visitors, customer_target, current_media_mix} = this.state;
+      const {name, industry, website, monthly_unique_visitors, customer_target, current_media_mix} = this.state;
 
     return (
       <div>
@@ -160,7 +145,7 @@ export default class AdvertiserForm extends Component {
                   <Form.Control className="input-v2"
                                 required
                                 name="monthly_unique_visitors"
-                                onKeyDown={this.blockKeys}
+                                onKeyDown={FormUtils.blockNonNum}
                                 type="number"
                                 onChange={this.handleChange}
                                 value={monthly_unique_visitors}/>
@@ -193,9 +178,8 @@ export default class AdvertiserForm extends Component {
                   />
                 </Form.Group>
                 <div className="form-group">
-                  <button className="btn btn-primary-v2 float-right" type="Submit" style={{width: "61%"}}>Finish
-                  </button>
-                  <button className="btn btn-cancel-v2" type="cancel" onClick={this.handleCancel}>Cancel</button>
+                  <button className="btn btn-primary-v2 float-right" type="Submit" style={{width: "61%"}}>Finish</button>
+                  <button className="btn btn-secondary-v2" type="cancel" onClick={this.handleCancel}>Cancel</button>
                 </div>
               </Form>
             </div>

@@ -27,7 +27,7 @@ export default class ClientsGridViewComponent extends Component {
                         <div className="input-group">
                             <input type="text" className="form-control" style={{borderRight: "none"}} placeholder="Filter by annual revenue"/>
                             <div className="input-group-append">
-                                <button className="btn btn-secondary btn-secondary-v2" type="button">
+                                <button className="btn btn-secondary btn-append-right-v2" type="button">
                                     <i className="fas fa-chevron-down"></i>
                                 </button>
                             </div>

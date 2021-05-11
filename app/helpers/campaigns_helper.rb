@@ -1,4 +1,15 @@
 module CampaignsHelper
+  def options
+    {
+        goal_options: goal_options,
+        kpi_options: kpi_options,
+        education_options: education_options,
+        parental_options: parental_options
+    }
+  end
+
+  private
+
   def goal_options
     ['Reach',
      'Awareness',
