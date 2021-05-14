@@ -290,6 +290,7 @@
 
     tr
       border: none
+      cursor: pointer
 
     tr:hover
       zoom: 105%
@@ -364,20 +365,19 @@
       font-size: 21px
       line-height: 16px
       letter-spacing: 0em
-      color: #3289CB
-
-
-    .dot.orange
-      margin-right: 5px
+      color: $blue
 
     .details-card
       background: white
       border: 1px solid #D9D9D9
       box-sizing: border-box
       border-radius: 8px
-      padding: 15px
+      padding: 16px 20px 12px
 
-    .details-card.filled
+      .dot
+        margin-right: 8px
+
+    .details-card.more-details
       padding: 0px
 
   .tabs-component
@@ -392,13 +392,16 @@
       border-bottom: none
       border-left: none
       border-right: 1px solid #D9D9D9
-
+      padding: 16px 28px
+      color: $gray-1
 
     button:focus
       outline: none
 
     button.active
-      border-bottom: 3px solid $purple-2
+      border-bottom: 4px solid $purple
+      font-weight: bold
+      color: $gray-2
 
 
   .selectV2__control--is-focused
@@ -466,13 +469,21 @@
   ::-webkit-scrollbar-thumb:hover
     background: #7C3B94
 
-  .affinity
-    background: #FCF2FF
-    border: 1px solid #DCC3E6
-    box-sizing: border-box
+  .pill
     border-radius: 8px
     width: fit-content
-    padding: 5px
-    display: inline-flex
-    margin: 5px
-    vertical-align: top
+    padding: 8px 16px
+    font-size: 12px
+    margin-right: 8px
+    margin-bottom: 8px
+
+    &.blue
+      background: $blue-background-1
+      border: 1px solid $blue
+
+    &.affinity
+      background: $purple-background-1
+      border: 1px solid $purple-3
+      box-sizing: border-box
+      display: inline-flex
+      vertical-align: top

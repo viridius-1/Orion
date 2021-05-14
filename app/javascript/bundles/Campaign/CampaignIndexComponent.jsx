@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { statusColor } from "../../constants";
+import { moneyFormatter } from "../../common/utils";
 import LinkButton from "../../components/LinkButton";
 import BootstrapTable from "react-bootstrap-table-next";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -53,13 +54,8 @@ export default class CampaignIndexComponent extends Component {
     );
   }
 
-  static moneyFormatter(row) {
-    const formatter = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      maximumFractionDigits: 0
-    });
-    return `${formatter.format(row)} CAD`;
+  budgetFormatter(budget) {
+    return moneyFormatter(budget);
   }
 
   getSortCaret() {
@@ -98,7 +94,7 @@ export default class CampaignIndexComponent extends Component {
       text: "Total Budget",
       sort: true,
       sortCaret: this.getSortCaret,
-      formatter: CampaignIndexComponent.moneyFormatter,
+      formatter: this.budgetFormatter,
       style: () => {
         return { textAlign: "center" };
       },

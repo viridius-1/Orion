@@ -13,29 +13,51 @@ export default class CampaignForm extends Component {
   }
 
   _initialState() {
-    const initialState = {};
-    const campaign = this.props.campaign;
-    initialState.name = campaign.name ? campaign.name : "";
-    initialState.campaign_url = campaign.campaign_url ? campaign.campaign_url : "";
-    initialState.start_date = campaign.start_date ? campaign.start_date : "";
-    initialState.end_date = campaign.end_date ? campaign.end_date : "";
-    initialState.goal = campaign.goal ? FormUtils.buildOption(campaign.goal) : null;
-    initialState.kpi = campaign.kpi ? FormUtils.buildOption(campaign.kpi) : null;
-    initialState.conversion_rate = campaign.conversion_rate ? campaign.conversion_rate : "";
-    initialState.average_order_value = campaign.average_order_value ? campaign.average_order_value : "";
-    initialState.target_cpa = campaign.target_cpa ? campaign.target_cpa : "";
-    initialState.target_roas = campaign.target_roas ? campaign.target_roas : "";
-    initialState.budget = campaign.budget ? campaign.budget : "";
-    initialState.male_selected = !!campaign.age_range_male;
-    initialState.age_range_male = campaign.age_range_male ? campaign.age_range_male : [18, 99];
-    initialState.female_selected = !!campaign.age_range_female;
-    initialState.age_range_female = campaign.age_range_female ? campaign.age_range_female : [18, 99];
-    initialState.household_income = campaign.household_income ? campaign.household_income : [50, 500];
-    initialState.education = campaign.education ? FormUtils.buildOption(campaign.education) : null;
-    initialState.parental_status = campaign.parental_status ? FormUtils.buildOption(campaign.parental_status) : null;
-    initialState.geography = campaign.geography ? FormUtils.buildOptions(campaign.geography.split(',')) : [];
-    initialState.geography_input = "";
-    initialState.affinities = campaign.affinities ? campaign.affinities : {};
+    const {
+      name,
+      campaign_url,
+      start_date,
+      end_date,
+      goal,
+      kpi,
+      conversion_rate,
+      average_order_value,
+      target_cpa,
+      target_roas,
+      budget,
+      age_range_male,
+      age_range_female,
+      household_income,
+      education,
+      parental_status,
+      geography,
+      affinities
+    } = this.props.campaign;
+
+    const initialState = {
+      name: name ? name : "",
+      campaign_url: campaign_url ? campaign_url : "",
+      start_date: start_date ? start_date : "",
+      end_date: end_date ? end_date : "",
+      goal: goal ? FormUtils.buildOption(goal) : null,
+      kpi: kpi ? FormUtils.buildOption(kpi) : null,
+      conversion_rate: conversion_rate ? conversion_rate : "",
+      average_order_value: average_order_value ? average_order_value : "",
+      target_cpa: target_cpa ? target_cpa : "",
+      target_roas: target_roas ? target_roas : "",
+      budget: budget ? budget : "",
+      male_selected: !!age_range_male,
+      age_range_male: age_range_male ? age_range_male : [18, 99],
+      female_selected: !!age_range_female,
+      age_range_female: age_range_female ? age_range_female : [18, 99],
+      household_income: household_income ? household_income : [50, 500],
+      education: education ? FormUtils.buildOption(education) : null,
+      parental_status: parental_status ? FormUtils.buildOption(parental_status) : null,
+      geography: geography ? FormUtils.buildOptions(geography.split(',')) : [],
+      geography_input: "",
+      affinities: affinities ? affinities : {},
+    };
+
     initialState.affinities_checked = this._getAffinityKeys(initialState.affinities);
 
     initialState.current_step = 1;
@@ -96,18 +118,30 @@ export default class CampaignForm extends Component {
       });
   };
 
-  _getSubmitBody(event) {
-    const submitState = this.state;
-    submitState.goal = submitState.goal?.value;
-    submitState.kpi = submitState.kpi?.value;
-    submitState.education = submitState.education?.value;
-    submitState.parental_status = submitState.parental_status?.value;
-    submitState.geography = submitState.geography?.map((option) => {
-      return option.value
-    }).toString();
+  _getSubmitBody = (event) => {
+    const {
+      male_selected,
+      age_range_male,
+      female_selected,
+      age_range_female,
+      goal,
+      kpi,
+      education,
+      parental_status,
+      geography
+    } = this.state;
 
+    const submitState = {
+      ...this.state,
+      age_range_male: male_selected ? age_range_male : null,
+      age_range_female: female_selected ? age_range_female : null,
+      goal: goal?.value,
+      kpi: kpi?.value,
+      education: education?.value,
+      parental_status: parental_status?.value,
+      geography: geography?.map(option => option.value).toString()
+    };
 
-    console.log(submitState);
     const body = JSON.stringify({
       campaign: submitState,
       request_type: event.target.value,
