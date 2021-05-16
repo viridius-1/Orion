@@ -4,6 +4,12 @@ const status = {
   "COMPLETE": "complete",
 }
 
+const statusLabel = {
+  [status.PENDING_APPROVAL]: "Pending Approval",
+  [status.APPROVED]: "Approved",
+  [status.COMPLETE]: "Complete",
+}
+
 const statusColor = {
   [status.PENDING_APPROVAL]: "orange",
   [status.APPROVED]: "green",
@@ -12,5 +18,6 @@ const statusColor = {
 
 export {
   status,
+  statusLabel,
   statusColor
 }

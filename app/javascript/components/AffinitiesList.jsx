@@ -27,16 +27,18 @@ export default class AffinitiesList extends Component {
     const affinitiesKeys = Object.keys(this.props.affinities);
     return affinitiesKeys.map((key) => {
       return (
-        <div key={key} className="affinity">
+        <div key={key} className="pill affinity">
           <div style={{margin:"auto"}}>
             {this._getParentLabel(this.props.affinities[key].parent)}
             {this._getNameLabel(this.props.affinities[key].name)}
           </div>
-          <button className="btn btn-sm" onClick={() => this.props.onCloseAffinity(key)}>
-            <img src={require("../../assets/images/cancel.svg")}
-                 style={{width: "10px"}}
-            />
-          </button>
+          { this.props.onCloseAffinity && (
+            <button className="btn btn-sm" onClick={() => this.props.onCloseAffinity(key)}>
+              <img src={require("../../assets/images/cancel.svg")}
+                  style={{width: "10px"}}
+              />
+            </button>)
+          }
         </div>);
     })
   };
