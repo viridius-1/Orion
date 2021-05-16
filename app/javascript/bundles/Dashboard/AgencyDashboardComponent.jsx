@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import ClientsGridViewComponent from './components/ClientsGridViewComponent';
+import AdvertisersGridViewComponent from './components/AdvertisersGridViewComponent';
 import LinkButton from "../../components/LinkButton";
 
 export default class AgencyDashboardComponent extends Component {
@@ -9,15 +9,15 @@ export default class AgencyDashboardComponent extends Component {
 
     render() {
         let content;
-        const numOfClients = this.props.clients ? this.props.clients.length : 0;
-        const addAdvertiserLink = `/agencies/${this.props.agency.id}/clients/new`;
-        if (numOfClients > 0) {
-            content = <ClientsGridViewComponent clients={this.props.clients} agency={this.props.agency} token={this.props.token}/>;
+        const numOfAdvertisers = this.props.advertisers ? this.props.advertisers.length : 0;
+        const addAdvertiserLink = `/agencies/${this.props.agency.id}/advertisers/new`;
+        if (numOfAdvertisers > 0) {
+            content = <AdvertisersGridViewComponent advertisers={this.props.advertisers} agency={this.props.agency} token={this.props.token}/>;
         } else {
             content =
                 <div className="row">
                     <div className="col-12">
-                        <div className="card no-clients-card">
+                        <div className="card no-advertisers-card">
                             <p>You don’t have any advertisers yet.</p>
                             <LinkButton
                                 text="Add Advertiser"

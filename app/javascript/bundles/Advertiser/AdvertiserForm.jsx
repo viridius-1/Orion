@@ -4,7 +4,7 @@ import Select from "react-select";
 import FormUtils from '../../common/FormUtils'
 
 let industry_options = [];
-let customer_target_options = [];
+let business_type_options = [];
 let media_mix_options = [];
 export default class AdvertiserForm extends Component {
   constructor(props) {
@@ -14,34 +14,42 @@ export default class AdvertiserForm extends Component {
   }
 
   _initialState() {
-    const initialState = {};
-    const advertiser = this.props.advertiser;
-    initialState.name = advertiser.name ? advertiser.name : "";
-    initialState.industry = advertiser.industry ? FormUtils.buildOption(advertiser.industry) : null;
-    initialState.website = advertiser.website ? advertiser.website : "";
-    initialState.monthly_unique_visitors = advertiser.monthly_unique_visitors ? advertiser.monthly_unique_visitors : "";
-    initialState.customer_target = advertiser.customer_target ? FormUtils.buildOption(advertiser.customer_target) : null;
-    initialState.current_media_mix = advertiser.current_media_mix ? FormUtils.buildOptions(advertiser.current_media_mix.split(',')) : null;
+    const {
+      name,
+      industry,
+      website_url,
+      monthly_unique_visitors,
+      business_type,
+      current_media_mix
+    } = this.props.advertiser;
 
-    return initialState;
+    return {
+      name: name ? name : "",
+      industry: industry ? FormUtils.buildOption(industry) : "",
+      website_url: website_url ? website_url : "",
+      monthly_unique_visitors: monthly_unique_visitors ? monthly_unique_visitors : "",
+      business_type: business_type ? FormUtils.buildOption(business_type) : "",
+      current_media_mix: current_media_mix ? FormUtils.buildOptions(current_media_mix) : []
+    }
   }
 
   _initSelectOptions() {
     industry_options = FormUtils.buildOptions(this.props.industry_options);
-    customer_target_options = FormUtils.buildOptions(this.props.customer_target_options);
+    business_type_options = FormUtils.buildOptions(this.props.business_type_options);
     media_mix_options = FormUtils.buildOptions(this.props.media_mix_options);
   }
 
   _getSubmitBody() {
+    const { industry, business_type, current_media_mix } = this.state;
     const submitState = this.state;
-    submitState.industry = submitState.industry?.value;
-    submitState.customer_target = submitState.customer_target?.value;
-    submitState.current_media_mix = submitState.current_media_mix?.map((option) => {
+    submitState.industry = industry?.value;
+    submitState.business_type = business_type?.value;
+    submitState.current_media_mix = current_media_mix?.map((option) => {
       return option.value
-    }).toString();
+    });
 
     const body = JSON.stringify({
-      client: submitState,
+      advertiser: submitState,
       authenticity_token: this.props.token
     });
     return body;
@@ -55,12 +63,12 @@ export default class AdvertiserForm extends Component {
     } else {
 
       let method = 'POST';
-      let path = `/agencies/${this.props.advertiser.agency_id}/clients`;
+      let path = `/agencies/${this.props.advertiser.agency_id}/advertisers`;
 
 
       if (!this.props.new) {
         method = 'PUT';
-        path = `/agencies/${this.props.advertiser.agency_id}/clients/${this.props.advertiser.id}`
+        path = `/agencies/${this.props.advertiser.agency_id}/advertisers/${this.props.advertiser.id}`
       }
       const requestOptions = {
         method,
@@ -70,10 +78,13 @@ export default class AdvertiserForm extends Component {
 
       fetch(path, requestOptions)
         .then((response) => {
+          console.log(response);
           if (response.redirected) {
             window.location.href = response.url;
           }
-        });
+        }).catch((response) => {
+          console.log(response);
+      });
     }
     this.setState({validated: true});
   };
@@ -94,7 +105,7 @@ export default class AdvertiserForm extends Component {
   };
 
   render() {
-      const {name, industry, website, monthly_unique_visitors, customer_target, current_media_mix} = this.state;
+    const {name, industry, website_url, monthly_unique_visitors, business_type, current_media_mix} = this.state;
 
     return (
       <div>
@@ -127,14 +138,14 @@ export default class AdvertiserForm extends Component {
                   />
                 </Form.Group>
 
-                <Form.Group controlId="website">
+                <Form.Group controlId="website_url">
                   <Form.Label className="label-v2">Website URL</Form.Label>
                   <Form.Control className="input-v2"
                                 required
-                                name="website"
+                                name="website_url"
                                 type="url"
                                 onChange={this.handleChange}
-                                value={website}/>
+                                value={website_url}/>
                   <Form.Control.Feedback type="invalid">
                     Website URL is invalid
                   </Form.Control.Feedback>
@@ -154,18 +165,18 @@ export default class AdvertiserForm extends Component {
                   </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group controlId="customer_target">
+                <Form.Group controlId="business_type">
                   <Form.Label className="label-v2">Business Type</Form.Label>
                   <Select className="selectV2"
                           classNamePrefix='selectV2'
-                          options={customer_target_options}
-                          name='customer_target'
+                          options={business_type_options}
+                          name='business_type'
                           onChange={this.handleSelectChange}
-                          value={customer_target}
+                          value={business_type}
                   />
                 </Form.Group>
 
-                <Form.Group controlId="business_type">
+                <Form.Group>
                   <Form.Label className="label-v2">Current Media Mix</Form.Label>
                   <Select className="multiSelectV2"
                           classNamePrefix='multiSelectV2'

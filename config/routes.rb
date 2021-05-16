@@ -9,30 +9,20 @@ Rails.application.routes.draw do
 
   apipie
 
-  devise_for :users, controllers: { invitations: 'users/invitations',
-                                    registrations: 'users/registrations' }
+  devise_for :users, controllers: {invitations: 'users/invitations',
+                                   registrations: 'users/registrations'}
 
   root 'dashboard#index'
 
-  get 'studios/audiences', to: 'data_studios#audiences'
-
   resources :dashboard, only: :index
-  resources :data_studios, only: [:create, :destroy]
   resources :platforms, only: :index
 
-  get 'audiences/:id', to: 'audiences#show', as: :audiences
-
   resources :agencies do
-    resources :users
-
-    resources :clients do
-      resources :campaigns
-    end
+    resources :users, :advertisers
   end
 
   resources :advertisers do
-    resources :users
-    resources :campaigns
+    resources :users, :campaigns
   end
 
   namespace :api do
@@ -40,7 +30,4 @@ Rails.application.routes.draw do
       post 'tapclicks/authenticate', to: 'authenticate#create'
     end
   end
-
-  get 'redirect_landing', to: 'pages#redirect_landing'
-  get 'redirect', to: 'pages#redirect'
 end

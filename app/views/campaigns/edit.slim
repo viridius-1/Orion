@@ -10,10 +10,10 @@
         .card-body
           = react_component("CampaignForm",
                   props: {campaign: @campaign,
-                          client: @client,
+                          advertiser: @advertiser,
                           new: false,
                           token: form_authenticity_token,
                           options: options,
-                          data_providers: @data_providers_nested,
-                          data_providers_key_value: @data_providers_key_value},
+                          data_providers: data_providers_nested,
+                          data_providers_key_value: data_providers_key_value},
                   prerender: false)

@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import LinkButton from "../../../components/LinkButton";
 import AdvertiserCardComponent from "./AdvertiserCardComponent";
 
-export default class ClientsGridViewComponent extends Component {
+export default class AdvertisersGridViewComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {searchTerm: ''};
@@ -15,7 +15,7 @@ export default class ClientsGridViewComponent extends Component {
     }
 
     render() {
-        const addAdvertiserLink = `/agencies/${this.props.agency.id}/clients/new`;
+        const addAdvertiserLink = `/agencies/${this.props.agency.id}/advertisers/new`;
         return (
             <div>
                 <div className="row">
@@ -42,16 +42,16 @@ export default class ClientsGridViewComponent extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    {this.props.clients.filter((client) => {
+                    {this.props.advertisers.filter((advertiser) => {
                         if (this.state.searchTerm === "") {
-                            return client;
-                        } else if (client.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())) {
-                            return client;
+                            return advertiser;
+                        } else if (advertiser.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())) {
+                            return advertiser;
                         }
-                    }).map(client => {
+                    }).map(advertiser => {
                         return (
-                            <div className='col-4 grid-item' key={client.id}>
-                                <AdvertiserCardComponent client={client} token={this.props.token}/>
+                            <div className='col-4 grid-item' key={advertiser.id}>
+                                <AdvertiserCardComponent advertiser={advertiser} token={this.props.token}/>
                             </div>
                         );
                     })}

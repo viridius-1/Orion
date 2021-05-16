@@ -8,6 +8,15 @@ module CampaignsHelper
     }
   end
 
+  def data_providers_nested
+    providers_nested = File.read('./lib/data_providers/acxiom-data-nested.json')
+    JSON.parse(providers_nested)
+  end
+
+  def data_providers_key_value
+    providers_key_value = File.read('./lib/data_providers/acxiom-data-key-value.json')
+    JSON.parse(providers_key_value)
+  end
   private
 
   def goal_options

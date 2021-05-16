@@ -1,61 +1,72 @@
 class AdvertisersController < ApplicationController
-  before_action :set_advertiser, only: [:show, :edit, :update, :destroy]
+  before_action :set_agency, only: [:index, :new, :create, :destroy]
+  before_action :set_advertiser, only: [:edit, :update, :destroy]
 
-  def show; end
-
-  def edit; end
-
-  # POST /advertisers
-  def create
-    @advertiser = Advertiser.new(advertiser_params)
-    CompanyMember.create(company_id: @advertiser.id,
-                         company_type: 'Advertiser',
-                         user_id: current_user.id)
-
-    if @advertiser.save
-      if @advertiser.is_agency.nil?
-        redirect_to campaigns_path, notice: "#{@advertiser.name} was successfully created."
-      else
-        redirect_to campaigns_path(advertiser: @advertiser.id)
-      end
-    else
-      render :new
+  def index
+    advertisers = @agency.advertisers.order(updated_at: :desc)
+    @advertisers_with_campaigns = advertisers.map do |advertiser|
+      new_advertiser = advertiser.attributes
+      new_advertiser[:campaigns] = advertiser.campaigns
+      new_advertiser
     end
   end
 
-  # PATCH/PUT /advertisers/1
+  def new
+    @advertiser = @agency.advertisers.new
+  end
+
+  def create
+    @advertiser = @agency.advertisers.new(advertiser_params)
+    if @advertiser.save
+      redirect_to agency_advertisers_path(params[:agency_id]),
+                  notice: 'Advertiser was successfully created.'
+    end
+  end
+
+  def edit;
+  end
+
   def update
     if @advertiser.update(advertiser_params)
-      redirect_to advertiser_path, notice: "#{@advertiser.name} was successfully updated."
+      redirect_to agency_advertisers_path(params[:agency_id]),
+                  notice: 'Advertiser has been successfully updated.'
     else
-      render :edit
+      errors = {alert: @user.errors.full_messages.join(', ')}
+      redirect_to edit_advertisers_path(@advertiser, advertiser: advertiser_params), errors
     end
   end
 
-  # DELETE /advertisers/1
   def destroy
-    @advertiser.destroy
-    redirect_to advertisers_url, notice: 'Advertiser was successfully destroyed.'
+    correct_user = CompanyMember.find_by(company_id: @agency.id, user_id: current_user)
+
+    if correct_user && @advertiser.destroy
+      flash[:notice] = 'Advertiser successfully deleted'
+    else
+      flash[:alert] = 'Unable to remove Advertiser'
+    end
+
+    redirect_to agency_advertisers_path(params[:agency_id])
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
+
+  def set_agency
+    @agency = Agency.find(params[:agency_id])
+  end
+
   def set_advertiser
     @advertiser = Advertiser.find(params[:id])
   end
 
-  # Only allow a trusted parameter "white list" through.
+
   def advertiser_params
     params.require(:advertiser).permit(
-      :name,
-      :website_url,
-      :user_id,
-      :agency_id,
-      :industry,
-      :business_type,
-      :annual_revenue
-      :monthly_unique_visitors,
-      :current_media_mix => [],
-      )
+        :name,
+        :website_url,
+        :industry,
+        :business_type,
+        :monthly_unique_visitors,
+        {:current_media_mix => []}
+    )
   end
 end

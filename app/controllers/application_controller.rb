@@ -1,12 +1,16 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
-  helper_method :get_first_client_id
+  helper_method :campaign_planner_path
 
 
-  # This will probably go away when we decouple advertiser and client
-  def get_first_client_id
-    agency = Agency.find(current_user.company.id)
-    agency.clients.first.id
+  def campaign_planner_path
+    if current_user.company_type == 'Advertiser'
+       new_advertiser_campaign_path(advertiser_id: current_user.company.id)
+    else
+      agency = Agency.find(current_user.company.id)
+      advertiser = agency.advertisers.first
+      advertiser ? new_advertiser_campaign_path(advertiser.id) : ''
+    end
   end
 
   private
