@@ -2,7 +2,7 @@ nav#sidebar
   = link_to root_path, class: 'navbar-brand' do
     = image_tag "logo-orion.svg", style: 'width: 94px; margin-left: 13px'
   ul.list-unstyled.main-links
-    li.clearfix class=(controller_name == 'clients' || (controller_name == 'campaigns' && controller.action_name) == 'index' ? 'active' : '')
+    li.clearfix class=(controller_name == 'advertisers' || (controller_name == 'campaigns' && controller.action_name) == 'index' ? 'active' : '')
       .icon-container
         i.fas.fa-home
       - if current_user.company_type == 'Advertiser'
@@ -12,10 +12,7 @@ nav#sidebar
     li.clearfix class=(controller_name == 'campaigns' && controller.action_name == 'new' ? 'active' : '')
       .icon-container
         i.fas.fa-crosshairs
-      - if current_user.company_type == 'Advertiser'
-        = link_to "Campaign Planner", new_advertiser_campaign_path(advertiser_id: current_user.company.id)
-      - else current_user.company_type == 'Agency'
-        = link_to "Campaign Planner", new_agency_client_campaign_path(agency_id: current_user.company.id, client_id: get_first_client_id)
+      = link_to "Campaign Planner", campaign_planner_path
     li.clearfix
       .icon-container
         i.fas.fa-paint-brush
@@ -44,4 +41,4 @@ javascript:
     setTimeout(function() {
       location.reload();
     }, 1000)
-  })
+  });

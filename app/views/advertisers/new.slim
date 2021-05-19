@@ -9,5 +9,5 @@
       .card.card-v2
         .card-body
           = react_component("AdvertiserForm",
-                  props: {advertiser: @client, industry_options: industry_options, customer_target_options: customer_target_options, media_mix_options: media_mix_options, new: true, token: form_authenticity_token},
+                  props: {advertiser: @advertiser, industry_options: industry_options, business_type_options: business_type_options, media_mix_options: media_mix_options, new: true, token: form_authenticity_token},
                   prerender: false)

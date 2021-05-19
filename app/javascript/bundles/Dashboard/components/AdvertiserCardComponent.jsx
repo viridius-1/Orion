@@ -7,7 +7,7 @@ export default class AdvertiserCardComponent extends Component {
     super(props);
   }
 
-  numberOfCampaigns = this.props.client.campaigns.length;
+  numberOfCampaigns = this.props.advertiser.campaigns.length;
   hasActiveCampaigns = this.numberOfCampaigns > 0;
 
   getTopCardContent() {
@@ -19,7 +19,7 @@ export default class AdvertiserCardComponent extends Component {
               text={`${this.numberOfCampaigns} Active Campaigns`}
               buttonClass="active-campaigns-btn"
               icon=""
-              link={`/agencies/${this.props.client.agency_id}/clients/${this.props.client.id}/campaigns`}>
+              link={`/advertisers/${this.props.advertiser.id}/campaigns`}>
             </LinkButton>
           </div>
         </div>
@@ -32,7 +32,7 @@ export default class AdvertiserCardComponent extends Component {
               text={'Create campaigns'}
               icon="fas fa-plus-circle icon"
               buttonClass="create-campaigns-btn"
-              link={`/agencies/${this.props.client.agency_id}/clients/${this.props.client.id}/campaigns/new`}>
+              link={`/advertisers/${this.props.advertiser.id}/campaigns/new`}>
             </LinkButton>
           </div>
         </div>
@@ -45,7 +45,7 @@ export default class AdvertiserCardComponent extends Component {
       <div className='advertiser-card'>
         <div className={this.hasActiveCampaigns ? 'advertiser-card-top' : 'advertiser-card-top' + ' grey'}>
           <div>
-            <h4>{this.props.client.name}</h4>
+            <h4>{this.props.advertiser.name}</h4>
             <LinkDropdownMenu
               class="dropdown-menu-button"
               icon="fas fa-ellipsis-v card-drawer-icon"
@@ -54,7 +54,7 @@ export default class AdvertiserCardComponent extends Component {
                 {
                   text: "Edit",
                   icon: "fas fa-pen",
-                  link: `/agencies/${this.props.client.agency_id}/clients/${this.props.client.id}/edit`
+                  link: `/agencies/${this.props.advertiser.agency_id}/advertisers/${this.props.advertiser.id}/edit`
                 },
                 {
                   text: "Duplicate",
@@ -64,7 +64,7 @@ export default class AdvertiserCardComponent extends Component {
                 {
                   text: "Delete",
                   icon: "fas fa-times-circle",
-                  link: `/agencies/${this.props.client.agency_id}/clients/${this.props.client.id}`,
+                  link: `/agencies/${this.props.advertiser.agency_id}/advertisers/${this.props.advertiser.id}`,
                   action: 'delete'
                 }
               ]}

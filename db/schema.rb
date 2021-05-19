@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_09_090859) do
+ActiveRecord::Schema.define(version: 2021_05_01_230040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,19 +56,6 @@ ActiveRecord::Schema.define(version: 2021_05_09_090859) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "audiences", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.integer "audience_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "campaign_audiences", force: :cascade do |t|
-    t.integer "campaign_id"
-    t.integer "audience_id"
-  end
-
   create_table "campaigns", force: :cascade do |t|
     t.string "name"
     t.string "campaign_url"
@@ -95,38 +82,6 @@ ActiveRecord::Schema.define(version: 2021_05_09_090859) do
     t.string "status"
     t.string "languages"
     t.integer "budget_used"
-  end
-
-  create_table "clients", force: :cascade do |t|
-    t.string "name"
-    t.integer "agency_id"
-    t.text "website"
-    t.string "industry"
-    t.string "preferred_service_level"
-    t.string "customer_target"
-    t.string "monthly_unique_visitors"
-    t.decimal "average_order_value"
-    t.decimal "conversion_rate"
-    t.decimal "cost_per_acquisition"
-    t.string "current_media_mix"
-    t.integer "age_range_start"
-    t.integer "age_range_end"
-    t.text "gender"
-    t.text "household_income"
-    t.text "parental_status"
-    t.text "education"
-    t.text "language"
-    t.text "affinity"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "company_campaigns", force: :cascade do |t|
-    t.integer "company_id"
-    t.string "company_type"
-    t.integer "campaign_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "company_members", force: :cascade do |t|

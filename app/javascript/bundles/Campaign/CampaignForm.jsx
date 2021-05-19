@@ -53,7 +53,7 @@ export default class CampaignForm extends Component {
       household_income: household_income ? household_income : [50, 500],
       education: education ? FormUtils.buildOption(education) : null,
       parental_status: parental_status ? FormUtils.buildOption(parental_status) : null,
-      geography: geography ? FormUtils.buildOptions(geography.split(',')) : [],
+      geography: geography ? FormUtils.buildOptions(geography) : [],
       geography_input: "",
       affinities: affinities ? affinities : {},
     };
@@ -70,7 +70,6 @@ export default class CampaignForm extends Component {
     for (const key in object) {
       output.push(key);
     }
-    console.log(output);
     return output;
   };
 
@@ -92,24 +91,21 @@ export default class CampaignForm extends Component {
 
   _submitForm = (event) => {
     let method = 'POST';
-    let {client, campaign} = this.props;
-    let path = `/agencies/${client.agency_id}/clients/${client.id}/campaigns`;
+    let {advertiser, campaign} = this.props;
+    let path = `/advertisers/${advertiser.id}/campaigns`;
 
 
     if (!this.props.new) {
       method = 'PUT';
-      path = `/agencies/${client.agency_id}/clients/${client.id}/campaigns/${campaign.id}`;
+      path = `/advertisers/${advertiser.id}/campaigns/${campaign.id}`
     }
 
-    console.log(path);
-    console.log(method);
     const requestOptions = {
       method,
       headers: {'Content-Type': 'application/json'},
       body: this._getSubmitBody(event)
     };
 
-    console.log(requestOptions);
     fetch(path, requestOptions)
       .then((response) => {
         if (response.redirected) {
@@ -139,7 +135,7 @@ export default class CampaignForm extends Component {
       kpi: kpi?.value,
       education: education?.value,
       parental_status: parental_status?.value,
-      geography: geography?.map(option => option.value).toString()
+      geography: geography?.map(option => option.value)
     };
 
     const body = JSON.stringify({
@@ -148,7 +144,7 @@ export default class CampaignForm extends Component {
       authenticity_token: this.props.token
     });
     return body;
-  }
+  };
 
   handleCancel = event => {
     event.preventDefault();

@@ -7,8 +7,6 @@ class User < ApplicationRecord
 
   has_one :company_member, dependent: :destroy
   has_many :connections
-  has_many :favorites
-  has_many :audiences, through: :favorites
 
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: true

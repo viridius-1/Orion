@@ -3,7 +3,7 @@ module AdvertisersHelper
     [:managed_service, :self_service, :hybrid_service]
   end
 
-  def customer_target_options
+  def business_type_options
     [
         'Business to Business',
         'Business to Consumer',

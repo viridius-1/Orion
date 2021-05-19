@@ -90,7 +90,7 @@ export default class CampaignDetailsComponent extends Component {
       parental_status,
       affinities
     } = this.props.campaign;
-
+    console.log(geography);
     return (
       <div style={{ padding: "0 40px" }}>
         <div className="row">
@@ -139,7 +139,7 @@ export default class CampaignDetailsComponent extends Component {
                   <div className="col-12 grid-item">
                     <h6>Geography</h6>
                     {
-                      geography ? geography.split(",").map((geographyItem, index) => (
+                      geography.length !== 0 ? geography.map((geographyItem, index) => (
                         <div key={index} className="pill blue">{geographyItem}</div>
                       )) : "-"
                     }
