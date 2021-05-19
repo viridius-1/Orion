@@ -12,10 +12,10 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.find(params[:id])
     @website = 'www.website.com'
     @button_links = {
-        back: advertiser_campaigns_path(advertiser_id: @advertiser.id),
-        edit: "#{request.path}/edit",
-        duplicate: '#',
-        delete: "#{request.path}"
+      back: advertiser_campaigns_path(advertiser_id: @advertiser.id),
+      edit: "#{request.path}/edit",
+      duplicate: '#',
+      delete: "#{request.path}"
     }
   end
 
@@ -73,24 +73,24 @@ class CampaignsController < ApplicationController
 
   def campaign_params
     params.require(:campaign).permit(
-        :name,
-        :campaign_url,
-        :start_date,
-        :end_date,
-        :goal,
-        :kpi,
-        :conversion_rate,
-        :average_order_value,
-        :target_cpa,
-        :target_roas,
-        :budget,
-        {:age_range_male => []},
-        {:age_range_female => []},
-        {:household_income => []},
-        :education,
-        :parental_status,
-        {:geography => []},
-        :affinities => {}
+      :name,
+      :campaign_url,
+      :start_date,
+      :end_date,
+      :goal,
+      :kpi,
+      :conversion_rate,
+      :average_order_value,
+      :target_cpa,
+      :target_roas,
+      :budget,
+      {:age_range_male => []},
+      {:age_range_female => []},
+      {:household_income => []},
+      :education,
+      :parental_status,
+      {:geography => []},
+      :affinities => {}
     )
   end
 

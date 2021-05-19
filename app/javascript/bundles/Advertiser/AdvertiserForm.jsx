@@ -40,8 +40,8 @@ export default class AdvertiserForm extends Component {
   }
 
   _getSubmitBody() {
-    const { industry, business_type, current_media_mix } = this.state;
-    const submitState = this.state;
+    const submitState = {...this.state};
+    const {industry, business_type, current_media_mix} = submitState;
     submitState.industry = industry?.value;
     submitState.business_type = business_type?.value;
     submitState.current_media_mix = current_media_mix?.map((option) => {
@@ -83,7 +83,7 @@ export default class AdvertiserForm extends Component {
             window.location.href = response.url;
           }
         }).catch((response) => {
-          console.log(response);
+        console.log(response);
       });
     }
     this.setState({validated: true});
@@ -189,7 +189,8 @@ export default class AdvertiserForm extends Component {
                   />
                 </Form.Group>
                 <div className="form-group">
-                  <button className="btn btn-primary-v2 float-right" type="Submit" style={{width: "61%"}}>Finish</button>
+                  <button className="btn btn-primary-v2 float-right" type="Submit" style={{width: "61%"}}>Finish
+                  </button>
                   <button className="btn btn-secondary-v2" type="cancel" onClick={this.handleCancel}>Cancel</button>
                 </div>
               </Form>
