@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from 'react';
 
 export default class Step extends Component {
   constructor(props) {
