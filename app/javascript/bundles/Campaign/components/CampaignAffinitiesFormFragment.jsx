@@ -12,9 +12,9 @@ export default class CampaignAffinitiesFormFragment extends Component {
 
     this.state = {
       expanded: [],
+      keyword: '',
       nodes: dataProviders,
       nodesFiltered: dataProviders,
-      keyword: '',
     };
   }
 
@@ -44,8 +44,8 @@ export default class CampaignAffinitiesFormFragment extends Component {
     // Reset nodes back to unfiltered state
     if (!keyword) {
       this.setState((prevState) => ({
-        nodesFiltered: prevState.nodes,
         expanded: [],
+        nodesFiltered: prevState.nodes,
       }));
 
       return;
@@ -150,8 +150,8 @@ export default class CampaignAffinitiesFormFragment extends Component {
               <i
                 className="fas fa-flag-checkered"
                 style={{
-                  transform: 'rotate(-23deg)',
                   marginRight: '5px',
+                  transform: 'rotate(-23deg)',
                 }}
               />
               Order an IO for Managed Services
@@ -165,8 +165,8 @@ export default class CampaignAffinitiesFormFragment extends Component {
               <i
                 className="fas fa-flag-checkered"
                 style={{
-                  transform: 'rotate(-23deg)',
                   marginRight: '5px',
+                  transform: 'rotate(-23deg)',
                 }}
               />
               Submit for Self Service Recommendations

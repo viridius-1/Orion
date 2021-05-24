@@ -66,23 +66,23 @@ export default class AdvertiserCardComponent extends Component {
               token={token}
               items={[
                 {
-                  id: 'edit',
-                  text: 'Edit',
                   icon: 'fas fa-pen',
+                  id: 'edit',
                   link: `/agencies/${agencyId}/advertisers/${id}/edit`,
+                  text: 'Edit',
                 },
                 {
-                  id: 'duplicate',
-                  text: 'Duplicate',
                   icon: 'fas fa-copy',
+                  id: 'duplicate',
                   link: '#',
+                  text: 'Duplicate',
                 },
                 {
-                  id: 'delete',
-                  text: 'Delete',
-                  icon: 'fas fa-times-circle',
-                  link: `/agencies/${agencyId}/advertisers/${id}`,
                   action: 'delete',
+                  icon: 'fas fa-times-circle',
+                  id: 'delete',
+                  link: `/agencies/${agencyId}/advertisers/${id}`,
+                  text: 'Delete',
                 },
               ]}
             />

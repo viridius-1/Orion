@@ -11,9 +11,9 @@ export default class LinkDropdownMenu extends Component {
         authenticity_token: token,
       });
       fetch(link, {
-        method: action,
-        headers: { 'Content-Type': 'application/json' },
         body,
+        headers: { 'Content-Type': 'application/json' },
+        method: action,
       }).then((response) => {
         if (response.redirected) {
           window.location.href = response.url;

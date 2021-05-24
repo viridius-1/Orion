@@ -1,7 +1,7 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Tabs } from 'react-simple-tabs-component';
 import PropTypes from 'prop-types';
-import { statusLabel, statusColor } from '../../constants';
+import { statusColor, statusLabel } from '../../constants';
 import { formatRange, moneyFormatter } from '../../common/utils';
 import AffinitiesList from '../../components/AffinitiesList';
 
@@ -11,14 +11,14 @@ export default class CampaignDetailsComponent extends Component {
 
     this.tabs = [
       {
-        label: 'Campaign Audience', // Tab title
-        index: 0, // Tab index
         Component: this.campaignAudienceTab, // Tab Component
+        index: 0, // Tab index
+        label: 'Campaign Audience', // Tab title
       },
       {
-        label: 'Goals',
-        index: 1,
         Component: this.campaignGoalsTab,
+        index: 1,
+        label: 'Goals',
       },
     ];
 
@@ -281,8 +281,8 @@ export default class CampaignDetailsComponent extends Component {
 CampaignDetailsComponent.propTypes = {
   campaign: PropTypes.shape({
     affinities: PropTypes.objectOf(PropTypes.object),
-    age_range_male: PropTypes.arrayOf(PropTypes.number),
     age_range_female: PropTypes.arrayOf(PropTypes.number),
+    age_range_male: PropTypes.arrayOf(PropTypes.number),
     budget: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,

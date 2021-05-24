@@ -98,8 +98,8 @@ export default class CampaignForm extends Component {
 
   onAffinityChecked = (checked) => {
     this.setState({
-      affinities_checked: checked,
       affinities: this._getAffinities(checked),
+      affinities_checked: checked,
     });
   }
 
@@ -131,19 +131,19 @@ export default class CampaignForm extends Component {
 
     const submitState = {
       ...this.state,
-      age_range_male: maleSelected ? ageRangeMale : null,
       age_range_female: femaleSelected ? ageRangeFemale : null,
+      age_range_male: maleSelected ? ageRangeMale : null,
+      education: education?.value,
+      geography: geography?.map((option) => option.value),
       goal: goal?.value,
       kpi: kpi?.value,
-      education: education?.value,
       parental_status: parentalStatus?.value,
-      geography: geography?.map((option) => option.value),
     };
 
     const body = JSON.stringify({
+      authenticity_token: token,
       campaign: submitState,
       request_type: event.target.value,
-      authenticity_token: token,
     });
     return body;
   }
@@ -167,9 +167,9 @@ export default class CampaignForm extends Component {
     }
 
     const requestOptions = {
-      method,
-      headers: { 'Content-Type': 'application/json' },
       body: this._getSubmitBody(event),
+      headers: { 'Content-Type': 'application/json' },
+      method,
     };
 
     fetch(path, requestOptions)
@@ -205,27 +205,27 @@ export default class CampaignForm extends Component {
     } = this.props;
 
     const initialState = {
-      name: name || '',
-      campaign_url: campaignUrl || '',
-      start_date: startDate || '',
-      end_date: endDate || '',
-      goal: goal ? FormUtils.buildOption(goal) : null,
-      kpi: kpi ? FormUtils.buildOption(kpi) : null,
-      conversion_rate: conversionRate || '',
-      average_order_value: averageOrderValue || '',
-      target_cpa: targetCpa || '',
-      target_roas: targetRoas || '',
-      budget: budget || '',
-      male_selected: !!ageRangeMale,
-      age_range_male: ageRangeMale || [18, 99],
-      female_selected: !!ageRangeFemale,
+      affinities: affinities || {},
       age_range_female: ageRangeFemale || [18, 99],
-      household_income: householdIncome || [50, 500],
+      age_range_male: ageRangeMale || [18, 99],
+      average_order_value: averageOrderValue || '',
+      budget: budget || '',
+      campaign_url: campaignUrl || '',
+      conversion_rate: conversionRate || '',
       education: education ? FormUtils.buildOption(education) : null,
-      parental_status: parentalStatus ? FormUtils.buildOption(parentalStatus) : null,
+      end_date: endDate || '',
+      female_selected: !!ageRangeFemale,
       geography: geography ? FormUtils.buildOptions(geography) : [],
       geography_input: '',
-      affinities: affinities || {},
+      goal: goal ? FormUtils.buildOption(goal) : null,
+      household_income: householdIncome || [50, 500],
+      kpi: kpi ? FormUtils.buildOption(kpi) : null,
+      male_selected: !!ageRangeMale,
+      name: name || '',
+      parental_status: parentalStatus ? FormUtils.buildOption(parentalStatus) : null,
+      start_date: startDate || '',
+      target_cpa: targetCpa || '',
+      target_roas: targetRoas || '',
     };
 
     initialState.affinities_checked = getAffinityKeys(initialState.affinities);
@@ -371,44 +371,44 @@ CampaignForm.propTypes = {
     id: PropTypes.number,
   }).isRequired,
   campaign: PropTypes.shape({
-    household_income: PropTypes.arrayOf(PropTypes.number),
-    geography: PropTypes.arrayOf(PropTypes.string),
-    education: PropTypes.string,
-    parental_status: PropTypes.string,
     affinities: PropTypes.objectOf(PropTypes.object),
-    age_range_male: PropTypes.arrayOf(PropTypes.number),
     age_range_female: PropTypes.arrayOf(PropTypes.number),
-    goal: PropTypes.string,
+    age_range_male: PropTypes.arrayOf(PropTypes.number),
+    average_order_value: PropTypes.number,
     budget: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
     ]),
-    target_cpa: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
+    campaign_url: PropTypes.string,
     conversion_rate: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
     ]),
-    target_roas: PropTypes.number,
-    kpi: PropTypes.string,
-    status: PropTypes.string,
-    start_date: PropTypes.string,
+    education: PropTypes.string,
     end_date: PropTypes.string,
-    campaign_url: PropTypes.string,
-    name: PropTypes.string,
-    average_order_value: PropTypes.number,
+    geography: PropTypes.arrayOf(PropTypes.string),
+    goal: PropTypes.string,
+    household_income: PropTypes.arrayOf(PropTypes.number),
     id: PropTypes.number,
-  }).isRequired,
-  new: PropTypes.bool.isRequired,
-  token: PropTypes.string.isRequired,
-  options: PropTypes.shape({
-    goal_options: PropTypes.arrayOf(PropTypes.string),
-    kpi_options: PropTypes.arrayOf(PropTypes.string),
-    education_options: PropTypes.arrayOf(PropTypes.string),
-    parental_options: PropTypes.arrayOf(PropTypes.string),
+    kpi: PropTypes.string,
+    name: PropTypes.string,
+    parental_status: PropTypes.string,
+    start_date: PropTypes.string,
+    status: PropTypes.string,
+    target_cpa: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
+    target_roas: PropTypes.number,
   }).isRequired,
   data_providers: PropTypes.arrayOf(PropTypes.object).isRequired,
   data_providers_key_value: PropTypes.objectOf(PropTypes.object).isRequired,
+  new: PropTypes.bool.isRequired,
+  options: PropTypes.shape({
+    education_options: PropTypes.arrayOf(PropTypes.string),
+    goal_options: PropTypes.arrayOf(PropTypes.string),
+    kpi_options: PropTypes.arrayOf(PropTypes.string),
+    parental_options: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+  token: PropTypes.string.isRequired,
 };

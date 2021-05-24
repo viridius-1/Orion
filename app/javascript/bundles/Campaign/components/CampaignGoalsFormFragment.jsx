@@ -181,16 +181,16 @@ CampaignGoalsFormFragment.propTypes = {
     PropTypes.string,
   ]),
   goal: PropTypes.shape({
-    value: PropTypes.string,
     label: PropTypes.string,
+    value: PropTypes.string,
   }),
   handleCancel: PropTypes.func,
   handleChange: PropTypes.func,
   handleSelectChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   kpi: PropTypes.shape({
-    value: PropTypes.string,
     label: PropTypes.string,
+    value: PropTypes.string,
   }),
   options: PropTypes.shape({
     goal_options: PropTypes.arrayOf(PropTypes.string),

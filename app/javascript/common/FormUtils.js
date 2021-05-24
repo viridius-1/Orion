@@ -6,7 +6,7 @@ export default class FormUtils {
   }
 
   static buildOption(option) {
-    return { value: option, label: option };
+    return { label: option, value: option };
   }
 
   static blockNonNum(event) {

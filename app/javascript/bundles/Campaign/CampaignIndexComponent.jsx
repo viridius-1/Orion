@@ -33,49 +33,49 @@ export default class CampaignIndexComponent extends Component {
     this.columns = [
       {
         dataField: 'status',
-        text: 'Status',
         formatter: statusFormatter,
         headerStyle: () => ({ width: '84px' }),
         sort: true,
         sortCaret: getSortCaret,
+        text: 'Status',
       },
       {
         dataField: 'name',
-        text: 'Campaign',
         sort: true,
         sortCaret: getSortCaret,
+        text: 'Campaign',
       },
       {
         dataField: 'flight',
-        text: 'Flight',
         sort: true,
         sortCaret: getSortCaret,
+        text: 'Flight',
       },
       {
         dataField: 'budget',
-        text: 'Total Budget',
+        formatter: budgetFormatter,
+        headerStyle: () => ({ textAlign: 'center' }),
         sort: true,
         sortCaret: getSortCaret,
-        formatter: budgetFormatter,
-        style: () => ({ textAlign: 'center' }),
-        headerStyle: () => ({ textAlign: 'center' }),
         sortFunc: (a, b, order) => {
           if (order === 'asc') return a - b;
           return b - a;
         },
+        style: () => ({ textAlign: 'center' }),
+        text: 'Total Budget',
       },
       {
         dataField: 'goal',
-        text: 'Goal',
         sort: true,
         sortCaret: getSortCaret,
+        text: 'Goal',
       },
     ];
 
     const tableData = this.setupTableData();
     this.state = {
-      tableData,
       campaigns: tableData,
+      tableData,
     };
   }
 
@@ -101,12 +101,12 @@ export default class CampaignIndexComponent extends Component {
       budget,
       goal,
     }) => ({
-      status,
-      name,
-      flight: `${new Date(startDate).toLocaleDateString('en-US')} - ${new Date(endDate).toLocaleDateString('en-US')}`,
       budget,
+      flight: `${new Date(startDate).toLocaleDateString('en-US')} - ${new Date(endDate).toLocaleDateString('en-US')}`,
       goal,
       link: `${link}${id}`,
+      name,
+      status,
     }));
 
     return data;

@@ -7,9 +7,9 @@ const formatRange = (range) => {
 
 const moneyFormatter = (value, currency = 'USD') => {
   const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
     currency,
     maximumFractionDigits: 0,
+    style: 'currency',
   });
   return `${formatter.format(value)} ${currency}`;
 };

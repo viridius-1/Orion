@@ -82,8 +82,8 @@ export default class CampaignAudienceFormFragment extends Component {
                       type="button"
                       style={{
                         height: '32px',
-                        width: '94px',
                         marginLeft: '15px',
+                        width: '94px',
                       }}
                     >
                       Female
@@ -220,13 +220,13 @@ CampaignAudienceFormFragment.propTypes = {
   age_range_female: PropTypes.arrayOf(PropTypes.number),
   age_range_male: PropTypes.arrayOf(PropTypes.number),
   education: PropTypes.shape({
-    value: PropTypes.string,
     label: PropTypes.string,
+    value: PropTypes.string,
   }),
   female_selected: PropTypes.bool,
   geography: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string,
     label: PropTypes.string,
+    value: PropTypes.string,
   })),
   geography_input: PropTypes.string,
   handleCancel: PropTypes.func.isRequired,
@@ -243,8 +243,8 @@ CampaignAudienceFormFragment.propTypes = {
     parental_options: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   parental_status: PropTypes.shape({
-    value: PropTypes.string,
     label: PropTypes.string,
+    value: PropTypes.string,
   }),
   validated: PropTypes.bool,
 };

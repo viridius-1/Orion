@@ -44,9 +44,9 @@ export default class AdvertiserForm extends Component {
         path = `/agencies/${agencyId}/advertisers/${id}`;
       }
       const requestOptions = {
-        method,
-        headers: { 'Content-Type': 'application/json' },
         body: this._getSubmitBody(),
+        headers: { 'Content-Type': 'application/json' },
+        method,
       };
 
       fetch(path, requestOptions)
@@ -113,12 +113,12 @@ export default class AdvertiserForm extends Component {
     } = this.props;
 
     return {
-      name: name || '',
-      industry: industry ? FormUtils.buildOption(industry) : '',
-      website_url: websiteUrl || '',
-      monthly_unique_visitors: monthlyUniqueVisitors || '',
       business_type: businessType ? FormUtils.buildOption(businessType) : '',
       current_media_mix: currentMediaMix ? FormUtils.buildOptions(currentMediaMix) : [],
+      industry: industry ? FormUtils.buildOption(industry) : '',
+      monthly_unique_visitors: monthlyUniqueVisitors || '',
+      name: name || '',
+      website_url: websiteUrl || '',
     };
   }
 
@@ -241,13 +241,13 @@ export default class AdvertiserForm extends Component {
 AdvertiserForm.propTypes = {
   advertiser: PropTypes.shape({
     agency_id: PropTypes.number,
-    id: PropTypes.number,
-    name: PropTypes.string,
-    industry: PropTypes.string,
-    website_url: PropTypes.string,
-    monthly_unique_visitors: PropTypes.number,
     business_type: PropTypes.string,
     current_media_mix: PropTypes.arrayOf(PropTypes.string),
+    id: PropTypes.number,
+    industry: PropTypes.string,
+    monthly_unique_visitors: PropTypes.number,
+    name: PropTypes.string,
+    website_url: PropTypes.string,
   }).isRequired,
   business_type_options: PropTypes.arrayOf(PropTypes.string).isRequired,
   industry_options: PropTypes.arrayOf(PropTypes.string).isRequired,

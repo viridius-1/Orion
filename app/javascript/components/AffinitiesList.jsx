@@ -5,7 +5,7 @@ import CancelSvg from '../../assets/images/cancel.svg';
 const getParentLabel = (parent) => {
   if (parent) {
     return (
-      <div style={{ fontSize: '10px', color: '#828282' }}>
+      <div style={{ color: '#828282', fontSize: '10px' }}>
         {parent}
       </div>
     );
@@ -14,7 +14,7 @@ const getParentLabel = (parent) => {
 };
 
 const getNameLabel = (name) => (
-  <div style={{ fontSize: '12px', color: '#4F4F4F' }}>
+  <div style={{ color: '#4F4F4F', fontSize: '12px' }}>
     {name}
   </div>
 );
