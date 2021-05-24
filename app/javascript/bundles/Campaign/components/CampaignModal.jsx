@@ -1,46 +1,48 @@
-import React, { Component } from 'react';
-import {
-  Button, Modal, Container, Row, Col,
-} from 'react-bootstrap';
+import React from 'react';
+import { Button, Modal } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-export default class CampaignModal extends Component {
-  constructor(props) {
-    super(props);
-  }
+const CampaignModal = ({ closeModal, handleSubmit }) => (
+  <Modal
+    size="lg"
+    show
+    backdrop="static"
+    keyboard={false}
+  >
+    <Modal.Body>
 
-  render() {
-    return (
-      <Modal
-        size="lg"
-        show
-        backdrop="static"
-        keyboard={false}
+      <h3>How do you want to proceed?</h3>
+      <p>You have 2 options for how to proceed depending on what you need</p>
+      <Button
+        className="btn btn-primary btn-primary-v2"
+        onClick={handleSubmit}
+        value="insertion_order"
       >
-        <Modal.Body>
+        Order an IO for Managed Services
+      </Button>
+      <Button
+        className="btn btn-primary btn-primary-v2 float-right"
+        onClick={handleSubmit}
+        value="recommendation"
+      >
+        Submit for Self Service Recommendations
+      </Button>
+    </Modal.Body>
+    <Modal.Footer>
+      <div
+        className="hide-modal"
+        onClick={closeModal}
+        aria-hidden="true"
+      >
+        Cancel
+      </div>
+    </Modal.Footer>
+  </Modal>
+);
 
-          <h3>How do you want to proceed?</h3>
-          <p>You have 2 options for how to proceed depending on what you need</p>
-          <Button
-            className="btn btn-primary btn-primary-v2"
-            onClick={this.props.handleSubmit}
-            value="insertion_order"
-          >
-            Order an IO for Managed Services
-          </Button>
-          <Button
-            className="btn btn-primary btn-primary-v2 float-right"
-            onClick={this.props.handleSubmit}
-            value="recommendation"
-          >
-            Submit for Self Service Recommendations
-          </Button>
-        </Modal.Body>
-        <Modal.Footer>
-          <div className="hide-modal" onClick={this.props.closeModal}>
-            Cancel
-          </div>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
-}
+CampaignModal.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};
+
+export default CampaignModal;

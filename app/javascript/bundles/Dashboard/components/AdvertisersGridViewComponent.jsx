@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import LinkButton from '../../../components/LinkButton';
 import AdvertiserCardComponent from './AdvertiserCardComponent';
 
@@ -15,7 +16,17 @@ export default class AdvertisersGridViewComponent extends Component {
   }
 
   render() {
-    const addAdvertiserLink = `/agencies/${this.props.agency.id}/advertisers/new`;
+    const {
+      advertisers,
+      agency: {
+        id,
+      },
+      token,
+    } = this.props;
+
+    const { searchTerm } = this.state;
+
+    const addAdvertiserLink = `/agencies/${id}/advertisers/new`;
     return (
       <div>
         <div className="row">
@@ -47,15 +58,9 @@ export default class AdvertisersGridViewComponent extends Component {
           </div>
         </div>
         <div className="row">
-          {this.props.advertisers.filter((advertiser) => {
-            if (this.state.searchTerm === '') {
-              return advertiser;
-            } if (advertiser.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())) {
-              return advertiser;
-            }
-          }).map((advertiser) => (
+          {searchTerm === '' ? advertisers : advertisers.filter((advertiser) => advertiser.name.toLowerCase().includes(searchTerm.toLowerCase())).map((advertiser) => (
             <div className="col-4 grid-item" key={advertiser.id}>
-              <AdvertiserCardComponent advertiser={advertiser} token={this.props.token} />
+              <AdvertiserCardComponent advertiser={advertiser} token={token} />
             </div>
           ))}
         </div>
@@ -63,3 +68,11 @@ export default class AdvertisersGridViewComponent extends Component {
     );
   }
 }
+
+AdvertisersGridViewComponent.propTypes = {
+  advertisers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  agency: PropTypes.shape({
+    id: PropTypes.string,
+  }).isRequired,
+  token: PropTypes.string.isRequired,
+};

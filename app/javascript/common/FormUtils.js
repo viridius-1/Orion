@@ -1,3 +1,5 @@
+/* global $ */
+
 export default class FormUtils {
   static buildOptions(options) {
     return options.map((option) => this.buildOption(option));
@@ -13,15 +15,14 @@ export default class FormUtils {
     }
   }
 
-  static ValidateEndDate(start_date, end_date) {
-    const startDate = new Date(start_date);
-    const endDate = new Date(end_date);
+  static validateEndDate(startingDate, endingDate) {
+    const startDate = new Date(startingDate);
+    const endDate = new Date(endingDate);
 
-    if (!end_date) {
+    if (!endingDate) {
       return 'End Date is required';
     }
     if (startDate >= endDate) {
-      console.log('here');
       return 'End Date needs to be before Start Date';
     }
     return '';
@@ -32,8 +33,8 @@ export default class FormUtils {
       event.preventDefault();
       const form = $(`#${formId}`);
 
-      form.submit((event) => {
-        handleSubmit(event);
+      form.submit((formEvent) => {
+        handleSubmit(formEvent);
       });
 
       form.submit();

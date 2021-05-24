@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class Step extends Component {
-  constructor(props) {
-    super(props);
-  }
+const Step = ({ step }) => (
+  <img
+    src={require(`../../../../assets/images/star_step_${step}.svg`)} // eslint-disable-line import/no-dynamic-require, global-require
+    alt={`Step: ${step}`}
+  />
+);
 
-  render() {
-    return (
-      <img
-        src={require(`../../../../assets/images/star_step_${this.props.step}.svg`)}
-        alt={`Step: ${this.props.step}`}
-      />
-    );
-  }
-}
+Step.propTypes = {
+  step: PropTypes.string.isRequired,
+};
+
+export default Step;

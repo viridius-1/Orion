@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import PropTypes from 'prop-types';
 
 export default class LinkDropdownMenu extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   doAction(event, action, link) {
+    const { token } = this.props;
+
     if (action === 'delete') {
       event.preventDefault();
       const body = JSON.stringify({
-        authenticity_token: this.props.token,
+        authenticity_token: token,
       });
-      console.log(link);
       fetch(link, {
         method: action,
         headers: { 'Content-Type': 'application/json' },
@@ -26,12 +23,17 @@ export default class LinkDropdownMenu extends Component {
   }
 
   render() {
-    const buttonClass = `btn ${this.props.buttonClass}`;
+    const {
+      buttonClass,
+      class: dropdownClass,
+      icon,
+      items,
+    } = this.props;
 
     return (
-      <div className={`dropdown open ${this.props.class}`}>
+      <div className={`dropdown open ${dropdownClass}`}>
         <button
-          className={buttonClass}
+          className={`btn ${buttonClass}`}
           type="button"
           id="dropdownMenu1"
           data-toggle="dropdown"
@@ -39,14 +41,14 @@ export default class LinkDropdownMenu extends Component {
           aria-expanded="false"
           style={{ padding: '0px' }}
         >
-          <i className={this.props.icon} />
+          <i className={icon} />
         </button>
         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-          {this.props.items.map((item, index) => (
+          {items.map((item) => (
             <a
               className="dropdown-item menu-item"
               href={item.link}
-              key={index}
+              key={item.id}
               onClick={(event) => this.doAction(event, item.action, item.link)}
             >
               <i className={item.icon} />
@@ -58,3 +60,25 @@ export default class LinkDropdownMenu extends Component {
     );
   }
 }
+
+LinkDropdownMenu.propTypes = {
+  buttonClass: PropTypes.string,
+  class: PropTypes.string,
+  icon: PropTypes.string,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      action: PropTypes.string,
+      icon: PropTypes.string,
+      id: PropTypes.string,
+      link: PropTypes.string,
+      text: PropTypes.string,
+    }),
+  ).isRequired,
+  token: PropTypes.string.isRequired,
+};
+
+LinkDropdownMenu.defaultProps = {
+  buttonClass: '',
+  class: '',
+  icon: '',
+};

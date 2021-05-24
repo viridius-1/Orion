@@ -1,62 +1,91 @@
-import React, {Component} from "react";
-import {Form} from "react-bootstrap";
-import FormUtils from "../../../common/FormUtils";
-import Select, {components} from "react-select";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Form } from 'react-bootstrap';
+import Select, { components } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
-import Slider from "@material-ui/core/Slider";
+import Slider from '@material-ui/core/Slider';
+import FormUtils from '../../../common/FormUtils';
+
+const getSelectButtonClass = (selected) => (selected ? 'btn-primary-v2 slim no-focus' : 'btn-secondary-v2 slim no-focus');
 
 export default class CampaignGoalsFormFragment extends Component {
   constructor(props) {
     super(props);
+
+    this.formId = 'campaign_goals_form';
   }
-
-  formId = 'campaign_goals_form';
-
-  _getSelectButtonClass(selected) {
-    return selected ? "btn-primary-v2 slim no-focus" : "btn-secondary-v2 slim no-focus";
-  }
-
-
 
   render() {
-    const DropdownIndicator = (props) => {
-      return (
-        <components.DropdownIndicator {...props}>
-          <i className="fas fa-search"></i>
-        </components.DropdownIndicator>
-      );
-    };
+    const DropdownIndicator = (props) => (
+      /* eslint-disable-next-line */
+      <components.DropdownIndicator {...props}>
+        <i className="fas fa-search" />
+      </components.DropdownIndicator>
+    );
+
+    const {
+      age_range_female: ageRangeFemale,
+      age_range_male: ageRangeMale,
+      education,
+      female_selected: femaleSelected,
+      geography,
+      geography_input: geographyInput,
+      handleCancel,
+      handleCreatableSelectInputChange,
+      handleCreatableSelectKeyDown,
+      handleRangeChange,
+      handleSelectChange,
+      handleSubmit,
+      household_income: householdIncome,
+      male_selected: maleSelected,
+      onSelectButtonPressed,
+      options: {
+        education_options: educationOptions,
+        parental_options: parentalOptions,
+      },
+      parental_status: parentalStatus,
+      validated,
+    } = this.props;
+
     return (
       <div>
         <h3 className="form-title">Campaign Audience</h3>
         <div className="row">
           <div className="col-6">
             <div className="form-v2">
-              <Form noValidate
-                    id={this.formId}
-                    validated={this.props.validated}
-                    onSubmit={this.props.handleSubmit}
-                    onKeyPress={() => FormUtils.submitEnter(event, this.formId, this.props.handleSubmit)}>
+              <Form
+                noValidate
+                id={this.formId}
+                validated={validated}
+                onSubmit={handleSubmit}
+                onKeyPress={(event) => FormUtils.submitEnter(event, this.formId, handleSubmit)}
+              >
                 <Form.Group controlId="gender">
                   <Form.Label className="label-v2 default-position">Gender</Form.Label>
                   <div>
-                    <button className={this._getSelectButtonClass(this.props.male_selected)}
-                            name="male_selected"
-                            onClick={this.props.onSelectButtonPressed}
-                            style={{
-                              height: "32px",
-                              width: "86px"
-                            }}>
+                    <button
+                      className={getSelectButtonClass(maleSelected)}
+                      name="male_selected"
+                      onClick={onSelectButtonPressed}
+                      type="button"
+                      style={{
+                        height: '32px',
+                        width: '86px',
+                      }}
+                    >
                       Male
                     </button>
-                    <button className={this._getSelectButtonClass(this.props.female_selected)}
-                            name="female_selected"
-                            onClick={this.props.onSelectButtonPressed}
-                            style={{
-                              height: "32px",
-                              width: "94px",
-                              marginLeft: "15px"
-                            }}>
+                    <button
+                      className={getSelectButtonClass(femaleSelected)}
+                      name="female_selected"
+                      onClick={onSelectButtonPressed}
+                      type="button"
+                      style={{
+                        height: '32px',
+                        width: '94px',
+                        marginLeft: '15px',
+                      }}
+                    >
                       Female
                     </button>
                   </div>
@@ -65,20 +94,20 @@ export default class CampaignGoalsFormFragment extends Component {
                   <Form.Label className="label-v2 default-position">Male Age Range</Form.Label>
                   <div className="slider-group row col-8">
                     <div className="before-label">
-                      <span>{this.props.age_range_male[0]}</span>
+                      <span>{ageRangeMale[0]}</span>
                     </div>
                     <Slider
                       className="slider"
-                      value={this.props.age_range_male}
-                      disabled={!this.props.male_selected}
+                      value={ageRangeMale}
+                      disabled={!maleSelected}
                       min={18}
                       max={99}
                       name="age_range_male"
                       valueLabelDisplay="off"
-                      onChange={(event, range) => this.props.handleRangeChange(event, range, 'age_range_male')}
+                      onChange={(event, range) => handleRangeChange(event, range, 'age_range_male')}
                     />
                     <div className="after-label">
-                      <span>{this.props.age_range_male[1]}</span>
+                      <span>{ageRangeMale[1]}</span>
                     </div>
                   </div>
                 </Form.Group>
@@ -86,20 +115,20 @@ export default class CampaignGoalsFormFragment extends Component {
                   <Form.Label className="label-v2 default-position">Female Age Range</Form.Label>
                   <div className="slider-group row col-8">
                     <div className="before-label">
-                      <span>{this.props.age_range_female[0]}</span>
+                      <span>{ageRangeFemale[0]}</span>
                     </div>
                     <Slider
                       className="slider"
-                      value={this.props.age_range_female}
-                      disabled={!this.props.female_selected}
+                      value={ageRangeFemale}
+                      disabled={!femaleSelected}
                       min={18}
                       max={99}
                       name="age_range_female"
                       valueLabelDisplay="off"
-                      onChange={(event, range) => this.props.handleRangeChange(event, range, 'age_range_female')}
+                      onChange={(event, range) => handleRangeChange(event, range, 'age_range_female')}
                     />
                     <div className="after-label">
-                      <span>{this.props.age_range_female[1]}</span>
+                      <span>{ageRangeFemale[1]}</span>
                     </div>
                   </div>
                 </Form.Group>
@@ -107,64 +136,74 @@ export default class CampaignGoalsFormFragment extends Component {
                   <Form.Label className="label-v2 default-position">Household Income</Form.Label>
                   <div className="slider-group row col-8">
                     <div className="before-label">
-                      <span>${this.props.household_income[0]}K</span>
+                      <span>
+                        $
+                        {householdIncome[0]}
+                        K
+                      </span>
                     </div>
                     <Slider
                       className="slider"
-                      value={this.props.household_income}
+                      value={householdIncome}
                       min={50}
                       max={500}
                       name="household_income"
                       valueLabelDisplay="off"
-                      onChange={(event, range) => this.props.handleRangeChange(event, range, 'household_income')}
+                      onChange={(event, range) => handleRangeChange(event, range, 'household_income')}
                     />
                     <div className="after-label">
-                      <span>${this.props.household_income[1]}K</span>
+                      <span>
+                        $
+                        {householdIncome[1]}
+                        K
+                      </span>
                     </div>
                   </div>
                 </Form.Group>
                 <Form.Group controlId="education">
                   <Form.Label className="label-v2">Education</Form.Label>
-                  <Select className="selectV2"
-                          classNamePrefix='selectV2'
-                          options={FormUtils.buildOptions(this.props.options.education_options)}
-                          name='education'
-                          onChange={this.props.handleSelectChange}
-                          value={this.props.education}
+                  <Select
+                    className="selectV2"
+                    classNamePrefix="selectV2"
+                    options={FormUtils.buildOptions(educationOptions)}
+                    name="education"
+                    onChange={handleSelectChange}
+                    value={education}
                   />
                 </Form.Group>
                 <Form.Group controlId="parental_status">
                   <Form.Label className="label-v2">Parental Status</Form.Label>
-                  <Select className="selectV2"
-                          classNamePrefix='selectV2'
-                          options={FormUtils.buildOptions(this.props.options.parental_options)}
-                          name='parental_status'
-                          onChange={this.props.handleSelectChange}
-                          value={this.props.parental_status}
+                  <Select
+                    className="selectV2"
+                    classNamePrefix="selectV2"
+                    options={FormUtils.buildOptions(parentalOptions)}
+                    name="parental_status"
+                    onChange={handleSelectChange}
+                    value={parentalStatus}
                   />
                 </Form.Group>
                 <Form.Group controlId="geography">
                   <Form.Label className="label-v2">Geography</Form.Label>
                   <CreatableSelect
                     className="multiSelectV2"
-                    classNamePrefix='multiSelectV2'
-                    components={{DropdownIndicator}}
+                    classNamePrefix="multiSelectV2"
+                    components={{ DropdownIndicator }}
                     isClearable
                     isMulti
                     menuIsOpen={false}
-                    name='geography'
-                    onChange={(value) => this.props.handleSelectChange(value, {name: 'geography'})}
-                    onInputChange={(value) => this.props.handleCreatableSelectInputChange(value, {name: 'geography_input'} )}
-                    onKeyDown={(event) => this.props.handleCreatableSelectKeyDown(event, 'geography', 'geography_input')}
+                    name="geography"
+                    onChange={(value) => handleSelectChange(value, { name: 'geography' })}
+                    onInputChange={(value) => handleCreatableSelectInputChange(value, { name: 'geography_input' })}
+                    onKeyDown={(event) => handleCreatableSelectKeyDown(event, 'geography', 'geography_input')}
                     placeholder="Type something and press enter..."
-                    value={this.props.geography}
-                    inputValue={this.props.geography_input}
+                    value={geography}
+                    inputValue={geographyInput}
                   />
-                  <span style={{fontSize: '12px'}}>Enter countries, states, provinces, DMAs, cities, or ZIP/postal codes.</span>
+                  <span style={{ fontSize: '12px' }}>Enter countries, states, provinces, DMAs, cities, or ZIP/postal codes.</span>
                 </Form.Group>
                 <div className="form-group">
-                  <button className="btn btn-secondary-v2" type="cancel" onClick={this.props.handleCancel}>Back</button>
-                  <button className="btn btn-primary-v2 float-right" type="submit" style={{width: "61%"}}>
+                  <button className="btn btn-secondary-v2" type="button" onClick={handleCancel}>Back</button>
+                  <button className="btn btn-primary-v2 float-right" type="submit" style={{ width: '61%' }}>
                     Continue
                   </button>
                 </div>
@@ -176,3 +215,40 @@ export default class CampaignGoalsFormFragment extends Component {
     );
   }
 }
+
+CampaignGoalsFormFragment.propTypes = {
+  age_range_female: PropTypes.arrayOf(PropTypes.number),
+  age_range_male: PropTypes.arrayOf(PropTypes.number),
+  education: PropTypes.string,
+  female_selected: PropTypes.bool,
+  geography: PropTypes.string,
+  geography_input: PropTypes.string,
+  handleCancel: PropTypes.func.isRequired,
+  handleCreatableSelectInputChange: PropTypes.func.isRequired,
+  handleCreatableSelectKeyDown: PropTypes.func.isRequired,
+  handleRangeChange: PropTypes.func.isRequired,
+  handleSelectChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  household_income: PropTypes.arrayOf(PropTypes.number),
+  male_selected: PropTypes.bool,
+  onSelectButtonPressed: PropTypes.func.isRequired,
+  options: PropTypes.shape({
+    education_options: PropTypes.arrayOf(PropTypes.string),
+    parental_options: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+  parental_status: PropTypes.string,
+  validated: PropTypes.bool,
+};
+
+CampaignGoalsFormFragment.defaultProps = {
+  age_range_female: [],
+  age_range_male: [],
+  education: undefined,
+  female_selected: false,
+  geography: '',
+  geography_input: '',
+  household_income: [],
+  male_selected: false,
+  parental_status: undefined,
+  validated: undefined,
+};
