@@ -33,6 +33,7 @@ const AgencyDashboardComponent = ({ advertisers, agency, token }) => {
       </div>
     );
   }
+
   return (
     <div className="agency-dashboard">
       <div className="row">
@@ -46,7 +47,9 @@ const AgencyDashboardComponent = ({ advertisers, agency, token }) => {
 
 AgencyDashboardComponent.propTypes = {
   advertisers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  agency: PropTypes.string.isRequired,
+  agency: PropTypes.shape({
+    id: PropTypes.number,
+  }).isRequired,
   token: PropTypes.string.isRequired,
 };
 

@@ -23,7 +23,7 @@ export default class CampaignForm extends Component {
     this.state = this._initialState();
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
 
     const { current_step: currentStep } = this.state;
@@ -41,7 +41,7 @@ export default class CampaignForm extends Component {
     }
   }
 
-  handleCancel(event) {
+  handleCancel = (event) => {
     event.preventDefault();
 
     const { current_step: currentStep } = this.state;
@@ -54,21 +54,21 @@ export default class CampaignForm extends Component {
     }
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleSelectChange(selectedOption, { name }) {
+  handleSelectChange = (selectedOption, { name }) => {
     this.setState({ [name]: selectedOption });
   }
 
-  handleCreatableSelectInputChange(value, { name }) {
+  handleCreatableSelectInputChange = (value, { name }) => {
     this.setState({
       [name]: value,
     });
   }
 
-  handleCreatableSelectKeyDown(event, name, nameInput) {
+  handleCreatableSelectKeyDown = (event, name, nameInput) => {
     switch (event.key) {
       case 'Enter':
       case 'Tab':
@@ -83,12 +83,12 @@ export default class CampaignForm extends Component {
     }
   }
 
-  handleRangeChange(event, range, name) {
+  handleRangeChange = (event, range, name) => {
     event.preventDefault();
     this.setState({ [name]: range });
   }
 
-  onSelectButtonPressed(event) {
+  onSelectButtonPressed = (event) => {
     event.preventDefault();
 
     this.setState((prevState) => ({
@@ -96,14 +96,14 @@ export default class CampaignForm extends Component {
     }));
   }
 
-  onAffinityChecked(checked) {
+  onAffinityChecked = (checked) => {
     this.setState({
       affinities_checked: checked,
       affinities: this._getAffinities(checked),
     });
   }
 
-  onCloseAffinity(key) {
+  onCloseAffinity = (key) => {
     const { affinities_checked: affinitiesChecked } = this.state;
 
     const checked = affinitiesChecked;
@@ -372,16 +372,25 @@ CampaignForm.propTypes = {
   }).isRequired,
   campaign: PropTypes.shape({
     household_income: PropTypes.arrayOf(PropTypes.number),
-    geography: PropTypes.string,
+    geography: PropTypes.arrayOf(PropTypes.string),
     education: PropTypes.string,
     parental_status: PropTypes.string,
-    affinities: PropTypes.string,
+    affinities: PropTypes.objectOf(PropTypes.object),
     age_range_male: PropTypes.arrayOf(PropTypes.number),
     age_range_female: PropTypes.arrayOf(PropTypes.number),
     goal: PropTypes.string,
-    budget: PropTypes.number,
-    target_cpa: PropTypes.number,
-    conversion_rate: PropTypes.number,
+    budget: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
+    target_cpa: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
+    conversion_rate: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
     target_roas: PropTypes.number,
     kpi: PropTypes.string,
     status: PropTypes.string,
@@ -400,6 +409,6 @@ CampaignForm.propTypes = {
     education_options: PropTypes.arrayOf(PropTypes.string),
     parental_options: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
-  data_providers: PropTypes.objectOf(PropTypes.object).isRequired,
+  data_providers: PropTypes.arrayOf(PropTypes.object).isRequired,
   data_providers_key_value: PropTypes.objectOf(PropTypes.object).isRequired,
 };

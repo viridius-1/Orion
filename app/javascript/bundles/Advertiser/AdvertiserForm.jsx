@@ -21,7 +21,7 @@ export default class AdvertiserForm extends Component {
     this.state = this._initialState();
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
 
     const {
@@ -59,13 +59,13 @@ export default class AdvertiserForm extends Component {
     this.setState({ validated: true });
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
   }
 
-  handleSelectChange(selectedOption, { name }) {
+  handleSelectChange = (selectedOption, { name }) => {
     this.setState({ [name]: selectedOption });
   }
 
@@ -245,9 +245,9 @@ AdvertiserForm.propTypes = {
     name: PropTypes.string,
     industry: PropTypes.string,
     website_url: PropTypes.string,
-    monthly_unique_visitors: PropTypes.string,
+    monthly_unique_visitors: PropTypes.number,
     business_type: PropTypes.string,
-    current_media_mix: PropTypes.string,
+    current_media_mix: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   business_type_options: PropTypes.arrayOf(PropTypes.string).isRequired,
   industry_options: PropTypes.arrayOf(PropTypes.string).isRequired,

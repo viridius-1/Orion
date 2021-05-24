@@ -74,11 +74,12 @@ LinkDropdownMenu.propTypes = {
       text: PropTypes.string,
     }),
   ).isRequired,
-  token: PropTypes.string.isRequired,
+  token: PropTypes.string,
 };
 
 LinkDropdownMenu.defaultProps = {
   buttonClass: '',
   class: '',
   icon: '',
+  token: undefined,
 };

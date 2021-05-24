@@ -168,21 +168,42 @@ export default class CampaignGoalsFormFragment extends Component {
 }
 
 CampaignGoalsFormFragment.propTypes = {
-  average_order_value: PropTypes.number,
-  budget: PropTypes.number,
-  conversion_rate: PropTypes.number,
-  goal: PropTypes.number,
+  average_order_value: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+  budget: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+  conversion_rate: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+  goal: PropTypes.shape({
+    value: PropTypes.string,
+    label: PropTypes.string,
+  }),
   handleCancel: PropTypes.func,
   handleChange: PropTypes.func,
   handleSelectChange: PropTypes.func,
   handleSubmit: PropTypes.func,
-  kpi: PropTypes.number,
+  kpi: PropTypes.shape({
+    value: PropTypes.string,
+    label: PropTypes.string,
+  }),
   options: PropTypes.shape({
     goal_options: PropTypes.arrayOf(PropTypes.string),
     kpi_options: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
-  target_cpa: PropTypes.number,
-  target_roas: PropTypes.number,
+  target_cpa: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+  target_roas: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
   validated: PropTypes.bool,
 };
 

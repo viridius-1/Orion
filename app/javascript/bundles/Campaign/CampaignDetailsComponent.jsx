@@ -33,7 +33,7 @@ export default class CampaignDetailsComponent extends Component {
     });
   }
 
-  campaignGoalsTab() {
+  campaignGoalsTab = () => {
     const {
       campaign: {
         goal,
@@ -99,7 +99,7 @@ export default class CampaignDetailsComponent extends Component {
     );
   }
 
-  campaignAudienceTab() {
+  campaignAudienceTab = () => {
     const {
       campaign: {
         household_income: householdIncome,
@@ -280,22 +280,34 @@ export default class CampaignDetailsComponent extends Component {
 
 CampaignDetailsComponent.propTypes = {
   campaign: PropTypes.shape({
-    household_income: PropTypes.arrayOf(PropTypes.number),
-    geography: PropTypes.string,
-    education: PropTypes.string,
-    parental_status: PropTypes.string,
-    affinities: PropTypes.string,
+    affinities: PropTypes.objectOf(PropTypes.object),
     age_range_male: PropTypes.arrayOf(PropTypes.number),
     age_range_female: PropTypes.arrayOf(PropTypes.number),
-    goal: PropTypes.string,
-    budget: PropTypes.number,
-    target_cpa: PropTypes.number,
-    conversion_rate: PropTypes.number,
-    target_roas: PropTypes.number,
-    kpi: PropTypes.string,
-    status: PropTypes.string,
-    start_date: PropTypes.string,
-    end_date: PropTypes.string,
+    budget: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
     campaign_url: PropTypes.string,
+    conversion_rate: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
+    education: PropTypes.string,
+    end_date: PropTypes.string,
+    geography: PropTypes.arrayOf(PropTypes.string),
+    goal: PropTypes.string,
+    household_income: PropTypes.arrayOf(PropTypes.number),
+    kpi: PropTypes.string,
+    parental_status: PropTypes.string,
+    start_date: PropTypes.string,
+    status: PropTypes.string,
+    target_cpa: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
+    target_roas: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
   }).isRequired,
 };

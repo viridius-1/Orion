@@ -8,7 +8,7 @@ import FormUtils from '../../../common/FormUtils';
 
 const getSelectButtonClass = (selected) => (selected ? 'btn-primary-v2 slim no-focus' : 'btn-secondary-v2 slim no-focus');
 
-export default class CampaignGoalsFormFragment extends Component {
+export default class CampaignAudienceFormFragment extends Component {
   constructor(props) {
     super(props);
 
@@ -216,12 +216,18 @@ export default class CampaignGoalsFormFragment extends Component {
   }
 }
 
-CampaignGoalsFormFragment.propTypes = {
+CampaignAudienceFormFragment.propTypes = {
   age_range_female: PropTypes.arrayOf(PropTypes.number),
   age_range_male: PropTypes.arrayOf(PropTypes.number),
-  education: PropTypes.string,
+  education: PropTypes.shape({
+    value: PropTypes.string,
+    label: PropTypes.string,
+  }),
   female_selected: PropTypes.bool,
-  geography: PropTypes.string,
+  geography: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string,
+    label: PropTypes.string,
+  })),
   geography_input: PropTypes.string,
   handleCancel: PropTypes.func.isRequired,
   handleCreatableSelectInputChange: PropTypes.func.isRequired,
@@ -236,16 +242,19 @@ CampaignGoalsFormFragment.propTypes = {
     education_options: PropTypes.arrayOf(PropTypes.string),
     parental_options: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
-  parental_status: PropTypes.string,
+  parental_status: PropTypes.shape({
+    value: PropTypes.string,
+    label: PropTypes.string,
+  }),
   validated: PropTypes.bool,
 };
 
-CampaignGoalsFormFragment.defaultProps = {
+CampaignAudienceFormFragment.defaultProps = {
   age_range_female: [],
   age_range_male: [],
   education: undefined,
   female_selected: false,
-  geography: '',
+  geography: [],
   geography_input: '',
   household_income: [],
   male_selected: false,

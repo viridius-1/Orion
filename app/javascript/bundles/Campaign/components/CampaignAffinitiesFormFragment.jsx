@@ -18,11 +18,11 @@ export default class CampaignAffinitiesFormFragment extends Component {
     };
   }
 
-  onExpanded(expanded) {
+  onExpanded = (expanded) => {
     this.setState({ expanded });
   }
 
-  onSearchInputChange(event) {
+  onSearchInputChange = (event) => {
     this.setState({
       keyword: event.target.value,
     }, this.filterTree);
@@ -38,7 +38,7 @@ export default class CampaignAffinitiesFormFragment extends Component {
     return ids;
   }
 
-  filterTree() {
+  filterTree = () => {
     const { keyword } = this.state;
 
     // Reset nodes back to unfiltered state
@@ -58,7 +58,7 @@ export default class CampaignAffinitiesFormFragment extends Component {
     this.setState(nodesFiltered);
   }
 
-  filterNodes(filtered, node) {
+  filterNodes = (filtered, node) => {
     const { keyword } = this.state;
     const children = (node.children || []).reduce(this.filterNodes, []);
     if (node.label.toLocaleLowerCase().indexOf(keyword.toLocaleLowerCase()) > -1
@@ -179,9 +179,9 @@ export default class CampaignAffinitiesFormFragment extends Component {
 }
 
 CampaignAffinitiesFormFragment.propTypes = {
-  affinities: PropTypes.arrayOf(PropTypes.string).isRequired,
+  affinities: PropTypes.objectOf(PropTypes.object).isRequired,
   affinities_checked: PropTypes.arrayOf(PropTypes.string).isRequired,
-  data_providers: PropTypes.objectOf(PropTypes.object).isRequired,
+  data_providers: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleCancel: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   onAffinityChecked: PropTypes.func.isRequired,

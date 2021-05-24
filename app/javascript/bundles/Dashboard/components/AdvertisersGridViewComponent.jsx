@@ -58,7 +58,7 @@ export default class AdvertisersGridViewComponent extends Component {
           </div>
         </div>
         <div className="row">
-          {searchTerm === '' ? advertisers : advertisers.filter((advertiser) => advertiser.name.toLowerCase().includes(searchTerm.toLowerCase())).map((advertiser) => (
+          {(searchTerm === '' ? advertisers : advertisers.filter((advertiser) => advertiser.name.toLowerCase().includes(searchTerm.toLowerCase()))).map((advertiser) => (
             <div className="col-4 grid-item" key={advertiser.id}>
               <AdvertiserCardComponent advertiser={advertiser} token={token} />
             </div>
@@ -72,7 +72,7 @@ export default class AdvertisersGridViewComponent extends Component {
 AdvertisersGridViewComponent.propTypes = {
   advertisers: PropTypes.arrayOf(PropTypes.object).isRequired,
   agency: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
   }).isRequired,
   token: PropTypes.string.isRequired,
 };

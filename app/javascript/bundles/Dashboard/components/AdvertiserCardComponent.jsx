@@ -7,14 +7,14 @@ export default class AdvertiserCardComponent extends Component {
   constructor(props) {
     super(props);
 
-    const { advertiser: campaigns } = props;
+    const { advertiser: { campaigns } } = props;
 
     this.numberOfCampaigns = campaigns.length;
     this.hasActiveCampaigns = this.numberOfCampaigns > 0;
   }
 
   getTopCardContent() {
-    const { advertiser: id } = this.props;
+    const { advertiser: { id } } = this.props;
 
     if (this.hasActiveCampaigns) {
       return (
@@ -101,5 +101,9 @@ AdvertiserCardComponent.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
   }).isRequired,
-  token: PropTypes.string.isRequired,
+  token: PropTypes.string,
+};
+
+AdvertiserCardComponent.defaultProps = {
+  token: undefined,
 };
