@@ -2,7 +2,7 @@
   h1 #{@agency.name}
   .dropdown-menu-button
     = react_component("LinkDropdownMenu",
-            props: {icon: "fas fa-cog gear-icon", items: [{text: "Edit Profile", icon:"fas fa-pen", link:"/agencies/#{current_user.company.id}/users/#{current_user.id}/edit"}]},
+            props: {icon: "fas fa-cog gear-icon", items: [{id: "edit", text: "Edit Profile", icon:"fas fa-pen", link:"/agencies/#{current_user.company.id}/users/#{current_user.id}/edit"}]},
             prerender: false)
 
 = react_component("AgencyDashboardComponent", props: {agency: @agency, advertisers: @advertisers_with_campaigns, token: form_authenticity_token}, prerender: false)

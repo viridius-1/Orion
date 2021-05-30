@@ -1,23 +1,23 @@
 const status = {
-  "PENDING_APPROVAL": "pending_approval",
-  "APPROVED": "approved",
-  "COMPLETE": "complete",
-}
+  APPROVED: 'approved',
+  COMPLETE: 'complete',
+  PENDING_APPROVAL: 'pending_approval',
+};
 
 const statusLabel = {
-  [status.PENDING_APPROVAL]: "Pending Approval",
-  [status.APPROVED]: "Approved",
-  [status.COMPLETE]: "Complete",
-}
+  [status.APPROVED]: 'Approved',
+  [status.COMPLETE]: 'Complete',
+  [status.PENDING_APPROVAL]: 'Pending Approval',
+};
 
 const statusColor = {
-  [status.PENDING_APPROVAL]: "orange",
-  [status.APPROVED]: "green",
-  [status.COMPLETE]: "red",
-}
+  [status.APPROVED]: 'green',
+  [status.COMPLETE]: 'red',
+  [status.PENDING_APPROVAL]: 'orange',
+};
 
 export {
   status,
+  statusColor,
   statusLabel,
-  statusColor
-}
+};

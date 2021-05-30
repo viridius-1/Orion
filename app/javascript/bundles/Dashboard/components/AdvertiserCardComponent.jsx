@@ -1,72 +1,89 @@
-import React, {Component} from "react";
-import LinkDropdownMenu from "../../../components/LinkDropdownMenu";
-import LinkButton from "../../../components/LinkButton";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import LinkDropdownMenu from '../../../components/LinkDropdownMenu';
+import LinkButton from '../../../components/LinkButton';
 
 export default class AdvertiserCardComponent extends Component {
   constructor(props) {
     super(props);
+
+    const { advertiser: { campaigns } } = props;
+
+    this.numberOfCampaigns = campaigns.length;
+    this.hasActiveCampaigns = this.numberOfCampaigns > 0;
   }
 
-  numberOfCampaigns = this.props.advertiser.campaigns.length;
-  hasActiveCampaigns = this.numberOfCampaigns > 0;
-
   getTopCardContent() {
+    const { advertiser: { id } } = this.props;
+
     if (this.hasActiveCampaigns) {
       return (
         <div className="advertiser-card-container">
-          <div className='content-bottom'>
+          <div className="content-bottom">
             <LinkButton
               text={`${this.numberOfCampaigns} Active Campaigns`}
               buttonClass="active-campaigns-btn"
               icon=""
-              link={`/advertisers/${this.props.advertiser.id}/campaigns`}>
-            </LinkButton>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="advertiser-card-container">
-          <div className='content-center'>
-            <LinkButton
-              text={'Create campaigns'}
-              icon="fas fa-plus-circle icon"
-              buttonClass="create-campaigns-btn"
-              link={`/advertisers/${this.props.advertiser.id}/campaigns/new`}>
-            </LinkButton>
+              link={`/advertisers/${id}/campaigns`}
+            />
           </div>
         </div>
       );
     }
+
+    return (
+      <div className="advertiser-card-container">
+        <div className="content-center">
+          <LinkButton
+            text="Create campaigns"
+            icon="fas fa-plus-circle icon"
+            buttonClass="create-campaigns-btn"
+            link={`/advertisers/${id}/campaigns/new`}
+          />
+        </div>
+      </div>
+    );
   }
 
   render() {
+    const {
+      advertiser: {
+        agency_id: agencyId,
+        id,
+        name,
+      },
+      token,
+    } = this.props;
+
     return (
-      <div className='advertiser-card'>
-        <div className={this.hasActiveCampaigns ? 'advertiser-card-top' : 'advertiser-card-top' + ' grey'}>
+      <div className="advertiser-card">
+        <div className={this.hasActiveCampaigns ? 'advertiser-card-top' : 'advertiser-card-top grey'}>
           <div>
-            <h4>{this.props.advertiser.name}</h4>
+            <h4>{name}</h4>
             <LinkDropdownMenu
               class="dropdown-menu-button"
               icon="fas fa-ellipsis-v card-drawer-icon"
-              token={this.props.token}
+              token={token}
               items={[
                 {
-                  text: "Edit",
-                  icon: "fas fa-pen",
-                  link: `/agencies/${this.props.advertiser.agency_id}/advertisers/${this.props.advertiser.id}/edit`
+                  icon: 'fas fa-pen',
+                  id: 'edit',
+                  link: `/agencies/${agencyId}/advertisers/${id}/edit`,
+                  text: 'Edit',
                 },
                 {
-                  text: "Duplicate",
-                  icon: "fas fa-copy",
-                  link: `#`
+                  icon: 'fas fa-copy',
+                  id: 'duplicate',
+                  link: '#',
+                  text: 'Duplicate',
                 },
                 {
-                  text: "Delete",
-                  icon: "fas fa-times-circle",
-                  link: `/agencies/${this.props.advertiser.agency_id}/advertisers/${this.props.advertiser.id}`,
-                  action: 'delete'
-                }
+                  action: 'delete',
+                  icon: 'fas fa-times-circle',
+                  id: 'delete',
+                  link: `/agencies/${agencyId}/advertisers/${id}`,
+                  text: 'Delete',
+                },
               ]}
             />
           </div>
@@ -76,3 +93,17 @@ export default class AdvertiserCardComponent extends Component {
     );
   }
 }
+
+AdvertiserCardComponent.propTypes = {
+  advertiser: PropTypes.shape({
+    agency_id: PropTypes.number,
+    campaigns: PropTypes.arrayOf(PropTypes.object),
+    id: PropTypes.number,
+    name: PropTypes.string,
+  }).isRequired,
+  token: PropTypes.string,
+};
+
+AdvertiserCardComponent.defaultProps = {
+  token: undefined,
+};

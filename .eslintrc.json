@@ -1,0 +1,29 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb"
+  ],
+  "parser": "@babel/eslint-parser",
+  "ignorePatterns": [
+    "app/javascript/packs/**",
+    "app/javascript/channels/**"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "no-underscore-dangle": ["error", { "allow": ["foo_", "_bar"], "allowAfterThis": true }],
+    "sort-keys": ["error", "asc"]
+  }
+}

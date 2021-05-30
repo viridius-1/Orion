@@ -4,9 +4,9 @@
             props: {icon: "fas fa-ellipsis-h",
                     token: form_authenticity_token,
                     buttonClass: 'btn-secondary-v2 btn-drawer',
-                    items: [{text: "Edit", icon: "fas fa-pen", link: @button_links[:edit]},
-                            {text: "Duplicate", icon: "fas fa-copy", link: @button_links[:duplicate]},
-                            {text: "Delete", icon: "fas fa-times-circle", link: @button_links[:delete], redirectLink: @button_links[:back], action: 'delete'}]},
+                    items: [{id: "edit", text: "Edit", icon: "fas fa-pen", link: @button_links[:edit]},
+                            {id: "duplicate", text: "Duplicate", icon: "fas fa-copy", link: @button_links[:duplicate]},
+                            {id: "delete", text: "Delete", icon: "fas fa-times-circle", link: @button_links[:delete], redirectLink: @button_links[:back], action: 'delete'}]},
             prerender: false)
 
   h1 #{@campaign.name}
@@ -16,7 +16,7 @@
             props: {text: 'Back to campaigns', icon: '', buttonClass: 'btn-secondary-v2 btn-campaign-back', link: @button_links[:back]},
             prerender: false)
     = react_component("LinkDropdownMenu",
-            props: {icon: "fas fa-cog gear-icon", items: [{text: "Edit Profile", icon: "fas fa-pen", link: "/agencies/#{current_user.company.id}/users/#{current_user.id}/edit"}]},
+            props: {icon: "fas fa-cog gear-icon", items: [{id: "edit", text: "Edit Profile", icon: "fas fa-pen", link: "/agencies/#{current_user.company.id}/users/#{current_user.id}/edit"}]},
             prerender: false)
 
   = react_component("CampaignDetailsComponent",

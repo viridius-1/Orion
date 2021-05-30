@@ -1,20 +1,32 @@
-import React, {Component} from "react";
+import PropTypes from 'prop-types';
+import React from 'react';
 
-export default class LinkButton extends Component {
-    constructor(props) {
-        super(props);
-    }
+const LinkButton = ({
+  buttonClass,
+  icon,
+  link,
+  text,
+}) => (
+  <a href={link}>
+    <button type="button" className={`btn ${buttonClass}`}>
+      <span className={`icon ${icon}`} />
+      {text}
+    </button>
+  </a>
+);
 
-    render() {
-        const buttonClass = `btn ${this.props.buttonClass}`;
-        const iconClass = `icon ${this.props.icon}`;
-        return (
-            <a href={this.props.link}>
-                <button className={buttonClass}>
-                    <span className={iconClass}/>
-                    {this.props.text}
-                </button>
-            </a>
-        );
-    }
-}
+LinkButton.propTypes = {
+  buttonClass: PropTypes.string,
+  icon: PropTypes.string,
+  link: PropTypes.string,
+  text: PropTypes.string,
+};
+
+LinkButton.defaultProps = {
+  buttonClass: '',
+  icon: '',
+  link: '',
+  text: '',
+};
+
+export default LinkButton;
