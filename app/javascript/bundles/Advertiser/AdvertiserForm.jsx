@@ -118,7 +118,7 @@ export default class AdvertiserForm extends Component {
       industry: industry ? FormUtils.buildOption(industry) : '',
       monthly_unique_visitors: monthlyUniqueVisitors || '',
       name: name || '',
-      website_url: websiteUrl || '',
+      website_url: websiteUrl || 'https://',
     };
   }
 

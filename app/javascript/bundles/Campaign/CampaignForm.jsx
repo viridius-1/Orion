@@ -210,7 +210,7 @@ export default class CampaignForm extends Component {
       age_range_male: ageRangeMale || [18, 99],
       average_order_value: averageOrderValue || '',
       budget: budget || '',
-      campaign_url: campaignUrl || '',
+      campaign_url: campaignUrl || 'https://',
       conversion_rate: conversionRate || '',
       education: education ? FormUtils.buildOption(education) : null,
       end_date: endDate || '',
