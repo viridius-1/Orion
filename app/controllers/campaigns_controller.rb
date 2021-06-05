@@ -1,6 +1,9 @@
 class CampaignsController < ApplicationController
   before_action :set_advertiser
+  before_action :verify_advertiser_access, only: [:index, :new, :create]
+
   before_action :set_campaign, only: [:edit, :update, :destroy]
+  before_action :verify_campaign_access, only: [:edit, :update, :destroy]
 
   include ErrorMessages
 
@@ -10,6 +13,8 @@ class CampaignsController < ApplicationController
 
   def show
     @campaign = Campaign.find(params[:id])
+    redirect_to root_path unless can? :read, @campaign
+
     @website = 'www.website.com'
     @button_links = {
       back: advertiser_campaigns_path(advertiser_id: @advertiser.id),
@@ -67,8 +72,16 @@ class CampaignsController < ApplicationController
     @advertiser = Advertiser.find(params[:advertiser_id])
   end
 
+  def verify_advertiser_access
+    redirect_to root_path unless can? :read, @advertiser
+  end
+
   def set_campaign
     @campaign = @advertiser.campaigns.find_by(id: params[:id])
+  end
+
+  def verify_campaign_access
+    redirect_to root_path unless can? :read, @campaign
   end
 
   def campaign_params

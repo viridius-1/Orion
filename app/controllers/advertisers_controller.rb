@@ -1,6 +1,9 @@
 class AdvertisersController < ApplicationController
   before_action :set_agency, only: [:index, :new, :create, :destroy]
+  before_action :verify_agency_access, only: [:index, :new, :create, :destroy]
+
   before_action :set_advertiser, only: [:edit, :update, :destroy]
+  before_action :verify_advertiser_access, only: [:edit, :update, :destroy]
 
   def index
     advertisers = @agency.advertisers.order(updated_at: :desc)
@@ -54,10 +57,17 @@ class AdvertisersController < ApplicationController
     @agency = Agency.find(params[:agency_id])
   end
 
+  def verify_agency_access
+    redirect_to root_path unless can? :read, @agency
+  end
+
   def set_advertiser
     @advertiser = Advertiser.find(params[:id])
   end
 
+  def verify_advertiser_access
+    redirect_to root_path unless can? :read, @advertiser
+  end
 
   def advertiser_params
     params.require(:advertiser).permit(
