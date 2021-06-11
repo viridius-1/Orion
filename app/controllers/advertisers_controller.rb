@@ -61,12 +61,13 @@ class AdvertisersController < ApplicationController
 
   def advertiser_params
     params.require(:advertiser).permit(
-        :name,
-        :website_url,
-        :industry,
-        :business_type,
-        :monthly_unique_visitors,
-        {:current_media_mix => []}
+      :annual_revenue,
+      :name,
+      :website_url,
+      :industry,
+      :business_type,
+      :monthly_unique_visitors,
+      {:current_media_mix => []}
     )
   end
 end

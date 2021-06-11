@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 import LinkButton from '../../../components/LinkButton';
+import FormUtils from '../../../common/FormUtils';
 import AdvertiserCardComponent from './AdvertiserCardComponent';
 
 export default class AdvertisersGridViewComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = { searchTerm: '' };
+    this.state = { annualRevenueSearchValue: undefined, searchTerm: '' };
   }
 
   onSearchInputChange(searchText) {
@@ -15,16 +17,57 @@ export default class AdvertisersGridViewComponent extends Component {
     });
   }
 
+  onSelectChange = (selectedOption) => {
+    this.setState({ annualRevenueSearchValue: selectedOption });
+  }
+
+  filteredAdvertisers = () => {
+    let filteredAdvertisers;
+    let minAnnualRevenue;
+    let maxAnnualRevenue;
+
+    const { advertisers, annualRevenueOptions } = this.props;
+    const { annualRevenueSearchValue, searchTerm } = this.state;
+
+    if (annualRevenueSearchValue) {
+      const revenueRange = annualRevenueOptions[annualRevenueSearchValue.value].range;
+
+      if (revenueRange.length === 2) {
+        [minAnnualRevenue, maxAnnualRevenue] = revenueRange;
+      } else if (revenueRange.length === 1) {
+        [minAnnualRevenue] = revenueRange;
+      }
+    }
+
+    filteredAdvertisers = searchTerm === '' ? advertisers : advertisers.filter((advertiser) => advertiser.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    filteredAdvertisers = !annualRevenueSearchValue ? filteredAdvertisers
+      : filteredAdvertisers.filter(({ annual_revenue: annualRevenue }) => {
+        if (minAnnualRevenue !== undefined && maxAnnualRevenue !== undefined) {
+          if (annualRevenue >= minAnnualRevenue && annualRevenue <= maxAnnualRevenue) {
+            return true;
+          }
+        } else if (minAnnualRevenue !== undefined) {
+          return true;
+        }
+
+        return false;
+      });
+
+    return filteredAdvertisers;
+  }
+
   render() {
     const {
-      advertisers,
       agency: {
         id,
       },
+      annualRevenueOptions,
       token,
     } = this.props;
 
-    const { searchTerm } = this.state;
+    const { annualRevenueSearchValue } = this.state;
+
+    const filteredAdvertiserComponents = this.filteredAdvertisers();
 
     const addAdvertiserLink = `/agencies/${id}/advertisers/new`;
     return (
@@ -39,14 +82,16 @@ export default class AdvertisersGridViewComponent extends Component {
             />
           </div>
           <div className="col-4 grid-item">
-            <div className="input-group">
-              <input type="text" className="form-control" style={{ borderRight: 'none' }} placeholder="Filter by annual revenue" />
-              <div className="input-group-append">
-                <button className="btn btn-secondary btn-append-right-v2" type="button">
-                  <i className="fas fa-chevron-down" />
-                </button>
-              </div>
-            </div>
+            <Select
+              className="selectV2 annual-revenue-filter"
+              classNamePrefix="selectV2"
+              options={FormUtils.buildAnnualRevenueOptions(annualRevenueOptions)}
+              onChange={this.onSelectChange}
+              value={annualRevenueSearchValue}
+              placeholder="Filter by annual revenue"
+              isClearable
+              isSearchable={false}
+            />
           </div>
           <div className="col-4 grid-item">
             <LinkButton
@@ -58,11 +103,12 @@ export default class AdvertisersGridViewComponent extends Component {
           </div>
         </div>
         <div className="row">
-          {(searchTerm === '' ? advertisers : advertisers.filter((advertiser) => advertiser.name.toLowerCase().includes(searchTerm.toLowerCase()))).map((advertiser) => (
-            <div className="col-4 grid-item" key={advertiser.id}>
-              <AdvertiserCardComponent advertiser={advertiser} token={token} />
-            </div>
-          ))}
+          {filteredAdvertiserComponents.length > 0
+            ? filteredAdvertiserComponents.map((advertiser) => (
+              <div className="col-4 grid-item" key={advertiser.id}>
+                <AdvertiserCardComponent advertiser={advertiser} token={token} />
+              </div>
+            )) : <div className="no-results-message">No results found</div>}
         </div>
       </div>
     );
@@ -74,5 +120,11 @@ AdvertisersGridViewComponent.propTypes = {
   agency: PropTypes.shape({
     id: PropTypes.number,
   }).isRequired,
+  annualRevenueOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      range: PropTypes.arrayOf(PropTypes.number),
+    }),
+  ).isRequired,
   token: PropTypes.string.isRequired,
 };

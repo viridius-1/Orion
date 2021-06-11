@@ -109,10 +109,12 @@ export default class AdvertiserForm extends Component {
         monthly_unique_visitors: monthlyUniqueVisitors,
         business_type: businessType,
         current_media_mix: currentMediaMix,
+        annual_revenue: annualRevenue,
       },
     } = this.props;
 
     return {
+      annual_revenue: annualRevenue || '',
       business_type: businessType ? FormUtils.buildOption(businessType) : '',
       current_media_mix: currentMediaMix ? FormUtils.buildOptions(currentMediaMix) : [],
       industry: industry ? FormUtils.buildOption(industry) : '',
@@ -124,6 +126,7 @@ export default class AdvertiserForm extends Component {
 
   render() {
     const {
+      annual_revenue: annualRevenue,
       name,
       industry,
       website_url: websiteUrl,
@@ -182,6 +185,24 @@ export default class AdvertiserForm extends Component {
                   </Form.Control.Feedback>
                 </Form.Group>
 
+                <Form.Group controlId="annual_revenue">
+                  <Form.Label className="label-v2">Annual Revenue</Form.Label>
+                  <Form.Control
+                    className="input-v2 right"
+                    required
+                    name="annual_revenue"
+                    onKeyDown={FormUtils.blockNonNum}
+                    type="number"
+                    onChange={this.handleChange}
+                    value={annualRevenue}
+                    min={0}
+                  />
+                  <div className="input-v2-prepend"><span>$</span></div>
+                  <Form.Control.Feedback type="invalid">
+                    Annual Revenue is invalid
+                  </Form.Control.Feedback>
+                </Form.Group>
+
                 <Form.Group controlId="monthly-unique-visitors">
                   <Form.Label className="label-v2">Monthly Unique Visitors</Form.Label>
                   <Form.Control
@@ -194,7 +215,7 @@ export default class AdvertiserForm extends Component {
                     value={monthlyUniqueVisitors}
                   />
                   <Form.Control.Feedback type="invalid">
-                    Monthly Unique visitors required
+                    Monthly Unique visitors is required
                   </Form.Control.Feedback>
                 </Form.Group>
 
@@ -241,6 +262,7 @@ export default class AdvertiserForm extends Component {
 AdvertiserForm.propTypes = {
   advertiser: PropTypes.shape({
     agency_id: PropTypes.number,
+    annual_revenue: PropTypes.number,
     business_type: PropTypes.string,
     current_media_mix: PropTypes.arrayOf(PropTypes.string),
     id: PropTypes.number,

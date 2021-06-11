@@ -3,6 +3,19 @@ module AdvertisersHelper
     [:managed_service, :self_service, :hybrid_service]
   end
 
+  def annual_revenue_options
+    [
+      { label: '$0 - $1M', range: [0, 1000000] },
+      { label: '$1M - $10M', range: [1000000, 10000000] },
+      { label: '$10M - $50M', range: [10000000, 50000000] },
+      { label: '$50M - $100M', range: [50000000, 100000000] },
+      { label: '$100M - $250M', range: [100000000, 250000000] },
+      { label: '$250M - $500M', range: [250000000, 500000000] },
+      { label: '$500M - $1B', range: [500000000, 1000000000] },
+      { label: '$1B+', range: [1000000000] }
+    ]
+  end
+
   def business_type_options
     [
         'Business to Business',
