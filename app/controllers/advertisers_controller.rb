@@ -40,7 +40,7 @@ class AdvertisersController < ApplicationController
   end
 
   def destroy
-    correct_user = CompanyMember.find_by(company_id: @agency.id, user_id: current_user)
+    correct_user = User.find_by(company_id: @agency.id, id: current_user.id)
 
     if correct_user && @advertiser.destroy
       flash[:notice] = 'Advertiser successfully deleted'

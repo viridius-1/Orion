@@ -12,9 +12,8 @@ class Users::InvitationsController < Devise::InvitationsController
     yield resource if block_given?
 
     if resource_invited
-      CompanyMember.create(company_id: params[:company_id],
-                           company_type: params[:company_type],
-                           user_id: resource.id)
+      resource.update(company_id: params[:company_id],
+                      company_type: params[:company_type])
 
       if is_flashing_format? && self.resource.invitation_sent_at
         set_flash_message :notice, :send_instructions, email: self.resource.email
