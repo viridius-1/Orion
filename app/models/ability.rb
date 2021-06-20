@@ -31,17 +31,16 @@ class Ability
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
 
-    company_member = user.company_member
-    member_type = company_member.company_type
+    member_type = user.company_type
 
     if member_type == "Advertiser"
-      can :read, Advertiser, id: user.company_member.company_id
-      can :read, Campaign, advertiser_id: user.company_member.company_id
+      can :read, Advertiser, id: user.company.id
+      can :read, Campaign, advertiser_id: user.company.id
       cannot :read, Agency
     elsif member_type == "Agency"
-      can :read, Advertiser, agency_id: user.company_member.company_id
-      can :read, Campaign, advertiser: { agency_id: user.company_member.company_id }
-      can :read, Agency, id: user.company_member.company_id
+      can :read, Advertiser, agency_id: user.company.id
+      can :read, Campaign, advertiser: { agency_id: user.company.id }
+      can :read, Agency, id: user.company.id
     end
   end
 end
