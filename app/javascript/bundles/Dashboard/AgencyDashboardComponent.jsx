@@ -10,7 +10,7 @@ const AgencyDashboardComponent = ({
   token,
 }) => {
   const numOfAdvertisers = advertisers ? advertisers.length : 0;
-  const addAdvertiserLink = `/agencies/${agency.id}/advertisers/new`;
+  const addAdvertiserLink = `/agencies/${agency.id}/vendors/new`;
 
   let content;
   if (numOfAdvertisers > 0) {

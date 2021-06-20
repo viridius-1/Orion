@@ -24,7 +24,7 @@ export default class AdvertiserCardComponent extends Component {
               text={`${this.numberOfCampaigns} Active Campaigns`}
               buttonClass="active-campaigns-btn"
               icon=""
-              link={`/advertisers/${id}/campaigns`}
+              link={`/vendors/${id}/campaigns`}
             />
           </div>
         </div>
@@ -38,7 +38,7 @@ export default class AdvertiserCardComponent extends Component {
             text="Create campaigns"
             icon="fas fa-plus-circle icon"
             buttonClass="create-campaigns-btn"
-            link={`/advertisers/${id}/campaigns/new`}
+            link={`/vendors/${id}/campaigns/new`}
           />
         </div>
       </div>
@@ -68,7 +68,7 @@ export default class AdvertiserCardComponent extends Component {
                 {
                   icon: 'fas fa-pen',
                   id: 'edit',
-                  link: `/agencies/${agencyId}/advertisers/${id}/edit`,
+                  link: `/agencies/${agencyId}/vendors/${id}/edit`,
                   text: 'Edit',
                 },
                 {
@@ -81,7 +81,7 @@ export default class AdvertiserCardComponent extends Component {
                   action: 'delete',
                   icon: 'fas fa-times-circle',
                   id: 'delete',
-                  link: `/agencies/${agencyId}/advertisers/${id}`,
+                  link: `/agencies/${agencyId}/vendors/${id}`,
                   text: 'Delete',
                 },
               ]}

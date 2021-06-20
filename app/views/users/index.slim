@@ -4,8 +4,8 @@
       h1.h5.mb-4.float-left
         | Data Studio >
         - if current_user.company_type == 'Advertiser'
-          = link_to "#{current_user.company.name}", advertiser_path(current_user.company.id)
-        - else current_user.company_type == 'Agency'
+          = link_to "#{current_user.company.name}", vendor_path(current_user.company.id)
+        - elsif current_user.company_type == 'Agency'
           = link_to "#{current_user.company.name}", agency_path(current_user.company.id)
         | > Users
 
@@ -35,9 +35,9 @@
                     - if current_user.company_type == 'Agency'
                       td
                         = link_to "Edit", edit_user_path(id: user.id)
-                        = link_to "Delete", user_path(id: user.id), method: :delete, data: { confirm: 'Are you sure?' }
+                        = link_to "Delete", user_path(id: user.id), method: :delete, data: {confirm: 'Are you sure?'}
 
                     - elsif current_user.company_type == 'Advertiser'
                       td
-                         = link_to "Edit", edit_user_path(id: user.id)
-                         = link_to "Delete", user_path(id: user.id), method: :delete, data: { confirm: 'Are you sure?' }
+                        = link_to "Edit", edit_user_path(id: user.id)
+                        = link_to "Delete", user_path(id: user.id), method: :delete, data: {confirm: 'Are you sure?'}

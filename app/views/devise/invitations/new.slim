@@ -4,7 +4,7 @@
       h1.h5.mb-4.float-left
         | Data Studio >
         - if current_user.company_type == 'Advertiser'
-          = link_to "#{current_user.company.name}", advertiser_path(current_user.company.id)
+          = link_to "#{current_user.company.name}", vendor_path(current_user.company.id)
         - else current_user.company_type == 'Agency'
           = link_to "#{current_user.company.name}", agency_path(current_user.company.id)
         | > Users
@@ -27,7 +27,7 @@
                     = f.input field
               .col-12.d-flex.flex-row style="justify-content: space-between"
                 - if current_user.company_type == 'Advertiser'
-                  = link_to "Cancel", advertiser_users_path(current_user.company.id)
+                  = link_to "Cancel", vendor_users_path(current_user.company.id)
                 - else current_user.company_type == 'Agency'
                   = link_to "Cancel", agency_users_path(current_user.company.id)
 

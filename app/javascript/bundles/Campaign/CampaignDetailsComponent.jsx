@@ -251,7 +251,7 @@ export default class CampaignDetailsComponent extends Component {
           <div className="col-4 grid-item">
             <div className="details-card">
               <h6>Campaign Length</h6>
-              <p>{`${new Date(startDate).toLocaleDateString('en-US')} - ${new Date(endDate).toLocaleDateString('en-US')}`}</p>
+              <p>{`${new Date(startDate.replace('-', '/')).toLocaleDateString('en-US')} - ${new Date(endDate.replace('-', '/')).toLocaleDateString('en-US')}`}</p>
             </div>
           </div>
           <div className="col-4 grid-item">

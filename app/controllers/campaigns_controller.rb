@@ -17,7 +17,7 @@ class CampaignsController < ApplicationController
 
     @website = 'www.website.com'
     @button_links = {
-      back: advertiser_campaigns_path(advertiser_id: @advertiser.id),
+      back: vendor_campaigns_path(vendor_id: @advertiser.id),
       edit: "#{request.path}/edit",
       duplicate: '#',
       delete: "#{request.path}"
@@ -35,7 +35,7 @@ class CampaignsController < ApplicationController
       send_internal_notification(request_type)
       send_customer_confirmation(request_type)
 
-      redirect_to advertiser_campaigns_path(advertiser_id: @advertiser.id),
+      redirect_to vendor_campaigns_path(vendor_id: @advertiser.id),
                   notice: 'Campaign has been successfully created.'
     else
       render json: {messages: display_validation(@campaign), redirectTo: '', status: 422}
@@ -47,12 +47,14 @@ class CampaignsController < ApplicationController
 
   def update
     if @campaign.update(campaign_params)
-      redirect_to advertiser_campaigns_path(advertiser_id: @advertiser.id),
-                  notice: 'Campaign has been successfully updated.'
+      redirect_to vendor_campaigns_path(vendor_id: @advertiser.id),
+                  notice: 'Campaign has been successfully updated.',
+                  status: 303
     else
       errors = {alert: {danger: @campaign.errors.full_messages.join(', ')}}
-      redirect_to advertiser_campaigns_path(advertiser_id: @advertiser.id),
-                  errors
+      redirect_to vendor_campaigns_path(vendor_id: @advertiser.id),
+                  errors,
+                  status: 303
     end
   end
 
@@ -63,13 +65,13 @@ class CampaignsController < ApplicationController
       flash[:alert] = 'Unable to remove campaign'
     end
 
-    redirect_to advertiser_campaigns_path(advertiser_id: @advertiser.id)
+    redirect_to vendor_campaigns_path(vendor_id: @advertiser.id), status: 303
   end
 
   private
 
   def set_advertiser
-    @advertiser = Advertiser.find(params[:advertiser_id])
+    @advertiser = Advertiser.find(params[:vendor_id])
   end
 
   def verify_advertiser_access

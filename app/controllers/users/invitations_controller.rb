@@ -32,7 +32,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
   def after_invite_path_for(current_inviter, resource)
     if params[:company_type] == "Advertiser"
-      advertiser_users_path(advertiser_id: params[:company_id])
+      vendor_users_path(vendor_id: params[:company_id])
     elsif params[:company_type] == "Agency"
       agency_users_path(agency_id: params[:company_id])
     end

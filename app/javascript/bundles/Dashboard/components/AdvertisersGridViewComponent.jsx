@@ -69,7 +69,7 @@ export default class AdvertisersGridViewComponent extends Component {
 
     const filteredAdvertiserComponents = this.filteredAdvertisers();
 
-    const addAdvertiserLink = `/agencies/${id}/advertisers/new`;
+    const addAdvertiserLink = `/agencies/${id}/vendors/new`;
     return (
       <div>
         <div className="row">
