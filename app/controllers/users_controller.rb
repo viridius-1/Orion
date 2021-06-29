@@ -16,18 +16,23 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
-      # company_type = current_user.company_type.downcase.to_sym
-      # correct_paths = if company_type == :agency
-      #                   agency_users_path
-      #                 elsif company_type == :advertiser
-      #                   advertiser_users_path
-      #                 end
-
-      redirect_to dashboard_index_path, notice: 'User has been successfully updated.'
+    if user_wants_password_change?
+      # Using https://github.com/heartcombo/devise/wiki/How-To:-Allow-users-to-edit-their-password#solution-3
+      # to implement password change
+      if @user.update_with_password(user_update_params)
+        bypass_sign_in(@user)
+        redirect_to dashboard_index_path, notice: 'User has been successfully updated.'
+      else
+        errors_message = { alert: @user.errors.full_messages.join(', ') }
+        redirect_to edit_user_path(@user), errors_message
+      end
     else
-      errors = { alert: @user.errors.full_messages.join(', ') }
-      redirect_to edit_advertiser_user_path(@user, user: user_params), errors
+      if @user.update(user_update_params)
+        redirect_to dashboard_index_path, notice: 'User has been successfully updated.'
+      else
+        errors_message = { alert: @user.errors.full_messages.join(', ') }
+        redirect_to edit_user_path(@user), errors_message
+      end
     end
   end
 
@@ -55,15 +60,23 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet,
-  # only allow the white list through.
-  def user_params
+  def user_wants_password_change?
+    params[:user][:current_password].present? || params[:user][:password].present? || params[:user][:password_confirmation].present?
+  end
+
+  def user_update_params
+    user_wants_password_change? ?
     params.require(:user).permit(
       :first_name,
       :last_name,
-      :company,
       :email,
-      :password
+      :current_password,
+      :password,
+      :password_confirmation
+    ) : params.require(:user).permit(
+      :first_name,
+      :last_name,
+      :email,
     )
   end
 end

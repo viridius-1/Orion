@@ -1,4 +1,4 @@
-= simple_form_for [@company, @user] do |f|
+= simple_form_for @user do |f|
 
   .form-v2
     .form-group
@@ -10,5 +10,21 @@
     .form-group
       = f.label :email, class: 'label-v2'
       = f.input_field :email, as: :email, class: 'input-v2 form-control'
+
+    br
+    div Change Password
+    br
+
+    .form-group
+      = f.label :current_password, class: 'label-v2'
+      = f.input_field :current_password, required: false, class: 'input-v2 form-control'
+
+    .form-group
+      = f.label :password, class: 'label-v2'
+      = f.input_field :password, required: false, class: 'input-v2 form-control'
+
+    .form-group
+      = f.label :password_confirmation, class: 'label-v2'
+      = f.input_field :password_confirmation, required: false, class: 'input-v2 form-control'
 
     = f.button :submit, class: 'btn btn-primary-v2 btn-sm'

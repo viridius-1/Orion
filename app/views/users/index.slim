@@ -34,10 +34,10 @@
 
                     - if current_user.company_type == 'Agency'
                       td
-                        = link_to "Edit", edit_agency_user_path(agency_id: @company.id, id: user.id)
-                        = link_to "Delete", agency_user_path(agency_id: @company.id, id: user.id), method: :delete, data: { confirm: 'Are you sure?' }
+                        = link_to "Edit", edit_user_path(id: user.id)
+                        = link_to "Delete", user_path(id: user.id), method: :delete, data: { confirm: 'Are you sure?' }
 
                     - elsif current_user.company_type == 'Advertiser'
                       td
-                         = link_to "Edit", edit_advertiser_user_path(advertiser_id: @company.id, id: user.id)
-                         = link_to "Delete", advertiser_user_path(advertiser_id: @company.id, id: user.id), method: :delete, data: { confirm: 'Are you sure?' }
+                         = link_to "Edit", edit_user_path(id: user.id)
+                         = link_to "Delete", user_path(id: user.id), method: :delete, data: { confirm: 'Are you sure?' }

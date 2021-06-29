@@ -18,12 +18,14 @@ Rails.application.routes.draw do
   resources :platforms, only: :index
 
   resources :agencies do
-    resources :users, :advertisers
+    resources :advertisers
   end
 
   resources :advertisers do
-    resources :users, :campaigns
+    resources :campaigns
   end
+
+  resources :users
 
   namespace :api do
     namespace :v1 do
