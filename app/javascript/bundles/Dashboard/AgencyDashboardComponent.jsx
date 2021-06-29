@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import AdvertisersGridViewComponent from './components/AdvertisersGridViewComponent';
 import LinkButton from '../../components/LinkButton';
 
-const AgencyDashboardComponent = ({ advertisers, agency, token }) => {
+const AgencyDashboardComponent = ({
+  advertisers,
+  agency,
+  annual_revenue_options: annualRevenueOptions,
+  token,
+}) => {
   const numOfAdvertisers = advertisers ? advertisers.length : 0;
   const addAdvertiserLink = `/agencies/${agency.id}/advertisers/new`;
 
@@ -13,6 +18,7 @@ const AgencyDashboardComponent = ({ advertisers, agency, token }) => {
       <AdvertisersGridViewComponent
         advertisers={advertisers}
         agency={agency}
+        annualRevenueOptions={annualRevenueOptions}
         token={token}
       />
     );
@@ -50,6 +56,12 @@ AgencyDashboardComponent.propTypes = {
   agency: PropTypes.shape({
     id: PropTypes.number,
   }).isRequired,
+  annual_revenue_options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      range: PropTypes.arrayOf(PropTypes.number),
+    }),
+  ).isRequired,
   token: PropTypes.string.isRequired,
 };
 

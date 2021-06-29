@@ -5,6 +5,14 @@ export default class FormUtils {
     return options.map((option) => this.buildOption(option));
   }
 
+  static buildAnnualRevenueOptions(options) {
+    const annualRevenueOptions = options.map((option, index) => (
+      { label: option.label, value: index }
+    ));
+
+    return annualRevenueOptions;
+  }
+
   static buildOption(option) {
     return { label: option, value: option };
   }
