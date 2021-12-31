@@ -34,13 +34,13 @@ class AdvertisersController < ApplicationController
       redirect_to agency_advertisers_path(params[:agency_id]),
                   notice: 'Advertiser has been successfully updated.'
     else
-      errors = {alert: @user.errors.full_messages.join(', ')}
+      errors = {alert: @advertiser.errors.full_messages.join(', ')}
       redirect_to edit_advertisers_path(@advertiser, advertiser: advertiser_params), errors
     end
   end
 
   def destroy
-    correct_user = CompanyMember.find_by(company_id: @agency.id, user_id: current_user)
+    correct_user = User.find_by(company_id: @agency.id, id: current_user.id)
 
     if correct_user && @advertiser.destroy
       flash[:notice] = 'Advertiser successfully deleted'

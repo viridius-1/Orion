@@ -5,12 +5,10 @@ agency_user = User.create!(first_name: 'First',
                            last_name: 'Agency',
                            email: 'first@agency.com',
                            password: 'password',
+                           company_id: agency.id,
+                           company_type: 'Agency',
+                           roles: 'user',
                            confirmed_at: Time.now)
-
-CompanyMember.create!(company_id: agency.id,
-                      company_type: 'Agency',
-                      user_id: agency_user.id,
-                      roles: 'user')
 
 # Create Advertiser && Advertiser's User
 adv = Advertiser.create!(name: 'First Advertiser')
@@ -19,12 +17,10 @@ adv_user = User.create!(first_name: 'First',
                         last_name: 'Advertiser',
                         email: 'first@advertiser.com',
                         password: 'password',
+                        company_id: adv.id,
+                        company_type: 'Advertiser',
+                        roles: 'user',
                         confirmed_at: Time.now)
-
-CompanyMember.create!(company_id: adv.id,
-                      company_type: 'Advertiser',
-                      user_id: adv_user.id,
-                      roles: 'user')
 
 # Create Interal Admin
 Admin.create!(first_name: 'Admin',

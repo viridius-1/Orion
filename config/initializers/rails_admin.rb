@@ -46,6 +46,26 @@ RailsAdmin.config do |config|
     # history_show
   end
 
+  config.model 'User' do
+    list do
+      field :id
+      field :first_name
+      field :last_name
+      field :email
+      field :roles
+      field :company
+    end
+
+    edit do
+      field :first_name
+      field :last_name
+      field :email
+      field :password
+      field :roles
+      field :company
+    end
+  end
+
   config.model 'Admin' do
     list do
       field :id
@@ -55,10 +75,10 @@ RailsAdmin.config do |config|
     end
 
     edit do
-      fields :first_name
-      fields :last_name
-      fields :email
-      fields :password
+      field :first_name
+      field :last_name
+      field :email
+      field :password
     end
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_01_230040) do
+ActiveRecord::Schema.define(version: 2021_06_14_023253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,15 +84,6 @@ ActiveRecord::Schema.define(version: 2021_05_01_230040) do
     t.integer "budget_used"
   end
 
-  create_table "company_members", force: :cascade do |t|
-    t.integer "company_id"
-    t.string "company_type"
-    t.integer "user_id"
-    t.string "roles"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "connections", force: :cascade do |t|
     t.integer "user_id"
     t.string "token"
@@ -127,6 +118,9 @@ ActiveRecord::Schema.define(version: 2021_05_01_230040) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.boolean "profile_created", default: false
+    t.string "roles"
+    t.integer "company_id"
+    t.string "company_type"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

@@ -1,14 +1,23 @@
 class User < ApplicationRecord
+  ############################################################################################
+  ## PeterGate Roles                                                                        ##
+  ## The :user role is added by default and shouldn't be included in this list.             ##
+  ## The :root_admin can access any page regardless of access settings. Use with caution!   ##
+  ## The multiple option can be set to true if you need users to have multiple roles.       ##
+  petergate(roles: [:root_admin], multiple: false)                                      ##
+  ############################################################################################
+
+  belongs_to :company, polymorphic: true, optional: true
+
   after_create :refresh_token
   # Include default devise modules. Others available are:
   # :registerable, :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable, :confirmable,
-         :recoverable, :rememberable, :validatable, :lockable
+         :recoverable, :rememberable, :validatable
 
-  has_one :company_member, dependent: :destroy
   has_many :connections
 
-  validates :first_name, :last_name, presence: true
+  validates :first_name, :last_name, :roles, :company, presence: true
   validates :email, presence: true, uniqueness: true
 
   def full_name
@@ -37,13 +46,5 @@ class User < ApplicationRecord
   def token_url
     session_token = connections&.active&.first&.token
     "https://analytics.theversion2.com/app/dash/session/version2_login?token=#{session_token}"
-  end
-
-  def company
-    company_member.company
-  end
-
-  def company_type
-    company_member.company_type
   end
 end
