@@ -34,7 +34,7 @@ class AdvertisersController < ApplicationController
       redirect_to agency_advertisers_path(params[:agency_id]),
                   notice: 'Advertiser has been successfully updated.'
     else
-      errors = {alert: @user.errors.full_messages.join(', ')}
+      errors = {alert: @advertiser.errors.full_messages.join(', ')}
       redirect_to edit_advertisers_path(@advertiser, advertiser: advertiser_params), errors
     end
   end
