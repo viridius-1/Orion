@@ -4,4 +4,4 @@
     = react_component("LinkDropdownMenu",
             props: {icon: "fas fa-cog gear-icon", items: [{id: "edit", text: "Edit Profile", icon: "fas fa-pen", link: "/users/#{current_user.id}/edit"}]},
             prerender: false)
-  = react_component("CampaignIndexComponent", props: {campaigns: @campaigns, link:"/advertisers/#{@advertiser.id}/campaigns/"}, prerender: false)
+  = react_component("CampaignIndexComponent", props: {campaigns: @campaigns, link:"/vendors/#{@advertiser.id}/campaigns/"}, prerender: false)

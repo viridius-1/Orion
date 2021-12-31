@@ -37,11 +37,11 @@ export default class AdvertiserForm extends Component {
       event.stopPropagation();
     } else {
       let method = 'POST';
-      let path = `/agencies/${agencyId}/advertisers`;
+      let path = `/agencies/${agencyId}/vendors`;
 
       if (!isNew) {
         method = 'PUT';
-        path = `/agencies/${agencyId}/advertisers/${id}`;
+        path = `/agencies/${agencyId}/vendors/${id}`;
       }
       const requestOptions = {
         body: this._getSubmitBody(),

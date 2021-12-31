@@ -18,11 +18,12 @@ Rails.application.routes.draw do
   resources :platforms, only: :index
 
   resources :agencies do
-    resources :advertisers
+    resources :users
+    resources :vendors, controller: 'advertisers'
   end
 
-  resources :advertisers do
-    resources :campaigns
+  resources :vendors, controller: 'advertisers' do
+    resources :users, :campaigns
   end
 
   resources :users

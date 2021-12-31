@@ -21,7 +21,7 @@ class AdvertisersController < ApplicationController
   def create
     @advertiser = @agency.advertisers.new(advertiser_params)
     if @advertiser.save
-      redirect_to agency_advertisers_path(params[:agency_id]),
+      redirect_to agency_vendors_path(params[:agency_id]),
                   notice: 'Advertiser was successfully created.'
     end
   end
@@ -31,11 +31,12 @@ class AdvertisersController < ApplicationController
 
   def update
     if @advertiser.update(advertiser_params)
-      redirect_to agency_advertisers_path(params[:agency_id]),
-                  notice: 'Advertiser has been successfully updated.'
+      redirect_to agency_vendors_path(params[:agency_id]),
+                  notice: 'Advertiser has been successfully updated.',
+                  status: 303
     else
       errors = {alert: @advertiser.errors.full_messages.join(', ')}
-      redirect_to edit_advertisers_path(@advertiser, advertiser: advertiser_params), errors
+      redirect_to edit_vendors_path(@advertiser, advertiser: advertiser_params), errors, status: 303
     end
   end
 
@@ -48,7 +49,7 @@ class AdvertisersController < ApplicationController
       flash[:alert] = 'Unable to remove Advertiser'
     end
 
-    redirect_to agency_advertisers_path(params[:agency_id])
+    redirect_to agency_vendors_path(params[:agency_id]), status: 303
   end
 
   private

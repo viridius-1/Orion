@@ -159,11 +159,11 @@ export default class CampaignForm extends Component {
       },
       new: isNew,
     } = this.props;
-    let path = `/advertisers/${advertiserId}/campaigns`;
+    let path = `/vendors/${advertiserId}/campaigns`;
 
     if (!isNew) {
       method = 'PUT';
-      path = `/advertisers/${advertiserId}/campaigns/${campaignId}`;
+      path = `/vendors/${advertiserId}/campaigns/${campaignId}`;
     }
 
     const requestOptions = {

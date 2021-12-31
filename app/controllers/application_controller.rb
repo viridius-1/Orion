@@ -5,11 +5,11 @@ class ApplicationController < ActionController::Base
 
   def campaign_planner_path
     if current_user.company_type == 'Advertiser'
-       new_advertiser_campaign_path(advertiser_id: current_user.company.id)
+       new_vendor_campaign_path(vendor_id: current_user.company.id)
     else
       agency = Agency.find(current_user.company.id)
       advertiser = agency.advertisers.first
-      advertiser ? new_advertiser_campaign_path(advertiser.id) : ''
+      advertiser ? new_vendor_campaign_path(advertiser.id) : ''
     end
   end
 
