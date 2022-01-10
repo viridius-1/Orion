@@ -1,0 +1,33 @@
+/* line 2, app/assets/stylesheets/demand_side_platforms.sass */
+.demand-side-platforms .bottom-row {
+  margin-top: 30px;
+}
+
+/* line 4, app/assets/stylesheets/demand_side_platforms.sass */
+.demand-side-platforms .card {
+  height: calc(50vh - 75px);
+}
+
+/* line 6, app/assets/stylesheets/demand_side_platforms.sass */
+.demand-side-platforms .card .text-center {
+  width: 100%;
+}
+
+/* line 8, app/assets/stylesheets/demand_side_platforms.sass */
+.demand-side-platforms .card .dv-image {
+  width: 80%;
+  margin: 0 auto;
+  display: block;
+}
+
+/* line 12, app/assets/stylesheets/demand_side_platforms.sass */
+.demand-side-platforms .card .zeta-image {
+  height: 65px;
+  margin: 0 auto 30px;
+  display: block;
+}
+
+/* line 16, app/assets/stylesheets/demand_side_platforms.sass */
+.demand-side-platforms .card .access-btn {
+  margin-top: 30px;
+}
