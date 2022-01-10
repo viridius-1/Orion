@@ -46,3 +46,4 @@ yarn.lock
 .idea/*
 
 public/packs/*
+public/assets/*
