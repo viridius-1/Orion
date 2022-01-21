@@ -22,6 +22,7 @@ export default class CampaignGoalsFormFragment extends Component {
       handleSelectChange,
       handleSubmit,
       kpi,
+      pixel_notes,
       options: {
         goal_options: goalOptions,
         kpi_options: kpiOptions,
@@ -150,6 +151,20 @@ export default class CampaignGoalsFormFragment extends Component {
                   <div className="input-v2-prepend"><span>$</span></div>
                   <Form.Control.Feedback type="invalid">
                     Budget is required
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group controlId="pixel_notes">
+                  <Form.Label className="label-v2">Pixel Notes</Form.Label>
+                  <Form.Control
+                    className="input-v2"
+                    required
+                    name="pixel_notes"
+                    type="text"
+                    onChange={handleChange}
+                    value={pixel_notes}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Pixel Notes is required
                   </Form.Control.Feedback>
                 </Form.Group>
                 <div className="form-group">
