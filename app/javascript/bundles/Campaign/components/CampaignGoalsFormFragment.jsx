@@ -235,4 +235,5 @@ CampaignGoalsFormFragment.defaultProps = {
   target_cpa: undefined,
   target_roas: undefined,
   validated: undefined,
+  pixel_notes: undefined
 };
