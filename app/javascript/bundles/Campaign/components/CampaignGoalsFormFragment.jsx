@@ -220,6 +220,7 @@ CampaignGoalsFormFragment.propTypes = {
     PropTypes.string,
   ]),
   validated: PropTypes.bool,
+  pixel_notes: PropTypes.string
 };
 
 CampaignGoalsFormFragment.defaultProps = {
