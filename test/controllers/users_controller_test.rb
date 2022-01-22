@@ -11,15 +11,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
   end
 
-  # TODO: This scenario throws an error
-  # test 'should redirect when user does not have a company' do
-  #   sign_in users(:no_access_user)
-
-  #   get '/users'
-
-  #   assert_response :redirect
-  # end
-
   test 'index should show all users belonging to current users agency' do
     sign_in users(:agency_user)
 
@@ -39,15 +30,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal assigns(:company), advertisers(:first)
     assert_equal assigns(:users), [users(:advertiser_user), users(:second_user_for_advertiser)]
   end
-
-  # TODO: this throws an error when user has no company
-  # test 'should get new' do
-  #   sign_in users(:no_access_user)
-
-  #   get '/users/new'
-
-  #   assert_response :success
-  # end
 
   # NEW
 
