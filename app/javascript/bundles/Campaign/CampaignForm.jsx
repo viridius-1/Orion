@@ -404,6 +404,7 @@ CampaignForm.propTypes = {
       PropTypes.string,
     ]),
     target_roas: PropTypes.number,
+    pixel_notes: PropTypes.string,
   }).isRequired,
   data_providers: PropTypes.arrayOf(PropTypes.object).isRequired,
   data_providers_key_value: PropTypes.objectOf(PropTypes.object).isRequired,
@@ -414,6 +415,5 @@ CampaignForm.propTypes = {
     kpi_options: PropTypes.arrayOf(PropTypes.string),
     parental_options: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
-  token: PropTypes.string.isRequired,
-  pixel_notes: PropTypes.string
+  token: PropTypes.string.isRequired
 };
