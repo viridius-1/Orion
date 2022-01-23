@@ -194,6 +194,7 @@ export default class CampaignForm extends Component {
         target_cpa: targetCpa,
         target_roas: targetRoas,
         budget,
+        pixel_notes,
         age_range_male: ageRangeMale,
         age_range_female: ageRangeFemale,
         household_income: householdIncome,
@@ -210,6 +211,7 @@ export default class CampaignForm extends Component {
       age_range_male: ageRangeMale || [18, 99],
       average_order_value: averageOrderValue || '',
       budget: budget || '',
+      pixel_notes: pixel_notes || '',
       campaign_url: campaignUrl || 'https://',
       conversion_rate: conversionRate || '',
       education: education ? FormUtils.buildOption(education) : null,
@@ -260,6 +262,7 @@ export default class CampaignForm extends Component {
       age_range_male: ageRangeMale,
       average_order_value: averageOrderValue,
       budget,
+      pixel_notes,
       campaign_url: campaignUrl,
       conversion_rate: conversionRate,
       current_step: currentStep,
@@ -306,6 +309,7 @@ export default class CampaignForm extends Component {
             target_cpa={targetCpa}
             target_roas={targetRoas}
             budget={budget}
+            pixel_notes={pixel_notes}
             handleCancel={this.handleCancel}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
@@ -411,4 +415,5 @@ CampaignForm.propTypes = {
     parental_options: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   token: PropTypes.string.isRequired,
+  pixel_notes: PropTypes.string
 };
