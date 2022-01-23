@@ -99,12 +99,18 @@ class CampaignsController < ApplicationController
       :target_cpa,
       :target_roas,
       :budget,
+      :footfall_analysis,
+      :crm_data,
+      :contextual_targeting,
+      :brand_safety,
       :pixel_notes,
-      {:age_range_male => []},
-      {:age_range_female => []},
-      {:household_income => []},
-      {:geography => []},
-      :affinities => {}
+      :targeting_notes,
+      { age_range_male: [] },
+      { age_range_female: [] },
+      { household_income: []},
+      { geography: [] },
+      { geo_fence: [] },
+      affinities: {}
     )
   end
 

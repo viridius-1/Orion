@@ -29,12 +29,21 @@ export default class CampaignAudienceFormFragment extends Component {
       female_selected: femaleSelected,
       geography,
       geography_input: geographyInput,
+      geo_fence,
+      geo_fence_input: geoFenceInput,
+      footfall_analysis: footfallAnalysis,
+      crm_data: crmData,
+      contextual_targeting: contextualTargeting,
+      brand_safety: brandSafety,
+      targeting_notes: targetingNotes,
       handleCancel,
       handleCreatableSelectInputChange,
       handleCreatableSelectKeyDown,
       handleRangeChange,
       handleSelectChange,
       handleSubmit,
+      handleSwitchChange,
+      handleChange,
       household_income: householdIncome,
       male_selected: maleSelected,
       onSelectButtonPressed,
@@ -173,6 +182,72 @@ export default class CampaignAudienceFormFragment extends Component {
                   />
                   <span style={{ fontSize: '12px' }}>Enter countries, states, provinces, DMAs, cities, or ZIP/postal codes.</span>
                 </Form.Group>
+                <Form.Group controlId="geo_fence">
+                  <Form.Label className="label-v2">Geo Fence</Form.Label>
+                  <CreatableSelect
+                    className="multiSelectV2"
+                    classNamePrefix="multiSelectV2"
+                    components={{ DropdownIndicator }}
+                    isClearable
+                    isMulti
+                    menuIsOpen={false}
+                    name="geo_fence"
+                    onChange={(value) => handleSelectChange(value, { name: 'geo_fence' })}
+                    onInputChange={(value) => handleCreatableSelectInputChange(value, { name: 'geo_fence_input' })}
+                    onKeyDown={(event) => handleCreatableSelectKeyDown(event, 'geo_fence', 'geo_fence_input')}
+                    placeholder="Type something and press enter..."
+                    value={geo_fence}
+                    inputValue={geoFenceInput}
+                  />
+                  <span style={{ fontSize: '12px' }}>Enter countries, states, provinces, DMAs, cities, or ZIP/postal codes.</span>
+                </Form.Group>
+                <Form.Group controlId="footfall_analysis">
+                  <Form.Label className="label-v2 default-position">Footfall Analysis</Form.Label>
+                  <Form.Switch
+                    type="switch"
+                    id="footfall_analysis"
+                    defaultChecked={footfallAnalysis}
+                    onChange={(value) => handleSwitchChange(value, { name: 'footfall_analysis' })}
+                  />
+                </Form.Group>
+                <Form.Group controlId="crm_data">
+                  <Form.Label className="label-v2 default-position">CRM Data</Form.Label>
+                  <Form.Switch
+                    type="switch"
+                    id="crm_data"
+                    defaultChecked={crmData}
+                    onChange={(value) => handleSwitchChange(value, { name: 'crm_data' })}
+                  />
+                </Form.Group>
+                <Form.Group controlId="contextual_targeting">
+                  <Form.Label className="label-v2 default-position">Contextual Targeting</Form.Label>
+                  <Form.Switch
+                    type="switch"
+                    id="contextual_targeting"
+                    defaultChecked={contextualTargeting}
+                    onChange={(value) => handleSwitchChange(value, { name: 'contextual_targeting' })}
+                  />
+                </Form.Group>
+                <Form.Group controlId="brand_safety">
+                  <Form.Label className="label-v2 default-position">Brand Safety</Form.Label>
+                  <Form.Switch
+                    type="switch"
+                    id="brand_safety"
+                    defaultChecked={brandSafety}
+                    onChange={(value) => handleSwitchChange(value, { name: 'brand_safety' })}
+                  />
+                </Form.Group>
+                <Form.Group controlId="targeting_notes">
+                   <Form.Label className="label-v2 default-position">Targeting Notes</Form.Label>
+                   <Form.Control
+                     className="input-v2 textarea"
+                     name="targeting_notes"
+                     type="text"
+                     as="textarea"
+                     onChange={handleChange}
+                     value={targetingNotes}
+                   />
+                 </Form.Group>
                 <div className="form-group">
                   <button className="btn btn-secondary-v2" type="button" onClick={handleCancel}>Back</button>
                   <button className="btn btn-primary-v2 float-right" type="submit" style={{ width: '61%' }}>
@@ -197,12 +272,24 @@ CampaignAudienceFormFragment.propTypes = {
     value: PropTypes.string,
   })),
   geography_input: PropTypes.string,
+  geo_fence: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.string
+  })),
+  geo_fence_input: PropTypes.string,
+  footfall_analysis: PropTypes.bool,
+  crm_data: PropTypes.bool,
+  contextual_targeting: PropTypes.bool,
+  brand_safety: PropTypes.bool,
+  targeting_notes: PropTypes.string,
   handleCancel: PropTypes.func.isRequired,
   handleCreatableSelectInputChange: PropTypes.func.isRequired,
   handleCreatableSelectKeyDown: PropTypes.func.isRequired,
   handleRangeChange: PropTypes.func.isRequired,
   handleSelectChange: PropTypes.func.isRequired,
+  handleSwitchChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
   household_income: PropTypes.arrayOf(PropTypes.number),
   male_selected: PropTypes.bool,
   onSelectButtonPressed: PropTypes.func.isRequired,
@@ -215,6 +302,13 @@ CampaignAudienceFormFragment.defaultProps = {
   female_selected: false,
   geography: [],
   geography_input: '',
+  geo_fence: [],
+  geo_fence_input: '',
+  footfall_analysis: false,
+  crm_data: false,
+  contextual_targeting: false,
+  brand_safety: false,
+  targeting_notes: '',
   household_income: [],
   male_selected: false,
   validated: undefined,
