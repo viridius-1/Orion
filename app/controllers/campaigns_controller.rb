@@ -99,6 +99,7 @@ class CampaignsController < ApplicationController
       :target_cpa,
       :target_roas,
       :budget,
+      :pixel_notes,
       {:age_range_male => []},
       {:age_range_female => []},
       {:household_income => []},

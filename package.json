@@ -25,7 +25,7 @@
     "react-dom": "^17.0.1",
     "react-on-rails": "12.0.4",
     "react-select": "^4.3.0",
-    "react-simple-tabs-component": "^1.0.7",
+    "react-simple-tabs-component": "^2.1.1",
     "react-simple-tree-menu": "^1.1.18",
     "react-tagsinput": "^3.19.0",
     "turbolinks": "^5.2.0"

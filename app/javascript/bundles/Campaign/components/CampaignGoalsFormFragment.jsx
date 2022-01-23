@@ -22,6 +22,7 @@ export default class CampaignGoalsFormFragment extends Component {
       handleSelectChange,
       handleSubmit,
       kpi,
+      pixel_notes,
       options: {
         goal_options: goalOptions,
         kpi_options: kpiOptions,
@@ -152,6 +153,20 @@ export default class CampaignGoalsFormFragment extends Component {
                     Budget is required
                   </Form.Control.Feedback>
                 </Form.Group>
+                <Form.Group controlId="pixel_notes">
+                  <Form.Label className="label-v2">Pixel Notes</Form.Label>
+                  <Form.Control
+                    className="input-v2"
+                    required
+                    name="pixel_notes"
+                    type="text"
+                    onChange={handleChange}
+                    value={pixel_notes}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Pixel Notes is required
+                  </Form.Control.Feedback>
+                </Form.Group>
                 <div className="form-group">
                   <button className="btn btn-secondary-v2" type="button" onClick={handleCancel}>Back</button>
                   <button className="btn btn-primary-v2 float-right" type="submit" style={{ width: '61%' }}>
@@ -205,6 +220,7 @@ CampaignGoalsFormFragment.propTypes = {
     PropTypes.string,
   ]),
   validated: PropTypes.bool,
+  pixel_notes: PropTypes.string
 };
 
 CampaignGoalsFormFragment.defaultProps = {
@@ -220,4 +236,5 @@ CampaignGoalsFormFragment.defaultProps = {
   target_cpa: undefined,
   target_roas: undefined,
   validated: undefined,
+  pixel_notes: undefined
 };
