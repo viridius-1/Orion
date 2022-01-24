@@ -41,8 +41,6 @@ yarn-debug.log*
 # Ignore data dump
 dump.rdb
 
-yarn.lock
-
 .idea/*
 
 public/packs/*
