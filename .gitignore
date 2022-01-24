@@ -45,3 +45,4 @@ dump.rdb
 
 public/packs/*
 public/assets/*
+public/packs-test/*

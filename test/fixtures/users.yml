@@ -40,3 +40,4 @@ no_access_user:
   last_name: Doe
   roles: user
   confirmed_at: <%= Time.now %>
+  
