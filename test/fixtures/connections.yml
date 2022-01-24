@@ -1,11 +1,4 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  user_id: 1
-  token: MyString
-  is_expired: false
-
-two:
-  user_id: 1
-  token: MyString
-  is_expired: false
+agency_user_connection:
+  user: agency_user
+  token: some_text_1234
+  expired_at: nil
