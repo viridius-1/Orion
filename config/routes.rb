@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     resources :users, :campaigns
   end
 
-  resources :users
+  resources :users, only: [:edit, :update]
 
   namespace :api do
     namespace :v1 do

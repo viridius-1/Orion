@@ -5,117 +5,70 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   # INDEX
 
-  test 'should redirect when user is not logged in' do
-    get '/users'
-
-    assert_response :redirect
-  end
-
-  test 'index should show all users belonging to current users agency' do
-    sign_in users(:agency_user)
-
-    get '/users'
-
-    assert_response :success
-    assert_equal assigns(:company), agencies(:first)
-    assert_equal assigns(:users), [users(:agency_user), users(:second_user_for_agency)]
-  end
-
-  test 'index should show all users belonging to current users advertiser' do
-    sign_in users(:advertiser_user)
-
-    get '/users'
-
-    assert_response :success
-    assert_equal assigns(:company), advertisers(:first)
-    assert_equal assigns(:users), [users(:advertiser_user), users(:second_user_for_advertiser)]
+  test 'index should not exist' do
+    assert_raises ActionController::RoutingError do
+      get '/users'
+    end
   end
 
   # NEW
 
-  test 'new redirects if a user is not logged in' do
-    get '/users/new'
-
-    assert_response :redirect
-  end
-
-  # TODO: this is not being rendered
-  test 'should get new' do
-    sign_in users(:agency_user)
-
-    get '/users/new'
-
-    assert_response :success
+  test 'new should not exist' do
+    assert_raises ActionController::RoutingError do
+      get '/users/new'
+    end
   end
 
   # CREATE
 
-  test 'create redirects when user is not logged in' do
-    assert_no_changes('User.count') do
+  test 'create should not exist' do
+    assert_raises ActionController::RoutingError do
       post '/users'
     end
-
-    assert_response :redirect
   end
-
-  # TODO: create currently does nothing
 
   # EDIT
 
-  test 'edit redirects when user is not logged in' do
+  test 'edit redirects to sign_in when user is not logged in' do
     get "/users/#{users(:agency_user).id}/edit"
 
-    assert_response :redirect
+    assert_redirected_to new_user_session_path
   end
 
-  test 'should get edit for any user within your company' do
+  test 'edit redirects to root for any user but yourself' do
     sign_in users(:agency_user)
-    
+
     get "/users/#{users(:second_user_for_agency).id}/edit"
 
-    assert_response :success
-    assert_equal assigns(:user), users(:second_user_for_agency)
+    assert_redirected_to root_path
   end
 
-  # TODO: This is possible!
+  test 'should get edit for yourself' do
+    sign_in users(:agency_user)
+    
+    get "/users/#{users(:agency_user).id}/edit"
 
-  # test 'should not be able to edit a user not within your company' do
-  #   sign_in users(:advertiser_user)
-
-  #   get "/users/#{users(:agency_user).id}/edit"
-
-  #   assert_response :redirect
-  # end
+    assert_response :success
+    assert_equal assigns(:user), users(:agency_user)
+  end
 
   # UPDATE
 
-  test 'update redirects when user is not logged in' do
+  test 'update redirects to sign_in when user is not logged in' do
     patch "/users/#{users(:agency_user).id}", params: { user: { first_name: 'A new name' } }
 
-    assert_response :redirect
+    assert_redirected_to new_user_session_path
     assert_equal users(:agency_user).first_name, 'John'
   end
 
-  # TODO: Should we?
-  test 'should update any user belonging to the same company' do
+  test 'update redirects for any user but yourself' do
     sign_in users(:agency_user)
 
     patch "/users/#{users(:second_user_for_agency).id}", params: { user: { first_name: 'A new name' } }
 
-    assert_redirected_to dashboard_index_path
-    assert_equal users(:second_user_for_agency).reload.first_name, 'A new name'
+    assert_redirected_to root_path
+    assert_equal users(:second_user_for_agency).reload.first_name, 'Bill'
   end
-
-  # TODO: This is possible!
-
-  # test 'user cannot update user belonging to another company' do
-  #   sign_in users(:no_access_user)
-
-  #   patch "/users/#{users(:advertiser_user).id}", params: { user: { first_name: 'A new name' } }
-
-  #   assert_redirected_to dashboard_index_path
-  #   assert_equal users(:advertiser_user).reload.first_name, 'Jane'
-  # end
 
   test 'user can update his own password' do
     sign_in users(:agency_user)
@@ -135,45 +88,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   # DESTROY
 
-  test 'destroy redirects when user is not logged in' do
-    assert_no_changes('User.count') do
-      delete "/users/#{users(:agency_user).id}"
-    end
-
-    assert_response :redirect
-  end
-
-  test 'cannot destroy yourself' do
+  test 'destroy should not exist' do
     sign_in users(:agency_user)
 
-    assert_no_changes('User.count') do
+    assert_raises ActionController::RoutingError do
       delete "/users/#{users(:agency_user).id}"
     end
-
-    assert_response :redirect
-    assert_equal 'You cannot delete yourself', flash[:alert]
   end
-
-  test 'can destroy user from your own company' do
-    sign_in users(:agency_user)
-
-    assert_difference('User.count', -1) do
-      delete "/users/#{users(:second_user_for_agency).id}"
-    end
-
-    assert_response :redirect
-    assert_equal 'User successfully deleted', flash[:notice]
-  end
-
-  # TODO: This is possible!
-
-  # test 'cannot destroy user from another company' do
-  #   sign_in users(:no_access_user)
-
-  #   assert_no_changes('User.count') do
-  #     delete "/users/#{users(:agency_user).id}"
-  #   end
-
-  #   assert_response :redirect
-  # end
 end

@@ -1,16 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_company
-  before_action :set_user, only: [:edit, :update, :destroy]
-
-  def index
-    @users = @company.users
-  end
-
-  def new
-  end
-
-  def create
-  end
+  load_and_authorize_resource only: [:edit, :update]
 
   def edit
   end
@@ -36,29 +25,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy
-    if current_user != @user
-      if @user.destroy
-        flash[:notice] = 'User successfully deleted'
-      else
-        flash[:alert] = 'Unable to remove user'
-      end
-    else
-      flash[:alert] = 'You cannot delete yourself'
-    end
-    redirect_back(fallback_location: root_path)
-  end
-
   private
-
-  def set_company
-    @company = current_user.company
-  end
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_user
-    @user = User.find(params[:id])
-  end
 
   def user_wants_password_change?
     params[:user][:current_password].present? || params[:user][:password].present? || params[:user][:password_confirmation].present?

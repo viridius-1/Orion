@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  rescue_from 'CanCan::AccessDenied' do
+    redirect_to root_path
+  end
+
   private
 
   def layout_by_resource
