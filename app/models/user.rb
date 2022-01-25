@@ -10,9 +10,10 @@ class User < ApplicationRecord
   belongs_to :company, polymorphic: true, optional: true
 
   after_create :refresh_token
+  after_create :send_welcome_email, if: -> { Rails.env.production? }
   # Include default devise modules. Others available are:
   # :registerable, :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :invitable, :database_authenticatable, :confirmable,
+  devise :invitable, :database_authenticatable,
          :recoverable, :rememberable, :validatable
 
   has_many :connections
@@ -46,5 +47,9 @@ class User < ApplicationRecord
   def token_url
     session_token = connections&.active&.first&.token
     "https://analytics.theversion2.com/app/dash/session/version2_login?token=#{session_token}"
+  end
+
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver_later
   end
 end

@@ -1,0 +1,10 @@
+p
+  | Hey #{@user.first_name} #{@user.last_name},
+
+  p You can login to your account through the link below:
+
+  = link_to "Sign in", new_user_session_url
+p
+  | Thanks,
+  br
+    | Orion
