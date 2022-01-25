@@ -104,8 +104,6 @@ export default class CampaignDetailsComponent extends Component {
       campaign: {
         household_income: householdIncome,
         geography,
-        education,
-        parental_status: parentalStatus,
         affinities,
       },
     } = this.props;
@@ -131,20 +129,6 @@ export default class CampaignDetailsComponent extends Component {
                     <h6>Household Income</h6>
                     <p>
                       {householdIncome ? formatRange([moneyFormatter(householdIncome[0]), moneyFormatter(householdIncome[1])]) : '-'}
-                    </p>
-                  </div>
-                  <div className="col-6 grid-item">
-                    <h6>Education</h6>
-                    <p>
-                      {education || '-'}
-                    </p>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-6 grid-item">
-                    <h6>Parental Status</h6>
-                    <p>
-                      {parentalStatus || '-'}
                     </p>
                   </div>
                 </div>
@@ -292,13 +276,11 @@ CampaignDetailsComponent.propTypes = {
       PropTypes.number,
       PropTypes.string,
     ]),
-    education: PropTypes.string,
     end_date: PropTypes.string,
     geography: PropTypes.arrayOf(PropTypes.string),
     goal: PropTypes.string,
     household_income: PropTypes.arrayOf(PropTypes.number),
     kpi: PropTypes.string,
-    parental_status: PropTypes.string,
     start_date: PropTypes.string,
     status: PropTypes.string,
     target_cpa: PropTypes.oneOfType([

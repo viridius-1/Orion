@@ -103,8 +103,6 @@ class CampaignsController < ApplicationController
       {:age_range_male => []},
       {:age_range_female => []},
       {:household_income => []},
-      :education,
-      :parental_status,
       {:geography => []},
       :affinities => {}
     )

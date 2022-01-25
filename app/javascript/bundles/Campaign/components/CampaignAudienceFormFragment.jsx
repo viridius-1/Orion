@@ -26,7 +26,6 @@ export default class CampaignAudienceFormFragment extends Component {
     const {
       age_range_female: ageRangeFemale,
       age_range_male: ageRangeMale,
-      education,
       female_selected: femaleSelected,
       geography,
       geography_input: geographyInput,
@@ -39,11 +38,6 @@ export default class CampaignAudienceFormFragment extends Component {
       household_income: householdIncome,
       male_selected: maleSelected,
       onSelectButtonPressed,
-      options: {
-        education_options: educationOptions,
-        parental_options: parentalOptions,
-      },
-      parental_status: parentalStatus,
       validated,
     } = this.props;
 
@@ -160,28 +154,6 @@ export default class CampaignAudienceFormFragment extends Component {
                     </div>
                   </div>
                 </Form.Group>
-                <Form.Group controlId="education">
-                  <Form.Label className="label-v2">Education</Form.Label>
-                  <Select
-                    className="selectV2"
-                    classNamePrefix="selectV2"
-                    options={FormUtils.buildOptions(educationOptions)}
-                    name="education"
-                    onChange={handleSelectChange}
-                    value={education}
-                  />
-                </Form.Group>
-                <Form.Group controlId="parental_status">
-                  <Form.Label className="label-v2">Parental Status</Form.Label>
-                  <Select
-                    className="selectV2"
-                    classNamePrefix="selectV2"
-                    options={FormUtils.buildOptions(parentalOptions)}
-                    name="parental_status"
-                    onChange={handleSelectChange}
-                    value={parentalStatus}
-                  />
-                </Form.Group>
                 <Form.Group controlId="geography">
                   <Form.Label className="label-v2">Geography</Form.Label>
                   <CreatableSelect
@@ -219,10 +191,6 @@ export default class CampaignAudienceFormFragment extends Component {
 CampaignAudienceFormFragment.propTypes = {
   age_range_female: PropTypes.arrayOf(PropTypes.number),
   age_range_male: PropTypes.arrayOf(PropTypes.number),
-  education: PropTypes.shape({
-    label: PropTypes.string,
-    value: PropTypes.string,
-  }),
   female_selected: PropTypes.bool,
   geography: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string,
@@ -238,26 +206,16 @@ CampaignAudienceFormFragment.propTypes = {
   household_income: PropTypes.arrayOf(PropTypes.number),
   male_selected: PropTypes.bool,
   onSelectButtonPressed: PropTypes.func.isRequired,
-  options: PropTypes.shape({
-    education_options: PropTypes.arrayOf(PropTypes.string),
-    parental_options: PropTypes.arrayOf(PropTypes.string),
-  }).isRequired,
-  parental_status: PropTypes.shape({
-    label: PropTypes.string,
-    value: PropTypes.string,
-  }),
   validated: PropTypes.bool,
 };
 
 CampaignAudienceFormFragment.defaultProps = {
   age_range_female: [],
   age_range_male: [],
-  education: undefined,
   female_selected: false,
   geography: [],
   geography_input: '',
   household_income: [],
   male_selected: false,
-  parental_status: undefined,
   validated: undefined,
 };

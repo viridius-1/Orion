@@ -122,8 +122,6 @@ export default class CampaignForm extends Component {
       age_range_female: ageRangeFemale,
       goal,
       kpi,
-      education,
-      parental_status: parentalStatus,
       geography,
     } = this.state;
 
@@ -133,11 +131,9 @@ export default class CampaignForm extends Component {
       ...this.state,
       age_range_female: femaleSelected ? ageRangeFemale : null,
       age_range_male: maleSelected ? ageRangeMale : null,
-      education: education?.value,
       geography: geography?.map((option) => option.value),
       goal: goal?.value,
       kpi: kpi?.value,
-      parental_status: parentalStatus?.value,
     };
 
     const body = JSON.stringify({
@@ -198,8 +194,6 @@ export default class CampaignForm extends Component {
         age_range_male: ageRangeMale,
         age_range_female: ageRangeFemale,
         household_income: householdIncome,
-        education,
-        parental_status: parentalStatus,
         geography,
         affinities,
       },
@@ -214,7 +208,6 @@ export default class CampaignForm extends Component {
       pixel_notes: pixel_notes || '',
       campaign_url: campaignUrl || 'https://',
       conversion_rate: conversionRate || '',
-      education: education ? FormUtils.buildOption(education) : null,
       end_date: endDate || '',
       female_selected: !!ageRangeFemale,
       geography: geography ? FormUtils.buildOptions(geography) : [],
@@ -224,7 +217,6 @@ export default class CampaignForm extends Component {
       kpi: kpi ? FormUtils.buildOption(kpi) : null,
       male_selected: !!ageRangeMale,
       name: name || '',
-      parental_status: parentalStatus ? FormUtils.buildOption(parentalStatus) : null,
       start_date: startDate || '',
       target_cpa: targetCpa || '',
       target_roas: targetRoas || '',
@@ -266,7 +258,6 @@ export default class CampaignForm extends Component {
       campaign_url: campaignUrl,
       conversion_rate: conversionRate,
       current_step: currentStep,
-      education,
       end_date: endDate,
       female_selected: femaleSelected,
       geography,
@@ -276,7 +267,6 @@ export default class CampaignForm extends Component {
       kpi,
       male_selected: maleSelected,
       name,
-      parental_status: parentalStatus,
       start_date: startDate,
       target_cpa: targetCpa,
       target_roas: targetRoas,
@@ -326,8 +316,6 @@ export default class CampaignForm extends Component {
             age_range_male={ageRangeMale}
             age_range_female={ageRangeFemale}
             household_income={householdIncome}
-            education={education}
-            parental_status={parentalStatus}
             geography={geography}
             geography_input={geographyInput}
             handleCancel={this.handleCancel}
@@ -388,7 +376,6 @@ CampaignForm.propTypes = {
       PropTypes.number,
       PropTypes.string,
     ]),
-    education: PropTypes.string,
     end_date: PropTypes.string,
     geography: PropTypes.arrayOf(PropTypes.string),
     goal: PropTypes.string,
@@ -396,7 +383,6 @@ CampaignForm.propTypes = {
     id: PropTypes.number,
     kpi: PropTypes.string,
     name: PropTypes.string,
-    parental_status: PropTypes.string,
     start_date: PropTypes.string,
     status: PropTypes.string,
     target_cpa: PropTypes.oneOfType([
@@ -410,10 +396,8 @@ CampaignForm.propTypes = {
   data_providers_key_value: PropTypes.objectOf(PropTypes.object).isRequired,
   new: PropTypes.bool.isRequired,
   options: PropTypes.shape({
-    education_options: PropTypes.arrayOf(PropTypes.string),
     goal_options: PropTypes.arrayOf(PropTypes.string),
     kpi_options: PropTypes.arrayOf(PropTypes.string),
-    parental_options: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   token: PropTypes.string.isRequired
 };
