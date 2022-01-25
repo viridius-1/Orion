@@ -52,7 +52,7 @@ export default class CampaignAudienceFormFragment extends Component {
 
     return (
       <div>
-        <h3 className="form-title">Campaign Audience</h3>
+        <h3 className="form-title">Demographics</h3>
         <div className="row">
           <div className="col-6">
             <div className="form-v2">

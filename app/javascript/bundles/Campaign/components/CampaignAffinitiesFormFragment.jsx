@@ -90,7 +90,7 @@ export default class CampaignAffinitiesFormFragment extends Component {
 
     return (
       <div>
-        <h3 className="form-title">Affinities</h3>
+        <h3 className="form-title">Audiences</h3>
 
         <div className="row">
           <div className="col-6">
