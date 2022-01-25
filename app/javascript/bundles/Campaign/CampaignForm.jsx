@@ -153,30 +153,18 @@ export default class CampaignForm extends Component {
   }
 
   _submitForm(event) {
-    let method = 'POST';
     const {
-      advertiser: {
-        id: advertiserId,
-      },
-      campaign: {
-        id: campaignId,
-      },
-      new: isNew,
+      save_campaign_url: saveCampaignUrl,
+      save_campaign_method: saveCampaignMethod
     } = this.props;
-    let path = `/vendors/${advertiserId}/campaigns`;
-
-    if (!isNew) {
-      method = 'PUT';
-      path = `/vendors/${advertiserId}/campaigns/${campaignId}`;
-    }
 
     const requestOptions = {
       body: this._getSubmitBody(event),
       headers: { 'Content-Type': 'application/json' },
-      method,
+      method: saveCampaignMethod,
     };
 
-    fetch(path, requestOptions)
+    fetch(saveCampaignUrl, requestOptions)
       .then((response) => {
         if (response.redirected) {
           window.location.href = response.url;
@@ -396,9 +384,6 @@ export default class CampaignForm extends Component {
 }
 
 CampaignForm.propTypes = {
-  advertiser: PropTypes.shape({
-    id: PropTypes.number,
-  }).isRequired,
   campaign: PropTypes.shape({
     affinities: PropTypes.objectOf(PropTypes.object),
     age_range_female: PropTypes.arrayOf(PropTypes.number),

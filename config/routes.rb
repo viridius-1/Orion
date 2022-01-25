@@ -17,13 +17,10 @@ Rails.application.routes.draw do
   resources :dashboard, only: :index
   resources :platforms, only: :index
 
-  resources :agencies do
-    resources :users
-    resources :vendors, controller: 'advertisers'
-  end
-
-  resources :vendors, controller: 'advertisers' do
-    resources :users, :campaigns
+  resources :agencies, shallow: true do
+    resources :vendors, controller: 'advertisers' do
+      resources :campaigns
+    end
   end
 
   resources :users, only: [:edit, :update]

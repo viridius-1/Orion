@@ -43,7 +43,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
   test 'should get show when user has access to advertiser' do
     sign_in users(:advertiser_user)
 
-    get "/vendors/#{advertisers(:first).id}/campaigns/#{campaigns(:first).id}"
+    get "/campaigns/#{campaigns(:first).id}"
 
     assert_response :success
     assert_equal assigns(:campaign), campaigns(:first)
@@ -51,9 +51,9 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     assert_equal assigns(:button_links),
                  {
                    back: vendor_campaigns_path(vendor_id: advertisers(:first).id),
-                   edit: "/vendors/#{advertisers(:first).id}/campaigns/#{campaigns(:first).id}/edit",
+                   edit: "/campaigns/#{campaigns(:first).id}/edit",
                    duplicate: '#',
-                   delete: "/vendors/#{advertisers(:first).id}/campaigns/#{campaigns(:first).id}"
+                   delete: "/campaigns/#{campaigns(:first).id}"
                  }
   end
 
@@ -150,7 +150,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
   # EDIT
 
   test 'edit should redirect if user is not logged in' do
-    get "/vendors/#{advertisers(:first).id}/campaigns/#{campaigns(:first).id}/edit"
+    get "/campaigns/#{campaigns(:first).id}/edit"
 
     assert_response :redirect
   end
@@ -158,7 +158,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
   test 'edit should redirect if user does not have access to campaign' do
     sign_in users(:no_access_user)
 
-    get "/vendors/#{advertisers(:first).id}/campaigns/#{campaigns(:first).id}/edit"
+    get "/campaigns/#{campaigns(:first).id}/edit"
 
     assert_response :redirect
   end
@@ -166,17 +166,16 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
   test 'should get edit when user has access to campaign' do
     sign_in users(:advertiser_user)
 
-    get "/vendors/#{advertisers(:first).id}/campaigns/#{campaigns(:first).id}/edit"
+    get "/campaigns/#{campaigns(:first).id}/edit"
 
     assert_response :success
-    assert_equal assigns(:advertiser), advertisers(:first)
     assert_equal assigns(:campaign), campaigns(:first)
   end
 
   # UPDATE
 
   test 'update should redirect when user is not logged in' do
-    patch "/vendors/#{advertisers(:first).id}/campaigns/#{campaigns(:first).id}",
+    patch "/campaigns/#{campaigns(:first).id}",
           params: { campaign: { name: 'Updated Campaign Name' } }
 
     assert_response :redirect
@@ -185,7 +184,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
   test 'update should redirect when user does not have access to campaign' do
     sign_in users(:no_access_user)
 
-    patch "/vendors/#{advertisers(:first).id}/campaigns/#{campaigns(:first).id}",
+    patch "/campaigns/#{campaigns(:first).id}",
           params: { campaign: { name: 'Updated Campaign Name' } }
 
     assert_response :redirect
@@ -194,11 +193,10 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
   test 'should update campaign' do
     sign_in users(:advertiser_user)
 
-    patch "/vendors/#{advertisers(:first).id}/campaigns/#{campaigns(:first).id}",
+    patch "/campaigns/#{campaigns(:first).id}",
           params: { campaign: { name: 'Updated Campaign Name' } }
     
     assert_redirected_to vendor_campaigns_path(vendor_id: advertisers(:first).id)
-    assert_equal assigns(:advertiser), advertisers(:first)
     assert_equal assigns(:campaign), campaigns(:first)
     assert_equal campaigns(:first).reload.name, 'Updated Campaign Name'
   end
@@ -221,7 +219,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
 
   test 'destroy should redirect if user is not logged in' do
     assert_no_changes('Campaign.count') do
-      delete "/vendors/#{advertisers(:first).id}/campaigns/#{campaigns(:first).id}"
+      delete "/campaigns/#{campaigns(:first).id}"
     end
 
     assert_response :redirect
@@ -231,7 +229,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:no_access_user)
 
     assert_no_changes('Campaign.count') do
-      delete "/vendors/#{advertisers(:first).id}/campaigns/#{campaigns(:first).id}"
+      delete "/campaigns/#{campaigns(:first).id}"
     end
 
     assert_response :redirect
@@ -241,11 +239,10 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:advertiser_user)
 
     assert_difference('Campaign.count', -1) do
-      delete "/vendors/#{advertisers(:first).id}/campaigns/#{campaigns(:first).id}"
+      delete "/campaigns/#{campaigns(:first).id}"
     end
 
     assert_redirected_to vendor_campaigns_path(vendor_id: advertisers(:first).id)
-    assert_equal assigns(:advertiser), advertisers(:first)
     assert_equal assigns(:campaign), campaigns(:first)
   end
 

@@ -68,20 +68,20 @@ export default class AdvertiserCardComponent extends Component {
                 {
                   icon: 'fas fa-pen',
                   id: 'edit',
-                  link: `/agencies/${agencyId}/vendors/${id}/edit`,
+                  link: `/vendors/${id}/edit`,
                   text: 'Edit',
                 },
                 {
                   icon: 'fas fa-copy',
                   id: 'duplicate',
-                  link: '#',
+                  link: `/vendors/${id}/duplicate`,
                   text: 'Duplicate',
                 },
                 {
                   action: 'delete',
                   icon: 'fas fa-times-circle',
                   id: 'delete',
-                  link: `/agencies/${agencyId}/vendors/${id}`,
+                  link: `/vendors/${id}`,
                   text: 'Delete',
                 },
               ]}
