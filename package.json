@@ -16,7 +16,6 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "node": "14.18.3",
-    "node-sass": "6.0.1",
     "popper.js": "^1.16.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -30,6 +29,8 @@
     "react-simple-tabs-component": "^2.1.1",
     "react-simple-tree-menu": "^1.1.18",
     "react-tagsinput": "^3.19.0",
+    "sass": "^1.49.0",
+    "sass-loader": "^12.4.0",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",

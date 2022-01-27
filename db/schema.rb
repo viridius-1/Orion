@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_24_183750) do
+ActiveRecord::Schema.define(version: 2022_01_24_184332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,12 @@ ActiveRecord::Schema.define(version: 2022_01_24_183750) do
     t.string "languages"
     t.integer "budget_used"
     t.text "pixel_notes"
+    t.string "geo_fence"
+    t.boolean "footfall_analysis", default: false, null: false
+    t.boolean "crm_data", default: false, null: false
+    t.boolean "contextual_targeting", default: false, null: false
+    t.boolean "brand_safety", default: false, null: false
+    t.text "targeting_notes"
   end
 
   create_table "connections", force: :cascade do |t|
