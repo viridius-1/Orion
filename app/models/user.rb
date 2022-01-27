@@ -10,7 +10,7 @@ class User < ApplicationRecord
   belongs_to :company, polymorphic: true, optional: true
 
   after_create :refresh_token
-  after_create :send_welcome_email, if: -> { Rails.env.production? }
+  after_create :invite_user!
   # Include default devise modules. Others available are:
   # :registerable, :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable,
@@ -49,7 +49,15 @@ class User < ApplicationRecord
     "https://analytics.theversion2.com/app/dash/session/version2_login?token=#{session_token}"
   end
 
-  def send_welcome_email
-    UserMailer.welcome_email(self).deliver_later
+  # Send invitation to already created user.
+  # invite! method from DeviseInvitable
+  def invite_user!
+    self.invite!
+  end
+
+  # Check if user is created in AdminPanel.
+  # If we enable signup we should take care of this.
+  def password_required?
+    new_record? ? false : super
   end
 end
