@@ -31,6 +31,8 @@ class Ability
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
 
+    return unless user
+
     member_type = user.company_type
 
     if member_type == "Advertiser"
@@ -42,5 +44,7 @@ class Ability
       can :read, Campaign, advertiser: { agency_id: user.company.id }
       can :read, Agency, id: user.company.id
     end
+
+    can [:read, :update], User, id: user.id
   end
 end
