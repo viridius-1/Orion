@@ -21,7 +21,7 @@ class UserTest < ActiveSupport::TestCase
       password: 'newpassword123'
     )
 
-    assert_not new_user.persisted?
+    assert new_user.persisted?
   end
 
   test 'should not save user without a last_name' do
