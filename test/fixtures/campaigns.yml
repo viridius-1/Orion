@@ -8,7 +8,14 @@ first:
   target_cpa: 0.1e3
   target_roas: 10
   budget: 0.1e5
+  footfall_analysis: false
+  crm_data: false
+  contextual_targeting: true
+  brand_safety: true
+  pixel_notes: "pixel notes"
+  targeting_notes: "targeting notes"
   geography: ["Europe", "Hello"]
+  geo_fence: ["geo", "fence"]
   created_at: "2022-01-21 20:18:38"
   updated_at: "2022-01-21 20:18:38"
   coversion_rate: nil
