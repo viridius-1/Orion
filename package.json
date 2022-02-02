@@ -47,5 +47,8 @@
   },
   "scripts": {
     "lint": "yarn run eslint 'app/javascript/**'"
+  },
+  "engines": {
+    "node": "14.18.3"
   }
 }
