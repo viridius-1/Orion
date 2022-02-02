@@ -270,13 +270,19 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
         age_range_female: [20, 30],
         household_income: [50, 500],
         geography: ["Europe", "Hello"],
+        geo_fence: ["Asia"],
         affinities: { 
           "10401" => {
             "name" => "Automotive",
             "provider" => "Acxiom US",
             "description" => "Household specific information about current vehicle of likely next vehicle"
           }
-        }
+        },
+        football_analysis: true,
+        crm_data: true,
+        contextual_targeting: true,
+        brand_safety: true,
+        targeting_notes: 'These are some notes related to targeting'
       }
     }
   end

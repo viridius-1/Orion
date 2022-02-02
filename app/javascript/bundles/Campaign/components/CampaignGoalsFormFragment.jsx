@@ -154,12 +154,13 @@ export default class CampaignGoalsFormFragment extends Component {
                   </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="pixel_notes">
-                  <Form.Label className="label-v2">Pixel Notes</Form.Label>
+                  <Form.Label className="label-v2 default-position">Pixel Notes</Form.Label>
                   <Form.Control
-                    className="input-v2"
+                    className="input-v2 textarea"
                     required
                     name="pixel_notes"
                     type="text"
+                    as="textarea"
                     onChange={handleChange}
                     value={pixel_notes}
                   />

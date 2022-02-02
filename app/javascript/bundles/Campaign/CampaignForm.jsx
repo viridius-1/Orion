@@ -62,6 +62,12 @@ export default class CampaignForm extends Component {
     this.setState({ [name]: selectedOption });
   }
 
+  handleSwitchChange = (switchOption, { name }) => {
+    var result = !this.state[name];
+
+    this.setState({ [name]: result });
+  }
+
   handleCreatableSelectInputChange = (value, { name }) => {
     this.setState({
       [name]: value,
@@ -123,6 +129,7 @@ export default class CampaignForm extends Component {
       goal,
       kpi,
       geography,
+      geo_fence
     } = this.state;
 
     const { token } = this.props;
@@ -132,6 +139,7 @@ export default class CampaignForm extends Component {
       age_range_female: femaleSelected ? ageRangeFemale : null,
       age_range_male: maleSelected ? ageRangeMale : null,
       geography: geography?.map((option) => option.value),
+      geo_fence: geo_fence?.map((option) => option.value),
       goal: goal?.value,
       kpi: kpi?.value,
     };
@@ -195,6 +203,12 @@ export default class CampaignForm extends Component {
         age_range_female: ageRangeFemale,
         household_income: householdIncome,
         geography,
+        geo_fence,
+        footfall_analysis: footfallAnalysis,
+        crm_data: crmData,
+        contextual_targeting: contextualTargeting,
+        brand_safety: brandSafety,
+        targeting_notes: targetingNotes,
         affinities,
       },
     } = this.props;
@@ -212,6 +226,13 @@ export default class CampaignForm extends Component {
       female_selected: !!ageRangeFemale,
       geography: geography ? FormUtils.buildOptions(geography) : [],
       geography_input: '',
+      geo_fence: geo_fence ? FormUtils.buildOptions(geo_fence) : [],
+      geo_fence_input: '',
+      footfall_analysis: footfallAnalysis,
+      crm_data: crmData,
+      contextual_targeting: contextualTargeting,
+      brand_safety: brandSafety,
+      targeting_notes: targetingNotes,
       goal: goal ? FormUtils.buildOption(goal) : null,
       household_income: householdIncome || [50, 500],
       kpi: kpi ? FormUtils.buildOption(kpi) : null,
@@ -262,6 +283,13 @@ export default class CampaignForm extends Component {
       female_selected: femaleSelected,
       geography,
       geography_input: geographyInput,
+      geo_fence,
+      geo_fence_input: geoFenceInput,
+      footfall_analysis: footfallAnalysis,
+      crm_data: crmData,
+      contextual_targeting: contextualTargeting,
+      brand_safety: brandSafety,
+      targeting_notes: targetingNotes,
       goal,
       household_income: householdIncome,
       kpi,
@@ -318,6 +346,13 @@ export default class CampaignForm extends Component {
             household_income={householdIncome}
             geography={geography}
             geography_input={geographyInput}
+            geo_fence={geo_fence}
+            geo_fence_input={geoFenceInput}
+            footfall_analysis={footfallAnalysis}
+            crm_data={crmData}
+            contextual_targeting={contextualTargeting}
+            brand_safety={brandSafety}
+            targeting_notes={targetingNotes}
             handleCancel={this.handleCancel}
             handleSubmit={this.handleSubmit}
             handleSelectChange={this.handleSelectChange}
@@ -325,6 +360,8 @@ export default class CampaignForm extends Component {
             onSelectButtonPressed={this.onSelectButtonPressed}
             handleCreatableSelectKeyDown={this.handleCreatableSelectKeyDown}
             handleCreatableSelectInputChange={this.handleCreatableSelectInputChange}
+            handleSwitchChange={this.handleSwitchChange}
+            handleChange={this.handleChange}
           />
         );
 
@@ -378,6 +415,12 @@ CampaignForm.propTypes = {
     ]),
     end_date: PropTypes.string,
     geography: PropTypes.arrayOf(PropTypes.string),
+    geo_fence: PropTypes.arrayOf(PropTypes.string),
+    footfall_analysis: PropTypes.bool,
+    crm_data: PropTypes.bool,
+    contextual_targeting: PropTypes.bool,
+    brand_safety: PropTypes.bool,
+    targeting_notes: PropTypes.string,
     goal: PropTypes.string,
     household_income: PropTypes.arrayOf(PropTypes.number),
     id: PropTypes.number,
