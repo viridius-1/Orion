@@ -10,7 +10,7 @@ class UserTest < ActiveSupport::TestCase
       password: 'newpassword123'
     )
 
-    assert_not new_user.persisted?
+    assert new_user.persisted?
   end
 
   test 'should not save user without a first_name' do
@@ -21,7 +21,7 @@ class UserTest < ActiveSupport::TestCase
       password: 'newpassword123'
     )
 
-    assert new_user.persisted?
+    assert_not new_user.persisted?
   end
 
   test 'should not save user without a last_name' do
@@ -57,7 +57,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not new_user.persisted?
   end
 
-  test 'should not create user without a password' do
+  test 'should create user without a password' do
     new_user = User.create(
       first_name: 'Peter',
       last_name: 'Peterson',
@@ -65,7 +65,7 @@ class UserTest < ActiveSupport::TestCase
       email: 'peter@example.com'
     )
 
-    assert_not new_user.persisted?
+    assert new_user.persisted?
   end
 
   test 'should not save user with an existing email' do
