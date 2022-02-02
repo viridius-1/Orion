@@ -34,7 +34,7 @@ export default class CampaignGoalsFormFragment extends Component {
 
     return (
       <div>
-        <h3 className="form-title">Campaign Goals</h3>
+        <h3 className="form-title">Objectives</h3>
         <div className="row">
           <div className="col-6">
             <div className="form-v2">

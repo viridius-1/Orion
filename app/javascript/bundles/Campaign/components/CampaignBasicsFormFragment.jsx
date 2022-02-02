@@ -25,7 +25,7 @@ export default class CampaignBasicsFormFragment extends Component {
 
     return (
       <div>
-        <h3 className="form-title">Campaign Basics</h3>
+        <h3 className="form-title">Flight</h3>
         <div className="row">
           <div className="col-6">
             <div className="form-v2">
