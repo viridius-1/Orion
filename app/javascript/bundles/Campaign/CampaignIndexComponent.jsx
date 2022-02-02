@@ -104,7 +104,7 @@ export default class CampaignIndexComponent extends Component {
       budget,
       flight: `${new Date(startDate.replace('-', '/')).toLocaleDateString('en-US')} - ${new Date(endDate.replace('-', '/')).toLocaleDateString('en-US')}`,
       goal,
-      link: `${link}${id}`,
+      link: `/campaigns/${id}`,
       name,
       status,
     }));

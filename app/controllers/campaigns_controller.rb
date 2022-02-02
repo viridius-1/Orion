@@ -1,23 +1,16 @@
 class CampaignsController < ApplicationController
-  before_action :set_advertiser
-  before_action :verify_advertiser_access, only: [:index, :new, :create]
-
-  before_action :set_campaign, only: [:edit, :update, :destroy]
-  before_action :verify_campaign_access, only: [:edit, :update, :destroy]
+  load_and_authorize_resource :advertiser, id_param: :vendor_id
+  load_and_authorize_resource :campaign, through: :advertiser, shallow: true
 
   include ErrorMessages
 
   def index
-    @campaigns = @advertiser&.campaigns
   end
 
   def show
-    @campaign = Campaign.find(params[:id])
-    redirect_to root_path unless can? :read, @campaign
-
     @website = 'www.website.com'
     @button_links = {
-      back: vendor_campaigns_path(vendor_id: @advertiser.id),
+      back: vendor_campaigns_path(vendor_id: @campaign.advertiser_id),
       edit: "#{request.path}/edit",
       duplicate: '#',
       delete: "#{request.path}"
@@ -25,11 +18,10 @@ class CampaignsController < ApplicationController
   end
 
   def new
-    @campaign = @advertiser.campaigns.new
   end
 
   def create
-    @campaign = @advertiser.campaigns.new(campaign_params.merge(status: "pending_approval"))
+    @campaign.status = "pending_approval"
     if @campaign.save
       request_type = request_type_params.to_sym
       send_internal_notification(request_type)
@@ -47,14 +39,12 @@ class CampaignsController < ApplicationController
 
   def update
     if @campaign.update(campaign_params)
-      redirect_to vendor_campaigns_path(vendor_id: @advertiser.id),
-                  notice: 'Campaign has been successfully updated.',
-                  status: 303
+      redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id),
+                  notice: 'Campaign has been successfully updated.'
     else
       errors = {alert: {danger: @campaign.errors.full_messages.join(', ')}}
-      redirect_to vendor_campaigns_path(vendor_id: @advertiser.id),
-                  errors,
-                  status: 303
+      redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id),
+                  errors
     end
   end
 
@@ -65,26 +55,10 @@ class CampaignsController < ApplicationController
       flash[:alert] = 'Unable to remove campaign'
     end
 
-    redirect_to vendor_campaigns_path(vendor_id: @advertiser.id), status: 303
+    redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id)
   end
 
   private
-
-  def set_advertiser
-    @advertiser = Advertiser.find(params[:vendor_id])
-  end
-
-  def verify_advertiser_access
-    redirect_to root_path unless can? :read, @advertiser
-  end
-
-  def set_campaign
-    @campaign = @advertiser.campaigns.find_by(id: params[:id])
-  end
-
-  def verify_campaign_access
-    redirect_to root_path unless can? :read, @campaign
-  end
 
   def campaign_params
     params.require(:campaign).permit(

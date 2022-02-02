@@ -37,11 +37,11 @@ class Ability
 
     if member_type == "Advertiser"
       can :read, Advertiser, id: user.company.id
-      can :read, Campaign, advertiser_id: user.company.id
+      can :manage, Campaign, advertiser_id: user.company.id
       cannot :read, Agency
     elsif member_type == "Agency"
-      can :read, Advertiser, agency_id: user.company.id
-      can :read, Campaign, advertiser: { agency_id: user.company.id }
+      can :manage, Advertiser, agency_id: user.company.id
+      can :manage, Campaign, advertiser: { agency_id: user.company.id }
       can :read, Agency, id: user.company.id
     end
 
