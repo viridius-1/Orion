@@ -14,3 +14,8 @@ Rails.application.config.assets.paths << Rails.root.join('app', 'assets', 'fonts
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
+
+# Needed for github actions: https://stackoverflow.com/questions/66927024/cant-push-to-heroku-sassc-segmentation-fault?rq=1
+Rails.application.config.assets.configure do |env|
+  env.export_concurrent = false
+end
