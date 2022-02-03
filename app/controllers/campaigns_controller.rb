@@ -12,12 +12,18 @@ class CampaignsController < ApplicationController
     @button_links = {
       back: vendor_campaigns_path(vendor_id: @campaign.advertiser_id),
       edit: "#{request.path}/edit",
-      duplicate: '#',
+      duplicate: "#{request.path}/duplicate",
       delete: "#{request.path}"
     }
   end
 
   def new
+  end
+
+  def duplicate
+    @campaign =  Campaign.find(params[:campaign_id]).dup
+    @advertiser =  @campaign.advertiser
+    render :new
   end
 
   def create

@@ -116,6 +116,9 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     assert_not assigns(:campaign).persisted?
   end
 
+  # DUPLICATE
+  
+
   # CREATE
 
   test 'redirects if user is not logged in' do
