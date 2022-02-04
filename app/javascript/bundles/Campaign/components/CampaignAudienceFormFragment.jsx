@@ -199,7 +199,7 @@ export default class CampaignAudienceFormFragment extends Component {
                     value={geo_fence}
                     inputValue={geoFenceInput}
                   />
-                  <span style={{ fontSize: '12px' }}>Enter countries, states, provinces, DMAs, cities, or ZIP/postal codes.</span>
+                  <span style={{ fontSize: '12px' }}>Points of interest or business locations/names.</span>
                 </Form.Group>
                 <Form.Group controlId="footfall_analysis">
                   <Form.Label className="label-v2 default-position">Footfall Analysis</Form.Label>
