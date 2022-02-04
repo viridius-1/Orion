@@ -1,8 +1,14 @@
 module CampaignsHelper
   def options
     {
-        goal_options: goal_options,
-        kpi_options: kpi_options
+      campaign_type_options: campaign_type_options,
+      goal_options: goal_options,
+      kpi_options: kpi_options,
+      education_options: education_options,
+      parental_options: parental_options,
+      advertiser_options: current_user.advertisers.map do |advertiser|
+        { value: advertiser.id, label: advertiser.name }
+      end
     }
   end
 
@@ -15,7 +21,14 @@ module CampaignsHelper
     providers_key_value = File.read('./lib/data_providers/acxiom-data-key-value.json')
     JSON.parse(providers_key_value)
   end
+
   private
+
+  def campaign_type_options
+    Campaign.campaign_types.keys.map do |campaign_type|
+      { value: campaign_type, label: campaign_type.humanize.titleize }
+    end
+  end
 
   def goal_options
     %w[Reach Awareness Acquisition]

@@ -1,8 +1,6 @@
 first:
   name: First Campaign
   campaign_url: https://google.com
-  start_date: "2022-01-12"
-  end_date: "2022-03-16"
   goal: "Awareness"
   kpi: "Click Through Rate (CTR)"
   target_cpa: 0.1e3

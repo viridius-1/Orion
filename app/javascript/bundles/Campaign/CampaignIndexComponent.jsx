@@ -96,13 +96,10 @@ export default class CampaignIndexComponent extends Component {
       id,
       status,
       name,
-      start_date: startDate,
-      end_date: endDate,
       budget,
       goal,
     }) => ({
       budget,
-      flight: `${new Date(startDate.replace('-', '/')).toLocaleDateString('en-US')} - ${new Date(endDate.replace('-', '/')).toLocaleDateString('en-US')}`,
       goal,
       link: `/campaigns/${id}`,
       name,

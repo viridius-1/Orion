@@ -62,7 +62,7 @@ export default class CampaignForm extends Component {
     this.setState({ [name]: selectedOption });
   }
 
-  handleSwitchChange = (switchOption, { name }) => {
+  handleSwitchChange = (_switchOption, { name }) => {
     var result = !this.state[name];
 
     this.setState({ [name]: result });
@@ -122,6 +122,8 @@ export default class CampaignForm extends Component {
 
   _getSubmitBody(event) {
     const {
+      advertiser_id: advertiserId,
+      campaign_type: campaignType,
       male_selected: maleSelected,
       age_range_male: ageRangeMale,
       female_selected: femaleSelected,
@@ -138,10 +140,12 @@ export default class CampaignForm extends Component {
       ...this.state,
       age_range_female: femaleSelected ? ageRangeFemale : null,
       age_range_male: maleSelected ? ageRangeMale : null,
+      campaign_type: campaignType?.value,
       geography: geography?.map((option) => option.value),
       geo_fence: geo_fence?.map((option) => option.value),
       goal: goal?.value,
       kpi: kpi?.value,
+      advertiser_id: advertiserId?.value
     };
 
     const body = JSON.stringify({
@@ -175,10 +179,10 @@ export default class CampaignForm extends Component {
   _initialState() {
     const {
       campaign: {
+        advertiser_id: advertiserId,
         name,
+        campaign_type: campaignType,
         campaign_url: campaignUrl,
-        start_date: startDate,
-        end_date: endDate,
         goal,
         kpi,
         conversion_rate: conversionRate,
@@ -199,9 +203,16 @@ export default class CampaignForm extends Component {
         targeting_notes: targetingNotes,
         affinities,
       },
+      options: {
+        advertiser_options: advertiserOptions,
+        campaign_type_options: campaignTypeOptions
+      },
+      hide_advertiser: hideAdvertiser
     } = this.props;
 
     const initialState = {
+      advertiser_id: FormUtils.buildEnumOption(advertiserId, advertiserOptions),
+      hide_advertiser: hideAdvertiser || false,
       affinities: affinities || {},
       age_range_female: ageRangeFemale || [18, 99],
       age_range_male: ageRangeMale || [18, 99],
@@ -209,8 +220,8 @@ export default class CampaignForm extends Component {
       budget: budget || '',
       pixel_notes: pixel_notes || '',
       campaign_url: campaignUrl || 'https://',
+      campaign_type: FormUtils.buildEnumOption(campaignType, campaignTypeOptions),
       conversion_rate: conversionRate || '',
-      end_date: endDate || '',
       female_selected: !!ageRangeFemale,
       geography: geography ? FormUtils.buildOptions(geography) : [],
       geography_input: '',
@@ -226,7 +237,6 @@ export default class CampaignForm extends Component {
       kpi: kpi ? FormUtils.buildOption(kpi) : null,
       male_selected: !!ageRangeMale,
       name: name || '',
-      start_date: startDate || '',
       target_cpa: targetCpa || '',
       target_roas: targetRoas || '',
     };
@@ -258,16 +268,18 @@ export default class CampaignForm extends Component {
 
     const {
       affinities,
+      advertiser_id: advertiserId,
+      hide_advertiser: hideAdvertiser,
       affinities_checked: affinitiesChecked,
       age_range_female: ageRangeFemale,
       age_range_male: ageRangeMale,
       average_order_value: averageOrderValue,
       budget,
       pixel_notes,
+      campaign_type: campaignType,
       campaign_url: campaignUrl,
       conversion_rate: conversionRate,
       current_step: currentStep,
-      end_date: endDate,
       female_selected: femaleSelected,
       geography,
       geography_input: geographyInput,
@@ -283,7 +295,6 @@ export default class CampaignForm extends Component {
       kpi,
       male_selected: maleSelected,
       name,
-      start_date: startDate,
       target_cpa: targetCpa,
       target_roas: targetRoas,
       validated,
@@ -294,10 +305,13 @@ export default class CampaignForm extends Component {
         return (
           <CampaignBasicsFormFragment
             validated={validated}
+            advertiser_id={advertiserId}
+            campaign_type={campaignType}
+            hide_advertiser={hideAdvertiser}
+            options={options}
             name={name}
             campaign_url={campaignUrl}
-            start_date={startDate}
-            end_date={endDate}
+            handleSelectChange={this.handleSelectChange}
             handleCancel={this.handleCancel}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
@@ -385,6 +399,7 @@ export default class CampaignForm extends Component {
 
 CampaignForm.propTypes = {
   campaign: PropTypes.shape({
+    advertiser_id: PropTypes.number,
     affinities: PropTypes.objectOf(PropTypes.object),
     age_range_female: PropTypes.arrayOf(PropTypes.number),
     age_range_male: PropTypes.arrayOf(PropTypes.number),
@@ -393,12 +408,12 @@ CampaignForm.propTypes = {
       PropTypes.number,
       PropTypes.string,
     ]),
+    campaign_type: PropTypes.string,
     campaign_url: PropTypes.string,
     conversion_rate: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
     ]),
-    end_date: PropTypes.string,
     geography: PropTypes.arrayOf(PropTypes.string),
     geo_fence: PropTypes.arrayOf(PropTypes.string),
     footfall_analysis: PropTypes.bool,
@@ -411,7 +426,6 @@ CampaignForm.propTypes = {
     id: PropTypes.number,
     kpi: PropTypes.string,
     name: PropTypes.string,
-    start_date: PropTypes.string,
     status: PropTypes.string,
     target_cpa: PropTypes.oneOfType([
       PropTypes.number,
@@ -420,12 +434,20 @@ CampaignForm.propTypes = {
     target_roas: PropTypes.number,
     pixel_notes: PropTypes.string,
   }).isRequired,
+  hide_advertiser: PropTypes.bool,
   data_providers: PropTypes.arrayOf(PropTypes.object).isRequired,
   data_providers_key_value: PropTypes.objectOf(PropTypes.object).isRequired,
-  new: PropTypes.bool.isRequired,
   options: PropTypes.shape({
+    campaign_type_options: PropTypes.arrayOf(PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.string
+    })),
     goal_options: PropTypes.arrayOf(PropTypes.string),
     kpi_options: PropTypes.arrayOf(PropTypes.string),
+    advertiser_options: PropTypes.arrayOf(PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.number
+    }))
   }).isRequired,
-  token: PropTypes.string.isRequired
+  token: PropTypes.string.isRequired,
 };
