@@ -128,6 +128,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to vendor_campaigns_path(vendor_id: advertisers(:first).id)
     assert_equal true, assigns(:campaign).persisted?
+    assert_equal "pending", assigns(:campaign).status
   end
 
   # TODO: We probably don't want to leave it like this?

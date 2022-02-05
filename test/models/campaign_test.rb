@@ -5,6 +5,7 @@ class CampaignTest < ActiveSupport::TestCase
     new_campaign = Campaign.create(name: 'A name', advertiser: advertisers(:first))
 
     assert new_campaign.persisted?
+    assert new_campaign.status == "incomplete"
   end
 
   test 'should not save campaign with a blank name' do

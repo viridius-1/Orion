@@ -21,7 +21,7 @@ class CampaignsController < ApplicationController
   end
 
   def create
-    @campaign.status = "pending_approval"
+    @campaign.status = :pending
     if @campaign.save
       request_type = request_type_params.to_sym
       send_internal_notification(request_type)

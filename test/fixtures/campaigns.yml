@@ -33,7 +33,6 @@ first:
         "description"=>"Household specific information about current vehicle or likely next vehicle"
       }
     }
-  status: "pending_approval"
+  status: "pending"
   languages: nil
   budget_used: nil
-  
