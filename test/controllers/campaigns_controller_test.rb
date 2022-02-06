@@ -119,11 +119,9 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:advertiser_user)
 
     assert_difference('Campaign.count') do
-      # TODO: Seems we can't send emails
-      # There's an error in internal_notification.slim:120 - @campaign&.url
-      # assert_emails 2 do
+      assert_emails 2 do
         post "/vendors/#{advertisers(:first).id}/campaigns", params: create_params
-      # end
+      end
     end
 
     assert_redirected_to vendor_campaigns_path(vendor_id: advertisers(:first).id)

@@ -1,0 +1,6 @@
+  h3="A new campaign was submitted by: #{@user.first_name} #{@user.last_name} - #{@user.email}"
+  ul
+    - @campaign.as_json(include: { advertiser: { only: :name } }).each do |key, value|
+      li
+        strong="#{key}: "
+        = value.to_s
