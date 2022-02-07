@@ -73,7 +73,7 @@ export default class AdvertisersGridViewComponent extends Component {
     return (
       <div>
         <div className="row">
-          <div className="col-4 grid-item">
+          <div className="col-md-4 col-sm-6 col-xs-12 grid-item">
             <input
               className="form-control"
               type="text"
@@ -81,7 +81,7 @@ export default class AdvertisersGridViewComponent extends Component {
               onChange={(event) => this.onSearchInputChange(event.target.value)}
             />
           </div>
-          <div className="col-4 grid-item">
+          <div className="col-md-4 col-sm-6 col-xs-12 grid-item">
             <Select
               className="selectV2 annual-revenue-filter"
               classNamePrefix="selectV2"
@@ -93,7 +93,7 @@ export default class AdvertisersGridViewComponent extends Component {
               isSearchable={false}
             />
           </div>
-          <div className="col-4 grid-item">
+          <div className="col-md-4 col-sm-6 col-xs-12 grid-item">
             <LinkButton
               text="Add Advertiser"
               link={addAdvertiserLink}
@@ -105,7 +105,7 @@ export default class AdvertisersGridViewComponent extends Component {
         <div className="row">
           {filteredAdvertiserComponents.length > 0
             ? filteredAdvertiserComponents.map((advertiser) => (
-              <div className="col-4 grid-item" key={advertiser.id}>
+              <div className="col-lg-4 col-md-6 col-sm-12 grid-item" key={advertiser.id}>
                 <AdvertiserCardComponent advertiser={advertiser} token={token} />
               </div>
             )) : <div className="no-results-message">No results found</div>}
