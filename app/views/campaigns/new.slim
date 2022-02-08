@@ -9,10 +9,9 @@
           = react_component("CampaignForm",
                   props: {campaign: @campaign,
                           hide_advertiser: current_user.advertiser_user?,
-                          save_campaign_url: "/campaigns",
-                          save_campaign_method: "POST",
                           token: form_authenticity_token,
                           options: options,
                           data_providers: data_providers_nested,
-                          data_providers_key_value: data_providers_key_value},
+                          data_providers_key_value: data_providers_key_value,
+                          current_step: 1},
                   prerender: false)

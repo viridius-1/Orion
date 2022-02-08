@@ -1,4 +1,5 @@
 class CampaignsController < ApplicationController
+  before_action :load_step, only: [:new, :create, :edit, :update]
   load_and_authorize_resource :advertiser, id_param: :vendor_id
   load_and_authorize_resource :campaign, through: :advertiser, shallow: true
 
@@ -27,30 +28,29 @@ class CampaignsController < ApplicationController
 
   def create
     @campaign.status = :pending
-    if @campaign.save
-      request_type = request_type_params.to_sym
-      # send_internal_notification(request_type)
-      CampaignMailer.campaign_submitted(current_user, @campaign).deliver_later
-      send_customer_confirmation(request_type)
-
-      redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id),
-                  notice: 'Campaign has been successfully created.'
+    if @campaign.save(context: :flight)
+      render json: @campaign
     else
-      render json: {messages: display_validation(@campaign), redirectTo: '', status: 422}
+      render json: @campaign.errors, status: :unprocessable_entity
     end
   end
-
+  
   def edit
   end
-
+  
   def update
-    if @campaign.update(campaign_params)
+    @campaign.assign_attributes(campaign_params)
+    if @campaign.save(context: step_context)
+      return render json: @campaign unless last_step?
+      
+      # send_internal_notification(request_type)
+      # send_customer_confirmation(request_type)
+      CampaignMailer.campaign_submitted(current_user, @campaign).deliver_later
+
       redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id),
                   notice: 'Campaign has been successfully updated.'
     else
-      errors = {alert: {danger: @campaign.errors.full_messages.join(', ')}}
-      redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id),
-                  errors
+      render json: @campaign.errors, status: :unprocessable_entity
     end
   end
 
@@ -110,5 +110,17 @@ class CampaignsController < ApplicationController
                                          @campaign,
                                          @company,
                                          request_type).deliver_later
+  end
+
+  def load_step
+    @step = params['step']&.to_i || 1
+  end
+
+  def step_context
+    Campaign::STEPS[@step]
+  end
+
+  def last_step?
+    @step == Campaign::STEPS.keys.last
   end
 end

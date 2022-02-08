@@ -4,18 +4,15 @@ import Select from 'react-select';
 import PropTypes from 'prop-types';
 import FormUtils from '../../../common/FormUtils';
 
+import OrionForm from '../../../components/OrionForm';
+
 export default class CampaignGoalsFormFragment extends Component {
-  constructor(props) {
-    super(props);
-
-    this.formId = 'campaign_goals_form';
-  }
-
   render() {
     const {
       average_order_value: averageOrderValue,
       budget,
       conversion_rate: conversionRate,
+      errors,
       goal,
       handleCancel,
       handleChange,
@@ -29,7 +26,6 @@ export default class CampaignGoalsFormFragment extends Component {
       },
       target_cpa: targetCpa,
       target_roas: targetRoas,
-      validated,
     } = this.props;
 
     return (
@@ -38,16 +34,11 @@ export default class CampaignGoalsFormFragment extends Component {
         <div className="row">
           <div className="col-6">
             <div className="form-v2">
-              <Form
-                noValidate
-                id={this.formId}
-                validated={validated}
-                onSubmit={handleSubmit}
-                onKeyPress={
-                  (event) => FormUtils.submitEnter(event, this.formId, handleSubmit)
-                }
+              <OrionForm
+                formId="campaign_goals_form"
+                handleSubmit={handleSubmit}
+                errors={errors}
               >
-
                 <Form.Group controlId="goal">
                   <Form.Label className="label-v2">Overall Goal</Form.Label>
                   <Select
@@ -82,9 +73,6 @@ export default class CampaignGoalsFormFragment extends Component {
                     value={conversionRate}
                   />
                   <div className="input-v2-append"><span>%</span></div>
-                  <Form.Control.Feedback type="invalid">
-                    Conversion Rate is required
-                  </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="average_order_value">
@@ -99,9 +87,6 @@ export default class CampaignGoalsFormFragment extends Component {
                     value={averageOrderValue}
                   />
                   <div className="input-v2-prepend"><span>$</span></div>
-                  <Form.Control.Feedback type="invalid">
-                    AOV is required
-                  </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="target_cpa">
@@ -116,9 +101,6 @@ export default class CampaignGoalsFormFragment extends Component {
                     value={targetCpa}
                   />
                   <div className="input-v2-prepend"><span>$</span></div>
-                  <Form.Control.Feedback type="invalid">
-                    Target CPA is required
-                  </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="target_roas">
@@ -133,9 +115,6 @@ export default class CampaignGoalsFormFragment extends Component {
                     value={targetRoas}
                   />
                   <div className="input-v2-append"><span>%</span></div>
-                  <Form.Control.Feedback type="invalid">
-                    Target ROAS is required
-                  </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="budget">
                   <Form.Label className="label-v2">Budget</Form.Label>
@@ -149,9 +128,6 @@ export default class CampaignGoalsFormFragment extends Component {
                     value={budget}
                   />
                   <div className="input-v2-prepend"><span>$</span></div>
-                  <Form.Control.Feedback type="invalid">
-                    Budget is required
-                  </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="pixel_notes">
                   <Form.Label className="label-v2 default-position">Pixel Notes</Form.Label>
@@ -164,9 +140,6 @@ export default class CampaignGoalsFormFragment extends Component {
                     onChange={handleChange}
                     value={pixel_notes}
                   />
-                  <Form.Control.Feedback type="invalid">
-                    Pixel Notes is required
-                  </Form.Control.Feedback>
                 </Form.Group>
                 <div className="form-group">
                   <button className="btn btn-secondary-v2" type="button" onClick={handleCancel}>Back</button>
@@ -174,7 +147,7 @@ export default class CampaignGoalsFormFragment extends Component {
                     Continue
                   </button>
                 </div>
-              </Form>
+              </OrionForm>
             </div>
           </div>
         </div>
@@ -196,6 +169,7 @@ CampaignGoalsFormFragment.propTypes = {
     PropTypes.number,
     PropTypes.string,
   ]),
+  errors: PropTypes.object,
   goal: PropTypes.shape({
     label: PropTypes.string,
     value: PropTypes.string,
@@ -220,7 +194,6 @@ CampaignGoalsFormFragment.propTypes = {
     PropTypes.number,
     PropTypes.string,
   ]),
-  validated: PropTypes.bool,
   pixel_notes: PropTypes.string
 };
 
@@ -236,6 +209,5 @@ CampaignGoalsFormFragment.defaultProps = {
   kpi: undefined,
   target_cpa: undefined,
   target_roas: undefined,
-  validated: undefined,
   pixel_notes: undefined
 };

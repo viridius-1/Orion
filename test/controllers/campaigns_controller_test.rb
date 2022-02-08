@@ -175,7 +175,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    assert_redirected_to vendor_campaigns_path(vendor_id: advertisers(:first).id)
+    assert_response :success
     assert_equal true, assigns(:campaign).persisted?
   end
 
@@ -190,7 +190,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    assert_redirected_to vendor_campaigns_path(vendor_id: advertisers(:first).id)
+    assert_response :success
     assert_equal true, assigns(:campaign).persisted?
     assert_equal "pending", assigns(:campaign).status
   end
@@ -206,7 +206,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal JSON.parse(response.body),
                  {
-                   "messages" => { "name" => "can't be blank" },
+                   "messages" => { "name" => "can't be blank", "campaign_url" => "URL is not valid" },
                    "redirectTo" => '',
                    "status" => 422
                  } 
@@ -261,24 +261,34 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     patch "/campaigns/#{campaigns(:first).id}",
           params: { campaign: { name: 'Updated Campaign Name' } }
     
-    assert_redirected_to vendor_campaigns_path(vendor_id: advertisers(:first).id)
+    assert_response :success
     assert_equal assigns(:campaign), campaigns(:first)
     assert_equal campaigns(:first).reload.name, 'Updated Campaign Name'
   end
 
-  # TODO - Syntax error in scenario where update fails
+  test 'update should render errors if update fails' do
+    sign_in users(:advertiser_user)
 
-  # test 'update should redirect to edit path if update fails' do
-  #   sign_in users(:advertiser_user)
+    put "/campaigns/#{campaigns(:first).id}",
+    params: { campaign: { name: nil } }
 
-  #   patch "/vendors/#{advertisers(:first).id}/campaigns/#{campaigns(:first).id}",
-  #   params: { campaign: { name: nil } }
+    assert_response :unprocessable_entity
 
-  #   assert_redirected_to vendor_campaigns_path(vendor_id: advertisers(:first).id)
-  #   assert_equal assigns(:advertiser), advertisers(:first)
-  #   assert_equal assigns(:campaign), campaigns(:first)
-  #   assert_equal campaigns(:first).reload.name, 'First Campaign'    
-  # end
+    assert_equal assigns(:campaign), campaigns(:first)
+    assert_equal campaigns(:first).reload.name, 'First Campaign'    
+    assert_equal(JSON.parse(response.body), { "name" => ["can't be blank"] })
+  end
+
+  test 'update should redirect on last step' do
+    sign_in users(:advertiser_user)
+
+    patch "/campaigns/#{campaigns(:first).id}?step=4",
+          params: { campaign: { name: 'Updated Campaign Name' } }
+    
+    assert_redirected_to vendor_campaigns_path(vendor_id: campaigns(:first).advertiser_id)
+    assert_equal assigns(:campaign), campaigns(:first)
+    assert_equal campaigns(:first).reload.name, 'Updated Campaign Name'
+  end
 
   # DESTROY
 
@@ -320,7 +330,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
         name: 'New Campaign',
         advertiser_id: advertisers(:first).id,
         campaign_type: :pre_sales_media_plan,
-        campaign_url: 'www.example.com/campaign',
+        campaign_url: 'http://www.example.com/campaign',
         goal: 'Awareness',
         kpi: 'Click Through Rate (CTR)',
         conversion_rate: 0.2e2,
