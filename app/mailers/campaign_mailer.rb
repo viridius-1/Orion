@@ -22,4 +22,13 @@ class CampaignMailer < ApplicationMailer
          subject: "#{type_titles[type]} Confirmation - ##{campaign.id}",
          from: 'Version2 Strategy <strategy@theversion2.com>')
   end
+
+  def campaign_submitted(user, campaign)
+    @campaign = campaign
+    @user = user
+
+    mail(to: 'strategy@theversion2.com',
+         subject: "New campaign was submitted",
+         from: 'Version2 Strategy <strategy@theversion2.com>')
+  end
 end

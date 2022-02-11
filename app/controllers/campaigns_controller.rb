@@ -24,7 +24,8 @@ class CampaignsController < ApplicationController
     @campaign.status = :pending
     if @campaign.save
       request_type = request_type_params.to_sym
-      send_internal_notification(request_type)
+      # send_internal_notification(request_type)
+      CampaignMailer.campaign_submitted(current_user, @campaign).deliver_later
       send_customer_confirmation(request_type)
 
       redirect_to vendor_campaigns_path(vendor_id: @advertiser.id),
