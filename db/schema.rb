@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_24_184332) do
+ActiveRecord::Schema.define(version: 2022_02_05_134556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 2022_01_24_184332) do
     t.integer "age_range_female", array: true
     t.integer "household_income", array: true
     t.jsonb "affinities"
-    t.string "status"
+    t.integer "status", default: 0, null: false
     t.string "languages"
     t.integer "budget_used"
     t.text "pixel_notes"
