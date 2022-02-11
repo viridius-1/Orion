@@ -40,6 +40,8 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     assert_equal assigns(:campaigns), advertisers(:first).campaigns
   end
 
+  # SHOW
+
   test 'should get show when user has access to advertiser' do
     sign_in users(:advertiser_user)
 
@@ -55,6 +57,14 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
                    duplicate: '#',
                    delete: "/campaigns/#{campaigns(:first).id}"
                  }
+  end
+
+  test 'should redirect when user does not have access to advertiser' do
+    sign_in users(:no_access_user)
+
+    get "/campaigns/#{campaigns(:first).id}"
+
+    assert_redirected_to root_path
   end
 
   # NEW
@@ -95,11 +105,22 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     assert_not assigns(:campaign).persisted?
   end
 
+  test 'should get new without specifying vendor' do
+    sign_in users(:agency_user)
+
+    get "/campaigns/new"
+
+    assert_response :success
+    assert_nil assigns(:advertiser)
+    assert_nil assigns(:campaign).advertiser_id
+    assert_not assigns(:campaign).persisted?
+  end
+
   # CREATE
 
   test 'redirects if user is not logged in' do
     assert_no_changes('Campaign.count') do
-      post "/vendors/#{advertisers(:first).id}/campaigns", params: create_params
+      post "/campaigns", params: create_params
     end
 
     assert_response :redirect
@@ -109,7 +130,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:no_access_user)
 
     assert_no_changes('Campaign.count') do
-      post "/vendors/#{advertisers(:first).id}/campaigns", params: create_params
+      post "/campaigns", params: create_params
     end
 
     assert_response :redirect
@@ -117,6 +138,21 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create campaign if user has access to advertiser' do
     sign_in users(:advertiser_user)
+
+    assert_difference('Campaign.count') do
+      assert_emails 2 do
+        post "/campaigns", params: create_params
+      end
+    end
+
+    assert_redirected_to vendor_campaigns_path(vendor_id: advertisers(:first).id)
+    assert_equal true, assigns(:campaign).persisted?
+  end
+
+  test 'should create campaign with advertiser_id in url rather than in params' do
+    sign_in users(:advertiser_user)
+
+    create_params[:campaign].delete(:advertiser_id)
 
     assert_difference('Campaign.count') do
       assert_emails 2 do
@@ -134,7 +170,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:advertiser_user)
 
     assert_no_changes('Campaign.count') do
-      post "/vendors/#{advertisers(:first).id}/campaigns", params: { campaign: { name: nil } }
+      post "/campaigns", params: { campaign: { name: nil } }
     end
 
     assert_response :success
@@ -252,9 +288,9 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
       request_type: 'recommendation',
       campaign: {
         name: 'New Campaign',
+        advertiser_id: advertisers(:first).id,
+        campaign_type: :pre_sales_media_plan,
         campaign_url: 'www.example.com/campaign',
-        start_end: Time.now,
-        end_date: Time.now + 20.days,
         goal: 'Awareness',
         kpi: 'Click Through Rate (CTR)',
         conversion_rate: 0.2e2,

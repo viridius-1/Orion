@@ -25,6 +25,23 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def advertisers
+    @advertisers ||= 
+      if company_type.downcase.to_sym == :agency
+        company.advertisers
+      else # == :advertiser
+        [company]
+      end
+  end
+
+  def agency_user?
+    company_type.downcase.to_sym == :agency
+  end
+
+  def advertiser_user?
+    company_type.downcase.to_sym == :advertiser
+  end
+
   def invite_status
     if invitation_accepted_at
       'accepted'

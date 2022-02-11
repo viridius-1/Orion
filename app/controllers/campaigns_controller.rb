@@ -28,7 +28,7 @@ class CampaignsController < ApplicationController
       CampaignMailer.campaign_submitted(current_user, @campaign).deliver_later
       send_customer_confirmation(request_type)
 
-      redirect_to vendor_campaigns_path(vendor_id: @advertiser.id),
+      redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id),
                   notice: 'Campaign has been successfully created.'
     else
       render json: {messages: display_validation(@campaign), redirectTo: '', status: 422}
@@ -64,9 +64,9 @@ class CampaignsController < ApplicationController
   def campaign_params
     params.require(:campaign).permit(
       :name,
+      :advertiser_id,
       :campaign_url,
-      :start_date,
-      :end_date,
+      :campaign_type,
       :goal,
       :kpi,
       :conversion_rate,

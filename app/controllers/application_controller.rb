@@ -1,17 +1,5 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
-  helper_method :campaign_planner_path
-
-
-  def campaign_planner_path
-    if current_user.company_type == 'Advertiser'
-       new_vendor_campaign_path(vendor_id: current_user.company.id)
-    else
-      agency = Agency.find(current_user.company.id)
-      advertiser = agency.advertisers.first
-      advertiser ? new_vendor_campaign_path(advertiser.id) : ''
-    end
-  end
 
   rescue_from 'CanCan::AccessDenied' do
     redirect_to root_path

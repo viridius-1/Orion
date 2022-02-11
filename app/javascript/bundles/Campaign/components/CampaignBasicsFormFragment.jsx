@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'react-bootstrap';
+import Select from 'react-select';
 
 import FormUtils from '../../../common/FormUtils';
 
@@ -13,13 +14,19 @@ export default class CampaignBasicsFormFragment extends Component {
 
   render() {
     const {
+      advertiser_id: advertiserId,
+      hide_advertiser: hideAdvertiser,
+      campaign_type: campaignType,
       campaign_url: campaignUrl,
-      end_date: endDate,
+      handleSelectChange,
       handleCancel,
       handleChange,
       handleSubmit,
       name,
-      start_date: startDate,
+      options: {
+        advertiser_options: advertiserOptions,
+        campaign_type_options: campaignTypeOptions
+      },
       validated,
     } = this.props;
 
@@ -36,6 +43,30 @@ export default class CampaignBasicsFormFragment extends Component {
                 onSubmit={handleSubmit}
                 onKeyPress={(event) => FormUtils.submitEnter(event, this.formId, handleSubmit)}
               >
+                <div className={hideAdvertiser ? "hidden" : ""}>
+                  <Form.Group controlId="advertiser_id">
+                    <Form.Label className="label-v2">Advertiser</Form.Label>
+                    <Select
+                      className="selectV2"
+                      classNamePrefix="selectV2"
+                      options={advertiserOptions}
+                      name="advertiser_id"
+                      onChange={handleSelectChange}
+                      value={advertiserId}
+                    />
+                  </Form.Group>
+                </div>
+                <Form.Group controlId="campaign_type">
+                  <Form.Label className="label-v2">Campaign Purpose</Form.Label>
+                  <Select
+                    className="selectV2"
+                    classNamePrefix="selectV2"
+                    options={campaignTypeOptions}
+                    name="campaign_type"
+                    onChange={handleSelectChange}
+                    value={campaignType}
+                  />
+                </Form.Group>
                 <Form.Group controlId="name">
                   <Form.Label className="label-v2">Campaign Name</Form.Label>
                   <Form.Control
@@ -50,7 +81,6 @@ export default class CampaignBasicsFormFragment extends Component {
                     Campaign Name is required
                   </Form.Control.Feedback>
                 </Form.Group>
-
                 <Form.Group controlId="campaign_url">
                   <Form.Label className="label-v2">Campaign URL</Form.Label>
                   <Form.Control
@@ -65,38 +95,6 @@ export default class CampaignBasicsFormFragment extends Component {
                     Campaign URL is invalid
                   </Form.Control.Feedback>
                 </Form.Group>
-
-                <div className="row">
-                  <Form.Group controlId="start_date" className="col-6">
-                    <Form.Label className="label-v2">Start Date</Form.Label>
-                    <Form.Control
-                      className="input-v2"
-                      required
-                      type="date"
-                      name="start_date"
-                      onChange={handleChange}
-                      value={startDate}
-                    />
-
-                    <Form.Control.Feedback type="invalid">
-                      Start Date is required
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group controlId="end_date" className="col-6">
-                    <Form.Label className="label-v2">End Date</Form.Label>
-                    <Form.Control
-                      className="input-v2"
-                      required
-                      type="date"
-                      name="end_date"
-                      onChange={handleChange}
-                      value={endDate}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      End Date is required
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </div>
                 <div className="form-group">
                   <button className="btn btn-secondary-v2" type="button" onClick={handleCancel}>Cancel</button>
                   <button className="btn btn-primary-v2 float-right" type="submit" style={{ width: '61%' }}>
@@ -113,20 +111,35 @@ export default class CampaignBasicsFormFragment extends Component {
 }
 
 CampaignBasicsFormFragment.propTypes = {
+  advertiser_id: PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.number,
+  }),
+  campaign_type: PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.string
+  }),
+  hide_advertiser: PropTypes.bool,
+  options: PropTypes.shape({
+    goal_options: PropTypes.arrayOf(PropTypes.string),
+    kpi_options: PropTypes.arrayOf(PropTypes.string),
+    advertiser_options: PropTypes.arrayOf(PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.number
+    }))
+  }).isRequired,
   campaign_url: PropTypes.string,
-  end_date: PropTypes.string,
   handleCancel: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   name: PropTypes.string,
-  start_date: PropTypes.string,
   validated: PropTypes.bool,
 };
 
 CampaignBasicsFormFragment.defaultProps = {
+  advertiser_id: undefined,
+  hide_advertiser: undefined,
   campaign_url: undefined,
-  end_date: undefined,
   name: undefined,
-  start_date: undefined,
   validated: undefined,
 };

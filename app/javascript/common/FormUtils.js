@@ -17,6 +17,20 @@ export default class FormUtils {
     return { label: option, value: option };
   }
 
+  static buildEnumOption(selectedOption, options) {
+    if (options.length === 0) {
+      return null;
+    }
+
+    if (!selectedOption){
+      return options[0];
+    }
+
+    return options.filter(
+      function(item) { return item.value === selectedOption }
+    )[0]
+  };
+
   static blockNonNum(event) {
     if (event.key === 'e' || event.key === 'E' || event.key === '.') {
       event.preventDefault();

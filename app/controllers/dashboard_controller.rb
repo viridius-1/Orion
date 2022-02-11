@@ -2,10 +2,9 @@
 
 class DashboardController < ApplicationController
   def index
-    company_type = current_user.company_type.downcase.to_sym
-    correct_paths = if company_type == :agency
+    correct_paths = if current_user.agency_user?
                       agency_vendors_path(agency_id: current_user.company.id)
-                    elsif company_type == :advertiser
+                    elsif current_user.advertiser_user?
                       vendor_campaigns_path(vendor_id: current_user.company.id)
                     end
 

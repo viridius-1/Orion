@@ -212,8 +212,6 @@ export default class CampaignDetailsComponent extends Component {
     const {
       campaign: {
         status,
-        start_date: startDate,
-        end_date: endDate,
         campaign_url: campaignUrl,
       },
     } = this.props;
@@ -230,12 +228,6 @@ export default class CampaignDetailsComponent extends Component {
                 <span className={`dot ${statusColor[status]}`} />
                 <p>{statusLabel[status]}</p>
               </div>
-            </div>
-          </div>
-          <div className="col-4 grid-item">
-            <div className="details-card">
-              <h6>Campaign Length</h6>
-              <p>{`${new Date(startDate.replace('-', '/')).toLocaleDateString('en-US')} - ${new Date(endDate.replace('-', '/')).toLocaleDateString('en-US')}`}</p>
             </div>
           </div>
           <div className="col-4 grid-item">
@@ -276,12 +268,10 @@ CampaignDetailsComponent.propTypes = {
       PropTypes.number,
       PropTypes.string,
     ]),
-    end_date: PropTypes.string,
     geography: PropTypes.arrayOf(PropTypes.string),
     goal: PropTypes.string,
     household_income: PropTypes.arrayOf(PropTypes.number),
     kpi: PropTypes.string,
-    start_date: PropTypes.string,
     status: PropTypes.string,
     target_cpa: PropTypes.oneOfType([
       PropTypes.number,

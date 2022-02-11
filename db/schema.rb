@@ -59,8 +59,6 @@ ActiveRecord::Schema.define(version: 2022_02_05_134556) do
   create_table "campaigns", force: :cascade do |t|
     t.string "name"
     t.string "campaign_url"
-    t.date "start_date"
-    t.date "end_date"
     t.string "goal"
     t.string "kpi"
     t.decimal "target_cpa"
@@ -87,6 +85,7 @@ ActiveRecord::Schema.define(version: 2022_02_05_134556) do
     t.boolean "contextual_targeting", default: false, null: false
     t.boolean "brand_safety", default: false, null: false
     t.text "targeting_notes"
+    t.integer "campaign_type", default: 0, null: false
   end
 
   create_table "connections", force: :cascade do |t|
