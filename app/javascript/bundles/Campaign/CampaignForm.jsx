@@ -120,6 +120,9 @@ export default class CampaignForm extends Component {
       goal,
       kpi,
       geography,
+      campaign: {
+        objectives: objectives
+      }
     } = this.state;
 
     const { token } = this.props;
@@ -133,7 +136,8 @@ export default class CampaignForm extends Component {
       geo_fence: geoFence?.map((option) => option.value),
       goal: goal?.value,
       kpi: kpi?.value,
-      advertiser_id: advertiserId?.value
+      advertiser_id: advertiserId?.value,
+      objectives_attributes: objectives
     };
 
     const body = JSON.stringify({
@@ -157,8 +161,6 @@ export default class CampaignForm extends Component {
       method: campaignId ? 'PUT' : 'POST',
     };
 
-    console.log("!!!!!")
-    console.log(this.props.campaign)
     const { current_step: currentStep } = this.state;
     const saveCampaignUrl = campaignId ? `/campaigns/${campaignId}?step=${currentStep}` : '/campaigns'
 
@@ -176,7 +178,7 @@ export default class CampaignForm extends Component {
           });
         } else {
           response.json().then((data) => {
-            this.setState({errors: data})
+            this.setState({campaign: data})
           });
         }
       });
@@ -210,6 +212,7 @@ export default class CampaignForm extends Component {
         brand_safety: brandSafety,
         targeting_notes: targetingNotes,
         affinities,
+        objectives
       },
       options: {
         advertiser_options: advertiserOptions,
@@ -249,13 +252,10 @@ export default class CampaignForm extends Component {
       name: name || '',
       target_cpa: targetCpa || '',
       target_roas: targetRoas || '',
-      errors: {},
       current_step: currentStep || 1
     };
 
     initialState.affinities_checked = getAffinityKeys(initialState.affinities);
-
-    // initialState.current_step = 1;
 
     return initialState;
   }
@@ -310,14 +310,17 @@ export default class CampaignForm extends Component {
       target_cpa: targetCpa,
       target_roas: targetRoas,
       validated,
-      errors
+      campaign: {
+        objectives: objectives,
+        errors: errors
+      }
     } = this.state;
 
     switch (currentStep) {
       case 1:
         return (
           <CampaignBasicsFormFragment
-            errors={errors}
+            errors={errors || {}}
             advertiser_id={advertiserId}
             campaign_type={campaignType}
             hide_advertiser={hideAdvertiser}
@@ -334,15 +337,8 @@ export default class CampaignForm extends Component {
         return (
           <CampaignGoalsFormFragment
             errors={errors}
-            goal={goal}
-            kpi={kpi}
             options={options}
-            conversion_rate={conversionRate}
-            average_order_value={averageOrderValue}
-            target_cpa={targetCpa}
-            target_roas={targetRoas}
-            budget={budget}
-            pixel_notes={pixel_notes}
+            objectives={objectives}
             handleCancel={this.handleCancel}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
@@ -412,6 +408,7 @@ export default class CampaignForm extends Component {
 
 CampaignForm.propTypes = {
   campaign: PropTypes.shape({
+    objectives: PropTypes.arrayOf(PropTypes.object),
     advertiser_id: PropTypes.number,
     affinities: PropTypes.objectOf(PropTypes.object),
     age_range_female: PropTypes.arrayOf(PropTypes.number),
@@ -458,6 +455,7 @@ CampaignForm.propTypes = {
     })),
     goal_options: PropTypes.arrayOf(PropTypes.string),
     kpi_options: PropTypes.arrayOf(PropTypes.string),
+    media_channel_options: PropTypes.arrayOf(PropTypes.string),
     advertiser_options: PropTypes.arrayOf(PropTypes.shape({
       label: PropTypes.string,
       value: PropTypes.number

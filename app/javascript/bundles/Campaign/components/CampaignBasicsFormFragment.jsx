@@ -27,7 +27,7 @@ export default class CampaignBasicsFormFragment extends Component {
       <div>
         <h3 className="form-title">Flight</h3>
         <div className="row">
-          <div className="col-6">
+          <div className="col-lg-6 col-md-12">
             <div className="form-v2">
               <OrionForm
                 formId="campaign_basics_form"

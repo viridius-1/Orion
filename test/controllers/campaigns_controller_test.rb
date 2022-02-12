@@ -170,9 +170,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:advertiser_user)
 
     assert_difference('Campaign.count') do
-      assert_emails 2 do
-        post "/campaigns", params: create_params
-      end
+      post "/campaigns", params: create_params
     end
 
     assert_response :success
@@ -185,9 +183,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     create_params[:campaign].delete(:advertiser_id)
 
     assert_difference('Campaign.count') do
-      assert_emails 2 do
-        post "/vendors/#{advertisers(:first).id}/campaigns", params: create_params
-      end
+      post "/vendors/#{advertisers(:first).id}/campaigns", params: create_params
     end
 
     assert_response :success
@@ -195,21 +191,31 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "pending", assigns(:campaign).status
   end
 
-  # TODO: We probably don't want to leave it like this?
-  test 'if validation fails returns 200 OK, with error in the body' do
+  test 'only allows flight params on campaign create' do
+    sign_in users(:advertiser_user)
+
+    create_params[:campaign]
+
+    assert_difference('Campaign.count') do
+      post "/campaigns", params: create_params
+    end
+
+    assert_response :success
+    assert_equal true, assigns(:campaign).persisted?
+    assert_nil assigns(:campaign).age_range_male
+  end
+
+  test 'if validation fails returns 422 with campaign object that contains errors' do
     sign_in users(:advertiser_user)
 
     assert_no_changes('Campaign.count') do
       post "/campaigns", params: { campaign: { name: nil } }
     end
 
-    assert_response :success
-    assert_equal JSON.parse(response.body),
-                 {
-                   "messages" => { "name" => "can't be blank", "campaign_url" => "URL is not valid" },
-                   "redirectTo" => '',
-                   "status" => 422
-                 } 
+    assert_response :unprocessable_entity
+    assert_includes JSON.parse(response.body), 'errors'
+    assert_includes JSON.parse(response.body).fetch('errors', {}), "name"
+    assert_includes JSON.parse(response.body).dig('errors', 'name'), "can't be blank"
   end
 
   # EDIT
@@ -262,11 +268,28 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
           params: { campaign: { name: 'Updated Campaign Name' } }
     
     assert_response :success
-    assert_equal assigns(:campaign), campaigns(:first)
-    assert_equal campaigns(:first).reload.name, 'Updated Campaign Name'
+    assert_equal 1, assigns(:step)
+    assert_equal campaigns(:first), assigns(:campaign)
+    assert_equal 'Updated Campaign Name', campaigns(:first).reload.name
   end
 
-  test 'update should render errors if update fails' do
+  test 'update should send email and redirect if last step' do
+    sign_in users(:advertiser_user)
+
+    assert_emails 1 do
+      patch "/campaigns/#{campaigns(:first).id}?step=4",
+            params: { campaign: {
+               affinities: { 'abc' => 123 }
+            } }
+    end
+    
+    assert_redirected_to vendor_campaigns_path(vendor_id: campaigns(:first).advertiser_id)
+    assert_equal 4, assigns(:step)
+    assert_equal campaigns(:first), assigns(:campaign)
+    assert_equal({ 'abc' => "123" }, campaigns(:first).reload.affinities)
+  end
+
+  test 'update should return campaign json with errors if update fails' do
     sign_in users(:advertiser_user)
 
     put "/campaigns/#{campaigns(:first).id}",
@@ -276,18 +299,20 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal assigns(:campaign), campaigns(:first)
     assert_equal campaigns(:first).reload.name, 'First Campaign'    
-    assert_equal(JSON.parse(response.body), { "name" => ["can't be blank"] })
+    assert_includes JSON.parse(response.body), 'errors'
+    assert_includes JSON.parse(response.body).dig('errors', 'name'), "can't be blank"
   end
 
-  test 'update should redirect on last step' do
+  test 'should ignore params not relevant for current step' do
     sign_in users(:advertiser_user)
 
-    patch "/campaigns/#{campaigns(:first).id}?step=4",
+    patch "/campaigns/#{campaigns(:first).id}?step=2",
           params: { campaign: { name: 'Updated Campaign Name' } }
     
-    assert_redirected_to vendor_campaigns_path(vendor_id: campaigns(:first).advertiser_id)
-    assert_equal assigns(:campaign), campaigns(:first)
-    assert_equal campaigns(:first).reload.name, 'Updated Campaign Name'
+    assert_response :success
+    assert_equal 2, assigns(:step)
+    assert_equal campaigns(:first), assigns(:campaign)
+    assert_equal 'First Campaign', campaigns(:first).reload.name
   end
 
   # DESTROY
@@ -333,11 +358,6 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
         campaign_url: 'http://www.example.com/campaign',
         goal: 'Awareness',
         kpi: 'Click Through Rate (CTR)',
-        conversion_rate: 0.2e2,
-        average_order_value: 3000.0,
-        target_cpa: 0.1e3,
-        target_roas: 10,
-        budget: 0.1e5,
         age_range_male: [30, 40],
         age_range_female: [20, 30],
         household_income: [50, 500],

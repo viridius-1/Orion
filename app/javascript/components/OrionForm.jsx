@@ -17,12 +17,13 @@ export default class OrionForm extends Component {
       formId,
       handleSubmit,
       errors,
-      children
+      children,
+      className
     } = this.props
 
-    let processedChildren = children.map(function(element) {
-      return elementHasError(element) ? applyErrorTo(element) : element;
-    });
+    let processedChildren = processChildren(children)
+
+    window.childs = children
 
     return (
       <Form
@@ -59,7 +60,8 @@ export default class OrionForm extends Component {
     }
 
     function isFormControl(element) {
-      return element.type.displayName === "FormControl"
+      // Select inputs are 'StateManager'
+      return element.type.displayName === "FormControl" || element.type.name === "StateManager"
     }
 
     function addClassTo(cssClass, element, uniqueKey) {
@@ -74,7 +76,29 @@ export default class OrionForm extends Component {
     }
 
     function elementHasError(element) {
-      return React.isValidElement(element) && element.type.displayName === "FormGroup" && errors[element.props.controlId]
+      return React.isValidElement(element) && 
+        element.type.displayName === "FormGroup" && 
+          errors[element.props.controlId]
+    }
+
+    function processChildren(children) {
+      return children.map(function(element) {
+        // If element is a wrapper element, process recursively
+        if (React.isValidElement(element) && isWrapper(element)) {
+          return React.cloneElement(
+            element,
+            element.props,
+            processChildren(element.props.children)
+          )
+        }
+
+        return elementHasError(element) ? applyErrorTo(element) : element;
+      });
+    }
+
+    function isWrapper(element) {
+      return React.isValidElement(element) &&
+        element.props.inputwrapper === "true"
     }
   }
 }
@@ -82,5 +106,6 @@ export default class OrionForm extends Component {
 OrionForm.propTypes = {
   formId: PropTypes.string,
   handleSubmit: PropTypes.func,
-  errors: PropTypes.object
+  errors: PropTypes.object,
+  className: PropTypes.string
 };

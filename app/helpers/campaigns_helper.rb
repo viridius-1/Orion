@@ -4,6 +4,8 @@ module CampaignsHelper
       campaign_type_options: campaign_type_options,
       goal_options: goal_options,
       kpi_options: kpi_options,
+      objective_field_mapping: Objectives::DependentFields.mapping,
+      media_channel_options: media_channel_options,
       education_options: education_options,
       parental_options: parental_options,
       advertiser_options: current_user.advertisers.map do |advertiser|
@@ -32,6 +34,21 @@ module CampaignsHelper
 
   def goal_options
     %w[Reach Awareness Acquisition]
+  end
+
+  def media_channel_options
+    [
+      'CTV/OTT',
+      'Digital Out-of-Home',
+      'Digital Video',
+      'In-Email Display',
+      'Native Display',
+      'Native Video',
+      'Programmatic Display',
+      'Site Skins',
+      'Streaming Audio',
+      'Youtube'
+    ]
   end
 
   def kpi_options

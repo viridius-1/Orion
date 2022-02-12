@@ -44,6 +44,7 @@ class Ability
     end
 
     can :new, Campaign
+    can :new, Objective
     can [:read, :update], User, id: user.id
   end
 end

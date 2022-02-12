@@ -10,24 +10,11 @@ class Campaign < ApplicationRecord
   serialize :geo_fence, Array
   
   belongs_to :advertiser
+  has_many :objectives, dependent: :destroy
+  accepts_nested_attributes_for :objectives, allow_destroy: true
 
   validates :name, presence: true
-  validates :name, uniqueness: true
-  validates :campaign_url, format: { with: URI.regexp, message: 'URL is not valid' }
-
-  validates :conversion_rate,
-            :average_order_value,
-            :target_cpa, 
-            :target_roas,
-            :budget,
-            :pixel_notes, presence: true, on: STEPS.values_at(2, 3, 4)
-
-  validates :conversion_rate,
-            :target_roas, inclusion: { in: 0..100, message: 'must be between 0 and 100' }, on: STEPS.values_at(2, 3, 4)
-
-  validates :average_order_value,
-            :target_cpa,
-            :budget, numericality: { greater_than_or_equal_to: 0 }, on: STEPS.values_at(2, 3, 4)
+  validates :campaign_url, http_url: true
 
   enum status: {
     incomplete: 0,

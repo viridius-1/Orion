@@ -7,7 +7,7 @@
       .card.card-v2
         .card-body
           = react_component("CampaignForm",
-                  props: {campaign: @campaign,
+                  props: {campaign: @campaign.as_json(include: :objectives),
                           hide_advertiser: current_user.advertiser_user?,
                           token: form_authenticity_token,
                           options: options,
@@ -15,3 +15,4 @@
                           data_providers_key_value: data_providers_key_value,
                           current_step: 1},
                   prerender: false)
+                  
