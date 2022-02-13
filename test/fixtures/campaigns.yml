@@ -16,7 +16,6 @@ first:
   geo_fence: ["geo", "fence"]
   created_at: "2022-01-21 20:18:38"
   updated_at: "2022-01-21 20:18:38"
-  coversion_rate: nil
   average_order_value: 3000.0
   advertiser: first
   conversion_rate: 0.2e2
