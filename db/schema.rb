@@ -62,13 +62,12 @@ ActiveRecord::Schema.define(version: 2022_02_05_134556) do
     t.string "goal"
     t.string "kpi"
     t.decimal "target_cpa"
-    t.integer "target_roas"
+    t.decimal "target_roas"
     t.decimal "budget"
     t.string "geography"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.float "coversion_rate"
-    t.float "average_order_value"
+    t.decimal "average_order_value"
     t.integer "advertiser_id"
     t.decimal "conversion_rate"
     t.integer "age_range_male", array: true

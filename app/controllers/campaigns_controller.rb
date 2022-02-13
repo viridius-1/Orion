@@ -21,8 +21,7 @@ class CampaignsController < ApplicationController
   end
 
   def duplicate
-    @campaign =  Campaign.find(params[:campaign_id]).dup
-    @advertiser =  @campaign.advertiser
+    @campaign =  @campaign.dup
     render :new
   end
 

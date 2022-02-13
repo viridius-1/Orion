@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   resources :agencies, shallow: true do
     resources :vendors, controller: 'advertisers' do
       resources :campaigns do
-        get "duplicate"
+        get "duplicate", on: :member
       end
     end
   end

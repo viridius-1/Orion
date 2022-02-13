@@ -54,7 +54,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
                  {
                    back: vendor_campaigns_path(vendor_id: advertisers(:first).id),
                    edit: "/campaigns/#{campaigns(:first).id}/edit",
-                   duplicate: '#',
+                   duplicate: "/campaigns/#{campaigns(:first).id}/duplicate",
                    delete: "/campaigns/#{campaigns(:first).id}"
                  }
   end
@@ -117,7 +117,34 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
   end
 
   # DUPLICATE
-  
+
+  test 'duplicate should redirect if user is not logged in' do
+    get "/campaigns/#{campaigns(:first).id}/duplicate"
+
+    assert_response :redirect
+  end
+
+  test 'duplicate should redirect if user is logged in as no access user' do
+    sign_in users(:no_access_user)
+    get "/campaigns/#{campaigns(:first).id}/duplicate"
+
+    assert_response :redirect
+  end
+
+  test 'duplicate should render new if user is logged in as advertiser' do
+    sign_in users(:advertiser_user)
+    get "/campaigns/#{campaigns(:first).id}/duplicate"
+
+    assert_template :new
+  end
+
+  test 'duplicate should render new if user is logged in as agency' do
+    sign_in users(:agency_user)
+    get "/campaigns/#{campaigns(:first).id}/duplicate"
+
+    assert_template :new
+  end
+
 
   # CREATE
 
