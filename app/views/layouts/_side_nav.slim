@@ -37,10 +37,6 @@ nav#sidebar
       .icon-container
         i.fas.fa-chart-pie
       = link_to 'Analytics', current_user&.token_url, class: 'tapclicks-link', target: :_blank
-    li.clearfix
-      .icon-container
-        i.fas.fa-sign-out-alt
-      = link_to 'Logout', destroy_user_session_path, method: :delete
 
 javascript:
   // Add page refresh after clicking on Analytics link

@@ -1,0 +1,18 @@
+  .dropdown-menu-button
+    = react_component("LinkDropdownMenu",
+            props: { \
+              icon: "fas fa-cog gear-icon",
+              token: form_authenticity_token,
+              items: [ \
+              { \
+                id: "edit", text: "Edit Profile",
+                icon: "fas fa-pen",
+                link: "/users/#{current_user.id}/edit" \
+              },
+              { \
+                id: "logout", text: "Logout",
+                icon: "fas fa-sign-out-alt",
+                link: destroy_user_session_path,
+              } \
+            ]},
+            prerender: false)

@@ -1,9 +1,7 @@
 .agency-dashboard
   h1 Create an Advertiser
   .dropdown-menu-button
-    = react_component("LinkDropdownMenu",
-            props: {icon: "fas fa-cog gear-icon", items: [{id: "edit", text: "Edit Profile", icon: "fas fa-pen", link: "/users/#{current_user.id}/edit"}]},
-            prerender: false)
+    = render partial: 'shared/user_settings_menu'
   .row
     .col-12
       .card.card-v2
