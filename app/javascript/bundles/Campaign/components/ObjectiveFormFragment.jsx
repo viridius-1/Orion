@@ -46,6 +46,97 @@ export default class ObjectiveFormFragment extends Component {
     this.forceUpdate()
   }
 
+  handleNumberChange = (event) => {
+    const {
+      objective
+    } = this.props
+
+    let number = event.target.value.replaceAll(',', '').replaceAll('-', '')
+
+    // limit to 2 decimal places
+    let [wholePart, decimalPart] = number.split('.')
+    if (decimalPart) {
+      decimalPart = decimalPart.substring(0, 2)
+      number = `${wholePart}.${decimalPart}`
+    }
+
+    // js can't handle parsing of huge numbers
+    if (number.length >= 16) {
+      event.preventDefault()
+      return
+    }
+
+    if (number === '') {
+      objective[event.target.name] = ''
+      this.forceUpdate()
+      return
+    }
+
+    if (Number(number) !== 0 && !Number(number)) {
+      event.preventDefault()
+      return
+    }
+
+    if (Number(number) < 0) {
+      objective[event.target.name] = '0'
+      this.forceUpdate()
+      return
+    }
+
+    objective[event.target.name] = number
+    this.forceUpdate()
+  }
+
+  handlePercentageChange = (event) => {
+    const {
+      objective
+    } = this.props
+
+    if (Number(event.target.value) >= 100) {
+      objective[event.target.name] = '100'
+      this.forceUpdate()
+      return
+    }
+
+    if (Number(event.target.value) < 0) {
+      objective[event.target.name] = '0'
+      this.forceUpdate()
+      return
+    }
+
+    objective[event.target.name] = event.target.value
+    this.forceUpdate()
+  }
+
+  handleDecimalPercentageChange = (event) => {
+    const {
+      objective
+    } = this.props
+
+    let [wholePart, decimalPart] = event.target.value.split('.')
+
+    if (Number(event.target.value) >= 100) {
+      objective[event.target.name] = '100'
+      this.forceUpdate()
+      return
+    }
+
+    if (Number(event.target.value) < 0) {
+      objective[event.target.name] = '0'
+      this.forceUpdate()
+      return
+    }
+
+    if (decimalPart) {
+      decimalPart = decimalPart.substring(0, 2)
+    }
+
+    let result = decimalPart ? `${wholePart}.${decimalPart}` : wholePart
+
+    objective[event.target.name] = result
+    this.forceUpdate()
+  }
+
   refreshOptions = () => {
     const {
       objective,
@@ -80,7 +171,8 @@ export default class ObjectiveFormFragment extends Component {
       objective,
       options: {
         media_channel_options: mediaChannelOptions
-      }
+      },
+      handleSubmit
     } = this.props
 
     const {
@@ -93,6 +185,7 @@ export default class ObjectiveFormFragment extends Component {
       <OrionForm
         formId={`objective-form-${objective.id || 0}`}
         errors={objective.errors || {}}
+        handleSubmit={handleSubmit}
       >
         <Form.Group controlId="media_channel">
           <Form.Label className="label-v2">Media Channel</Form.Label>
@@ -138,10 +231,10 @@ export default class ObjectiveFormFragment extends Component {
             className="input-v2 right"
             required
             name="budget"
-            type="number"
-            onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleChange}
-            value={objective.budget || ''}
+            type="text"
+            onKeyDown={FormUtils.blockE}
+            onChange={this.handleNumberChange}
+            value={FormUtils.formatNumber(objective.budget)}
             />
           <div className="input-v2-prepend"><span>$</span></div>
         </Form.Group>
@@ -175,15 +268,15 @@ export default class ObjectiveFormFragment extends Component {
         }
         </div>
         {fields.includes('impressions') && 
-        <Form.Group controlId="impressions">
+        <Form.Group controlId="impressions">  
           <Form.Label className="label-v2">Impressions</Form.Label>
           <Form.Control
             className="input-v2"
             name="impressions"
-            type="number"
+            type="text"
             onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleChange}
-            value={objective.impressions || ''}
+            onChange={this.handleNumberChange}
+            value={FormUtils.formatNumber(objective.impressions)}
             />
         </Form.Group>
         }
@@ -193,10 +286,10 @@ export default class ObjectiveFormFragment extends Component {
           <Form.Control
             className="input-v2"
             name="frequency"
-            type="number"
+            type="text"
             onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleChange}
-            value={objective.frequency || ''}
+            onChange={this.handleNumberChange}
+            value={FormUtils.formatNumber(objective.frequency)}
             />
         </Form.Group>
         }
@@ -204,12 +297,12 @@ export default class ObjectiveFormFragment extends Component {
         <Form.Group controlId="unique_reach">
           <Form.Label className="label-v2">Unique Reach</Form.Label>
           <Form.Control
-              className="input-v2"
+            className="input-v2"
             name="unique_reach"
-            type="number"
+            type="text"
             onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleChange}
-            value={objective.unique_reach || ''}
+            onChange={this.handleNumberChange}
+            value={FormUtils.formatNumber(objective.unique_reach)}
             />
         </Form.Group>
         }
@@ -220,8 +313,9 @@ export default class ObjectiveFormFragment extends Component {
             className="input-v2 left"
             name="target_ctr"
             type="number"
-            onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleChange}
+            step="0.01"
+            onKeyDown={FormUtils.blockE}
+            onChange={this.handleDecimalPercentageChange}
             value={objective.target_ctr || ''}
             />
           <div className="input-v2-append"><span>%</span></div>
@@ -233,10 +327,10 @@ export default class ObjectiveFormFragment extends Component {
           <Form.Control
             className="input-v2"
             name="video_plays"
-            type="number"
+            type="text"
             onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleChange}
-            value={objective.video_plays || ''}
+            onChange={this.handleNumberChange}
+            value={FormUtils.formatNumber(objective.video_plays)}
             />
         </Form.Group>
         }
@@ -248,7 +342,7 @@ export default class ObjectiveFormFragment extends Component {
             name="video_completion_rate"
             type="number"
             onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleChange}
+            onChange={this.handlePercentageChange}
             value={objective.video_completion_rate || ''}
             />
           <div className="input-v2-append"><span>%</span></div>
@@ -260,10 +354,10 @@ export default class ObjectiveFormFragment extends Component {
           <Form.Control
             className="input-v2"
             name="conversions"
-            type="number"
+            type="text"
             onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleChange}
-            value={objective.conversions || ''}
+            onChange={this.handleNumberChange}
+            value={FormUtils.formatNumber(objective.conversions)}
             />
         </Form.Group>
         }
@@ -275,7 +369,7 @@ export default class ObjectiveFormFragment extends Component {
             name="target_conversion_rate"
             type="number"
             onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleChange}
+            onChange={this.handlePercentageChange}
             value={objective.target_conversion_rate || ''}
             />
           <div className="input-v2-append"><span>%</span></div>
@@ -288,10 +382,10 @@ export default class ObjectiveFormFragment extends Component {
             className="input-v2 right"
             required
             name="average_order_value"
-            type="number"
-            onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleChange}
-            value={objective.average_order_value || ''}
+            type="text"
+            onKeyDown={FormUtils.blockE}
+            onChange={this.handleNumberChange}
+            value={FormUtils.formatNumber(objective.average_order_value)}
             />
           <div className="input-v2-prepend"><span>$</span></div>
         </Form.Group>
@@ -303,10 +397,10 @@ export default class ObjectiveFormFragment extends Component {
             className="input-v2 right"
             required
             name="target_cpa"
-            type="number"
-            onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleChange}
-            value={objective.target_cpa || ''}
+            type="text"
+            onKeyDown={FormUtils.blockE}
+            onChange={this.handleNumberChange}
+            value={FormUtils.formatNumber(objective.target_cpa)}
             />
           <div className="input-v2-prepend"><span>$</span></div>
         </Form.Group>
@@ -316,14 +410,13 @@ export default class ObjectiveFormFragment extends Component {
           <Form.Label className="label-v2">Target ROAS</Form.Label>
           <Form.Control
             className="input-v2 left"
-            required
             name="target_roas"
-            type="number"
+            type="text"
             onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleChange}
-            value={objective.target_roas || ''}
+            onChange={this.handleNumberChange}
+            value={FormUtils.formatNumber(objective.target_roas)}
             />
-          <div className="input-v2-append"><span>%</span></div>
+          <div className="input-v2-append"><span>: 1</span></div>
         </Form.Group>
         }
         {fields.includes('pixel_notes') &&

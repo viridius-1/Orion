@@ -91,7 +91,7 @@ export default class CampaignGoalsFormFragment extends Component {
                     </Card.Header>
                     <Accordion.Collapse key={`collapse-objective-${i}`} eventKey={`objective-${i}`}>
                       <Card.Body key={`card-body-objective-${i}`}>
-                        <ObjectiveFormFragment objective={objective} options={options} />
+                        <ObjectiveFormFragment objective={objective} options={options} handleSubmit={handleSubmit} />
                         <button value={i} className="btn btn-secondary-v2" onClick={this.deleteObjective}>Delete</button>
                       </Card.Body>
                     </Accordion.Collapse>

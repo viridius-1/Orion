@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_13_143025) do
+ActiveRecord::Schema.define(version: 2022_02_16_104702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2022_02_13_143025) do
     t.string "geography"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "coversion_rate"
     t.integer "advertiser_id"
     t.integer "age_range_male", array: true
     t.integer "age_range_female", array: true
@@ -90,17 +91,17 @@ ActiveRecord::Schema.define(version: 2022_02_13_143025) do
   create_table "objectives", force: :cascade do |t|
     t.string "goal"
     t.string "kpi"
-    t.decimal "impressions"
-    t.decimal "frequency"
-    t.decimal "unique_reach"
+    t.integer "impressions"
+    t.integer "frequency"
+    t.integer "unique_reach"
     t.decimal "target_ctr"
-    t.decimal "video_plays"
+    t.integer "video_plays"
     t.decimal "video_completion_rate"
-    t.decimal "conversions"
-    t.decimal "target_conversion_rate"
+    t.integer "conversions"
+    t.integer "target_conversion_rate"
     t.decimal "target_cpa"
     t.decimal "average_order_value"
-    t.decimal "target_roas"
+    t.integer "target_roas"
     t.decimal "budget"
     t.date "start_date"
     t.date "end_date"
