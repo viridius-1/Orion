@@ -41,7 +41,7 @@ export default class AdvertiserForm extends Component {
 
       if (!isNew) {
         method = 'PUT';
-        path = `/agencies/${agencyId}/vendors/${id}`;
+        path = `/vendors/${id}`;
       }
       const requestOptions = {
         body: this._getSubmitBody(),

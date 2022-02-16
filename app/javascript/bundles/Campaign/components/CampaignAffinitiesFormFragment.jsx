@@ -132,46 +132,28 @@ export default class CampaignAffinitiesFormFragment extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="form-group">
-            </div>
-            <button
-              className="btn btn-secondary-v2"
-              type="button"
-              onClick={handleCancel}
-              style={{ margin: '5px' }}
-            >
-              Back
-            </button>
-            <Button
-              className="btn btn-primary btn-primary-v2"
-              onClick={handleSubmit}
-              value="insertion_order"
-              style={{ margin: '5px' }}
-            >
-              <i
-                className="fas fa-flag-checkered"
-                style={{
-                  marginRight: '5px',
-                  transform: 'rotate(-23deg)',
-                }}
-              />
-              Order an IO for Managed Services
-            </Button>
-            <Button
-              className="btn btn-primary btn-primary-v2"
-              onClick={handleSubmit}
-              value="recommendation"
-              style={{ margin: '5px' }}
-            >
-              <i
-                className="fas fa-flag-checkered"
-                style={{
-                  marginRight: '5px',
-                  transform: 'rotate(-23deg)',
-                }}
-              />
-              Submit for Self Service Recommendations
-            </Button>
+          <button
+            className="btn btn-secondary-v2"
+            type="button"
+            onClick={handleCancel}
+            style={{ margin: '5px' }}
+          >
+            Back
+          </button>
+          <Button
+            className="btn btn-primary btn-primary-v2"
+            onClick={handleSubmit}
+            style={{ margin: '5px' }}
+          >
+            <i
+              className="fas fa-flag-checkered"
+              style={{
+                marginRight: '5px',
+                transform: 'rotate(-23deg)',
+              }}
+            />
+            Submit
+          </Button>
         </div>
       </div>
     );

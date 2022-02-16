@@ -5,7 +5,7 @@ class Objective < ApplicationRecord
   belongs_to :campaign
 
   validates :media_channel, presence: true, inclusion: { in: Objectives::DependentFields.all_media_channel_options }
-  validates :goal, presence: true, inclusion: { 
+  validates :goal, presence: true, inclusion: {
     in: ->(objective) { Objectives::DependentFields.goal_options_for(objective.media_channel) }
   }
   validates :kpi, presence: true, inclusion: {
