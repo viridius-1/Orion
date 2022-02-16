@@ -2,4 +2,4 @@
   h1 #{@advertiser.name}
   .dropdown-menu-button
     = render partial: 'shared/user_settings_menu'
-  = react_component("CampaignIndexComponent", props: {campaigns: @campaigns, link:"/vendors/#{@advertiser.id}/campaigns/"}, prerender: false)
+  = react_component("CampaignIndexComponent", props: {campaigns: @campaigns.as_json(methods: :budget), link:"/vendors/#{@advertiser.id}/campaigns/"}, prerender: false)

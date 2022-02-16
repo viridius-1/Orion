@@ -6,6 +6,7 @@ class CampaignsController < ApplicationController
   include ErrorMessages
 
   def index
+    @campaigns = @campaigns.preload(:objectives)
   end
 
   def show
