@@ -33,7 +33,8 @@ export default class CampaignGoalsFormFragment extends Component {
       goal: '',
       kpi: '',
       start_date: '',
-      end_date: ''
+      end_date: '',
+      frequency_unit: ''
     }
   }
 

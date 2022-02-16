@@ -62,6 +62,7 @@ class ObjectiveTest < ActiveSupport::TestCase
       budget: 20000,
       impressions: 24,
       frequency: 70,
+      frequency_unit: 'Day',
       unique_reach: 50,
       start_date: Date.today,
       end_date: Date.tomorrow
