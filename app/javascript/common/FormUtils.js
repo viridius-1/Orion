@@ -32,7 +32,13 @@ export default class FormUtils {
   };
 
   static blockNonNum(event) {
-    if (event.key === 'e' || event.key === 'E' || event.key === '.') {
+    if (event.key === 'e' || event.key === 'E' || event.key === '.' || event.key === '-') {
+      event.preventDefault();
+    }
+  }
+
+  static blockE(event) {
+    if (event.key === 'e' || event.key === 'E' || event.key === '-') {
       event.preventDefault();
     }
   }
@@ -60,6 +66,26 @@ export default class FormUtils {
       });
 
       form.submit();
+    }
+  }
+
+  static formatNumber(number) {
+    if (number) {
+      let parsedNumber = Number(number).toLocaleString('en', {useGrouping: true})
+
+      let [_wholePart, decimalPart] = number.toString().split('.')
+
+      if (decimalPart === '') {
+        parsedNumber = `${parsedNumber}.`        
+      }
+
+      if (decimalPart === '0') {
+        parsedNumber = `${parsedNumber}.0`
+      }
+
+      return parsedNumber
+    } else {
+      return ''
     }
   }
 }
