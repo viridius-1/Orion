@@ -53,6 +53,12 @@ class CampaignTest < ActiveSupport::TestCase
     assert_equal 0, campaigns(:first).objectives.count
   end
 
+  test 'budget should return sum of all objectives budgets' do
+    campaign = campaigns(:first)
+
+    assert_equal 20000, campaign.budget
+  end
+
   def valid_flight_attributes
     {
       name: 'Campaign name',

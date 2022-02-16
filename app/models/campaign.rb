@@ -27,4 +27,8 @@ class Campaign < ApplicationRecord
     managed_service_insertion_order: 1,
     auto_setup: 2
   }
+
+  def budget
+    objectives.filter(&:budget).sum(&:budget)
+  end
 end
