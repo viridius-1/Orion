@@ -16,7 +16,7 @@ class Objective < ApplicationRecord
   validate :valid_date_range
 
   with_options if: -> (objective) { objective.kpi == "Impressions" } do
-    validates :budget, :impressions, :frequency, :unique_reach, presence: true
+    validates :budget, :impressions, :frequency, :frequency_unit, :unique_reach, presence: true
   end
 
   with_options if: -> (objective) { objective.kpi == "Click Through Rate (CTR)" } do

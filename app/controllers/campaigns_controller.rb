@@ -97,8 +97,8 @@ class CampaignsController < ApplicationController
     params.require(:campaign).permit(
       objectives_attributes: [
         :id, :_destroy, :goal, :media_channel, :kpi, :start_date,
-        :end_date, :budget, :impressions, :frequency, :unique_reach,
-        :target_ctr, :video_plays, :video_completion_rate,
+        :end_date, :budget, :impressions, :frequency, :frequency_unit,
+        :unique_reach, :target_ctr, :video_plays, :video_completion_rate,
         :conversions, :target_conversion_rate, :target_cpa,
         :average_order_value, :target_roas
       ]

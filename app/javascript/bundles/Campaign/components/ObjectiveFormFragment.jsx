@@ -170,7 +170,8 @@ export default class ObjectiveFormFragment extends Component {
     const {
       objective,
       options: {
-        media_channel_options: mediaChannelOptions
+        media_channel_options: mediaChannelOptions,
+        frequency_unit_options: frequencyUnitOptions
       },
       handleSubmit
     } = this.props
@@ -220,7 +221,7 @@ export default class ObjectiveFormFragment extends Component {
             options={FormUtils.buildOptions(kpiOptions)}
             name="kpi"
             onChange={this.handleSelectChange}
-            value={ { label: objective.kpi, value: objective.goal } }
+            value={ { label: objective.kpi, value: objective.kpi } }
           />
         </Form.Group>
         }
@@ -280,8 +281,9 @@ export default class ObjectiveFormFragment extends Component {
             />
         </Form.Group>
         }
+        <div className="row" inputwrapper="true" key="frequency_wrapper">
         {fields.includes('frequency') && 
-        <Form.Group controlId="frequency">
+        <Form.Group controlId="frequency" className="col-6">
           <Form.Label className="label-v2">Frequency</Form.Label>
           <Form.Control
             className="input-v2"
@@ -293,6 +295,20 @@ export default class ObjectiveFormFragment extends Component {
             />
         </Form.Group>
         }
+        {fields.includes('frequency_unit') &&
+        <Form.Group controlId="frequency_unit" className="col-6">
+          <Form.Label className="label-v2">Unit</Form.Label>
+          <Select
+            className="selectV2"
+            classNamePrefix="selectV2"
+            options={FormUtils.buildOptions(frequencyUnitOptions)}
+            name="frequency_unit"
+            onChange={this.handleSelectChange}
+            value={ { label: objective.frequency_unit, value: objective.frequency_unit } }
+          />
+        </Form.Group>
+        }
+        </div>
         {fields.includes('unique_reach') && 
         <Form.Group controlId="unique_reach">
           <Form.Label className="label-v2">Unique Reach</Form.Label>

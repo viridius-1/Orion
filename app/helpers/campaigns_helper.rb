@@ -4,6 +4,7 @@ module CampaignsHelper
       campaign_type_options: campaign_type_options,
       goal_options: goal_options,
       kpi_options: kpi_options,
+      frequency_unit_options: ['Hour', 'Day', 'Week', 'Month', 'Lifetime'],
       objective_field_mapping: Objectives::DependentFields.mapping,
       media_channel_options: media_channel_options,
       education_options: education_options,

@@ -20,7 +20,7 @@ module Objectives
           'Acquisition' => ['Cost Per Acquisition (CPA)', 'Return on Ad Spend (ROAS)']
         },
         field_options: { # based on kpi
-          'Impressions' => %i(budget impressions frequency unique_reach),
+          'Impressions' => %i(budget impressions frequency frequency_unit unique_reach),
           'Click Through Rate (CTR)' => %i(budget impressions target_ctr),
           'Video Completion Rate (VCR)' => %i(budget video_plays video_completion_rate),
           'Cost Per Acquisition (CPA)' => %i(budget impressions conversions target_conversion_rate),
