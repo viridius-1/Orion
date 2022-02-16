@@ -8,7 +8,7 @@ agency_user = User.create!(first_name: 'First',
                            company_id: agency.id,
                            company_type: 'Agency',
                            roles: 'user',
-                           confirmed_at: Time.now)
+                           confirmed_at: Time.now).accept_invitation!
 
 # Create Advertiser && Advertiser's User
 adv = Advertiser.create!(name: 'First Advertiser')
@@ -20,7 +20,7 @@ adv_user = User.create!(first_name: 'First',
                         company_id: adv.id,
                         company_type: 'Advertiser',
                         roles: 'user',
-                        confirmed_at: Time.now)
+                        confirmed_at: Time.now).accept_invitation!
 
 # Create Interal Admin
 Admin.create!(first_name: 'Admin',

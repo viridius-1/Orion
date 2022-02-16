@@ -1,6 +1,16 @@
-  h3="A new campaign was submitted by: #{@user.first_name} #{@user.last_name} - #{@user.email}"
-  ul
-    - @campaign.as_json(include: { advertiser: { only: :name } }).each do |key, value|
-      li
-        strong="#{key}: "
-        = value.to_s
+h3="A new campaign was submitted by: #{@user.first_name} #{@user.last_name} - #{@user.email}"
+ul
+  - @campaign.as_json(include: { advertiser: { only: :name } }).each do |key, value|
+    li
+      strong="#{key}: "
+      = value.to_s
+p Objectives
+ul
+  - @objectives.as_json.each do |objective|
+    li
+      br
+      - objective.as_json.each do |key, value|
+        ul
+          li
+            strong="#{key}: "
+            = value.to_s

@@ -26,19 +26,7 @@ export default class CampaignForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    const { current_step: currentStep } = this.state;
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
-      this.setState({ validated: true });
-    } else if (currentStep < 4) {
-      this.setState({
-        current_step: currentStep + 1,
-        validated: false,
-      });
-    } else {
-      this._submitForm(event);
-    }
+    this._submitForm(event);
   }
 
   handleCancel = (event) => {
@@ -128,10 +116,13 @@ export default class CampaignForm extends Component {
       age_range_male: ageRangeMale,
       female_selected: femaleSelected,
       age_range_female: ageRangeFemale,
+      geo_fence: geoFence,
       goal,
       kpi,
       geography,
-      geo_fence
+      campaign: {
+        objectives: objectives
+      }
     } = this.state;
 
     const { token } = this.props;
@@ -142,10 +133,11 @@ export default class CampaignForm extends Component {
       age_range_male: maleSelected ? ageRangeMale : null,
       campaign_type: campaignType?.value,
       geography: geography?.map((option) => option.value),
-      geo_fence: geo_fence?.map((option) => option.value),
+      geo_fence: geoFence?.map((option) => option.value),
       goal: goal?.value,
       kpi: kpi?.value,
-      advertiser_id: advertiserId?.value
+      advertiser_id: advertiserId?.value,
+      objectives_attributes: objectives
     };
 
     const body = JSON.stringify({
@@ -158,27 +150,45 @@ export default class CampaignForm extends Component {
 
   _submitForm(event) {
     const {
-      save_campaign_url: saveCampaignUrl,
-      save_campaign_method: saveCampaignMethod
-    } = this.props;
+      campaign: {
+        id: campaignId
+      }
+    } = this.state;
 
     const requestOptions = {
       body: this._getSubmitBody(event),
       headers: { 'Content-Type': 'application/json' },
-      method: saveCampaignMethod,
+      method: campaignId ? 'PUT' : 'POST',
     };
+
+    const { current_step: currentStep } = this.state;
+    const saveCampaignUrl = campaignId ? `/campaigns/${campaignId}?step=${currentStep}` : '/campaigns'
 
     fetch(saveCampaignUrl, requestOptions)
       .then((response) => {
         if (response.redirected) {
           window.location.href = response.url;
+        } else if (response.ok){
+          response.json().then((data) => {
+            this.setState({
+              campaign: data,
+              current_step: currentStep + 1,
+              errors: {}
+            });
+          });
+        } else {
+          response.json().then((data) => {
+            this.setState({campaign: data})
+          });
         }
       });
   }
 
   _initialState() {
     const {
+      campaign,
       campaign: {
+        id: id,
         advertiser_id: advertiserId,
         name,
         campaign_type: campaignType,
@@ -202,15 +212,18 @@ export default class CampaignForm extends Component {
         brand_safety: brandSafety,
         targeting_notes: targetingNotes,
         affinities,
+        objectives
       },
       options: {
         advertiser_options: advertiserOptions,
         campaign_type_options: campaignTypeOptions
       },
-      hide_advertiser: hideAdvertiser
+      hide_advertiser: hideAdvertiser,
+      current_step: currentStep
     } = this.props;
 
     const initialState = {
+      campaign: campaign,
       advertiser_id: FormUtils.buildEnumOption(advertiserId, advertiserOptions),
       hide_advertiser: hideAdvertiser || false,
       affinities: affinities || {},
@@ -231,7 +244,7 @@ export default class CampaignForm extends Component {
       crm_data: crmData,
       contextual_targeting: contextualTargeting,
       brand_safety: brandSafety,
-      targeting_notes: targetingNotes,
+      targeting_notes: targetingNotes || '',
       goal: goal ? FormUtils.buildOption(goal) : null,
       household_income: householdIncome || [50, 500],
       kpi: kpi ? FormUtils.buildOption(kpi) : null,
@@ -239,11 +252,10 @@ export default class CampaignForm extends Component {
       name: name || '',
       target_cpa: targetCpa || '',
       target_roas: targetRoas || '',
+      current_step: currentStep || 1
     };
 
     initialState.affinities_checked = getAffinityKeys(initialState.affinities);
-
-    initialState.current_step = 1;
 
     return initialState;
   }
@@ -298,13 +310,17 @@ export default class CampaignForm extends Component {
       target_cpa: targetCpa,
       target_roas: targetRoas,
       validated,
+      campaign: {
+        objectives: objectives,
+        errors: errors
+      }
     } = this.state;
 
     switch (currentStep) {
       case 1:
         return (
           <CampaignBasicsFormFragment
-            validated={validated}
+            errors={errors || {}}
             advertiser_id={advertiserId}
             campaign_type={campaignType}
             hide_advertiser={hideAdvertiser}
@@ -320,16 +336,9 @@ export default class CampaignForm extends Component {
       case 2:
         return (
           <CampaignGoalsFormFragment
-            validated={validated}
-            goal={goal}
-            kpi={kpi}
+            errors={errors}
             options={options}
-            conversion_rate={conversionRate}
-            average_order_value={averageOrderValue}
-            target_cpa={targetCpa}
-            target_roas={targetRoas}
-            budget={budget}
-            pixel_notes={pixel_notes}
+            objectives={objectives}
             handleCancel={this.handleCancel}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
@@ -399,6 +408,7 @@ export default class CampaignForm extends Component {
 
 CampaignForm.propTypes = {
   campaign: PropTypes.shape({
+    objectives: PropTypes.arrayOf(PropTypes.object),
     advertiser_id: PropTypes.number,
     affinities: PropTypes.objectOf(PropTypes.object),
     age_range_female: PropTypes.arrayOf(PropTypes.number),
@@ -434,6 +444,7 @@ CampaignForm.propTypes = {
     target_roas: PropTypes.number,
     pixel_notes: PropTypes.string,
   }).isRequired,
+  current_step: PropTypes.number,
   hide_advertiser: PropTypes.bool,
   data_providers: PropTypes.arrayOf(PropTypes.object).isRequired,
   data_providers_key_value: PropTypes.objectOf(PropTypes.object).isRequired,
@@ -444,6 +455,7 @@ CampaignForm.propTypes = {
     })),
     goal_options: PropTypes.arrayOf(PropTypes.string),
     kpi_options: PropTypes.arrayOf(PropTypes.string),
+    media_channel_options: PropTypes.arrayOf(PropTypes.string),
     advertiser_options: PropTypes.arrayOf(PropTypes.shape({
       label: PropTypes.string,
       value: PropTypes.number

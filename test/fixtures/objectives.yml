@@ -1,0 +1,9 @@
+first:
+  campaign: first
+  media_channel: 'CTV/OTT'
+  goal: 'Reach'
+  kpi: 'Impressions'
+  budget: 20000
+  impressions: 24000
+  frequency: 7000
+  unique_reach: 50

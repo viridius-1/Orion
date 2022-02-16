@@ -1,14 +1,50 @@
 import React, { Component } from 'react';
-import { Form } from 'react-bootstrap';
-import Select from 'react-select';
+import { Accordion, Card, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import FormUtils from '../../../common/FormUtils';
+import ObjectiveFormFragment from './ObjectiveFormFragment';
 
 export default class CampaignGoalsFormFragment extends Component {
   constructor(props) {
     super(props);
 
-    this.formId = 'campaign_goals_form';
+    this.state = { activeTab: props.objectives.length > 1 ? '' : 'objective-0' }
+
+    if (props.objectives.length === 0) {
+      this.props.objectives.push(this.newObjective())
+    }
+  }
+
+  changeSelected = (selectedKey) => {
+    this.setState({activeTab: selectedKey})
+  }
+
+  addNewObjective = () => {
+    const {
+      objectives: objectives
+    } = this.props
+
+    objectives.push(this.newObjective())
+    this.setState({activeTab: `objective-${objectives.length - 1}`})
+  }
+
+  newObjective = () => {
+    return {
+      media_channel: '',
+      goal: '',
+      kpi: '',
+      start_date: '',
+      end_date: ''
+    }
+  }
+
+  deleteObjective = (event) => {
+    const {
+      objectives: objectives
+    } = this.props
+
+    const objective = objectives[event.target.value]
+    objective._destroy = '1'
+    this.forceUpdate()
   }
 
   render() {
@@ -23,163 +59,66 @@ export default class CampaignGoalsFormFragment extends Component {
       handleSubmit,
       kpi,
       pixel_notes,
-      options: {
-        goal_options: goalOptions,
-        kpi_options: kpiOptions,
-      },
+      options,
       target_cpa: targetCpa,
       target_roas: targetRoas,
-      validated,
+      objectives: objectives
     } = this.props;
+
+    const {
+      activeTab
+    } = this.state
 
     return (
       <div>
         <h3 className="form-title">Objectives</h3>
         <div className="row">
-          <div className="col-6">
+          <div className="col-lg-7 col-md-12">
             <div className="form-v2">
-              <Form
-                noValidate
-                id={this.formId}
-                validated={validated}
-                onSubmit={handleSubmit}
-                onKeyPress={
-                  (event) => FormUtils.submitEnter(event, this.formId, handleSubmit)
-                }
-              >
-
-                <Form.Group controlId="goal">
-                  <Form.Label className="label-v2">Overall Goal</Form.Label>
-                  <Select
-                    className="selectV2"
-                    classNamePrefix="selectV2"
-                    options={FormUtils.buildOptions(goalOptions)}
-                    name="goal"
-                    onChange={handleSelectChange}
-                    value={goal}
-                  />
-                </Form.Group>
-                <Form.Group controlId="kpi">
-                  <Form.Label className="label-v2">KPI</Form.Label>
-                  <Select
-                    className="selectV2"
-                    classNamePrefix="selectV2"
-                    options={FormUtils.buildOptions(kpiOptions)}
-                    name="kpi"
-                    onChange={handleSelectChange}
-                    value={kpi}
-                  />
-                </Form.Group>
-                <Form.Group controlId="conversion_rate">
-                  <Form.Label className="label-v2">Conversion Rate</Form.Label>
-                  <Form.Control
-                    className="input-v2 left"
-                    required
-                    name="conversion_rate"
-                    type="number"
-                    onKeyDown={FormUtils.blockNonNum}
-                    onChange={handleChange}
-                    value={conversionRate}
-                  />
-                  <div className="input-v2-append"><span>%</span></div>
-                  <Form.Control.Feedback type="invalid">
-                    Conversion Rate is required
-                  </Form.Control.Feedback>
-                </Form.Group>
-
-                <Form.Group controlId="average_order_value">
-                  <Form.Label className="label-v2">AOV</Form.Label>
-                  <Form.Control
-                    className="input-v2 right"
-                    required
-                    name="average_order_value"
-                    type="number"
-                    onKeyDown={FormUtils.blockNonNum}
-                    onChange={handleChange}
-                    value={averageOrderValue}
-                  />
-                  <div className="input-v2-prepend"><span>$</span></div>
-                  <Form.Control.Feedback type="invalid">
-                    AOV is required
-                  </Form.Control.Feedback>
-                </Form.Group>
-
-                <Form.Group controlId="target_cpa">
-                  <Form.Label className="label-v2">Target CPA</Form.Label>
-                  <Form.Control
-                    className="input-v2 right"
-                    required
-                    name="target_cpa"
-                    type="number"
-                    onKeyDown={FormUtils.blockNonNum}
-                    onChange={handleChange}
-                    value={targetCpa}
-                  />
-                  <div className="input-v2-prepend"><span>$</span></div>
-                  <Form.Control.Feedback type="invalid">
-                    Target CPA is required
-                  </Form.Control.Feedback>
-                </Form.Group>
-
-                <Form.Group controlId="target_roas">
-                  <Form.Label className="label-v2">Target ROAS</Form.Label>
-                  <Form.Control
-                    className="input-v2 left"
-                    required
-                    name="target_roas"
-                    type="number"
-                    onKeyDown={FormUtils.blockNonNum}
-                    onChange={handleChange}
-                    value={targetRoas}
-                  />
-                  <div className="input-v2-append"><span>%</span></div>
-                  <Form.Control.Feedback type="invalid">
-                    Target ROAS is required
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="budget">
-                  <Form.Label className="label-v2">Budget</Form.Label>
-                  <Form.Control
-                    className="input-v2 right"
-                    required
-                    name="budget"
-                    type="number"
-                    onKeyDown={FormUtils.blockNonNum}
-                    onChange={handleChange}
-                    value={budget}
-                  />
-                  <div className="input-v2-prepend"><span>$</span></div>
-                  <Form.Control.Feedback type="invalid">
-                    Budget is required
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="pixel_notes">
-                  <Form.Label className="label-v2 default-position">Pixel Notes</Form.Label>
-                  <Form.Control
-                    className="input-v2 textarea"
-                    required
-                    name="pixel_notes"
-                    type="text"
-                    as="textarea"
-                    onChange={handleChange}
-                    value={pixel_notes}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Pixel Notes is required
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <div className="form-group">
-                  <button className="btn btn-secondary-v2" type="button" onClick={handleCancel}>Back</button>
-                  <button className="btn btn-primary-v2 float-right" type="submit" style={{ width: '61%' }}>
-                    Continue
-                  </button>
-                </div>
-              </Form>
+              <Accordion key="ObjectivesAccordion" activeKey={activeTab} className="mb-3" onSelect={this.changeSelected}>
+                {objectives.map((objective, i) => (
+                  !objective._destroy &&
+                  <Card key={`card-objective-${i}`} style={{overflow: 'visible'}}>
+                    <Card.Header key={`card-header-objective-${i}`}>
+                      <Accordion.Toggle
+                        key={`toggle-objective-${i}`}
+                        eventKey={`objective-${i}`}
+                        variant="link"
+                        as={Button}
+                        >
+                        {anyErrorsFor(objective) ? errorIcon(objective) : `${objective.media_channel || 'New Objective'}`}
+                      </Accordion.Toggle>
+                    </Card.Header>
+                    <Accordion.Collapse key={`collapse-objective-${i}`} eventKey={`objective-${i}`}>
+                      <Card.Body key={`card-body-objective-${i}`}>
+                        <ObjectiveFormFragment objective={objective} options={options} />
+                        <button value={i} className="btn btn-secondary-v2" onClick={this.deleteObjective}>Delete</button>
+                      </Card.Body>
+                    </Accordion.Collapse>
+                  </Card>
+                ))}
+              </Accordion>
+              <div className="form-group">
+                <button className="btn btn-secondary-v2 col-lg-3 col-md-6" type="button" onClick={handleCancel}>Back</button>
+                <button className="btn btn-secondary-v2 col-lg-3 col-md-6" type="button" onClick={this.addNewObjective} style={{ margin: '0 23px' }}>Add Another</button>
+                <button className="btn btn-primary-v2 col-lg-5 col-md-6" onClick={handleSubmit}>
+                  Continue
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     );
+
+    function errorIcon(objective) {
+      return <span><i className="fas fa-solid fa-exclamation error-color"></i> {`${objective.media_channel || 'New Objective'}`}</span>
+    }
+
+    function anyErrorsFor(objective) {
+      return Object.keys(objective.errors || []).length > 0
+    }
+
   }
 }
 
@@ -220,8 +159,8 @@ CampaignGoalsFormFragment.propTypes = {
     PropTypes.number,
     PropTypes.string,
   ]),
-  validated: PropTypes.bool,
-  pixel_notes: PropTypes.string
+  pixel_notes: PropTypes.string,
+  objectives: PropTypes.arrayOf(PropTypes.object)
 };
 
 CampaignGoalsFormFragment.defaultProps = {
@@ -236,6 +175,5 @@ CampaignGoalsFormFragment.defaultProps = {
   kpi: undefined,
   target_cpa: undefined,
   target_roas: undefined,
-  validated: undefined,
   pixel_notes: undefined
 };

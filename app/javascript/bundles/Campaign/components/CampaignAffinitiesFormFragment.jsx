@@ -133,6 +133,7 @@ export default class CampaignAffinitiesFormFragment extends Component {
         </div>
         <div className="row">
           <div className="form-group">
+            </div>
             <button
               className="btn btn-secondary-v2"
               type="button"
@@ -157,7 +158,7 @@ export default class CampaignAffinitiesFormFragment extends Component {
               Order an IO for Managed Services
             </Button>
             <Button
-              className="btn btn-primary btn-primary-v2 float-right"
+              className="btn btn-primary btn-primary-v2"
               onClick={handleSubmit}
               value="recommendation"
               style={{ margin: '5px' }}
@@ -171,7 +172,6 @@ export default class CampaignAffinitiesFormFragment extends Component {
               />
               Submit for Self Service Recommendations
             </Button>
-          </div>
         </div>
       </div>
     );

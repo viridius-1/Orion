@@ -26,6 +26,7 @@ class CampaignMailer < ApplicationMailer
   def campaign_submitted(user, campaign)
     @campaign = campaign
     @user = user
+    @objectives = @campaign.objectives
 
     mail(to: 'strategy@theversion2.com',
          subject: "New campaign was submitted",

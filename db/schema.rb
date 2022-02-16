@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_05_134556) do
+ActiveRecord::Schema.define(version: 2022_02_13_143025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,17 +59,10 @@ ActiveRecord::Schema.define(version: 2022_02_05_134556) do
   create_table "campaigns", force: :cascade do |t|
     t.string "name"
     t.string "campaign_url"
-    t.string "goal"
-    t.string "kpi"
-    t.decimal "target_cpa"
-    t.decimal "target_roas"
-    t.decimal "budget"
     t.string "geography"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.decimal "average_order_value"
     t.integer "advertiser_id"
-    t.decimal "conversion_rate"
     t.integer "age_range_male", array: true
     t.integer "age_range_female", array: true
     t.integer "household_income", array: true
@@ -77,7 +70,6 @@ ActiveRecord::Schema.define(version: 2022_02_05_134556) do
     t.integer "status", default: 0, null: false
     t.string "languages"
     t.integer "budget_used"
-    t.text "pixel_notes"
     t.string "geo_fence"
     t.boolean "footfall_analysis", default: false, null: false
     t.boolean "crm_data", default: false, null: false
@@ -93,6 +85,31 @@ ActiveRecord::Schema.define(version: 2022_02_05_134556) do
     t.datetime "expired_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "objectives", force: :cascade do |t|
+    t.string "goal"
+    t.string "kpi"
+    t.decimal "impressions"
+    t.decimal "frequency"
+    t.decimal "unique_reach"
+    t.decimal "target_ctr"
+    t.decimal "video_plays"
+    t.decimal "video_completion_rate"
+    t.decimal "conversions"
+    t.decimal "target_conversion_rate"
+    t.decimal "target_cpa"
+    t.decimal "average_order_value"
+    t.decimal "target_roas"
+    t.decimal "budget"
+    t.date "start_date"
+    t.date "end_date"
+    t.bigint "campaign_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "pixel_notes"
+    t.string "media_channel"
+    t.index ["campaign_id"], name: "index_objectives_on_campaign_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -134,4 +151,5 @@ ActiveRecord::Schema.define(version: 2022_02_05_134556) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "objectives", "campaigns"
 end

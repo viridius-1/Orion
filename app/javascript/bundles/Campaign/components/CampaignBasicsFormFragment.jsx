@@ -2,16 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'react-bootstrap';
 import Select from 'react-select';
-
-import FormUtils from '../../../common/FormUtils';
+import OrionForm from '../../../components/OrionForm';
 
 export default class CampaignBasicsFormFragment extends Component {
-  constructor(props) {
-    super(props);
-
-    this.formId = 'campaign_basics_form';
-  }
-
   render() {
     const {
       advertiser_id: advertiserId,
@@ -27,21 +20,19 @@ export default class CampaignBasicsFormFragment extends Component {
         advertiser_options: advertiserOptions,
         campaign_type_options: campaignTypeOptions
       },
-      validated,
+      errors
     } = this.props;
 
     return (
       <div>
         <h3 className="form-title">Flight</h3>
         <div className="row">
-          <div className="col-6">
+          <div className="col-lg-6 col-md-12">
             <div className="form-v2">
-              <Form
-                noValidate
-                id={this.formId}
-                validated={validated}
-                onSubmit={handleSubmit}
-                onKeyPress={(event) => FormUtils.submitEnter(event, this.formId, handleSubmit)}
+              <OrionForm
+                formId="campaign_basics_form"
+                handleSubmit={handleSubmit}
+                errors={errors}
               >
                 <div className={hideAdvertiser ? "hidden" : ""}>
                   <Form.Group controlId="advertiser_id">
@@ -71,15 +62,11 @@ export default class CampaignBasicsFormFragment extends Component {
                   <Form.Label className="label-v2">Campaign Name</Form.Label>
                   <Form.Control
                     className="input-v2"
-                    required
                     name="name"
                     type="text"
                     onChange={handleChange}
                     value={name}
                   />
-                  <Form.Control.Feedback type="invalid">
-                    Campaign Name is required
-                  </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="campaign_url">
                   <Form.Label className="label-v2">Campaign URL</Form.Label>
@@ -91,9 +78,6 @@ export default class CampaignBasicsFormFragment extends Component {
                     onChange={handleChange}
                     value={campaignUrl}
                   />
-                  <Form.Control.Feedback type="invalid">
-                    Campaign URL is invalid
-                  </Form.Control.Feedback>
                 </Form.Group>
                 <div className="form-group">
                   <button className="btn btn-secondary-v2" type="button" onClick={handleCancel}>Cancel</button>
@@ -101,7 +85,7 @@ export default class CampaignBasicsFormFragment extends Component {
                     Continue
                   </button>
                 </div>
-              </Form>
+              </OrionForm>
             </div>
           </div>
         </div>
@@ -133,13 +117,12 @@ CampaignBasicsFormFragment.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   name: PropTypes.string,
-  validated: PropTypes.bool,
+  errors: PropTypes.object
 };
 
 CampaignBasicsFormFragment.defaultProps = {
   advertiser_id: undefined,
   hide_advertiser: undefined,
   campaign_url: undefined,
-  name: undefined,
-  validated: undefined,
+  name: undefined
 };
