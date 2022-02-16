@@ -28,6 +28,7 @@ class CampaignsController < ApplicationController
 
   def create
     @campaign.status = :pending
+    @campaign.assign_attributes(flight_params)
     if @campaign.save(context: :flight)
       render json: @campaign.as_json(include: :objectives)
     else
