@@ -62,7 +62,6 @@ ActiveRecord::Schema.define(version: 2022_02_13_143025) do
     t.string "geography"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.float "coversion_rate"
     t.integer "advertiser_id"
     t.integer "age_range_male", array: true
     t.integer "age_range_female", array: true

@@ -178,7 +178,7 @@ export default class ObjectiveFormFragment extends Component {
         <Form.Group controlId="impressions">
           <Form.Label className="label-v2">Impressions</Form.Label>
           <Form.Control
-            className="input-v2 left"
+            className="input-v2"
             name="impressions"
             type="number"
             onKeyDown={FormUtils.blockNonNum}
@@ -191,7 +191,7 @@ export default class ObjectiveFormFragment extends Component {
         <Form.Group controlId="frequency">
           <Form.Label className="label-v2">Frequency</Form.Label>
           <Form.Control
-            className="input-v2 left"
+            className="input-v2"
             name="frequency"
             type="number"
             onKeyDown={FormUtils.blockNonNum}
@@ -204,7 +204,7 @@ export default class ObjectiveFormFragment extends Component {
         <Form.Group controlId="unique_reach">
           <Form.Label className="label-v2">Unique Reach</Form.Label>
           <Form.Control
-            className="input-v2 left"
+              className="input-v2"
             name="unique_reach"
             type="number"
             onKeyDown={FormUtils.blockNonNum}
@@ -229,9 +229,9 @@ export default class ObjectiveFormFragment extends Component {
         }
         {fields.includes('video_plays') && 
         <Form.Group controlId="video_plays">
-          <Form.Label className="label-v2">Video Starts</Form.Label>
+          <Form.Label className="label-v2">Video Plays</Form.Label>
           <Form.Control
-            className="input-v2 left"
+            className="input-v2"
             name="video_plays"
             type="number"
             onKeyDown={FormUtils.blockNonNum}
@@ -258,7 +258,7 @@ export default class ObjectiveFormFragment extends Component {
         <Form.Group controlId="conversions">
           <Form.Label className="label-v2">Conversions</Form.Label>
           <Form.Control
-            className="input-v2 left"
+            className="input-v2"
             name="conversions"
             type="number"
             onKeyDown={FormUtils.blockNonNum}

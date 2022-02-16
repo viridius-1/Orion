@@ -69,7 +69,7 @@ export default class OrionForm extends Component {
       let key = `invalid-${uniqueKey}`
 
       return React.cloneElement(element, { ...element.props, className: className, key: key })
-    };
+    }
 
     function errorDivFor(element) {
       return <div className="invalid-feedback" key={`errorbox-for-${element.props.controlId}`}>{errors[element.props.controlId].join('; ')}</div>
