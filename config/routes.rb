@@ -14,8 +14,10 @@ Rails.application.routes.draw do
 
   root 'dashboard#index'
 
+  get 'creative_studios', to: 'pages#creative_studios'
+  get 'platforms', to: 'pages#platforms'
+
   resources :dashboard, only: :index
-  resources :platforms, only: :index
 
   resources :campaigns, only: [:new, :create]
 

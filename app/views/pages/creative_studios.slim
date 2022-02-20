@@ -1,0 +1,32 @@
+.agency-dashboard
+  h1 Creative Studios
+  .dropdown-menu-button
+    = render partial: 'shared/user_settings_menu'
+  .container-fluid.demand-side-platforms
+    .row
+      .col-12.col-md-6
+        .card
+          .card-body.d-flex.align-items-center
+            .text-center
+              = image_tag "creative_automatic.png", class: 'dv-image'
+              .access-btn
+                = link_to "Access Creative Automatic", "https://creativeautomatic.com/client/", class: 'btn btn-primary', target: '_blank'
+
+      .col-12.col-md-6
+        .card
+          .card-body.text-center.d-flex.align-items-center
+            .text-center
+              = image_tag "zeta_logo.png", class: 'zeta-image'
+              .access-btn
+                = link_to "Access AirTori", "https://studio.airtory.com/", class: 'btn btn-primary', target: '_blank'
+
+    .row.bottom-row
+      .col-12.col-md-6
+        .card
+          .card-body.text-center.d-flex.align-items-center
+            .text-center
+              = image_tag "spaceback.png", class: 'dv-image'
+              .access-btn
+                = link_to "Access Spaceback", "https://app.spaceback.me/", class: 'btn btn-primary', target: '_blank'
+      
+
