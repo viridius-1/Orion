@@ -20,15 +20,16 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    is_admin = resource.class == Admin
-    invite_awaits = resource.class == User && resource.invitation_token.nil?
+    return rails_admin_path if current_admin
+    return correct_user_path if current_user && current_user.invitation_token.nil?
+    accept_user_invitation_path
+  end
 
-    if is_admin
-      rails_admin_path
-    elsif invite_awaits
-      root_path
-    elsif !invite_awaits
-      accept_user_invitation_path
+  def correct_user_path
+    if current_user.agency_user?
+      agency_vendors_path(agency_id: current_user.company.id)
+    elsif current_user.advertiser_user?
+      vendor_campaigns_path(vendor_id: current_user.company.id)
     end
   end
 
