@@ -36,23 +36,6 @@ class CampaignTest < ActiveSupport::TestCase
     assert campaign.save
   end
 
-  test 'should destroy objectives with _destroy key in attributes' do
-    campaign = campaigns(:first)
-
-    campaign.assign_attributes({
-      objectives_attributes: [
-        {
-          id: objectives(:first).id,
-          _destroy: 1
-        }
-      ]
-    })
-
-    campaign.save(context: :objectives)
-
-    assert_equal 0, campaigns(:first).objectives.count
-  end
-
   test 'budget should return sum of all objectives budgets' do
     campaign = campaigns(:first)
 

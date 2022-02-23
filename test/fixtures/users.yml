@@ -35,6 +35,15 @@ second_user_for_advertiser:
   roles: user
   confirmed_at: <%= Time.now %>
 
+ad2_user:
+ first_name: Bob
+ last_name: Marley
+ email: bob.m@reggae.com
+ company: second
+ company_type: Advertiser
+ roles: user
+ confirmed_at: <%= Time.now %>
+
 no_access_user:
   first_name: John
   last_name: Doe

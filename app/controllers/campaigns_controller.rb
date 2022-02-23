@@ -98,7 +98,7 @@ class CampaignsController < ApplicationController
   def objectives_params
     params.require(:campaign).permit(
       objectives_attributes: [
-        :id, :_destroy, :goal, :media_channel, :kpi, :start_date,
+        :id, :goal, :media_channel, :kpi, :start_date,
         :end_date, :objective_notes, :budget, :impressions, :frequency, :frequency_unit,
         :unique_reach, :target_ctr, :video_plays, :video_completion_rate,
         :conversions, :target_conversion_rate, :target_cpa,
@@ -133,14 +133,12 @@ class CampaignsController < ApplicationController
   def remove_unwanted_objective_params_from raw_params
     # We don't want to allow fields which are not in the list for target kpi
     raw_params.fetch(:objectives_attributes, []).map do |objective|
-      next if objective['_destroy']
-
       objective.delete_if { |attribute, value| !attribute.to_sym.in?(allowed_attributes_for(objective))}
     end
   end
 
   def allowed_attributes_for objective
-    common_attributes = [:id, :goal, :media_channel, :kpi, :_destroy, :start_date, :end_date, :objective_notes]
+    common_attributes = [:id, :goal, :media_channel, :kpi, :start_date, :end_date, :objective_notes]
     kpi = objective.fetch(:kpi, nil)
 
     return common_attributes unless kpi

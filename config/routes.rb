@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :dashboard, only: :index
 
   resources :campaigns, only: [:new, :create]
+  resources :objectives, only: :destroy
 
   resources :agencies, shallow: true do
     resources :vendors, controller: 'advertisers' do
