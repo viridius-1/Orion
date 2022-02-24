@@ -48,7 +48,7 @@ export default class CampaignBasicsFormFragment extends Component {
                   </Form.Group>
                 </div>
                 <Form.Group controlId="campaign_type">
-                  <Form.Label className="label-v2">Campaign Purpose</Form.Label>
+                  <Form.Label className="label-v2">Campaign Activation</Form.Label>
                   <Select
                     className="selectV2"
                     classNamePrefix="selectV2"

@@ -4,8 +4,8 @@ import Step from './components/Step';
 import CampaignBasicsFormFragment from './components/CampaignBasicsFormFragment';
 import CampaignGoalsFormFragment from './components/CampaignGoalsFormFragment';
 import FormUtils from '../../common/FormUtils';
-import CampaignAudienceFormFragment from './components/CampaignAudienceFormFragment';
-import CampaignAffinitiesFormFragment from './components/CampaignAffinitiesFormFragment';
+import CampaignDemographicsFormFragment from './components/CampaignDemographicsFormFragment';
+import CampaignAudiencesFormFragment from './components/CampaignAudiencesFormFragment';
 
 function getAffinityKeys(object) {
   const output = [];
@@ -117,8 +117,6 @@ export default class CampaignForm extends Component {
       female_selected: femaleSelected,
       age_range_female: ageRangeFemale,
       geo_fence: geoFence,
-      goal,
-      kpi,
       geography,
       campaign: {
         objectives: objectives
@@ -134,8 +132,6 @@ export default class CampaignForm extends Component {
       campaign_type: campaignType?.value,
       geography: geography?.map((option) => option.value),
       geo_fence: geoFence?.map((option) => option.value),
-      goal: goal?.value,
-      kpi: kpi?.value,
       advertiser_id: advertiserId?.value,
       objectives_attributes: objectives
     };
@@ -193,17 +189,8 @@ export default class CampaignForm extends Component {
         name,
         campaign_type: campaignType,
         campaign_url: campaignUrl,
-        goal,
-        kpi,
-        conversion_rate: conversionRate,
-        average_order_value: averageOrderValue,
-        target_cpa: targetCpa,
-        target_roas: targetRoas,
-        budget,
-        pixel_notes,
         age_range_male: ageRangeMale,
         age_range_female: ageRangeFemale,
-        household_income: householdIncome,
         geography,
         geo_fence,
         footfall_analysis: footfallAnalysis,
@@ -211,6 +198,7 @@ export default class CampaignForm extends Component {
         contextual_targeting: contextualTargeting,
         brand_safety: brandSafety,
         targeting_notes: targetingNotes,
+        audience_notes: audienceNotes,
         affinities,
         objectives
       },
@@ -229,12 +217,8 @@ export default class CampaignForm extends Component {
       affinities: affinities || {},
       age_range_female: ageRangeFemale || [18, 99],
       age_range_male: ageRangeMale || [18, 99],
-      average_order_value: averageOrderValue || '',
-      budget: budget || '',
-      pixel_notes: pixel_notes || '',
       campaign_url: campaignUrl || 'https://',
       campaign_type: FormUtils.buildEnumOption(campaignType, campaignTypeOptions),
-      conversion_rate: conversionRate || '',
       female_selected: !!ageRangeFemale,
       geography: geography ? FormUtils.buildOptions(geography) : [],
       geography_input: '',
@@ -245,13 +229,9 @@ export default class CampaignForm extends Component {
       contextual_targeting: contextualTargeting,
       brand_safety: brandSafety,
       targeting_notes: targetingNotes || '',
-      goal: goal ? FormUtils.buildOption(goal) : null,
-      household_income: householdIncome || [50, 500],
-      kpi: kpi ? FormUtils.buildOption(kpi) : null,
+      audience_notes: audienceNotes || '',
       male_selected: !!ageRangeMale,
       name: name || '',
-      target_cpa: targetCpa || '',
-      target_roas: targetRoas || '',
       current_step: currentStep || 1
     };
 
@@ -285,12 +265,8 @@ export default class CampaignForm extends Component {
       affinities_checked: affinitiesChecked,
       age_range_female: ageRangeFemale,
       age_range_male: ageRangeMale,
-      average_order_value: averageOrderValue,
-      budget,
-      pixel_notes,
       campaign_type: campaignType,
       campaign_url: campaignUrl,
-      conversion_rate: conversionRate,
       current_step: currentStep,
       female_selected: femaleSelected,
       geography,
@@ -302,13 +278,9 @@ export default class CampaignForm extends Component {
       contextual_targeting: contextualTargeting,
       brand_safety: brandSafety,
       targeting_notes: targetingNotes,
-      goal,
-      household_income: householdIncome,
-      kpi,
+      audience_notes: audienceNotes,
       male_selected: maleSelected,
       name,
-      target_cpa: targetCpa,
-      target_roas: targetRoas,
       validated,
       campaign: {
         objectives: objectives,
@@ -347,14 +319,13 @@ export default class CampaignForm extends Component {
         );
       case 3:
         return (
-          <CampaignAudienceFormFragment
+          <CampaignDemographicsFormFragment
             validated={validated}
             options={options}
             male_selected={maleSelected}
             female_selected={femaleSelected}
             age_range_male={ageRangeMale}
             age_range_female={ageRangeFemale}
-            household_income={householdIncome}
             geography={geography}
             geography_input={geographyInput}
             geo_fence={geo_fence}
@@ -378,10 +349,11 @@ export default class CampaignForm extends Component {
 
       case 4:
         return (
-          <CampaignAffinitiesFormFragment
+          <CampaignAudiencesFormFragment
             data_providers={dataProviders}
             affinities={affinities}
             affinities_checked={affinitiesChecked}
+            audience_notes={audienceNotes}
             onAffinityChecked={this.onAffinityChecked}
             handleCancel={this.handleCancel}
             handleSubmit={this.handleSubmit}
@@ -413,17 +385,8 @@ CampaignForm.propTypes = {
     affinities: PropTypes.objectOf(PropTypes.object),
     age_range_female: PropTypes.arrayOf(PropTypes.number),
     age_range_male: PropTypes.arrayOf(PropTypes.number),
-    average_order_value: PropTypes.number,
-    budget: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
     campaign_type: PropTypes.string,
     campaign_url: PropTypes.string,
-    conversion_rate: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
     geography: PropTypes.arrayOf(PropTypes.string),
     geo_fence: PropTypes.arrayOf(PropTypes.string),
     footfall_analysis: PropTypes.bool,
@@ -431,18 +394,9 @@ CampaignForm.propTypes = {
     contextual_targeting: PropTypes.bool,
     brand_safety: PropTypes.bool,
     targeting_notes: PropTypes.string,
-    goal: PropTypes.string,
-    household_income: PropTypes.arrayOf(PropTypes.number),
     id: PropTypes.number,
-    kpi: PropTypes.string,
     name: PropTypes.string,
     status: PropTypes.string,
-    target_cpa: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
-    target_roas: PropTypes.number,
-    pixel_notes: PropTypes.string,
   }).isRequired,
   current_step: PropTypes.number,
   hide_advertiser: PropTypes.bool,
