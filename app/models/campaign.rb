@@ -17,15 +17,17 @@ class Campaign < ApplicationRecord
   validates :campaign_url, http_url: true
 
   enum status: {
-    incomplete: 0,
-    pending: 1,
-    approved: 2
+    under_review: 0,
+    staging: 1,
+    active: 2,
+    paused: 3,
+    complete: 4
   }
   
   enum campaign_type: {
     pre_sales_media_plan: 0,
     managed_service_insertion_order: 1,
-    auto_setup: 2
+    self_service_auto_setup: 2
   }
 
   def budget

@@ -8,7 +8,7 @@ import FormUtils from '../../../common/FormUtils';
 
 const getSelectButtonClass = (selected) => (selected ? 'btn-primary-v2 slim no-focus' : 'btn-secondary-v2 slim no-focus');
 
-export default class CampaignAudienceFormFragment extends Component {
+export default class CampaignDemographicsFormFragment extends Component {
   constructor(props) {
     super(props);
 
@@ -44,7 +44,6 @@ export default class CampaignAudienceFormFragment extends Component {
       handleSubmit,
       handleSwitchChange,
       handleChange,
-      household_income: householdIncome,
       male_selected: maleSelected,
       onSelectButtonPressed,
       validated,
@@ -135,34 +134,6 @@ export default class CampaignAudienceFormFragment extends Component {
                     </div>
                   </div>
                 </Form.Group>
-                <Form.Group controlId="household_income">
-                  <Form.Label className="label-v2 default-position">Household Income</Form.Label>
-                  <div className="slider-group row col-8">
-                    <div className="before-label">
-                      <span>
-                        $
-                        {householdIncome[0]}
-                        K
-                      </span>
-                    </div>
-                    <Slider
-                      className="slider"
-                      value={householdIncome}
-                      min={50}
-                      max={500}
-                      name="household_income"
-                      valueLabelDisplay="off"
-                      onChange={(event, range) => handleRangeChange(event, range, 'household_income')}
-                    />
-                    <div className="after-label">
-                      <span>
-                        $
-                        {householdIncome[1]}
-                        K
-                      </span>
-                    </div>
-                  </div>
-                </Form.Group>
                 <Form.Group controlId="geography">
                   <Form.Label className="label-v2">Geography</Form.Label>
                   <CreatableSelect
@@ -219,15 +190,6 @@ export default class CampaignAudienceFormFragment extends Component {
                     onChange={(value) => handleSwitchChange(value, { name: 'crm_data' })}
                   />
                 </Form.Group>
-                <Form.Group controlId="contextual_targeting">
-                  <Form.Label className="label-v2 default-position">Contextual Targeting</Form.Label>
-                  <Form.Switch
-                    type="switch"
-                    id="contextual_targeting"
-                    defaultChecked={contextualTargeting}
-                    onChange={(value) => handleSwitchChange(value, { name: 'contextual_targeting' })}
-                  />
-                </Form.Group>
                 <Form.Group controlId="brand_safety">
                   <Form.Label className="label-v2 default-position">Brand Safety</Form.Label>
                   <Form.Switch
@@ -237,8 +199,17 @@ export default class CampaignAudienceFormFragment extends Component {
                     onChange={(value) => handleSwitchChange(value, { name: 'brand_safety' })}
                   />
                 </Form.Group>
+                <Form.Group controlId="contextual_targeting">
+                  <Form.Label className="label-v2 default-position">Contextual Targeting</Form.Label>
+                  <Form.Switch
+                    type="switch"
+                    id="contextual_targeting"
+                    defaultChecked={contextualTargeting}
+                    onChange={(value) => handleSwitchChange(value, { name: 'contextual_targeting' })}
+                  />
+                </Form.Group>
                 <Form.Group controlId="targeting_notes">
-                   <Form.Label className="label-v2 default-position">Targeting Notes</Form.Label>
+                   <Form.Label className="label-v2 default-position">Demographic Notes</Form.Label>
                    <Form.Control
                      className="input-v2 textarea"
                      name="targeting_notes"
@@ -263,7 +234,7 @@ export default class CampaignAudienceFormFragment extends Component {
   }
 }
 
-CampaignAudienceFormFragment.propTypes = {
+CampaignDemographicsFormFragment.propTypes = {
   age_range_female: PropTypes.arrayOf(PropTypes.number),
   age_range_male: PropTypes.arrayOf(PropTypes.number),
   female_selected: PropTypes.bool,
@@ -290,13 +261,12 @@ CampaignAudienceFormFragment.propTypes = {
   handleSwitchChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
-  household_income: PropTypes.arrayOf(PropTypes.number),
   male_selected: PropTypes.bool,
   onSelectButtonPressed: PropTypes.func.isRequired,
   validated: PropTypes.bool,
 };
 
-CampaignAudienceFormFragment.defaultProps = {
+CampaignDemographicsFormFragment.defaultProps = {
   age_range_female: [],
   age_range_male: [],
   female_selected: false,
@@ -309,7 +279,6 @@ CampaignAudienceFormFragment.defaultProps = {
   contextual_targeting: false,
   brand_safety: false,
   targeting_notes: '',
-  household_income: [],
   male_selected: false,
   validated: undefined,
 };

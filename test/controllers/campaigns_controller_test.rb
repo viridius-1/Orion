@@ -188,7 +188,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_equal true, assigns(:campaign).persisted?
-    assert_equal "pending", assigns(:campaign).status
+    assert_equal "under_review", assigns(:campaign).status
   end
 
   test 'only allows flight params on campaign create' do

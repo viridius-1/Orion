@@ -7,7 +7,7 @@ class CampaignTest < ActiveSupport::TestCase
     campaign = Campaign.new(valid_flight_attributes)
     
     assert campaign.save(context: :flight)
-    assert campaign.status == "incomplete"
+    assert campaign.status == "under_review"
   end
 
   test 'should not save campaign with a blank name' do

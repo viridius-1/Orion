@@ -28,7 +28,7 @@ class CampaignsController < ApplicationController
   end
 
   def create
-    @campaign.status = :pending
+    @campaign.status = :under_review
     @campaign.assign_attributes(flight_params)
     if @campaign.save(context: :flight)
       render json: @campaign.as_json(include: :objectives)
@@ -113,7 +113,6 @@ class CampaignsController < ApplicationController
     params.require(:campaign).permit(
       { age_range_male: [] },
       { age_range_female: [] },
-      { household_income: []},
       { geography: [] },
       { geo_fence: [] },
       :footfall_analysis,
@@ -126,6 +125,7 @@ class CampaignsController < ApplicationController
 
   def audiences_params
     params.require(:campaign).permit(
+      :audience_notes,
       affinities: {}
     )
   end

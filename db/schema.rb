@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_16_142043) do
+ActiveRecord::Schema.define(version: 2022_02_24_013410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,11 +62,9 @@ ActiveRecord::Schema.define(version: 2022_02_16_142043) do
     t.string "geography"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.float "coversion_rate"
     t.integer "advertiser_id"
     t.integer "age_range_male", array: true
     t.integer "age_range_female", array: true
-    t.integer "household_income", array: true
     t.jsonb "affinities"
     t.integer "status", default: 0, null: false
     t.string "languages"
@@ -78,6 +76,7 @@ ActiveRecord::Schema.define(version: 2022_02_16_142043) do
     t.boolean "brand_safety", default: false, null: false
     t.text "targeting_notes"
     t.integer "campaign_type", default: 0, null: false
+    t.text "audience_notes"
   end
 
   create_table "connections", force: :cascade do |t|

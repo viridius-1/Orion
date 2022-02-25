@@ -6,6 +6,7 @@ first:
   contextual_targeting: true
   brand_safety: true
   targeting_notes: "targeting notes"
+  audience_notes: "audience notes"
   geography: ["Europe", "Hello"]
   geo_fence: ["geo", "fence"]
   created_at: "2022-01-21 20:18:38"
@@ -13,7 +14,6 @@ first:
   advertiser: first
   age_range_male: [18, 99]
   age_range_female: [18, 99]
-  household_income: [50, 500]
   affinities: |
     { 
       "10401" => {
@@ -22,6 +22,6 @@ first:
         "description"=>"Household specific information about current vehicle or likely next vehicle"
       }
     }
-  status: "pending"
+  status: :under_review
   languages: nil
   budget_used: nil
