@@ -356,6 +356,7 @@ export default class CampaignForm extends Component {
             audience_notes={audienceNotes}
             onAffinityChecked={this.onAffinityChecked}
             handleCancel={this.handleCancel}
+            handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
             onCloseAffinity={this.onCloseAffinity}
           />

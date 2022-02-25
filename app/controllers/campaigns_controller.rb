@@ -125,8 +125,8 @@ class CampaignsController < ApplicationController
 
   def audiences_params
     params.require(:campaign).permit(
-      { affinities: {} },
-      :audience_notes
+      :audience_notes,
+      affinities: {}
     )
   end
 
