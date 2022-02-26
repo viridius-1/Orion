@@ -4,8 +4,35 @@ first:
   goal: 'Reach'
   kpi: 'Impressions'
   budget: 20000
+  start_date: <%= Date.yesterday %>
+  end_date: <%= Date.tomorrow %>
   impressions: 24000
   frequency: 7000
   unique_reach: 50
   objective_notes: Some notes about the objective
-  
+
+second:
+  campaign: first
+  media_channel: 'CTV/OTT'
+  goal: 'Reach'
+  kpi: 'Impressions'
+  budget: 5000
+  start_date: <%= Date.today - 10.days %>
+  end_date: <%= Date.tomorrow %>
+  impressions: 24000
+  frequency: 7000
+  unique_reach: 50
+  objective_notes: Some notes about the objective
+
+vcr:
+  campaign: first
+  media_channel: 'In-Email Display'
+  goal: 'Awareness'
+  kpi: 'Video Completion Rate (VCR)'
+  budget: 10000
+  start_date: <%= Date.yesterday %>
+  end_date: <%= Date.today + 10.days %>
+  video_plays: 230_000
+  video_completion_rate: 48
+  objective_notes: Some notes about the objective
+
