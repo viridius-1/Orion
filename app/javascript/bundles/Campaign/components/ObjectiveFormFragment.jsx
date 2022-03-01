@@ -449,6 +449,19 @@ export default class ObjectiveFormFragment extends Component {
             />
         </Form.Group>
         }
+        {objective.kpi &&
+        <Form.Group controlId="objective_notes">
+          <Form.Label className="label-v2 default-position">Objective Notes</Form.Label>
+          <Form.Control
+            className="input-v2 textarea"
+            name="objective_notes"
+            type="text"
+            as="textarea"
+            onChange={this.handleChange}
+            value={objective.objective_notes || ''}
+          />
+          </Form.Group>
+        }
       </OrionForm>
     )
   }

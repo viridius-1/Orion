@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_24_013410) do
+ActiveRecord::Schema.define(version: 2022_02_26_115540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 2022_02_24_013410) do
     t.text "pixel_notes"
     t.string "media_channel"
     t.string "frequency_unit"
+    t.text "objective_notes"
     t.index ["campaign_id"], name: "index_objectives_on_campaign_id"
   end
 

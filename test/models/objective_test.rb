@@ -59,6 +59,7 @@ class ObjectiveTest < ActiveSupport::TestCase
       media_channel: 'CTV/OTT',
       goal: 'Reach',
       kpi: 'Impressions',
+      objective_notes: 'This is an objective',
       budget: 20000,
       impressions: 24,
       frequency: 70,
