@@ -13,7 +13,7 @@ export default class CampaignDetailsComponent extends Component {
       {
         Component: this.campaignAudienceTab, // Tab Component
         index: 0, // Tab index
-        label: 'Campaign Audience', // Tab title
+        label: 'Campaign Targeting', // Tab title
       },
       {
         Component: this.campaignGoalsTab,
