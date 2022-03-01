@@ -71,10 +71,7 @@ class CampaignTest < ActiveSupport::TestCase
           goal: 'Reach',
           kpi: 'Impressions',
           budget: 20000,
-          impressions: 24,
-          frequency: 70,
-          frequency_unit: 'Day',
-          unique_reach: 50,
+          desired_dcpm: 10000,
           start_date: Date.today,
           end_date: Date.tomorrow
         }
