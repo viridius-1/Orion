@@ -11,7 +11,7 @@ class Campaign < ApplicationRecord
   
   belongs_to :advertiser
   has_many :objectives, dependent: :destroy
-  accepts_nested_attributes_for :objectives, allow_destroy: true
+  accepts_nested_attributes_for :objectives
 
   validates :name, presence: true
   validates :campaign_url, http_url: true

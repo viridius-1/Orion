@@ -43,9 +43,28 @@ export default class CampaignGoalsFormFragment extends Component {
       objectives: objectives
     } = this.props
 
-    const objective = objectives[event.target.value]
-    objective._destroy = '1'
-    this.forceUpdate()
+    const objectiveIndex = event.target.value
+    const objective = objectives[objectiveIndex]
+
+    const requestOptions = {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'DELETE',
+    };
+
+    const deleteObjectiveUrl = `/objectives/${objective.id}`
+
+    if (objective.id) {
+      fetch(deleteObjectiveUrl, requestOptions)
+      .then((response) => {
+        if (response.ok){
+          objectives.splice(objectiveIndex, 1)
+          this.forceUpdate()
+        }
+      });
+    } else {
+      objectives.splice(objectiveIndex, 1)
+      this.forceUpdate()
+    }
   }
 
   render() {
