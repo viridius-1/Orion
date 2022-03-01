@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_26_115540) do
+ActiveRecord::Schema.define(version: 2022_03_05_094302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2022_02_26_115540) do
     t.string "geography"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "coversion_rate"
     t.integer "advertiser_id"
     t.integer "age_range_male", array: true
     t.integer "age_range_female", array: true
@@ -90,11 +91,7 @@ ActiveRecord::Schema.define(version: 2022_02_26_115540) do
   create_table "objectives", force: :cascade do |t|
     t.string "goal"
     t.string "kpi"
-    t.integer "impressions"
-    t.integer "frequency"
-    t.integer "unique_reach"
     t.decimal "target_ctr"
-    t.integer "video_plays"
     t.decimal "video_completion_rate"
     t.integer "conversions"
     t.integer "target_conversion_rate"
@@ -109,8 +106,8 @@ ActiveRecord::Schema.define(version: 2022_02_26_115540) do
     t.datetime "updated_at", precision: 6, null: false
     t.text "pixel_notes"
     t.string "media_channel"
-    t.string "frequency_unit"
     t.text "objective_notes"
+    t.decimal "desired_dcpm"
     t.index ["campaign_id"], name: "index_objectives_on_campaign_id"
   end
 

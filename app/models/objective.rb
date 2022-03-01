@@ -16,23 +16,23 @@ class Objective < ApplicationRecord
   validate :valid_date_range
 
   with_options if: -> (objective) { objective.kpi == "Impressions" } do
-    validates :budget, :impressions, :frequency, :frequency_unit, :unique_reach, presence: true
+    validates :budget, :desired_dcpm, presence: true
   end
 
   with_options if: -> (objective) { objective.kpi == "Click Through Rate (CTR)" } do
-    validates :budget, :impressions, :target_ctr, presence: true
+    validates :budget, :desired_dcpm, :target_ctr, presence: true
   end
 
   with_options if: -> (objective) { objective.kpi == "Video Completion Rate (VCR)" } do
-    validates :budget, :video_plays, :video_completion_rate, presence: true
+    validates :budget, :desired_dcpm, :video_completion_rate, presence: true
   end
 
   with_options if: -> (objective) { objective.kpi == "Cost Per Acquisition (CPA)" } do
-    validates :budget, :impressions, :conversions, :target_conversion_rate, presence: true
+    validates :budget, :desired_dcpm, :conversions, :target_conversion_rate, presence: true
   end
 
   with_options if: -> (objective) { objective.kpi == "Return on Ad Spend (ROAS)" } do
-    validates :budget, :impressions, :conversions, :target_conversion_rate,
+    validates :budget, :desired_dcpm, :conversions, :target_conversion_rate,
               :target_cpa, :average_order_value, :target_roas, presence: true
   end
  
@@ -60,5 +60,11 @@ class Objective < ApplicationRecord
     return unless start_date && end_date && start_date > end_date
 
     errors.add(:end_date, "must be after start date")
+  end
+
+  def impressions
+    return nil unless budget && desired_dcpm
+
+    (budget / desired_dcpm * 1000).round(0)
   end
 end
