@@ -6,14 +6,6 @@ import { moneyFormatter } from '../../common/utils';
 import LinkButton from '../../components/LinkButton';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 
-function statusFormatter(status) {
-  return (
-    <div style={{ display: 'flex' }}>
-      <span className={`dot ${statusColor[status]}`} />
-    </div>
-  );
-}
-
 function budgetFormatter(budget) {
   return moneyFormatter(budget);
 }
@@ -33,8 +25,7 @@ export default class CampaignIndexComponent extends Component {
     this.columns = [
       {
         dataField: 'status',
-        formatter: statusFormatter,
-        headerStyle: () => ({ width: '84px' }),
+        headerStyle: () => ({ width: '120px' }),
         sort: true,
         sortCaret: getSortCaret,
         text: 'Status',
@@ -65,10 +56,10 @@ export default class CampaignIndexComponent extends Component {
         text: 'Total Budget',
       },
       {
-        dataField: 'goal',
+        dataField: 'goals',
         sort: true,
         sortCaret: getSortCaret,
-        text: 'Goal',
+        text: 'Goal(s)',
       },
     ];
 
@@ -97,10 +88,12 @@ export default class CampaignIndexComponent extends Component {
       status,
       name,
       budget,
-      goal,
+      flight,
+      goals,
     }) => ({
       budget,
-      goal,
+      flight,
+      goals,
       link: `/campaigns/${id}`,
       name,
       status,

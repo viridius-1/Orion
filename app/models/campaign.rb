@@ -33,4 +33,12 @@ class Campaign < ApplicationRecord
   def budget
     objectives.filter(&:budget).sum(&:budget)
   end
+
+  def flight
+    "#{objectives.map(&:start_date).min&.to_s(:mdy)} - #{objectives.map(&:end_date).max&.to_s(:mdy)}"
+  end
+
+  def goals
+    objectives.map(&:goal).sort.uniq.join(', ')
+  end
 end
