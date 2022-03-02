@@ -36,6 +36,12 @@ class CampaignTest < ActiveSupport::TestCase
     assert campaign.save
   end
 
+  test 'should not save campaign on objectives step with no objectives' do
+    campaign = Campaign.new(valid_flight_attributes)
+
+    assert_not campaign.save(context: :objectives)
+  end
+
   test 'budget should return sum of all objectives budgets' do
     campaign = campaigns(:first)
 
