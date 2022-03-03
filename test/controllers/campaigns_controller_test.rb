@@ -346,6 +346,26 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     assert_equal assigns(:campaign), campaigns(:first)
   end
 
+  test 'should update action items' do
+    sign_in users(:advertiser_user)
+
+    put "/campaigns/#{campaigns(:first).id}/action_items",
+          params: { campaign: { footfall_analysis_text: 'Updated' } }
+    
+    assert_response :redirect
+    assert_equal "Updated", assigns(:campaign).reload.footfall_analysis_text
+  end
+
+  test 'should send email and redirect on action items complete' do
+    sign_in users(:advertiser_user)
+    
+    assert_emails 1 do
+      get "/campaigns/#{campaigns(:first).id}/complete_action_items"
+    end
+    
+    assert_redirected_to vendor_campaigns_path(vendor_id: campaigns(:first).advertiser_id)
+  end
+
   # Helpers
 
   def create_params

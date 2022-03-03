@@ -32,4 +32,12 @@ class CampaignMailer < ApplicationMailer
          subject: "New campaign was submitted",
          from: 'Version2 Strategy <strategy@theversion2.com>')
   end
+
+  def action_items_completed(campaign)
+    @campaign = campaign
+    
+    mail(to: 'strategy@theversion2.com',
+      subject: "Action items completed",
+      from: 'Version2 Strategy <strategy@theversion2.com>')
+  end
 end

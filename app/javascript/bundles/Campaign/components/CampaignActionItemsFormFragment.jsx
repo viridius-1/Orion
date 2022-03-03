@@ -37,47 +37,47 @@ export default class CampaignActionItemsFormFragment extends Component {
     return initialState;
   }
 
-  completeActionItems = (event) => {
-    const {
-      campaign_id
-    } = this.state;
-    
-    console.log(event.currentTarget);
-    
-    const requestOptions = {
-      headers: { 'Content-Type': 'application/json' },
-      method: 'GET'
-    };
-
-    const completeActionItems = `/campaigns/${campaign_id}/complete_action_items`
-
-    fetch(completeActionItems, requestOptions)
-      .then((response) => {
-        if (response.redirected) {
-          window.location.href = response.url;
-        } 
-      });
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-
-    const form = event.currentTarget;
-
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
-      this.setState({ validated: true });
-    } else {
-      this._submitForm(event);
-    }
-  }
-
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
 
   handleChangeCheckbox = (event) => {
     this.setState({ [event.target.name]: event.target.checked })
+  }
+
+  handleComplete = (event) => {
+    event.preventDefault();
+    this._submitComplete(event);
+  }
+
+  _submitComplete(event) {
+    const {
+      campaign_id
+    } = this.state;
+
+    const form = event.currentTarget;  
+    const completeActionItems = `/campaigns/${campaign_id}/complete_action_items`
+    const requestOptions = {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'GET'
+    };
+
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+      this.setState({ validated: true });
+    } else {
+      fetch(completeActionItems, requestOptions)
+        .then((response) => {
+          if (response.redirected) {
+            window.location.href = response.url;
+          } 
+        });
+    }
+  }
+
+  handleSave = (event) => {
+    event.preventDefault();
+    this._submitForm(event);
   }
 
   _submitForm(event) {
@@ -151,7 +151,7 @@ export default class CampaignActionItemsFormFragment extends Component {
                     noValidate
                     id={this.formId}
                     validated={validated}
-                    onSubmit={this.handleSubmit}
+                    onSubmit={this.handleComplete}
                   >
                     {footfall_analysis && 
                       <Form.Group controlId="footfall_analysis_text" className="col-md-6">
@@ -225,8 +225,8 @@ export default class CampaignActionItemsFormFragment extends Component {
                       </Form.Group>
                     }
                     <div className="form-group col-md-6">
-                      <button className="btn btn-secondary-v2" type="submit">Save</button>
-                      <button className="btn btn-primary-v2 float-right" onClick={this.completeActionItems} type="button" style={{ width: '61%' }}>Complete</button>
+                      <button className="btn btn-secondary-v2" type="button" onClick={this.handleSave}>Save</button>
+                      <button className="btn btn-primary-v2 float-right" type="submit" style={{ width: '61%' }}>Complete</button>
                     </div>
                   </Form>
                 </ul>
