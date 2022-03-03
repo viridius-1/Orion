@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_24_013410) do
+ActiveRecord::Schema.define(version: 2022_03_02_172210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2022_02_24_013410) do
     t.string "geography"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "coversion_rate"
     t.integer "advertiser_id"
     t.integer "age_range_male", array: true
     t.integer "age_range_female", array: true
@@ -77,6 +78,10 @@ ActiveRecord::Schema.define(version: 2022_02_24_013410) do
     t.text "targeting_notes"
     t.integer "campaign_type", default: 0, null: false
     t.text "audience_notes"
+    t.text "footfall_analysis_text"
+    t.boolean "crm_data_checked", default: false
+    t.text "brand_safety_text"
+    t.text "contextual_targeting_text"
   end
 
   create_table "connections", force: :cascade do |t|

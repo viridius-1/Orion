@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { statusColor, statusLabel } from '../../constants';
 import { formatRange, moneyFormatter } from '../../common/utils';
 import AffinitiesList from '../../components/AffinitiesList';
+import CampaignActionItemsFormFragment from './components/CampaignActionItemsFormFragment';
+
 
 export default class CampaignDetailsComponent extends Component {
   constructor(props) {
@@ -11,26 +13,81 @@ export default class CampaignDetailsComponent extends Component {
 
     this.tabs = [
       {
-        Component: this.campaignAudienceTab, // Tab Component
-        index: 0, // Tab index
-        label: 'Campaign Targeting', // Tab title
+        Component: this.campaignAudienceTab,
+        index: 1,
+        label: 'Campaign Targeting',
       },
       {
         Component: this.campaignGoalsTab,
-        index: 1,
+        index: 2,
         label: 'Goals',
       },
     ];
+
+    this.actionItemsNeeded(this.tabs);
 
     this.state = {
       selectedTab: 0,
     };
   }
 
+  actionItemsNeeded(tabs) {
+    const {
+      campaign: {
+        footfall_analysis,
+        crm_data,
+        brand_safety,
+        contextual_targeting
+      },
+    } = this.props;
+
+    const itemsValue = [footfall_analysis, crm_data, brand_safety, contextual_targeting];
+    
+    if(itemsValue.some(v => v === true)) {
+      tabs.unshift({
+        Component: this.campaingActionItem, // Tab Component
+        index: 0, // Tab index
+        label: 'Action Items', // Tab title
+      })
+    }
+  }
+
   setSelectedTab(index) {
     this.setState({
       selectedTab: index,
     });
+  }
+
+  campaingActionItem = () => {
+    const {
+      campaign: {
+        id,
+        footfall_analysis,
+        crm_data,
+        brand_safety,
+        contextual_targeting,
+        footfall_analysis_text,
+        crm_data_checked,
+        brand_safety_text,
+        contextual_targeting_text,
+      },
+      token
+    } = this.props;
+
+    return (
+      <CampaignActionItemsFormFragment
+        footfallAnalysis={footfall_analysis}
+        crmData={crm_data}
+        brandSafety={brand_safety}
+        contextualTargeting={contextual_targeting}
+        footfallAnalysisText={footfall_analysis_text}
+        crmDataChecked={crm_data_checked}
+        brandSafetyText={brand_safety_text}
+        contextualTargetingText={contextual_targeting_text}
+        campaignId={id}
+        token={token}
+      />
+    );
   }
 
   campaignGoalsTab = () => {

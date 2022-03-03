@@ -19,7 +19,12 @@ Rails.application.routes.draw do
 
   resources :dashboard, only: :index
 
-  resources :campaigns, only: [:new, :create]
+  resources :campaigns, only: [:new, :create] do
+    member do
+      put :action_items
+      get :complete_action_items
+    end
+  end
 
   resources :agencies, shallow: true do
     resources :vendors, controller: 'advertisers' do
