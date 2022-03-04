@@ -16,6 +16,8 @@ class Campaign < ApplicationRecord
   validates :name, presence: true
   validates :campaign_url, http_url: true
 
+  validates :objectives, length: { minimum: 1, message: "You need to define at least one objective" }, on: :objectives
+
   enum status: {
     under_review: 0,
     staging: 1,
