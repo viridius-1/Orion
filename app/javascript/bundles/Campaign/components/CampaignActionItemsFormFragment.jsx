@@ -140,6 +140,8 @@ export default class CampaignActionItemsFormFragment extends Component {
       validated
     } = this.state;
 
+    const liverampLink = <a href="https://sso.liveramp.com/" target="_blank">Liveramp</a>
+
     return (  
       <div style={{ padding: '0 40px' }}>
         <div className="row">
@@ -173,7 +175,7 @@ export default class CampaignActionItemsFormFragment extends Component {
                     }
                     {crm_data &&
                       <Form.Group controlId="crm_data_checked" className="col-md-6">
-                        <Form.Label className="label-v2 default-position"><li>CRM Data -  Please upload your 1st party data into Liveramp through the Data Onboarding tab. If you don't have a Liveramp account, your Version2 campaign specialist will create one for you following the completion of your first submitted Self Service Auto Setup. To upload your 1st party data, remember to include your campaign name and description of the audience in the document title. Please format your document like this.</li></Form.Label>
+                        <Form.Label className="label-v2 default-position crm-data-label">CRM Data -  Please upload your 1st party data into {liverampLink}  through the Data Onboarding tab. If you don't have a {liverampLink} account, your Version2 campaign specialist will create one for you following the completion of your first submitted Self Service Auto Setup. To upload your 1st party data, remember to include your campaign name and description of the audience in the document title. Please format your document like <a href="/LiveRamp.csv">this</a>.</Form.Label>
                         <Form.Check 
                           type="checkbox" 
                           id="crm_data"
