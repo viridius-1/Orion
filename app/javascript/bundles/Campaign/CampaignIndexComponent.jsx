@@ -43,6 +43,12 @@ export default class CampaignIndexComponent extends Component {
         text: 'Flight',
       },
       {
+        dataField: 'campaign_type',
+        sort: true,
+        sortCaret: getSortCaret,
+        text: 'Campaign Activation',
+      },
+      {
         dataField: 'budget',
         formatter: budgetFormatter,
         headerStyle: () => ({ textAlign: 'center' }),
@@ -89,10 +95,12 @@ export default class CampaignIndexComponent extends Component {
       name,
       budget,
       flight,
+      campaign_type,
       goals,
     }) => ({
       budget,
       flight,
+      campaign_type,
       goals,
       link: `/campaigns/${id}`,
       name,
