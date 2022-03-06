@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 2022_03_02_172210) do
     t.text "pixel_notes"
     t.string "media_channel"
     t.string "frequency_unit"
+    t.text "objective_notes"
     t.index ["campaign_id"], name: "index_objectives_on_campaign_id"
   end
 

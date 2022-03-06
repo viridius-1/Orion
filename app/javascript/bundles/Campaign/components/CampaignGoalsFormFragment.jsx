@@ -43,9 +43,28 @@ export default class CampaignGoalsFormFragment extends Component {
       objectives: objectives
     } = this.props
 
-    const objective = objectives[event.target.value]
-    objective._destroy = '1'
-    this.forceUpdate()
+    const objectiveIndex = event.target.value
+    const objective = objectives[objectiveIndex]
+
+    const requestOptions = {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'DELETE',
+    };
+
+    const deleteObjectiveUrl = `/objectives/${objective.id}`
+
+    if (objective.id) {
+      fetch(deleteObjectiveUrl, requestOptions)
+      .then((response) => {
+        if (response.ok){
+          objectives.splice(objectiveIndex, 1)
+          this.forceUpdate()
+        }
+      });
+    } else {
+      objectives.splice(objectiveIndex, 1)
+      this.forceUpdate()
+    }
   }
 
   render() {
@@ -53,6 +72,7 @@ export default class CampaignGoalsFormFragment extends Component {
       average_order_value: averageOrderValue,
       budget,
       conversion_rate: conversionRate,
+      errors: campaignErrors,
       goal,
       handleCancel,
       handleChange,
@@ -77,6 +97,9 @@ export default class CampaignGoalsFormFragment extends Component {
           <div className="col-lg-7 col-md-12">
             <div className="form-v2">
               <Accordion key="ObjectivesAccordion" activeKey={activeTab} className="mb-3" onSelect={this.changeSelected}>
+                { campaignErrors && campaignErrors.objectives &&
+                  <div className="error-color">{campaignErrors.objectives}</div>
+                }
                 {objectives.map((objective, i) => (
                   !objective._destroy &&
                   <Card key={`card-objective-${i}`} style={{overflow: 'visible'}}>
@@ -136,6 +159,7 @@ CampaignGoalsFormFragment.propTypes = {
     PropTypes.number,
     PropTypes.string,
   ]),
+  errors: PropTypes.object,
   goal: PropTypes.shape({
     label: PropTypes.string,
     value: PropTypes.string,

@@ -270,6 +270,7 @@ export default class CampaignDetailsComponent extends Component {
       campaign: {
         status,
         campaign_url: campaignUrl,
+        flight
       },
     } = this.props;
 
@@ -290,7 +291,17 @@ export default class CampaignDetailsComponent extends Component {
           <div className="col-4 grid-item">
             <div className="details-card">
               <h6>Destination URL</h6>
-              <p>{campaignUrl}</p>
+              <div style={{ display: 'inline-flex' }}>
+                <p>{campaignUrl}</p>
+              </div>
+            </div>
+          </div>
+          <div className="col-4 grid-item">
+            <div className="details-card">
+              <h6>Flight</h6>
+              <div style={{ display: 'inline-flex' }}>
+                <p>{flight}</p>
+              </div>
             </div>
           </div>
         </div>

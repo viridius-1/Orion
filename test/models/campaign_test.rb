@@ -36,27 +36,29 @@ class CampaignTest < ActiveSupport::TestCase
     assert campaign.save
   end
 
-  test 'should destroy objectives with _destroy key in attributes' do
-    campaign = campaigns(:first)
+  test 'should not save campaign on objectives step with no objectives' do
+    campaign = Campaign.new(valid_flight_attributes)
 
-    campaign.assign_attributes({
-      objectives_attributes: [
-        {
-          id: objectives(:first).id,
-          _destroy: 1
-        }
-      ]
-    })
-
-    campaign.save(context: :objectives)
-
-    assert_equal 0, campaigns(:first).objectives.count
+    assert_not campaign.save(context: :objectives)
   end
 
   test 'budget should return sum of all objectives budgets' do
     campaign = campaigns(:first)
 
-    assert_equal 20000, campaign.budget
+    assert_equal 35000, campaign.budget
+  end
+
+  test 'flight should return earliest objective start date - latest objective end date' do
+    campaign = campaigns(:first)
+
+    assert_equal "#{(Date.today - 10.days).to_s(:mdy)} - #{(Date.today + 10.days).to_s(:mdy)}",
+                 campaigns(:first).flight
+  end
+
+  test 'goals should return all the goals separated by "," without repeating' do
+    campaign = campaigns(:first)
+
+    assert_equal 'Awareness, Reach', campaign.goals
   end
 
   def valid_flight_attributes

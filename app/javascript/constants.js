@@ -1,19 +1,25 @@
 const status = {
-  APPROVED: 'approved',
-  COMPLETE: 'complete',
-  PENDING_APPROVAL: 'pending_approval',
+  UNDER_REVIEW: 'under_review',
+  STAGING: 'staging',
+  ACTIVE: 'active',
+  PAUSED: 'paused',
+  COMPLETE: 'complete'
 };
 
 const statusLabel = {
-  [status.APPROVED]: 'Approved',
-  [status.COMPLETE]: 'Complete',
-  [status.PENDING_APPROVAL]: 'Pending Approval',
+  [status.UNDER_REVIEW]: 'Under Review',
+  [status.STAGING]: 'Staging',
+  [status.ACTIVE]: 'Active',
+  [status.PAUSED]: 'Paused',
+  [status.COMPLETE]: 'Complete'
 };
 
 const statusColor = {
-  [status.APPROVED]: 'green',
-  [status.COMPLETE]: 'red',
-  [status.PENDING_APPROVAL]: 'orange',
+  [status.UNDER_REVIEW]: 'orange',
+  [status.STAGING]: 'orange',
+  [status.ACTIVE]: 'green',
+  [status.PAUSED]: 'red',
+  [status.COMPLETE]: 'green'
 };
 
 export {

@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       get :complete_action_items
     end
   end
+  
+  resources :objectives, only: :destroy
 
   resources :agencies, shallow: true do
     resources :vendors, controller: 'advertisers' do

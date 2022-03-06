@@ -11,10 +11,12 @@ class Campaign < ApplicationRecord
   
   belongs_to :advertiser
   has_many :objectives, dependent: :destroy
-  accepts_nested_attributes_for :objectives, allow_destroy: true
+  accepts_nested_attributes_for :objectives
 
   validates :name, presence: true
   validates :campaign_url, http_url: true
+
+  validates :objectives, length: { minimum: 1, message: "You need to define at least one objective" }, on: :objectives
 
   enum status: {
     under_review: 0,
@@ -32,5 +34,13 @@ class Campaign < ApplicationRecord
 
   def budget
     objectives.filter(&:budget).sum(&:budget)
+  end
+
+  def flight
+    "#{objectives.map(&:start_date).min&.to_s(:mdy)} - #{objectives.map(&:end_date).max&.to_s(:mdy)}"
+  end
+
+  def goals
+    objectives.map(&:goal).sort.uniq.join(', ')
   end
 end
