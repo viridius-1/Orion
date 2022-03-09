@@ -1,9 +1,8 @@
-
-- if notice || alert
+- flash.each do |type, message|
   .container-fluid
     .row
       .col-12
-        - if notice
-          .alert.alert-primary = notice
-        - if alert
-          .alert.alert-danger = alert
+        div class="alert #{flash_class(type)}"
+          = message
+          button type="button" class="close" data-dismiss="alert" aria-label="Close"
+            span aria-hidden="true" &times;
