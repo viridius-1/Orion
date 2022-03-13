@@ -4,9 +4,8 @@
   font-weight: 400
   font-size: 14px
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
-  height: 50px
   border-radius: 8px
-  padding: 10px 20px
+  padding: 11px 20px
   color: white
   border: none
 
@@ -15,16 +14,17 @@
     padding-right: 8px
     vertical-align: middle
 
+.ht-50
+  height: 50px
 
 .btn-secondary-v2
   color: $purple-2
   background: white
   font-weight: 400
   font-size: 14px
-  height: 50px
   width: 36%
   border-radius: 8px
-  padding: 10px 13px 10px 13px
+  padding: 10px 20px
   border: 1px solid $purple-2
 
 .btn-secondary-v2.btn-drawer
@@ -385,55 +385,133 @@
     .details-card.more-details
       padding: 0px
 
+  .dzu-dropzone
+    height: auto
+    border: 3px dashed #e0eafc
+    margin: 10px
+    overflow: hidden
+    width: auto
+    .drag-area
+      height: 100%
+      width: 100%
+      display: flex
+      align-items: center
+      justify-content: center
+      flex-direction: column
+      padding: 10px
+    h3
+      margin-bottom: 20px
+      font-weight: 500
+    .drag-area .icon
+      font-size: 50px
+      color: #1683ff
+    .drag-area .header
+      font-size: 20px
+      font-weight: 500
+      color: #34495e
+    .drag-area .support
+      font-size: 12px
+      color: gray
+      margin: 10px 0 15px 0
+    .drag-area .button
+      font-size: 20px
+      font-weight: 500
+      color: #1683ff
+      cursor: pointer
+    .drag-area .active
+      border: 2px solid #1683ff
+  .file-upload
+    .creatives
+      display: flex
+      flex-direction: row
+      flex-wrap: wrap
+      padding-left: 10px
+      .file
+        width: 200px
+        height: 177px
+        display: unset
+        justify-content: center
+        position: relative
+        border: #BBBBBB 1px solid
+        margin: 5px
+        background: #f1f1f1
+        .remove-file
+          display: inline
+          position: absolute
+          top: 0
+          right: 0
+          font-size: 15px
+          color: #555
+          padding: 3px
+          margin: 2px
+          border-radius: 20px
+          text-align: center
+          width: 21px
+          height: 21px
+          cursor: pointer
+          z-index: 1
+        .remove-file:hover
+          background: #7B8094
+          color: white
+        .remove-file:active
+          background: #999999
+        .icon
+          width: 100%
+          height: 150px
+          img
+            width: 100%
+            height: 100%
+          span
+            width: 100%
+            height: 100%
+            display: flex
+            align-items: center
+            justify-content: center
+            font-size: 40px
+            color: white
+          .mustard
+            background: #FFDB58
+          .red
+            background: #dc3545
+          .blue
+            background: #1683ff
+            background: #1683ff
+        .details
+          background: white
+          height: 25px
+          text-align: center
+          word-break: break-all
+          font-size: 12px
+          padding: 2px
+          cursor: default
+          border-top: #BBBBBB 1px solid
+
+
+
+
   .tabs-component
     div[role=tablist]
       border-bottom: 1px solid #D9D9D9
       background: transparent
 
-    button
-      background: transparent
-      height: 50px
-      border-top: none
-      border-bottom: none
-      border-left: none
-      border-right: 1px solid #D9D9D9
-      padding: 16px 28px
-      color: $gray-1
-
-    button:focus
-      outline: none
-
-    button.active
-      border-bottom: 4px solid $purple
-      font-weight: bold
-      color: $gray-2
-    button.btn-primary-v2
-        background: $purple-gradient-linear
-        font-weight: 400
-        font-size: 14px
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
+    .nav-item
+      button
+        background: transparent
         height: 50px
-        border-radius: 8px
-        padding: 10px 20px
-        color: white
-        border: none
+        border-top: none
+        border-bottom: none
+        border-left: none
+        border-right: 1px solid #D9D9D9
+        padding: 16px 28px
+        color: $gray-1
 
-        .icon
-          font-size: 18px
-          padding-right: 8px
-          vertical-align: middle
-    button.btn-secondary-v2
-        color: $purple-2
-        background: white
-        font-weight: 400
-        font-size: 14px
-        height: 50px
-        width: 36%
-        border-radius: 8px
-        padding: 10px 13px 10px 13px
-        border: 1px solid $purple-2
+      button:focus
+        outline: none
 
-
+      button.active
+        border-bottom: 4px solid $purple
+        font-weight: bold
+        color: $gray-2
 
   .selectV2__control--is-focused
     border-color: #80bdff

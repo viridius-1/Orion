@@ -42,6 +42,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rails_admin'
 gem 'airbrake'
 
+gem 'carrierwave', '~> 2.0'
+gem 'fog-aws'
+
 gem 'cancancan'
 
 group :development, :test do
@@ -73,4 +76,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "react_on_rails", "12.0.0"
 
+gem "mini_magick"
 gem "mini_racer", "~> 0.6.2"

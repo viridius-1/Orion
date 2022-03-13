@@ -37,11 +37,13 @@ class Ability
       can :read, Advertiser, id: user.company.id
       can :manage, Campaign, advertiser_id: user.company.id
       can :manage, Objective, campaign: { advertiser_id: user.company.id }
+      can :manage, Creative, campaign: { advertiser_id: user.company.id }
       cannot :read, Agency
     elsif user.agency_user?
       can :manage, Advertiser, agency_id: user.company.id
       can :manage, Campaign, advertiser: { agency_id: user.company.id }
       can :manage, Objective, campaign: { advertiser: { agency_id: user.company.id } }
+      can :manage, Creative, campaign: { advertiser: { agency_id: user.company.id } }
       can :read, Agency, id: user.company.id
     end
 

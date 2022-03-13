@@ -11,6 +11,7 @@ class Campaign < ApplicationRecord
   
   belongs_to :advertiser
   has_many :objectives, dependent: :destroy
+  has_many :creatives, dependent: :destroy
   accepts_nested_attributes_for :objectives
 
   validates :name, presence: true
@@ -42,5 +43,9 @@ class Campaign < ApplicationRecord
 
   def goals
     objectives.map(&:goal).sort.uniq.join(', ')
+  end
+
+  def files
+    creatives.map { |creative| creative.file.thumb.url }
   end
 end
