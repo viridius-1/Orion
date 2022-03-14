@@ -140,8 +140,6 @@ export default class CampaignActionItemsFormFragment extends Component {
       validated
     } = this.state;
 
-    const liverampLink = <a href="https://sso.liveramp.com/" target="_blank">Liveramp</a>
-
     return (  
       <div style={{ padding: '0 40px' }}>
         <div className="row">
@@ -157,7 +155,7 @@ export default class CampaignActionItemsFormFragment extends Component {
                   >
                     {footfall_analysis && 
                       <Form.Group controlId="footfall_analysis_text" className="col-md-6">
-                        <Form.Label className="label-v2 default-position"><li>Footfall Analysis - Please add your point(s) of destination here.</li></Form.Label>
+                        <Form.Label className="label-v2 default-position"><li>Footfall Analysis - Your Version2 Campaign Specialist will work with you and <a href="https://www.placed.com/ui/login" target="_blank">Placed</a> on creating an account and providing you tracking pixels for visitation measurement.</li></Form.Label>
                         <Form.Control
                           className="input-v2 textarea"
                           name="footfall_analysis_text"
@@ -175,7 +173,7 @@ export default class CampaignActionItemsFormFragment extends Component {
                     }
                     {crm_data &&
                       <Form.Group controlId="crm_data_checked" className="col-md-6">
-                        <Form.Label className="label-v2 default-position crm-data-label">CRM Data -  Please upload your 1st party data into {liverampLink}  through the Data Onboarding tab. If you don't have a {liverampLink} account, your Version2 campaign specialist will create one for you following the completion of your first submitted Self Service Auto Setup. To upload your 1st party data, remember to include your campaign name and description of the audience in the document title. Please format your document like <a href="/LiveRamp.csv">this</a>.</Form.Label>
+                        <Form.Label className="label-v2 default-position crm-data-label"><li>CRM Data - Please log into <a href="https://sso.liveramp.com/" target="_blank">LiveRamp</a> to upload your CRM list and to publish your audience to the DSP(s). If you do not have a Peer39 account, please request one from your Version2 Campaign Specialist.</li></Form.Label>
                         <Form.Check 
                           type="checkbox" 
                           id="crm_data"
@@ -192,7 +190,7 @@ export default class CampaignActionItemsFormFragment extends Component {
                     }
                     {brand_safety &&
                       <Form.Group controlId="brand_safety_text" className="col-md-6">
-                        <Form.Label className="label-v2 default-position"><li>Brand Safety - Please add the sites or content categories that you'd like to have negatively targeted here.</li></Form.Label>
+                        <Form.Label className="label-v2 default-position"><li>Brand Safety - Please log into <a href="https://app.peer39.com/login" target="_blank">Peer39</a>create and access Brand Safety tracking and measurement pixels. If you do not have a Peer39 account, please request one from your Version2 Campaign Specialist.</li></Form.Label>
                         <Form.Control
                           className="input-v2 textarea"
                           name="brand_safety_text"
@@ -210,7 +208,7 @@ export default class CampaignActionItemsFormFragment extends Component {
                     }
                     {contextual_targeting &&
                       <Form.Group controlId="contextual_targeting_text" className="col-md-6">
-                        <Form.Label className="label-v2 default-position"><li>Contextual Targeting - Please add the sites or content categories that you'd like to have targeted here.</li></Form.Label>
+                        <Form.Label className="label-v2 default-position"><li>Contextual Targeting - Please log into <a href="https://app.peer39.com/login" target="_blank">Peer39</a> to upload your keyword list and to publish your audience to your DSP(s). If you do not have a Peer39 account, please request one from your Version2 Campaign Specialist.</li></Form.Label>
                         <Form.Control
                           className="input-v2 textarea"
                           name="contextual_targeting_text"
@@ -226,6 +224,9 @@ export default class CampaignActionItemsFormFragment extends Component {
                         </Form.Control.Feedback>
                       </Form.Group>
                     }
+                      <Form.Group controlId="contextual_targeting_text" className="col-md-6">
+                        <Form.Label className="label-v2 default-position">* Please keep in mind these campaign add-ons may incur an additional fee. Please reference your current MSA or consult with your Version2 Campaign Specialist for details.</Form.Label>
+                      </Form.Group>
                     <div className="form-group col-md-6">
                       <button className="btn btn-secondary-v2" type="button" onClick={this.handleSave}>Save</button>
                       <button className="btn btn-primary-v2 float-right" type="submit" style={{ width: '61%' }}>Complete</button>

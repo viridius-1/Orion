@@ -89,6 +89,7 @@ class CampaignsController < ApplicationController
   end
 
   def complete_action_items
+    @campaign.update_attribute(:status, "complete")
     CampaignMailer.action_items_completed(@campaign).deliver_later
     redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id)
   end
