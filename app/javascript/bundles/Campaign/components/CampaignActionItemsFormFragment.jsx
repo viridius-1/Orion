@@ -155,7 +155,7 @@ export default class CampaignActionItemsFormFragment extends Component {
                   >
                     {footfall_analysis && 
                       <Form.Group controlId="footfall_analysis_text" className="col-md-6">
-                        <Form.Label className="label-v2 default-position"><li>Footfall Analysis - Your Version2 Campaign Specialist will work with you and <a href="https://www.placed.com/ui/login" target="_blank">Placed</a> on creating an account and providing you tracking pixels for visitation measurement.</li></Form.Label>
+                        <Form.Label className="label-v2 default-position"><li><b>Footfall Analysis</b> - Your Version2 Campaign Specialist will work with you and <a href="https://www.placed.com/ui/login" target="_blank">Placed</a> on creating an account and providing you tracking pixels for visitation measurement.</li></Form.Label>
                         <Form.Control
                           className="input-v2 textarea"
                           name="footfall_analysis_text"
@@ -173,12 +173,12 @@ export default class CampaignActionItemsFormFragment extends Component {
                     }
                     {crm_data &&
                       <Form.Group controlId="crm_data_checked" className="col-md-6">
-                        <Form.Label className="label-v2 default-position crm-data-label"><li>CRM Data - Please log into <a href="https://sso.liveramp.com/" target="_blank">LiveRamp</a> to upload your CRM list and to publish your audience to the DSP(s). If you do not have a Peer39 account, please request one from your Version2 Campaign Specialist.</li></Form.Label>
-                        <Form.Check 
-                          type="checkbox" 
+                        <Form.Check
+                          type="checkbox"
                           id="crm_data"
                           name="crm_data_checked"
-                          label="Please confirm"
+                          style={{paddingLeft:0}}
+                          label={(<><b>CRM Data</b> - Please log into <a href="https://sso.liveramp.com/" target="_blank">LiveRamp</a> to upload your CRM list and to publish your audience to the DSP(s). If you do not have a Peer39 account, please request one from your Version2 Campaign Specialist.</>)}
                           required
                           defaultChecked={crm_data_checked}
                           onChange={this.handleChangeCheckbox}
@@ -190,7 +190,7 @@ export default class CampaignActionItemsFormFragment extends Component {
                     }
                     {brand_safety &&
                       <Form.Group controlId="brand_safety_text" className="col-md-6">
-                        <Form.Label className="label-v2 default-position"><li>Brand Safety - Please log into <a href="https://app.peer39.com/login" target="_blank">Peer39</a>create and access Brand Safety tracking and measurement pixels. If you do not have a Peer39 account, please request one from your Version2 Campaign Specialist.</li></Form.Label>
+                        <Form.Label className="label-v2 default-position"><li><b>Brand Safety</b> - Please log into <a href="https://app.peer39.com/login" target="_blank">Peer39</a> to create and access Brand Safety tracking and measurement pixels. If you do not have a Peer39 account, please request one from your Version2 Campaign Specialist.</li></Form.Label>
                         <Form.Control
                           className="input-v2 textarea"
                           name="brand_safety_text"
@@ -208,7 +208,7 @@ export default class CampaignActionItemsFormFragment extends Component {
                     }
                     {contextual_targeting &&
                       <Form.Group controlId="contextual_targeting_text" className="col-md-6">
-                        <Form.Label className="label-v2 default-position"><li>Contextual Targeting - Please log into <a href="https://app.peer39.com/login" target="_blank">Peer39</a> to upload your keyword list and to publish your audience to your DSP(s). If you do not have a Peer39 account, please request one from your Version2 Campaign Specialist.</li></Form.Label>
+                        <Form.Label className="label-v2 default-position"><li><b>Contextual Targeting</b> - Please log into <a href="https://app.peer39.com/login" target="_blank">Peer39</a> to upload your keyword list and to publish your audience to your DSP(s). If you do not have a Peer39 account, please request one from your Version2 Campaign Specialist.</li></Form.Label>
                         <Form.Control
                           className="input-v2 textarea"
                           name="contextual_targeting_text"
