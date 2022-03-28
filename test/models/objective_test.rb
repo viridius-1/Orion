@@ -35,22 +35,22 @@ class ObjectiveTest < ActiveSupport::TestCase
   end
 
   test 'should validate presence of attributes for current kpi' do
-    objective = Objective.new(objective_attributes.except(:impressions))
+    objective = Objective.new(objective_attributes.except(:desired_dcpm))
 
     assert_not objective.save
-    assert_includes objective.errors['impressions'], "can't be blank"
+    assert_includes objective.errors['desired_dcpm'], "can't be blank"
   end
 
   test 'should nilify all attributes not supported by current kpi' do
     objective = Objective.new(objective_attributes.merge(
       goal: 'Awareness',
       kpi: 'Click Through Rate (CTR)',
-      target_ctr: 1000
+      target_ctr: 1000,
+      average_order_value: 1500
     ))
 
     assert objective.save
-    assert_nil objective.frequency
-    assert_nil objective.unique_reach
+    assert_nil objective.average_order_value
   end
 
   def objective_attributes
@@ -61,10 +61,7 @@ class ObjectiveTest < ActiveSupport::TestCase
       kpi: 'Impressions',
       objective_notes: 'This is an objective',
       budget: 20000,
-      impressions: 24,
-      frequency: 70,
-      frequency_unit: 'Day',
-      unique_reach: 50,
+      desired_dcpm: 1300,
       start_date: Date.today,
       end_date: Date.tomorrow
     }
