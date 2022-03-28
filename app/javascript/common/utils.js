@@ -14,7 +14,12 @@ const moneyFormatter = (value, currency = 'USD') => {
   return `${formatter.format(value)} ${currency}`;
 };
 
+const numberFormatter = (value) => {
+  return Number(value).toLocaleString('en', {useGrouping: true})
+}
+
 export {
   formatRange,
   moneyFormatter,
+  numberFormatter
 };

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Tabs } from 'react-simple-tabs-component';
 import PropTypes from 'prop-types';
 import { statusColor, statusLabel } from '../../constants';
-import { formatRange, moneyFormatter } from '../../common/utils';
+import { formatRange, moneyFormatter, numberFormatter } from '../../common/utils';
 import AffinitiesList from '../../components/AffinitiesList';
 
 export default class CampaignDetailsComponent extends Component {
@@ -36,68 +36,132 @@ export default class CampaignDetailsComponent extends Component {
   campaignGoalsTab = () => {
     const {
       campaign: {
-        goal,
-        budget,
-        target_cpa: targetCpa,
-        conversion_rate: conversionRate,
-        target_roas: targetRoas,
-        kpi,
+        objectives: objectives,
       },
     } = this.props;
 
     return (
+      objectives.map((objective, i) => (
+        this.objectiveSegment(objective, i)
+      ))
+    );
+  }
+
+  objectiveSegment = (objective, i) => {
+    const { field_mapping: fieldMapping } = this.props;
+
+    const fields = fieldMapping["field_options"][objective.kpi] || [];
+
+    return (
+      <div key={i}>
+      {i > 0 &&
+        <hr className="w-100"></hr>
+      }
       <div style={{ padding: '0 40px' }}>
-        <div className="row">
-          <div className="col-12 grid-item">
-            <div className="row">
-              <div className="col-12 grid-item">
-                <div className="details-card">
-                  <h6>Goal</h6>
-                  <p className="goal-label">
-                    {goal || '-'}
+          <div className="row">
+            <div className="col-12 grid-item">
+              <div className="row">
+                <div className="col-12 grid-item">
+                  <div className="details-card">
+                    <h6>Goal</h6>
+                    <p className="goal-label">
+                      {objective.goal || '-'}
+                    </p>
+                  </div>
+                </div>
+                <div className="col-4 grid-item">
+                  <h6>KPI</h6>
+                  <p>
+                    {objective.kpi}
                   </p>
                 </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-4 grid-item">
-                <h6>Budget</h6>
-                <p>
-                  {budget !== null ? moneyFormatter(budget) : '-'}
-                </p>
-              </div>
-              <div className="col-4 grid-item">
-                <h6>CPA Goal</h6>
-                <p>
-                  {targetCpa !== null ? moneyFormatter(targetCpa) : '-'}
-                </p>
-              </div>
-              <div className="col-4 grid-item">
-                <h6>Target Conversion Rate</h6>
-                <p>
-                  {conversionRate ? `${conversionRate}%` : '-'}
-                </p>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-4 grid-item">
-                <h6>ROAS Goal</h6>
-                <p>
-                  {targetRoas ? `${targetRoas}%` : '-'}
-                </p>
-              </div>
-              <div className="col-4 grid-item">
-                <h6>KPI</h6>
-                <p>
-                  {kpi || '-'}
-                </p>
+                {fields.includes('budget') &&
+                  <div className="col-4 grid-item">
+                    <h6>Budget</h6>
+                    <p>
+                      {moneyFormatter(objective.budget)}
+                    </p>
+                  </div>
+                }
+                {fields.includes('desired_dcpm') &&
+                  <div className="col-4 grid-item">
+                    <h6>Desired dCpm</h6>
+                    <p>
+                      {moneyFormatter(objective.desired_dcpm)}
+                    </p>
+                  </div>
+                }
+                {fields.includes('desired_dcpm') && fields.includes('budget') &&
+                  <div className="col-4 grid-item">
+                    <h6>Impressions</h6>
+                    <p>
+                      {numberFormatter(objective.impressions)}
+                    </p>
+                  </div>
+                }
+                {fields.includes('target_ctr') &&
+                  <div className="col-4 grid-item">
+                    <h6>Target CTR</h6>
+                    <p>
+                      {`${objective.target_ctr}%`}
+                    </p>
+                  </div>
+                }
+                {fields.includes('video_completion_rate') &&
+                  <div className="col-4 grid-item">
+                    <h6>Video Completion Rate</h6>
+                    <p>
+                      {`${objective.video_completion_rate}%`}
+                    </p>
+                  </div>
+                }
+                {fields.includes('target_cpa') &&
+                  <div className="col-4 grid-item">
+                    <h6>CPA Goal</h6>
+                    <p>
+                      {moneyFormatter(objective.target_cpa)}
+                    </p>
+                  </div>
+                }
+                {fields.includes('conversions') &&
+                  <div className="col-4 grid-item">
+                    <h6>Conversions</h6>
+                    <p>
+                      {objective.conversions.toLocaleString('en', {useGrouping: true})}
+                    </p>
+                  </div>
+                }
+                {fields.includes('target_conversion_rate') &&
+                  <div className="col-4 grid-item">
+                    <h6>Target Conversion Rate</h6>
+                    <p>
+                      {`${objective.target_conversion_rate}%`}
+                    </p>
+                  </div>
+                }
+                {fields.includes('average_order_value') &&
+                  <div className="col-4 grid-item">
+                    <h6>Average Order Value</h6>
+                    <p>
+                      {moneyFormatter(objective.average_order_value)}
+                    </p>
+                  </div>
+                }
+                {fields.includes('target_roas') &&
+                <div className="col-4 grid-item">
+                  <h6>ROAS Goal</h6>
+                  <p>
+                    {`${objective.target_roas}%`}
+                  </p>
+                </div>
+                }
               </div>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
+    )
+  };
 
   campaignAudienceTab = () => {
     const {
@@ -303,4 +367,5 @@ CampaignDetailsComponent.propTypes = {
       PropTypes.string,
     ]),
   }).isRequired,
+  field_mapping: PropTypes.object
 };

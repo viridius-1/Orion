@@ -10,7 +10,6 @@ class CampaignsController < ApplicationController
   end
 
   def show
-    @website = 'www.website.com'
     @button_links = {
       back: vendor_campaigns_path(vendor_id: @campaign.advertiser_id),
       edit: "#{request.path}/edit",
