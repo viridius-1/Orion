@@ -304,7 +304,7 @@ export default class ObjectiveFormFragment extends Component {
         }
         {fields.includes('target_ctr') && 
         <Form.Group controlId="target_ctr">
-          <Form.Label className="label-v2">Target Click Through Rate</Form.Label>
+          <Form.Label className="label-v2">Click Through Rate</Form.Label>
           <Form.Control
             className="input-v2 left"
             name="target_ctr"
@@ -375,7 +375,7 @@ export default class ObjectiveFormFragment extends Component {
         }
         {fields.includes('target_cpa') &&
         <Form.Group controlId="target_cpa">
-          <Form.Label className="label-v2">Target CPA</Form.Label>
+          <Form.Label className="label-v2">CPA</Form.Label>
           <Form.Control
             className="input-v2 right"
             required
@@ -390,7 +390,7 @@ export default class ObjectiveFormFragment extends Component {
         }
         {fields.includes('target_roas') &&
         <Form.Group controlId="target_roas">
-          <Form.Label className="label-v2">Target ROAS</Form.Label>
+          <Form.Label className="label-v2">Return on Ad Spend</Form.Label>
           <Form.Control
             className="input-v2 left"
             name="target_roas"
