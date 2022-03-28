@@ -69,6 +69,12 @@ export default class CampaignDetailsComponent extends Component {
                     </p>
                   </div>
                 </div>
+                <div className="col-4 grid-item">
+                  <h6>KPI</h6>
+                  <p>
+                    {objective.kpi}
+                  </p>
+                </div>
                 {fields.includes('budget') &&
                   <div className="col-4 grid-item">
                     <h6>Budget</h6>
@@ -141,7 +147,7 @@ export default class CampaignDetailsComponent extends Component {
                     </p>
                   </div>
                 }
-                {fields.includes('target_roas') && 
+                {fields.includes('target_roas') &&
                 <div className="col-4 grid-item">
                   <h6>ROAS Goal</h6>
                   <p>
@@ -149,12 +155,6 @@ export default class CampaignDetailsComponent extends Component {
                   </p>
                 </div>
                 }
-                <div className="col-4 grid-item">
-                  <h6>KPI</h6>
-                  <p>
-                    {objective.kpi}
-                  </p>
-                </div>
               </div>
             </div>
           </div>
