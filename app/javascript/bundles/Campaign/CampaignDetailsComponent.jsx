@@ -105,13 +105,15 @@ export default class CampaignDetailsComponent extends Component {
         household_income: householdIncome,
         geography,
         affinities,
+        geo_fence,
+        targeting_notes
       },
     } = this.props;
 
     return (
       <div style={{ padding: '0 40px' }}>
         <div className="row">
-          <div className="col-8 grid-item">
+          <div className="col-6 grid-item">
             <div className="row">
               <div className="col-12 grid-item">
                 <div className="row">
@@ -124,26 +126,34 @@ export default class CampaignDetailsComponent extends Component {
                     {this._getAgeLabels() || '-'}
                   </div>
                 </div>
+              </div>
+              <div className="col-12 grid-item">
                 <div className="row">
                   <div className="col-6 grid-item">
-                    <h6>Household Income</h6>
-                    <p>
-                      {householdIncome ? formatRange([moneyFormatter(householdIncome[0]), moneyFormatter(householdIncome[1])]) : '-'}
-                    </p>
+                    <h6>Demographic Notes</h6>
+                    <p>{targeting_notes}</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-4 grid-item">
+          <div className="col-6 grid-item">
             <div className="row">
               <div className="col-12 grid-item">
                 <div className="row">
-                  <div className="col-12 grid-item">
+                  <div className="col-6 grid-item">
                     <h6>Geography</h6>
                     {
                       geography.length !== 0 ? geography.map((geographyItem, index) => (
                         <div key={index} className="pill blue">{geographyItem}</div> // eslint-disable-line
+                      )) : '-'
+                    }
+                  </div>
+                  <div className="col-6 grid-item">
+                    <h6>Geo Fence</h6>
+                    {
+                      geo_fence.length !== 0 ? geo_fence.map((geoItem, index) => (
+                        <div key={index} className="pill blue">{geoItem}</div> // eslint-disable-line
                       )) : '-'
                     }
                   </div>
