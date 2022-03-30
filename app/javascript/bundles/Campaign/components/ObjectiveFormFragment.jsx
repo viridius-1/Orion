@@ -170,8 +170,7 @@ export default class ObjectiveFormFragment extends Component {
     const {
       objective,
       options: {
-        media_channel_options: mediaChannelOptions,
-        frequency_unit_options: frequencyUnitOptions
+        media_channel_options: mediaChannelOptions
       },
       handleSubmit
     } = this.props
@@ -181,6 +180,12 @@ export default class ObjectiveFormFragment extends Component {
       kpi_options: kpiOptions,
       fields: fields
     } = this.state
+
+    let impressions = ''
+
+    if (objective.budget && objective.desired_dcpm) {
+      impressions = Math.round(objective.budget / objective.desired_dcpm * 1000).toLocaleString('en', {useGrouping: true})
+    }
 
     return (
       <OrionForm
@@ -225,21 +230,6 @@ export default class ObjectiveFormFragment extends Component {
           />
         </Form.Group>
         }
-        {fields.includes('budget') &&
-        <Form.Group controlId="budget">
-          <Form.Label className="label-v2">Budget</Form.Label>
-          <Form.Control
-            className="input-v2 right"
-            required
-            name="budget"
-            type="text"
-            onKeyDown={FormUtils.blockE}
-            onChange={this.handleNumberChange}
-            value={FormUtils.formatNumber(objective.budget)}
-            />
-          <div className="input-v2-prepend"><span>$</span></div>
-        </Form.Group>
-        }
         <div className="row" inputwrapper="true" key="date_wrapper">
         { objective.kpi &&
         <Form.Group controlId="start_date" className="col-6">
@@ -268,63 +258,53 @@ export default class ObjectiveFormFragment extends Component {
         </Form.Group>
         }
         </div>
-        {fields.includes('impressions') && 
+        <div className="row" inputwrapper="true" key="date_wrapper">
+        {fields.includes('budget') &&
+        <Form.Group controlId="budget" className="col-6">
+          <Form.Label className="label-v2">Budget</Form.Label>
+          <Form.Control
+            className="input-v2 right"
+            required
+            name="budget"
+            type="text"
+            onKeyDown={FormUtils.blockE}
+            onChange={this.handleNumberChange}
+            value={FormUtils.formatNumber(objective.budget)}
+            />
+          <div className="input-v2-prepend"><span>$</span></div>
+        </Form.Group>
+        }
+        {fields.includes('desired_dcpm') &&
+          <Form.Group controlId="desired_dcpm" className="col-6">
+          <Form.Label className="label-v2">Desired dCPM</Form.Label>
+          <Form.Control
+            className="input-v2 right"
+            required
+            name="desired_dcpm"
+            type="text"
+            onKeyDown={FormUtils.blockE}
+            onChange={this.handleNumberChange}
+            value={FormUtils.formatNumber(objective.desired_dcpm)}
+            />
+          <div className="input-v2-prepend"><span>$</span></div>
+        </Form.Group>
+        }
+        </div>
+        {(fields.includes('budget') && fields.includes('desired_dcpm')) &&
         <Form.Group controlId="impressions">  
           <Form.Label className="label-v2">Impressions</Form.Label>
           <Form.Control
             className="input-v2"
             name="impressions"
+            disabled
             type="text"
-            onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleNumberChange}
-            value={FormUtils.formatNumber(objective.impressions)}
-            />
-        </Form.Group>
-        }
-        <div className="row" inputwrapper="true" key="frequency_wrapper">
-        {fields.includes('frequency') && 
-        <Form.Group controlId="frequency" className="col-6">
-          <Form.Label className="label-v2">Frequency</Form.Label>
-          <Form.Control
-            className="input-v2"
-            name="frequency"
-            type="text"
-            onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleNumberChange}
-            value={FormUtils.formatNumber(objective.frequency)}
-            />
-        </Form.Group>
-        }
-        {fields.includes('frequency_unit') &&
-        <Form.Group controlId="frequency_unit" className="col-6">
-          <Form.Label className="label-v2">Unit</Form.Label>
-          <Select
-            className="selectV2"
-            classNamePrefix="selectV2"
-            options={FormUtils.buildOptions(frequencyUnitOptions)}
-            name="frequency_unit"
-            onChange={this.handleSelectChange}
-            value={ { label: objective.frequency_unit, value: objective.frequency_unit } }
-          />
-        </Form.Group>
-        }
-        </div>
-        {fields.includes('unique_reach') && 
-        <Form.Group controlId="unique_reach">
-          <Form.Label className="label-v2">Unique Reach</Form.Label>
-          <Form.Control
-            className="input-v2"
-            name="unique_reach"
-            type="text"
-            onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleNumberChange}
-            value={FormUtils.formatNumber(objective.unique_reach)}
+            value={impressions}
             />
         </Form.Group>
         }
         {fields.includes('target_ctr') && 
         <Form.Group controlId="target_ctr">
-          <Form.Label className="label-v2">Target Click Through Rate</Form.Label>
+          <Form.Label className="label-v2">Click Through Rate</Form.Label>
           <Form.Control
             className="input-v2 left"
             name="target_ctr"
@@ -335,19 +315,6 @@ export default class ObjectiveFormFragment extends Component {
             value={objective.target_ctr || ''}
             />
           <div className="input-v2-append"><span>%</span></div>
-        </Form.Group>
-        }
-        {fields.includes('video_plays') && 
-        <Form.Group controlId="video_plays">
-          <Form.Label className="label-v2">Video Plays</Form.Label>
-          <Form.Control
-            className="input-v2"
-            name="video_plays"
-            type="text"
-            onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleNumberChange}
-            value={FormUtils.formatNumber(objective.video_plays)}
-            />
         </Form.Group>
         }
         {fields.includes('video_completion_rate') && 
@@ -408,7 +375,7 @@ export default class ObjectiveFormFragment extends Component {
         }
         {fields.includes('target_cpa') &&
         <Form.Group controlId="target_cpa">
-          <Form.Label className="label-v2">Target CPA</Form.Label>
+          <Form.Label className="label-v2">CPA</Form.Label>
           <Form.Control
             className="input-v2 right"
             required
@@ -423,7 +390,7 @@ export default class ObjectiveFormFragment extends Component {
         }
         {fields.includes('target_roas') &&
         <Form.Group controlId="target_roas">
-          <Form.Label className="label-v2">Target ROAS</Form.Label>
+          <Form.Label className="label-v2">Return on Ad Spend</Form.Label>
           <Form.Control
             className="input-v2 left"
             name="target_roas"

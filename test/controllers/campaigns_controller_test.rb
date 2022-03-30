@@ -49,7 +49,6 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_equal assigns(:campaign), campaigns(:first)
-    assert_equal assigns(:website), 'www.website.com'
     assert_equal assigns(:button_links),
                  {
                    back: vendor_campaigns_path(vendor_id: advertisers(:first).id),

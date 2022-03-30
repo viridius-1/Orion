@@ -20,11 +20,11 @@ module Objectives
           'Acquisition' => ['Cost Per Acquisition (CPA)', 'Return on Ad Spend (ROAS)']
         },
         field_options: { # based on kpi
-          'Impressions' => %i(budget impressions frequency frequency_unit unique_reach),
-          'Click Through Rate (CTR)' => %i(budget impressions target_ctr),
-          'Video Completion Rate (VCR)' => %i(budget video_plays video_completion_rate),
-          'Cost Per Acquisition (CPA)' => %i(budget impressions conversions target_conversion_rate),
-          'Return on Ad Spend (ROAS)' => %i(budget impressions conversions target_conversion_rate target_cpa average_order_value target_roas)
+          'Impressions' => %i(budget desired_dcpm),
+          'Click Through Rate (CTR)' => %i(budget desired_dcpm target_ctr),
+          'Video Completion Rate (VCR)' => %i(budget desired_dcpm video_completion_rate),
+          'Cost Per Acquisition (CPA)' => %i(budget desired_dcpm conversions target_conversion_rate),
+          'Return on Ad Spend (ROAS)' => %i(budget desired_dcpm conversions target_conversion_rate target_cpa average_order_value target_roas)
         }
       }
     end

@@ -4,6 +4,7 @@
     .col-4
       .card
         .card-body
+          = render 'layouts/alert'
           = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
             .col.d-flex.flex-column.align-items-center
               = image_tag "logo-orion.svg", style: 'width: 153px', class: 'mb-5'
