@@ -1,0 +1,295 @@
+<style>
+  .content-wrapper {
+    position: absolute;
+    width: 600px;
+    height: 1400px;
+    left: 88px;
+    top: 59px;
+
+    background: #FFFFFF;
+  }
+
+  .header-content {
+    position: absolute;
+    width: 600px;
+    height: 446px;
+    left: 0px;
+    top: 0px;
+    background: linear-gradient(127.38deg, #1D51A2 52.95%, #57107C 86.08%, #57107C 92.52%);
+  }
+
+  .header-image {
+    position: absolute;
+    width: 156px;
+    height: 80px;
+    left: 222px;
+    top: 61px;
+    background: url(<%= asset_path('invitation-mail-orion-title.png') %>)
+  }
+
+  .header-background {
+    position: absolute;
+    width: 600px;
+    height: 379px;
+    left: 0px;
+    top: 53px;
+
+    background: url(<%= asset_path('invitation-mail-header-background.png') %>);
+  }
+
+  .header-image-bottom {
+    position: absolute;
+    width: 600px;
+    height: 204px;
+    left: 0px;
+    top: 242px;
+
+    background: url(<%= asset_path('invitation-mail-header-image-bottom.png') %>);
+  }
+
+  .invited-text {
+    position: absolute;
+    left: 17.5%;
+    right: 17.67%;
+    top: 12.71%;
+    bottom: 83.86%;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 47px;
+    line-height: 39px;
+    /* or 83% */
+
+    text-align: center;
+
+    /* WHite */
+
+    color: #FFFFFF;
+  }
+
+  .title {
+    position: absolute;
+    left: 19%;
+    right: 19%;
+    top: 35.64%;
+    bottom: 56.14%;
+
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 29px;
+    line-height: 39px;
+    /* or 134% */
+
+    text-align: center;
+
+    /* Gray 1 */
+
+    color: #333333;
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 19%;
+    right: 19%;
+    top: 42.43%;
+    bottom: 54.57%;
+
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    /* or 125% */
+
+    text-align: center;
+
+    /* #7C3B94 */
+
+    color: #58107C;
+  }
+
+  .email-body {
+    position: absolute;
+    left: 15.67%;
+    right: 17.33%;
+    top: 49.07%;
+    bottom: 26%;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    /* or 143% */
+
+
+    /* #7C3B94 */
+
+    
+  }
+
+  .purple {
+    color: #7C3B94;
+  }
+
+  .get-started-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 30px;
+
+    position: absolute;
+    height: 50px;
+    left: 35.17%;
+    right: 35.17%;
+    top: calc(50% - 50px/2 + 412px);
+
+    /* #7C3B94 */
+
+    background: #58107C;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+  }
+
+  .button-text {
+    position: static;
+    width: 75px;
+    height: 15px;
+    left: calc(50% - 75px/2);
+    top: calc(50% - 15px/2);
+
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 106.65%;
+    /* identical to box height, or 15px */
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #FFFFFF;
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px 10px;
+  }
+
+  A {
+    text-decoration: none
+  }
+
+  .footer-wrapper {
+    position: absolute;
+    width: 600px;
+    height: 199px;
+    left: 0px;
+    bottom: 0px;
+  }
+
+  .footer-background {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    /* Gradient Button */
+
+    background: linear-gradient(99.74deg, #57107C 13.42%, #57107C 30%, #1D51A2 123.17%);
+  }
+
+  .footer-logo {
+    position: absolute;
+    left: 43.33%;
+    right: 42.67%;
+    top: 20.1%;
+    bottom: 49.75%;
+
+    background: url(<%= asset_path('v2-email-footer-logo.png') %>);
+  }
+
+  .social-wrapper {
+    position: absolute;
+    left: 41.33%;
+    right: 41.5%;
+    top: 65.83%;
+    bottom: 23.12%;
+  }
+
+  .linked-in-icon {
+    position: absolute;
+    left: 2%;
+    right: 55.33%;
+    top: 65.83%;
+    bottom: 23.64%;
+  }
+
+  .instagram-icon {
+    position: absolute;
+    left: 40%;
+    right: 48.17%;
+    top: 65.83%;
+    bottom: 23.12%;
+  }
+
+  .twitter-icon {
+    position: absolute;
+    left: 80%;
+    right: 41.5%;
+    top: 65.83%;
+    bottom: 23.64%;
+  }
+
+</style>
+  <div class="content-wrapper">
+    <div class="header-content"></div>
+    <div class="header-background"></div>
+    <div class="header-image"></div>
+    <div class="header-image-bottom"></div>
+    <div class="invited-text">You're invited</div>
+    <div class="title">You’ve been invited by John Smith to join Orion.</div>
+    <div class="subtitle">A TOOL TO EXPLORE, MAP, CREATE, AND ACTIVATE AUDIENCES IN YOUR DSP OF CHOICE.</div>
+    <div class="email-body">
+      <p>
+        <strong class="purple">Explore</strong><br>
+        Discover audience segments that can be combined or individually targeted to grow your site traffic and brand awareness.
+      </p>
+      <p>
+        <strong class="purple">Map</strong><br>
+        Port ORION audience segments over to your ORION DSPs for heightened scope and increased reach.<br>
+      </p>
+
+      <p>
+        <strong class="purple">Create</strong><br>
+        Build custom audiences off of your 1st party data, 3rd party data, and ORION data, through the largest free repository of consumer data.<br>
+      </p>
+
+      <p>
+        <strong class="purple">Activate</strong><br>
+        Use ORION audience segments as a force multiplier for your brand or agency clients.<br>
+      </p>
+    </div>
+
+    <a class="get-started-button" href="<%= accept_invitation_url(@resource, invitation_token: @token) %>"><span class="button-text">Get Started</span></a>
+
+    <div class="footer-wrapper">
+      <div class="footer-background">
+      </div>
+
+      <div class="footer-logo">
+      </div>
+
+      <div class="social-wrapper">
+        <a class="linked-in-icon"><img src="<%= asset_path('linked-in.png') %>"></a>
+        <a class="instagram-icon"><img src="<%= asset_path('instagram.png') %>"></a>
+        <a class="twitter-icon"><img src="<%= asset_path('twitter.png') %>"></a>
+      </div>
+    </div>  
+  </div>
