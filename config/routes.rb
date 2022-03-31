@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   resources :campaigns, only: [:new, :create] do
     member do
       put :action_items
-      get :complete_action_items
+      put :complete_action_items
     end
   end
   

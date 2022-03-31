@@ -81,6 +81,7 @@ class CampaignsController < ApplicationController
     @campaign.assign_attributes(action_items_params)
     if @campaign.save
       redirect_to campaign_path(@campaign.id)
+      flash[:notice] = 'Action Items successfully saved'
     else
       flash[:alert] = 'There was an error please try again'
       redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id)
@@ -88,9 +89,16 @@ class CampaignsController < ApplicationController
   end
 
   def complete_action_items
-    @campaign.update_attribute(:status, "complete")
-    CampaignMailer.action_items_completed(@campaign).deliver_later
-    redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id)
+    @campaign.assign_attributes(action_items_params)
+    if @campaign.save
+      @campaign.update_attribute(:status, "complete")
+      CampaignMailer.action_items_completed(@campaign).deliver_later
+      flash[:notice] = 'Campaign successfully completed'
+      redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id)
+    else
+      flash[:alert] = 'There was an error please try again'
+      redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id)
+    end
   end
 
   private

@@ -58,8 +58,9 @@ export default class CampaignActionItemsFormFragment extends Component {
     const form = event.currentTarget;  
     const completeActionItems = `/campaigns/${campaign_id}/complete_action_items`
     const requestOptions = {
+      body: this._getSubmitBody(event),
       headers: { 'Content-Type': 'application/json' },
-      method: 'GET'
+      method: 'PUT'
     };
 
     if (form.checkValidity() === false) {
