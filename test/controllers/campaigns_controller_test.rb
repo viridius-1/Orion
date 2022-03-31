@@ -359,7 +359,8 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:advertiser_user)
     
     assert_emails 1 do
-      get "/campaigns/#{campaigns(:first).id}/complete_action_items"
+      put "/campaigns/#{campaigns(:first).id}/complete_action_items",
+            params: { campaign: { footfall_analysis_text: 'Updated' } }
     end
     
     assert_redirected_to vendor_campaigns_path(vendor_id: campaigns(:first).advertiser_id)
