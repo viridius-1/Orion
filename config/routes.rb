@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     get 'admins/destroy', to: 'admins/sessions#destroy', as: :destroy_admin_session
   end
 
+  match "/404", to: "errors#server_error", via: :all
+  match "/422", to: "errors#server_error", via: :all
+  match "/500", to: "errors#server_error", via: :all
+
   apipie
 
   devise_for :users, controllers: {invitations: 'users/invitations',
