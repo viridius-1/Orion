@@ -275,7 +275,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
   test 'update should send email and redirect if last step' do
     sign_in users(:advertiser_user)
 
-    assert_emails 1 do
+    assert_emails 2 do
       patch "/campaigns/#{campaigns(:first).id}?step=4",
             params: { campaign: {
                affinities: { 'abc' => 123 }
@@ -363,7 +363,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
             params: { campaign: { footfall_analysis_text: 'Updated' } }
     end
     
-    assert_redirected_to vendor_campaigns_path(vendor_id: campaigns(:first).advertiser_id)
+    assert_redirected_to campaign_path(campaigns(:first).id)
   end
 
   # Helpers
