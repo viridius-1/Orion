@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_05_094302) do
+ActiveRecord::Schema.define(version: 2022_03_19_213901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,10 @@ ActiveRecord::Schema.define(version: 2022_03_05_094302) do
     t.text "targeting_notes"
     t.integer "campaign_type", default: 0, null: false
     t.text "audience_notes"
+    t.text "footfall_analysis_text"
+    t.boolean "crm_data_checked", default: false
+    t.text "brand_safety_text"
+    t.text "contextual_targeting_text"
   end
 
   create_table "connections", force: :cascade do |t|
@@ -86,6 +90,14 @@ ActiveRecord::Schema.define(version: 2022_03_05_094302) do
     t.datetime "expired_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "creatives", force: :cascade do |t|
+    t.string "file"
+    t.bigint "campaign_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["campaign_id"], name: "index_creatives_on_campaign_id"
   end
 
   create_table "objectives", force: :cascade do |t|

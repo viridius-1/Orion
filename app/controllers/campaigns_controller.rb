@@ -77,6 +77,30 @@ class CampaignsController < ApplicationController
     redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id)
   end
 
+  def action_items
+    @campaign.assign_attributes(action_items_params)
+    if @campaign.save
+      redirect_to campaign_path(@campaign.id)
+      flash[:notice] = 'Action Items successfully saved'
+    else
+      flash[:alert] = 'There was an error please try again'
+      redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id)
+    end
+  end
+
+  def complete_action_items
+    @campaign.assign_attributes(action_items_params)
+    if @campaign.save
+      @campaign.update_attribute(:status, "complete")
+      CampaignMailer.action_items_completed(@campaign).deliver_later
+      flash[:notice] = 'Campaign successfully completed'
+      redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id)
+    else
+      flash[:alert] = 'There was an error please try again'
+      redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id)
+    end
+  end
+
   private
 
   def campaign_params
@@ -126,6 +150,15 @@ class CampaignsController < ApplicationController
     params.require(:campaign).permit(
       :audience_notes,
       affinities: {}
+    )
+  end
+
+  def action_items_params
+    params.require(:campaign).permit(
+      :footfall_analysis_text,
+      :crm_data_checked,
+      :brand_safety_text,
+      :contextual_targeting_text
     )
   end
 

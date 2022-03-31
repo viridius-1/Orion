@@ -16,7 +16,7 @@
             props: {text: 'Back to campaigns', icon: '', buttonClass: 'btn-secondary-v2 btn-campaign-back', link: @button_links[:back]},
             prerender: false)
     = render partial: 'shared/user_settings_menu'
-
+  
   = react_component("CampaignDetailsComponent",
-          props: {campaign: @campaign.as_json(include: {objectives: { methods: :impressions}}, methods: [:flight]), field_mapping: Objectives::DependentFields.mapping },
+          props: {campaign: @campaign.as_json(include: {objectives: { methods: :impressions}}, methods: [:flight]), field_mapping: Objectives::DependentFields.mapping, token: form_authenticity_token },
           prerender: false)
