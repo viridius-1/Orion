@@ -282,7 +282,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
             } }
     end
     
-    assert_redirected_to vendor_campaigns_path(vendor_id: campaigns(:first).advertiser_id)
+    assert_redirected_to campaign_path(campaigns(:first).id)
     assert_equal 4, assigns(:step)
     assert_equal campaigns(:first), assigns(:campaign)
     assert_equal({ 'abc' => "123" }, campaigns(:first).reload.affinities)

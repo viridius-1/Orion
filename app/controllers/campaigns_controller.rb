@@ -54,7 +54,7 @@ class CampaignsController < ApplicationController
       # send_customer_confirmation(request_type)
       CampaignMailer.campaign_submitted(current_user, @campaign).deliver_later
 
-      redirect_to vendor_campaigns_path(vendor_id: @campaign.advertiser_id),
+      redirect_to campaign_path(@campaign.id),
                   notice: 'Campaign has been successfully updated.'
     else
       render(
