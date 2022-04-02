@@ -2,3 +2,22 @@ p
   | Hey V2 Client services,
 
 p Action items for campaign #{@campaign.name} have been completed. Please review it.
+
+h3="Campaign - #{@campaign.name}"
+
+ul
+  - @campaign.as_json(include: { advertiser: { only: :name } }).each do |key, value|
+    li
+      strong="#{key}: "
+      = value.to_s
+p Objectives
+ul
+  - @campaign.objectives.as_json.each do |objective|
+    li
+      br
+      - objective.as_json.each do |key, value|
+        ul
+          li
+            strong="#{key}: "
+            = value.to_s
+
