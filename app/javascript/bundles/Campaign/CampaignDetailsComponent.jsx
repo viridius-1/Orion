@@ -180,14 +180,6 @@ export default class CampaignDetailsComponent extends Component {
                     </p>
                   </div>
                 }
-                {fields.includes('conversions') &&
-                  <div className="col-4 grid-item">
-                    <h6>Conversions</h6>
-                    <p>
-                      {objective.conversions.toLocaleString('en', {useGrouping: true})}
-                    </p>
-                  </div>
-                }
                 {fields.includes('target_conversion_rate') &&
                   <div className="col-4 grid-item">
                     <h6>Target Conversion Rate</h6>
