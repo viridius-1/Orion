@@ -1,0 +1,14 @@
+<div class="error-wrapper">
+  <div class="title">
+    <p>Oops!</p>
+  </div>
+  <div class="error-text">
+    <p>We're sorry but it looks like you've hit a snag. The page you're looking for may have been moved, or is experiencing a temporary error.</p>
+  </div>
+  <div class="dashboard-div">
+    <button type="button" class="dashboard-button"><a style="color: #fff;" href="<%= vendor_campaigns_path(vendor_id: current_user.company.id) %>">Go to dashboard</></a></button>
+  </div>
+
+  <div class="error-image" style="background: url(<%= asset_path('error-image.png') %>)">
+  </div>
+</div>
