@@ -8,10 +8,9 @@
             .col.d-flex.flex-column.align-items-center
               = render "devise/shared/error_messages", resource: resource
             .col.d-flex.flex-column.align-items-center
-              = image_tag "signmark.svg", style: 'width: 72px', class: 'mb-5'
+              = image_tag "logo-orion.svg", style: 'width: 153px', class: 'mb-4'
             .col.d-flex.flex-column.align-items-center
-              h1.h4.mb-3.font-weight-normal Forgot your password?
+              h1.h5.mb-3.font-weight-normal Forgot your password?
               = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Email address', class: 'form-control mb-2'
-              = f.submit "Reset password", class: 'btn btn-primary btn-block mb-4'
-
+              = f.submit "Reset password", class: 'btn btn-primary-v2 btn-block my-2'
               = render "devise/shared/links"

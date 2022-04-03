@@ -12,14 +12,16 @@ class CampaignMailer < ApplicationMailer
          from: 'Version2 Strategy <strategy@theversion2.com>')
   end
 
-  def customer_confirmation(user, campaign, company, type)
+  def customer_confirmation(user, campaign)
     @user = user
-    @type = type
+    @campaign = campaign
 
-    type_titles = {recommendation: 'Recommendation', insertion_order: "IO"}
+    type_titles = {pre_sales_media_plan: 'Recommendation',
+                   managed_service_insertion_order: "IO",
+                   self_service_auto_setup: "Auto Setup"}
 
     mail(to: user.email,
-         subject: "#{type_titles[type]} Confirmation - ##{campaign.id}",
+         subject: "Orion Campaign #{type_titles[campaign.campaign_type.to_sym]} Confirmation - #{campaign.name}",
          from: 'Version2 Strategy <strategy@theversion2.com>')
   end
 

@@ -363,7 +363,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
             params: { campaign: { footfall_analysis_text: 'Updated' } }
     end
     
-    assert_redirected_to vendor_campaigns_path(vendor_id: campaigns(:first).advertiser_id)
+    assert_redirected_to campaign_path(campaigns(:first).id)
   end
 
   # Helpers

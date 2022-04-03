@@ -7,13 +7,13 @@
           = render 'layouts/alert'
           = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
             .col.d-flex.flex-column.align-items-center
-              = image_tag "logo-orion.svg", style: 'width: 153px', class: 'mb-5'
+              = image_tag "logo-orion.svg", style: 'width: 153px', class: 'mb-4'
               h1.h5.mb-3.font-weight-normal Please sign in
               = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Email address', class: 'form-control mb-2'
               = f.password_field :password, autocomplete: "current-password", placeholder: 'Password', class: 'form-control mb-3'
               - if devise_mapping.rememberable?
-                .form-check.mb-3
+                .form-check.mb-1
                   = f.check_box :remember_me, class: 'form-check-input'
                   = f.label :remember_me, class: 'form-check-label'
-              = f.submit "Sign in", class: 'btn btn-primary btn-block mb-4'
+              = f.submit "Sign in", class: 'btn btn-primary-v2 btn-block my-2'
               = render "devise/shared/links"

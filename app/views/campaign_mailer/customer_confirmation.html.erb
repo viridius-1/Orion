@@ -1,0 +1,140 @@
+<style>
+  .title {
+    position: absolute;
+    left: 19%;
+    right: 19%;
+    top: 53.50%;
+    font-family: Arial;
+    font-weight: 400;
+    font-size: 29px;
+    line-height: 54px;
+    text-align: center;
+    color: #333333;
+  }
+  .email-body {
+    position: absolute;
+    left: 15.67%;
+    right: 17.33%;
+    top: 62%;
+    font-family: Arial;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .content-wrapper {
+    position: absolute;
+    width: 600px;
+    height: 900px;
+    left: 88px;
+    top: 59px;
+
+    background: #FFFFFF;
+  }
+
+  .header-content {
+    position: absolute;
+    width: 600px;
+    height: 446px;
+    left: 0px;
+    top: 0px;
+    background: linear-gradient(127.38deg, #1D51A2 52.95%, #57107C 86.08%, #57107C 92.52%);
+  }
+
+  .header-image {
+    position: absolute;
+    width: 156px;
+    height: 80px;
+    left: 222px;
+    top: 61px;
+    background: url(<%= asset_path('invitation-mail-orion-title.png') %>)
+  }
+
+  .header-background {
+    position: absolute;
+    width: 600px;
+    height: 379px;
+    left: 0px;
+    top: 53px;
+
+    background: url(<%= asset_path('invitation-mail-header-background.png') %>);
+  }
+
+  .header-image-bottom {
+    position: absolute;
+    width: 600px;
+    height: 204px;
+    left: 0px;
+    top: 242px;
+
+    background: url(<%= asset_path('invitation-mail-header-image-bottom.png') %>);
+  }
+
+  A {
+    text-decoration: none
+  }
+
+  .footer-wrapper {
+    position: absolute;
+    width: 600px;
+    height: 120px;
+    left: 0px;
+    bottom: 0px;
+  }
+
+  .footer-background {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    /* Gradient Button */
+
+    background: linear-gradient(99.74deg, #57107C 13.42%, #57107C 30%, #1D51A2 123.17%);
+  }
+
+  .footer-logo {
+    position: absolute;
+    left: 43.33%;
+    right: 42.67%;
+    top: 23.1%;
+    bottom: 26.75%;
+
+    background: url(<%= asset_path('v2-email-footer-logo.png') %>);
+  }
+</style>
+
+<div class="content-wrapper">
+  <div class="header-content"></div>
+  <div class="header-background"></div>
+  <div class="header-image"></div>
+  <div class="header-image-bottom"></div>
+
+  <div class="title">Hey <%= @user.first_name %></div>
+  <div class="email-body">
+    <% if @type == :managed_service_insertion_order %>
+      <p>Thanks for sending your IO to the Version2 strategy team. We’ll circle back shortly with your insertion order.</p>
+  <% else %>
+      <p>Confirming receipt of your campaign request.</p>
+      <p>ORION is currently calculating the best media mix based on your campaign details of which will be sent over
+        shortly.</p>
+    <% end %>
+
+    Thanks,<br>
+    <% if @type == :managed_service_insertion_order %>
+      Version2 Team
+    <% else %>
+      ORION
+    <% end %>
+  </div>
+
+  <div class="footer-wrapper">
+    <div class="footer-background">
+    </div>
+
+    <div class="footer-logo">
+    </div>
+  </div>
+</div>
