@@ -28,11 +28,11 @@ class Objective < ApplicationRecord
   end
 
   with_options if: -> (objective) { objective.kpi == "Cost Per Acquisition (CPA)" } do
-    validates :budget, :desired_dcpm, :conversions, :target_conversion_rate, presence: true
+    validates :budget, :desired_dcpm, :target_conversion_rate, presence: true
   end
 
   with_options if: -> (objective) { objective.kpi == "Return on Ad Spend (ROAS)" } do
-    validates :budget, :desired_dcpm, :conversions, :target_conversion_rate,
+    validates :budget, :desired_dcpm, :target_conversion_rate,
               :target_cpa, :average_order_value, :target_roas, presence: true
   end
  

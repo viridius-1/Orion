@@ -331,19 +331,6 @@ export default class ObjectiveFormFragment extends Component {
           <div className="input-v2-append"><span>%</span></div>
         </Form.Group>
         }
-        {fields.includes('conversions') && 
-        <Form.Group controlId="conversions">
-          <Form.Label className="label-v2">Conversions</Form.Label>
-          <Form.Control
-            className="input-v2"
-            name="conversions"
-            type="text"
-            onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleNumberChange}
-            value={FormUtils.formatNumber(objective.conversions)}
-            />
-        </Form.Group>
-        }
         {fields.includes('target_conversion_rate') &&
         <Form.Group controlId="target_conversion_rate">
           <Form.Label className="label-v2">Conversion Rate</Form.Label>
