@@ -78,3 +78,5 @@ gem "react_on_rails", "12.0.0"
 
 gem "mini_magick"
 gem "mini_racer", "~> 0.6.2"
+
+gem 'rollbar'
