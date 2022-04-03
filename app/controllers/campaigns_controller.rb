@@ -49,8 +49,8 @@ class CampaignsController < ApplicationController
     @campaign.assign_attributes(campaign_params)
     if @campaign.save(context: step_context)
       return render json: @campaign.as_json(include: :objectives) unless last_step?
-      
-      CampaignMailer.customer_confirmation(current_user, @campaign).deliver_later
+      # Commented until we get good text for these
+      # CampaignMailer.customer_confirmation(current_user, @campaign).deliver_later
       CampaignMailer.campaign_submitted(current_user, @campaign).deliver_later
 
       redirect_to campaign_path(@campaign.id),
@@ -188,8 +188,8 @@ class CampaignsController < ApplicationController
   end
 
   def send_customer_confirmation
-    CampaignMailer.customer_confirmation(current_user,
-                                         @campaign).deliver_later
+    # Commented until we get good text for these
+    # CampaignMailer.customer_confirmation(current_user, @campaign).deliver_later
   end
 
   def load_step

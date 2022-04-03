@@ -1,24 +1,32 @@
 <style>
-  .content-text {
+  .title {
     position: absolute;
-    left: 15.83%;
-    right: 16%;
-    top: 33.48%;
-    bottom: 46.64%;
-
-    font-family: 'Poppins';
-    font-style: normal;
-    font-size: 20px;
-    line-height: 20px;
-    /* or 143% */
-
+    left: 19%;
+    right: 19%;
+    top: 53.50%;
+    font-family: Arial;
+    font-weight: 400;
+    font-size: 29px;
+    line-height: 54px;
     text-align: center;
+    color: #333333;
+  }
+  .email-body {
+    position: absolute;
+    left: 15.67%;
+    right: 17.33%;
+    top: 62%;
+    font-family: Arial;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
   }
 
   .content-wrapper {
     position: absolute;
     width: 600px;
-    height: 1400px;
+    height: 900px;
     left: 88px;
     top: 59px;
 
@@ -70,9 +78,9 @@
   .footer-wrapper {
     position: absolute;
     width: 600px;
-    height: 199px;
+    height: 120px;
     left: 0px;
-    bottom: 300px;
+    bottom: 0px;
   }
 
   .footer-background {
@@ -91,8 +99,8 @@
     position: absolute;
     left: 43.33%;
     right: 42.67%;
-    top: 20.1%;
-    bottom: 49.75%;
+    top: 23.1%;
+    bottom: 26.75%;
 
     background: url(<%= asset_path('v2-email-footer-logo.png') %>);
   }
@@ -104,17 +112,18 @@
   <div class="header-image"></div>
   <div class="header-image-bottom"></div>
 
-  <div class="content-text">
-    <h4>Hey <%= @user.first_name %></h4>
-
-    <% if @type == :insertion_order %>
-      <p>Thanks for sending your IO to the Version2 strategy team. We’ll circle back shortly with a detailed media plan and your insertion order.</p>
-    <% else %>
-      <p>Confirming receipt of your campaign recommendation request.</p> <p>ORION is currently calculating the best media mix based on your campaign details of which will be sent over shortly.</p>
+  <div class="title">Hey <%= @user.first_name %></div>
+  <div class="email-body">
+    <% if @type == :managed_service_insertion_order %>
+      <p>Thanks for sending your IO to the Version2 strategy team. We’ll circle back shortly with your insertion order.</p>
+  <% else %>
+      <p>Confirming receipt of your campaign request.</p>
+      <p>ORION is currently calculating the best media mix based on your campaign details of which will be sent over
+        shortly.</p>
     <% end %>
 
     Thanks,<br>
-    <% if @type == :insertion_order %>
+    <% if @type == :managed_service_insertion_order %>
       Version2 Team
     <% else %>
       ORION
@@ -127,5 +136,5 @@
 
     <div class="footer-logo">
     </div>
-  </div>  
+  </div>
 </div>
