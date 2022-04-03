@@ -23,13 +23,14 @@ Rails.application.routes.draw do
 
   resources :dashboard, only: :index
 
-  resources :campaigns, only: [:new, :create] do
+  resources :campaigns, only: [:new, :create], shallow: true do
+    resources :creatives, only: [:index, :create, :destroy]
     member do
       put :action_items
       put :complete_action_items
     end
   end
-  
+
   resources :objectives, only: :destroy
 
   resources :agencies, shallow: true do

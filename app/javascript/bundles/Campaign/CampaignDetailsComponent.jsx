@@ -1,16 +1,15 @@
-import React, { Component, Fragment } from 'react';
-import { Tabs } from 'react-simple-tabs-component';
+import React, {Component} from 'react';
+import {Tabs} from 'react-simple-tabs-component';
 import PropTypes from 'prop-types';
-import { statusColor, statusLabel } from '../../constants';
-import { formatRange, moneyFormatter, numberFormatter } from '../../common/utils';
+import {statusColor, statusLabel} from '../../constants';
+import {formatRange, moneyFormatter, numberFormatter} from '../../common/utils';
 import AffinitiesList from '../../components/AffinitiesList';
 import CampaignActionItemsFormFragment from './components/CampaignActionItemsFormFragment';
-
+import FileUpload from '../../components/fileUpload';
 
 export default class CampaignDetailsComponent extends Component {
   constructor(props) {
     super(props);
-
     this.tabs = [
       {
         Component: this.campaignAudienceTab,
@@ -26,8 +25,21 @@ export default class CampaignDetailsComponent extends Component {
 
     this.actionItemsNeeded(this.tabs);
 
+    const {campaign: {campaign_type: campaignType}} = this.props;
+
+    if (campaignType === 'self_service_auto_setup') {
+      this.tabs.push(
+        {
+          Component: this.uploadCreativeTab,
+          index: 3,
+          label: 'Upload Creative'
+        }
+      )
+    }
+
     this.state = {
       selectedTab: 0,
+      creatives: this.props.campaign.creatives
     };
   }
 
@@ -42,10 +54,10 @@ export default class CampaignDetailsComponent extends Component {
     } = this.props;
 
     const itemsValue = [footfall_analysis, crm_data, brand_safety, contextual_targeting];
-    
-    if(itemsValue.some(v => v === true)) {
+
+    if (itemsValue.some(v => v === true)) {
       tabs.unshift({
-        Component: this.campaingActionItem, // Tab Component
+        Component: this.campaignActionItem, // Tab Component
         index: 0, // Tab index
         label: 'Action Items', // Tab title
       })
@@ -55,10 +67,11 @@ export default class CampaignDetailsComponent extends Component {
   setSelectedTab(index) {
     this.setState({
       selectedTab: index,
+
     });
   }
 
-  campaingActionItem = () => {
+  campaignActionItem = () => {
     const {
       campaign: {
         id,
@@ -105,16 +118,16 @@ export default class CampaignDetailsComponent extends Component {
   }
 
   objectiveSegment = (objective, i) => {
-    const { field_mapping: fieldMapping } = this.props;
+    const {field_mapping: fieldMapping} = this.props;
 
     const fields = fieldMapping["field_options"][objective.kpi] || [];
 
     return (
       <div key={i}>
-      {i > 0 &&
-        <hr className="w-100"></hr>
-      }
-      <div style={{ padding: '0 40px' }}>
+        {i > 0 &&
+          <hr className="w-100"></hr>
+        }
+        <div style={{padding: '0 40px'}}>
           <div className="row">
             <div className="col-12 grid-item">
               <div className="row">
@@ -205,12 +218,12 @@ export default class CampaignDetailsComponent extends Component {
                   </div>
                 }
                 {fields.includes('target_roas') &&
-                <div className="col-4 grid-item">
-                  <h6>ROAS Goal</h6>
-                  <p>
-                    {`${objective.target_roas}%`}
-                  </p>
-                </div>
+                  <div className="col-4 grid-item">
+                    <h6>ROAS Goal</h6>
+                    <p>
+                      {`${objective.target_roas}%`}
+                    </p>
+                  </div>
                 }
               </div>
             </div>
@@ -232,7 +245,7 @@ export default class CampaignDetailsComponent extends Component {
     } = this.props;
 
     return (
-      <div style={{ padding: '0 40px' }}>
+      <div style={{padding: '0 40px'}}>
         <div className="row">
           <div className="col-6 grid-item">
             <div className="row">
@@ -287,13 +300,64 @@ export default class CampaignDetailsComponent extends Component {
           <div className="col-12 grid-item">
             <div className="details-card">
               <h6>Affinities</h6>
-              {Object.keys(affinities).length > 0 ? <AffinitiesList affinities={affinities} /> : '-'}
+              {Object.keys(affinities).length > 0 ? <AffinitiesList affinities={affinities}/> : '-'}
             </div>
           </div>
         </div>
       </div>
     );
   }
+
+  handleOnFileChange = (file, status) => {
+    if (status === 'done') {
+      const data = JSON.parse(file.xhr.response);
+      const updatedCreatives = [...this.state.creatives];
+      updatedCreatives.push(data);
+      this.setState({
+        creatives: updatedCreatives,
+      });
+      file.remove();
+    }
+  }
+
+  handleDeleteCreative = (creativeId, index) => {
+
+    const requestOptions = {
+      headers: {'Content-Type': 'application/json'},
+      method: 'DELETE',
+    };
+
+    const deleteCreativeUrl = `/creatives/${creativeId}`;
+
+    fetch(deleteCreativeUrl, requestOptions)
+      .then((response) => {
+        if (response.ok) {
+          const updatedCreatives = [...this.state.creatives];
+          updatedCreatives.splice(index, 1);
+          this.setState({
+            creatives: updatedCreatives,
+          });
+        }
+      });
+  }
+
+  uploadCreativeTab = () => {
+    const {
+      campaign: {
+        id: campaignId
+      }
+    } = this.props;
+
+    return (
+      <div>
+        <FileUpload creatives={this.state.creatives}
+                    campaignId={campaignId}
+                    handleOnFileChange={this.handleOnFileChange}
+                    handleDeleteCreative={this.handleDeleteCreative}/>
+      </div>
+    )
+  }
+
 
   _getGenderLabel() {
     const {
@@ -305,9 +369,11 @@ export default class CampaignDetailsComponent extends Component {
 
     if (!!ageRangeMale && !!ageRangeFemale) {
       return 'Male & Female';
-    } if (ageRangeMale) {
+    }
+    if (ageRangeMale) {
       return 'Male';
-    } if (ageRangeFemale) {
+    }
+    if (ageRangeFemale) {
       return 'Female';
     }
 
@@ -326,13 +392,15 @@ export default class CampaignDetailsComponent extends Component {
       return (
         <>
           <p>{`Male: ${formatRange(ageRangeMale)}`}</p>
-          <br />
+          <br/>
           <p>{`Female: ${formatRange(ageRangeFemale)}`}</p>
         </>
       );
-    } if (ageRangeMale) {
+    }
+    if (ageRangeMale) {
       return (<p>{`Male: ${formatRange(ageRangeMale)}`}</p>);
-    } if (ageRangeFemale) {
+    }
+    if (ageRangeFemale) {
       return (<p>{`Female: ${formatRange(ageRangeFemale)}`}</p>);
     }
 
@@ -348,7 +416,7 @@ export default class CampaignDetailsComponent extends Component {
       },
     } = this.props;
 
-    const { selectedTab } = this.state;
+    const {selectedTab} = this.state;
 
     return (
       <div className="campaign-details">
@@ -356,8 +424,8 @@ export default class CampaignDetailsComponent extends Component {
           <div className="col-4 grid-item">
             <div className="details-card status">
               <h6>Status</h6>
-              <div style={{ display: 'inline-flex' }}>
-                <span className={`dot ${statusColor[status]}`} />
+              <div style={{display: 'inline-flex'}}>
+                <span className={`dot ${statusColor[status]}`}/>
                 <p>{statusLabel[status]}</p>
               </div>
             </div>
@@ -365,7 +433,7 @@ export default class CampaignDetailsComponent extends Component {
           <div className="col-4 grid-item">
             <div className="details-card">
               <h6>Destination URL</h6>
-              <div style={{ display: 'inline-flex' }}>
+              <div style={{display: 'inline-flex'}}>
                 <p>{campaignUrl}</p>
               </div>
             </div>
@@ -373,7 +441,7 @@ export default class CampaignDetailsComponent extends Component {
           <div className="col-4 grid-item">
             <div className="details-card">
               <h6>Flight</h6>
-              <div style={{ display: 'inline-flex' }}>
+              <div style={{display: 'inline-flex'}}>
                 <p>{flight}</p>
               </div>
             </div>
@@ -406,6 +474,7 @@ CampaignDetailsComponent.propTypes = {
       PropTypes.string,
     ]),
     campaign_url: PropTypes.string,
+    campaign_type: PropTypes.string,
     conversion_rate: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,

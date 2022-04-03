@@ -18,5 +18,5 @@
     = render partial: 'shared/user_settings_menu'
   
   = react_component("CampaignDetailsComponent",
-          props: {campaign: @campaign.as_json(include: {objectives: { methods: :impressions}}, methods: [:flight]), field_mapping: Objectives::DependentFields.mapping, token: form_authenticity_token },
+          props: {campaign: @campaign.as_json(include: [creatives: { methods: [:filetype, :shortname, :name] }, objectives: { methods: :impressions}], methods: [:flight]), field_mapping: Objectives::DependentFields.mapping, token: form_authenticity_token  },
           prerender: false)

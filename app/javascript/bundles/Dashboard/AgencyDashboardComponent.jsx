@@ -32,7 +32,7 @@ const AgencyDashboardComponent = ({
               text="Add Advertiser"
               link={addAdvertiserLink}
               icon="fas fa-plus-circle icon"
-              buttonClass="btn btn-primary btn-primary-v2"
+              buttonClass="btn btn-primary btn-primary-v2 ht-50"
             />
           </div>
         </div>
