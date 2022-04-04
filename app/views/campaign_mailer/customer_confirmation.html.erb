@@ -11,6 +11,7 @@
     text-align: center;
     color: #333333;
   }
+
   .email-body {
     position: absolute;
     left: 15.67%;
@@ -114,20 +115,19 @@
 
   <div class="title">Hey <%= @user.first_name %></div>
   <div class="email-body">
-    <% if @type == :managed_service_insertion_order %>
-      <p>Thanks for sending your IO to the Version2 strategy team. We’ll circle back shortly with your insertion order.</p>
-  <% else %>
-      <p>Confirming receipt of your campaign request.</p>
-      <p>ORION is currently calculating the best media mix based on your campaign details of which will be sent over
-        shortly.</p>
+    <% if @campaign.campaign_type.to_sym == :pre_sales_media_plan %>
+      <p>Thanks for submitting your campaign details for a pre-sales media plan. We'll circle back shortly with your
+        detailed media plan. </p>
+    <% elsif @campaign.campaign_type.to_sym == :self_service_auto_setup %>
+      <p>Thanks for submitting your campaign details for self service auto set up. The ORION set up algorithm is
+        querying the data and we'll notify you as soon as your campaign has been implemented. </p>
+    <% else %>
+      <p>Thanks for sending your IO Request to the Version2 strategy team. We’ll circle back shortly with your insertion
+        order.</p>
     <% end %>
 
     Thanks,<br>
-    <% if @type == :managed_service_insertion_order %>
-      Version2 Team
-    <% else %>
-      ORION
-    <% end %>
+    The Version2 Team
   </div>
 
   <div class="footer-wrapper">
