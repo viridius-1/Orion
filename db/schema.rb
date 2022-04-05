@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_02_202424) do
+ActiveRecord::Schema.define(version: 2022_04_05_165554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2022_04_02_202424) do
     t.boolean "crm_data_checked", default: false
     t.text "brand_safety_text"
     t.text "contextual_targeting_text"
+    t.boolean "is_creative_uploaded", default: false
   end
 
   create_table "connections", force: :cascade do |t|

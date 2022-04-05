@@ -54,8 +54,9 @@ export default class CampaignDetailsComponent extends Component {
     } = this.props;
 
     const itemsValue = [footfall_analysis, crm_data, brand_safety, contextual_targeting];
+    const {campaign: {campaign_type}} = this.props;
 
-    if (itemsValue.some(v => v === true)) {
+    if (itemsValue.some(v => v === true) || campaign_type === 'self_service_auto_setup') {
       tabs.unshift({
         Component: this.campaignActionItem, // Tab Component
         index: 0, // Tab index
@@ -64,10 +65,12 @@ export default class CampaignDetailsComponent extends Component {
     }
   }
 
+  selectCreativeUploadTab() {
+    $('#btn-3').trigger('click');
+  }
   setSelectedTab(index) {
     this.setState({
       selectedTab: index,
-
     });
   }
 
@@ -83,6 +86,8 @@ export default class CampaignDetailsComponent extends Component {
         crm_data_checked,
         brand_safety_text,
         contextual_targeting_text,
+        campaign_type,
+        is_creative_uploaded
       },
       token
     } = this.props;
@@ -99,6 +104,9 @@ export default class CampaignDetailsComponent extends Component {
         contextualTargetingText={contextual_targeting_text}
         campaignId={id}
         token={token}
+        campaignType={campaign_type}
+        isCreativeUploaded={is_creative_uploaded}
+        selectCreativeUploadTab={this.selectCreativeUploadTab}
       />
     );
   }
@@ -228,7 +236,6 @@ export default class CampaignDetailsComponent extends Component {
   campaignAudienceTab = () => {
     const {
       campaign: {
-        household_income: householdIncome,
         geography,
         affinities,
         geo_fence,
