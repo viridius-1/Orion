@@ -9,32 +9,35 @@
       <div class="title" style="margin-top: 100px; font-family: Arial; font-weight: 400; font-size: 29px; text-align: center; color: #333333">
         You’ve been invited to join Orion.
       </div>
-      <div class="subtitle" style="margin-top: 30px; margin-left: 100px; margin-right: 100px; font-family: Arial; font-weight: 400; font-size: 16px; line-height: 20px; text-align: center; color: #58107C">
+      <div class="subtitle" style="margin-top: 30px; margin-left: 100px; margin-right: 100px; font-family: Arial; font-weight: 400; font-size: 16px; line-height: 20px; text-align: center;">
         A TOOL TO EXPLORE, MAP, CREATE, AND ACTIVATE AUDIENCES IN YOUR DSP OF CHOICE.
       </div>
       <div class="email-body" style="margin-top: 30px; margin-left: 100px; margin-right: 100px; font-family: Arial; font-weight: 700; font-size: 14px; line-height: 20px">
         <p>
           <strong class="purple" style="color: #7C3B94">Explore</strong><br>
-          Discover audience segments that can be combined or individually targeted to grow your site traffic and brand
-          awareness.<br>
+          <span style="font-weight: 400">Discover audience segments that can be combined or individually targeted to grow your site traffic and brand
+          awareness.<br></span>
         </p>
         <p>
           <strong class="purple" style="color: #7C3B94">Map</strong><br>
-          Port ORION audience segments over to your ORION DSPs for heightened scope and increased reach.<br>
+          <span style="font-weight: 400">Port ORION audience segments over to your ORION DSPs for heightened scope and increased reach.<br></span>
         </p>
         <p>
           <strong class="purple" style="color: #7C3B94">Create</strong><br>
-          Build custom audiences off of your 1st party data, 3rd party data, and ORION data, through the largest free
-          repository of consumer data.<br>
+          <span style="font-weight: 400">Build custom audiences off of your 1st party data, 3rd party data, and ORION data, through the largest free
+          repository of consumer data.</span><br>
         </p>
         <p>
           <strong class="purple" style="color: #7C3B94">Activate</strong><br>
-          Use ORION audience segments as a force multiplier for your brand or agency clients.<br>
+          <span style="font-weight: 400">Use ORION audience segments as a force multiplier for your brand or agency clients.</span><br>
         </p>
       </div>
 
-      <a class="get-started-button" href="<%= accept_invitation_url(@resource, invitation_token: @token) %>" style="text-decoration: none; display: flex; flex-direction: row; justify-content: center; align-items: center; height: 50px; background: linear-gradient(99.74deg, #57107C 13.42%, #57107C 30%, #1D51A2 123.17%); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 8px; margin-top: 50px; margin-bottom: 80px; margin-left: 150px; margin-right: 150px;">
-        <span class="button-text" style="text-align: center; color: #FFFFFF; font-family: Arial; font-size: 14px; font-weight: 400;">Get Started</span>
+      <a href="<%= accept_invitation_url(@resource, invitation_token: @token) %>"
+        style="display:flex;height:40px;background:linear-gradient(99.74deg,#57107c 13.42%,#57107c 30%,#1d51a2 123.17%);
+          border-radius:8px;text-decoration:none;color:white;width:fit-content;margin:40px auto;">
+        <span style="display:flex;margin:auto 10px;">
+          Get Started</span>
       </a>
 
       <div class="footer-wrapper" style="height: 120px">
