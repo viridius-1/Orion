@@ -7,7 +7,7 @@
       </div>
       <div class="email-body" style="height: 200px; margin-top: 200px; margin-left: 100px; margin-right: 100px; font-family: Arial; font-weight: 400; font-size: 14px; line-height: 20px">
         <p>
-          Hi, <%= @user.username %>!<br>
+          Hi, <%= @user.first_name %>!<br>
         </p>
 
         <% if @campaign.campaign_type.to_sym == :pre_sales_media_plan %>
