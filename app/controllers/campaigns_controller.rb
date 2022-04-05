@@ -155,7 +155,8 @@ class CampaignsController < ApplicationController
       :footfall_analysis_text,
       :crm_data_checked,
       :brand_safety_text,
-      :contextual_targeting_text
+      :contextual_targeting_text,
+      :is_creative_uploaded
     )
   end
 

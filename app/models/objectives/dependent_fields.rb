@@ -5,14 +5,14 @@ module Objectives
         goal_options: { # based on media_channel
           'CTV/OTT' => ['Reach', 'Awareness'],
           'Digital Out-of-Home' => ['Reach'],
-          'Digital Video' => ['Reach', 'Awareness', 'Acquisition'],
-          'In-Email Display' => ['Reach', 'Awareness', 'Acquisition'],
+          'Digital Video' => ['Reach', 'Awareness'],
+          'In-Email Display' => ['Reach', 'Awareness'],
           'Native Display' => ['Reach', 'Awareness', 'Acquisition'],
-          'Native Video' => ['Reach', 'Awareness', 'Acquisition'],
+          'Native Video' => ['Reach', 'Awareness'],
           'Programmatic Display' => ['Reach', 'Awareness', 'Acquisition'],
-          'Site Skins' => ['Reach', 'Awareness', 'Acquisition'],
+          'Site Skins' => ['Reach', 'Awareness'],
           'Streaming Audio' => ['Reach', 'Awareness'],
-          'Youtube' => ['Reach', 'Awareness', 'Acquisition']
+          'Youtube' => ['Reach', 'Awareness']
         },
         kpi_options: { # based on goal
           'Reach' => ['Impressions'],
