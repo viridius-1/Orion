@@ -331,20 +331,7 @@ export default class ObjectiveFormFragment extends Component {
           <div className="input-v2-append"><span>%</span></div>
         </Form.Group>
         }
-        {fields.includes('target_conversion_rate') &&
-        <Form.Group controlId="target_conversion_rate">
-          <Form.Label className="label-v2">Conversion Rate</Form.Label>
-          <Form.Control
-            className="input-v2 left"
-            name="target_conversion_rate"
-            type="number"
-            onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handlePercentageChange}
-            value={objective.target_conversion_rate || ''}
-            />
-          <div className="input-v2-append"><span>%</span></div>
-        </Form.Group>
-        }
+
         {fields.includes('average_order_value') &&
         <Form.Group controlId="average_order_value">
           <Form.Label className="label-v2">AOV</Form.Label>
