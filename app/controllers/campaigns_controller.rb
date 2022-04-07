@@ -90,7 +90,7 @@ class CampaignsController < ApplicationController
     @campaign.assign_attributes(action_items_params)
     if @campaign.save
       @campaign.update_attribute(:status, "complete")
-      CampaignMailer.action_items_completed(@campaign).deliver_later
+      CampaignMailer.campaign_submitted(current_user, @campaign, "Action items completed").deliver_later
       flash[:notice] = 'Campaign successfully completed'
       redirect_to campaign_path(@campaign.id)
     else

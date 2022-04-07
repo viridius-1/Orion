@@ -1,9 +1,15 @@
-h3="A new campaign was submitted by: #{@user.first_name} #{@user.last_name} - #{@user.email}"
+h3="#{@subject} by: #{@user.first_name} #{@user.last_name} - #{@user.email}"
 ul
   - @campaign.as_json(include: { advertiser: { only: :name } }).each do |key, value|
     li
       strong="#{key}: "
       = value.to_s
+p Creatives 
+ul 
+ - @campaign.file_urls&.each do |url|
+  li 
+    strong="creative_url: "
+    = link_to url, url, target: "_blank"
 p Objectives
 ul
   - @objectives.as_json.each do |objective|

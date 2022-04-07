@@ -25,21 +25,15 @@ class CampaignMailer < ApplicationMailer
          from: 'Version2 Strategy <strategy@theversion2.com>')
   end
 
-  def campaign_submitted(user, campaign)
+  def campaign_submitted(user, campaign, subject = "New campaign was submited")
     @campaign = campaign
     @user = user
     @objectives = @campaign.objectives
+    @subject = subject
 
     mail(to: 'strategy@theversion2.com',
-         subject: "New campaign was submitted",
+         subject: subject,
          from: 'Version2 Strategy <strategy@theversion2.com>')
   end
-
-  def action_items_completed(campaign)
-    @campaign = campaign
-    
-    mail(to: 'strategy@theversion2.com',
-      subject: "Action items completed",
-      from: 'Version2 Strategy <strategy@theversion2.com>')
-  end
 end
+
