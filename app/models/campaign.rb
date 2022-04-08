@@ -48,10 +48,4 @@ class Campaign < ApplicationRecord
   def files
     creatives.map { |creative| creative.file.thumb.url }
   end
-
-  def file_urls
-    creatives.map { |creative| creative.file.url }.map do |url|
-      "#{Rails.application.config.action_mailer.asset_host}#{url}"
-    end
-  end
 end

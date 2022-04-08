@@ -6,10 +6,10 @@ ul
       = value.to_s
 p Creatives 
 ul 
- - @campaign.file_urls&.each do |url|
+ - @campaign.creatives&.each do |creative|
   li 
     strong="creative_url: "
-    = link_to url, url, target: "_blank"
+    = link_to creative.full_url, download_url(creative: creative)
 p Objectives
 ul
   - @objectives.as_json.each do |objective|

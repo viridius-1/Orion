@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   get 'creative_studios', to: 'pages#creative_studios'
   get 'platforms', to: 'pages#platforms'
+  get 'download', to: 'pages#download'
 
   resources :dashboard, only: :index
 
