@@ -6,6 +6,7 @@ class Creative < ApplicationRecord
     return 'image' if file.content_type.include?('image')
     return 'video' if file.content_type.include?('video')
     return 'audio' if file.content_type.include?('audio')
+    return 'document' if file.content_type.include?('application') || file.content_type.include?('text')
     'other'
   end
 

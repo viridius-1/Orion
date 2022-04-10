@@ -64,6 +64,8 @@ const FileUpload = (props) => {
       return <span className='blue'><i className="fas fa-video"/></span>;
     } else if (creative.filetype === 'audio') {
       return <span className='mustard'><i className="fas fa-music"/></span>;
+    } else if (creative.filetype === 'document') {
+      return <span className='green'><i className="fas fa-file"/></span>;
     } else {
       return <span className='red' title='Unable to load file'><i className="fas fa-exclamation-triangle"/></span>;
     }
@@ -92,7 +94,7 @@ const FileUpload = (props) => {
           getFilesFromEvent={getFilesFromEvent}
           submitButtonDisabled={true}
           canRemove={false}
-          accept="image/*,audio/*,video/*"
+          accept="text/csv,image/*,audio/*,video/*,application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.presentationml.presentation"
           maxFiles={5}
           maxSize={50000000}
           inputContext="Drop A File"
