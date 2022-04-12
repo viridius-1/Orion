@@ -20,4 +20,8 @@ class Creative < ApplicationRecord
     end
     n
   end
+
+  def full_url
+    "#{Rails.application.config.action_mailer.asset_host}#{file.url}"
+  end
 end
