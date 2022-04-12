@@ -65,7 +65,7 @@ const FileUpload = (props) => {
     } else if (creative.filetype === 'audio') {
       return <span className='mustard'><i className="fas fa-music"/></span>;
     } else if (creative.filetype === 'document') {
-      return <span className='green'><i className="fas fa-file"/></span>;
+      return <span className='green'><i className="fas fa-file-spreadsheet"/></span>;
     } else {
       return <span className='red' title='Unable to load file'><i className="fas fa-exclamation-triangle"/></span>;
     }
