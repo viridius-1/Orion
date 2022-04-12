@@ -269,11 +269,6 @@ export default class CampaignActionItemsFormFragment extends Component {
                         </Form.Control.Feedback>
                       </Form.Group>
                     }
-                    <Form.Group controlId="contextual_targeting_text" className="col-md-6">
-                      <Form.Label className="label-v2 default-position">* Please keep in mind these campaign add-ons may
-                        incur an additional fee. Please reference your current MSA or consult with your Version2
-                        Campaign Specialist for details.</Form.Label>
-                    </Form.Group>
                     <div className="form-group col-md-6">
                       <button className="btn btn-secondary-v2" type="button" onClick={this.handleSave}>Save</button>
                       <button className="btn btn-primary-v2 float-right" type="submit" style={{width: '61%'}}>Complete
