@@ -1,15 +1,15 @@
-h3="#{@subject} by: #{@user.first_name} #{@user.last_name} - #{@user.email}"
+h3= "#{@subject} by: #{@user.first_name} #{@user.last_name} - #{@user.email}"
 ul
   - @campaign.as_json(include: { advertiser: { only: :name } }).each do |key, value|
     li
-      strong="#{key}: "
+      strong= "#{key}: "
       = value.to_s
 p Creatives 
-ul 
- - @campaign.creatives&.each do |creative|
-  li 
-    strong="creative_url: "
-    = link_to creative.full_url, download_url(creative: creative)
+ul
+  - @campaign.creatives&.each do |creative|
+    li
+      strong= "creative_url: "
+      = link_to creative.id, download_url(creative: creative)
 p Objectives
 ul
   - @objectives.as_json.each do |objective|
@@ -18,5 +18,5 @@ ul
       - objective.as_json.each do |key, value|
         ul
           li
-            strong="#{key}: "
+            strong= "#{key}: "
             = value.to_s
