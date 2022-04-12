@@ -65,6 +65,50 @@ export default class AdvertiserForm extends Component {
     });
   }
 
+  handleNumberChange = (event) => {
+    const {
+      objective
+    } = this.props
+
+    let number = event.target.value.replaceAll(',', '').replaceAll('-', '')
+
+    // limit to 2 decimal places
+    let [wholePart, decimalPart] = number.split('.')
+    if (decimalPart) {
+      decimalPart = decimalPart.substring(0, 2)
+      number = `${wholePart}.${decimalPart}`
+    }
+
+    // js can't handle parsing of huge numbers
+    if (number.length >= 16) {
+      event.preventDefault()
+      return
+    }
+
+    if (number === '') {
+      this.setState({
+        [event.target.name]: '',
+      });
+      return
+    }
+
+    if (Number(number) !== 0 && !Number(number)) {
+      event.preventDefault()
+      return
+    }
+
+    if (Number(number) < 0) {
+      this.setState({
+        [event.target.name]: 0,
+      });
+      return
+    }
+
+    this.setState({
+      [event.target.name]: number,
+    });
+  }
+
   handleSelectChange = (selectedOption, { name }) => {
     this.setState({ [name]: selectedOption });
   }
@@ -192,9 +236,9 @@ export default class AdvertiserForm extends Component {
                     required
                     name="annual_revenue"
                     onKeyDown={FormUtils.blockNonNum}
-                    type="number"
-                    onChange={this.handleChange}
-                    value={annualRevenue}
+                    type="text"
+                    onChange={this.handleNumberChange}
+                    value={FormUtils.formatNumber(annualRevenue)}
                     min={0}
                   />
                   <div className="input-v2-prepend"><span>$</span></div>
@@ -210,9 +254,9 @@ export default class AdvertiserForm extends Component {
                     required
                     name="monthly_unique_visitors"
                     onKeyDown={FormUtils.blockNonNum}
-                    type="number"
-                    onChange={this.handleChange}
-                    value={monthlyUniqueVisitors}
+                    type="text"
+                    onChange={this.handleNumberChange}
+                    value={FormUtils.formatNumber(monthlyUniqueVisitors)}
                   />
                   <Form.Control.Feedback type="invalid">
                     Monthly Unique visitors is required
