@@ -30,8 +30,8 @@ Rails.application.configure do
 
   config.hosts << ENV['HOST_URL']
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = 'https://orion.theversion2.com'
-  config.action_mailer.asset_host = 'https://orion.theversion2.com'
+  config.action_controller.asset_host = ENV['ASSET_HOST']
+  config.action_mailer.asset_host = ENV['ASSET_HOST']
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
@@ -62,7 +62,7 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "orion_production"
 
-  config.action_mailer.default_url_options = { host: 'orion.theversion2.com' }
+  config.action_mailer.default_url_options = { host: ENV['HOST_URL'] }
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
