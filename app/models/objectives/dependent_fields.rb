@@ -23,8 +23,8 @@ module Objectives
           'Impressions' => %i(budget desired_dcpm),
           'Click Through Rate (CTR)' => %i(budget desired_dcpm target_ctr),
           'Video Completion Rate (VCR)' => %i(budget desired_dcpm video_completion_rate),
-          'Cost Per Acquisition (CPA)' => %i(budget desired_dcpm target_conversion_rate),
-          'Return on Ad Spend (ROAS)' => %i(budget desired_dcpm target_conversion_rate target_cpa average_order_value target_roas)
+          'Cost Per Acquisition (CPA)' => %i(budget desired_dcpm),
+          'Return on Ad Spend (ROAS)' => %i(budget desired_dcpm target_cpa average_order_value target_roas)
         }
       }
     end

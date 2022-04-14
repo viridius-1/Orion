@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_05_165554) do
+ActiveRecord::Schema.define(version: 2022_04_07_190713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,7 +105,6 @@ ActiveRecord::Schema.define(version: 2022_04_05_165554) do
     t.string "kpi"
     t.decimal "target_ctr"
     t.decimal "video_completion_rate"
-    t.integer "target_conversion_rate"
     t.decimal "target_cpa"
     t.decimal "average_order_value"
     t.integer "target_roas"

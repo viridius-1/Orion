@@ -201,14 +201,6 @@ export default class CampaignDetailsComponent extends Component {
                     </p>
                   </div>
                 }
-                {fields.includes('target_conversion_rate') &&
-                  <div className="col-4 grid-item">
-                    <h6>Target Conversion Rate</h6>
-                    <p>
-                      {`${objective.target_conversion_rate}%`}
-                    </p>
-                  </div>
-                }
                 {fields.includes('average_order_value') &&
                   <div className="col-4 grid-item">
                     <h6>Average Order Value</h6>

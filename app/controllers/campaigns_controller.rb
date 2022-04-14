@@ -121,7 +121,7 @@ class CampaignsController < ApplicationController
       objectives_attributes: [
         :id, :goal, :media_channel, :kpi, :start_date,
         :end_date, :objective_notes, :budget, :desired_dcpm,
-        :target_ctr, :video_completion_rate, :target_conversion_rate,
+        :target_ctr, :video_completion_rate,
         :target_cpa, :average_order_value, :target_roas
       ]
     ).tap do |permitted_params|
