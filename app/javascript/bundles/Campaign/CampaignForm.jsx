@@ -56,6 +56,12 @@ export default class CampaignForm extends Component {
     this.setState({ [name]: result });
   }
 
+  updateState = (name, value) => {
+    this.setState({
+      [name]: value
+    })
+  }
+
   handleCreatableSelectInputChange = (value, { name }) => {
     this.setState({
       [name]: value,
@@ -344,6 +350,7 @@ export default class CampaignForm extends Component {
             handleCreatableSelectInputChange={this.handleCreatableSelectInputChange}
             handleSwitchChange={this.handleSwitchChange}
             handleChange={this.handleChange}
+            updateState={this.updateState}
           />
         );
 
