@@ -3,6 +3,7 @@ import { Form } from 'react-bootstrap';
 import Select from 'react-select';
 import PropTypes from 'prop-types';
 import FormUtils from '../../common/FormUtils';
+import NumberInput from '../../components/NumberInput';
 
 let industryOptions = [];
 let businessTypeOptions = [];
@@ -65,48 +66,10 @@ export default class AdvertiserForm extends Component {
     });
   }
 
-  handleNumberChange = (event) => {
-    const {
-      objective
-    } = this.props
-
-    let number = event.target.value.replaceAll(',', '').replaceAll('-', '')
-
-    // limit to 2 decimal places
-    let [wholePart, decimalPart] = number.split('.')
-    if (decimalPart) {
-      decimalPart = decimalPart.substring(0, 2)
-      number = `${wholePart}.${decimalPart}`
-    }
-
-    // js can't handle parsing of huge numbers
-    if (number.length >= 16) {
-      event.preventDefault()
-      return
-    }
-
-    if (number === '') {
-      this.setState({
-        [event.target.name]: '',
-      });
-      return
-    }
-
-    if (Number(number) !== 0 && !Number(number)) {
-      event.preventDefault()
-      return
-    }
-
-    if (Number(number) < 0) {
-      this.setState({
-        [event.target.name]: 0,
-      });
-      return
-    }
-
+  updateState = (name, value) => {
     this.setState({
-      [event.target.name]: number,
-    });
+      [name]: value
+    })
   }
 
   handleSelectChange = (selectedOption, { name }) => {
@@ -229,39 +192,19 @@ export default class AdvertiserForm extends Component {
                   </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group controlId="annual_revenue">
-                  <Form.Label className="label-v2">Annual Revenue</Form.Label>
-                  <Form.Control
-                    className="input-v2 right"
-                    required
-                    name="annual_revenue"
-                    onKeyDown={FormUtils.blockNonNum}
-                    type="text"
-                    onChange={this.handleNumberChange}
-                    value={FormUtils.formatNumber(annualRevenue)}
-                    min={0}
-                  />
-                  <div className="input-v2-prepend"><span>$</span></div>
-                  <Form.Control.Feedback type="invalid">
-                    Annual Revenue is invalid
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <NumberInput
+                  name="annual_revenue"
+                  label="Annual Revenue"
+                  handleChange={this.updateState}
+                  value={annualRevenue}
+                />
 
-                <Form.Group controlId="monthly-unique-visitors">
-                  <Form.Label className="label-v2">Monthly Unique Visitors</Form.Label>
-                  <Form.Control
-                    className="input-v2"
-                    required
-                    name="monthly_unique_visitors"
-                    onKeyDown={FormUtils.blockNonNum}
-                    type="text"
-                    onChange={this.handleNumberChange}
-                    value={FormUtils.formatNumber(monthlyUniqueVisitors)}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Monthly Unique visitors is required
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <NumberInput
+                  name="monthly_unique_visitors"
+                  label="Monthly Unique Visitors"
+                  handleChange={this.updateState}
+                  value={monthlyUniqueVisitors}
+                />
 
                 <Form.Group controlId="business_type">
                   <Form.Label className="label-v2">Business Type</Form.Label>
