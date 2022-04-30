@@ -4,6 +4,7 @@ import Select from 'react-select';
 import PropTypes from 'prop-types';
 import FormUtils from '../../../common/FormUtils';
 import OrionForm from '../../../components/OrionForm';
+import NumberInput from '../../../components/NumberInput';
 
 export default class ObjectiveFormFragment extends Component {
   constructor(props) {
@@ -43,6 +44,15 @@ export default class ObjectiveFormFragment extends Component {
     } = this.props
 
     objective[event.target.name] = event.target.value
+    this.forceUpdate()
+  }
+
+  updateAttribute = (name, value) => {
+    const {
+      objective
+    } = this.props
+
+    objective[name] = value
     this.forceUpdate()
   }
 
@@ -260,34 +270,26 @@ export default class ObjectiveFormFragment extends Component {
         </div>
         <div className="row" inputwrapper="true" key="date_wrapper">
         {fields.includes('budget') &&
-        <Form.Group controlId="budget" className="col-6">
-          <Form.Label className="label-v2">Budget</Form.Label>
-          <Form.Control
-            className="input-v2 right"
-            required
+          <NumberInput
             name="budget"
-            type="text"
-            onKeyDown={FormUtils.blockE}
-            onChange={this.handleNumberChange}
-            value={FormUtils.formatNumber(objective.budget)}
-            />
-          <div className="input-v2-prepend"><span>$</span></div>
-        </Form.Group>
+            label="Budget"
+            handleChange={this.updateAttribute}
+            value={objective.budget}
+            allowDecimal={true}
+            className="col-6"
+            prepend="$"
+          />
         }
         {fields.includes('desired_dcpm') &&
-          <Form.Group controlId="desired_dcpm" className="col-6">
-          <Form.Label className="label-v2">Desired dCPM</Form.Label>
-          <Form.Control
-            className="input-v2 right"
-            required
+          <NumberInput
             name="desired_dcpm"
-            type="text"
-            onKeyDown={FormUtils.blockE}
-            onChange={this.handleNumberChange}
-            value={FormUtils.formatNumber(objective.desired_dcpm)}
-            />
-          <div className="input-v2-prepend"><span>$</span></div>
-        </Form.Group>
+            label="Desired dCPM"
+            handleChange={this.updateAttribute}
+            value={objective.desired_dcpm}
+            allowDecimal={true}
+            className="col-6"
+            prepend="$"
+          />
         }
         </div>
         {(fields.includes('budget') && fields.includes('desired_dcpm')) &&
@@ -333,48 +335,32 @@ export default class ObjectiveFormFragment extends Component {
         }
 
         {fields.includes('average_order_value') &&
-        <Form.Group controlId="average_order_value">
-          <Form.Label className="label-v2">AOV</Form.Label>
-          <Form.Control
-            className="input-v2 right"
-            required
+          <NumberInput
             name="average_order_value"
-            type="text"
-            onKeyDown={FormUtils.blockE}
-            onChange={this.handleNumberChange}
-            value={FormUtils.formatNumber(objective.average_order_value)}
-            />
-          <div className="input-v2-prepend"><span>$</span></div>
-        </Form.Group>
+            label="AOV"
+            handleChange={this.updateAttribute}
+            value={objective.average_order_value}
+            allowDecimal={true}
+            prepend="$"
+          />
         }
         {fields.includes('target_cpa') &&
-        <Form.Group controlId="target_cpa">
-          <Form.Label className="label-v2">CPA</Form.Label>
-          <Form.Control
-            className="input-v2 right"
-            required
+          <NumberInput
             name="target_cpa"
-            type="text"
-            onKeyDown={FormUtils.blockE}
-            onChange={this.handleNumberChange}
-            value={FormUtils.formatNumber(objective.target_cpa)}
-            />
-          <div className="input-v2-prepend"><span>$</span></div>
-        </Form.Group>
+            label="CPA"
+            handleChange={this.updateAttribute}
+            value={objective.target_cpa}
+            allowDecimal={true}
+            prepend="$"
+          />
         }
         {fields.includes('target_roas') &&
-        <Form.Group controlId="target_roas">
-          <Form.Label className="label-v2">Return on Ad Spend</Form.Label>
-          <Form.Control
-            className="input-v2 left"
+          <NumberInput
             name="target_roas"
-            type="text"
-            onKeyDown={FormUtils.blockNonNum}
-            onChange={this.handleNumberChange}
-            value={FormUtils.formatNumber(objective.target_roas)}
-            />
-          <div className="input-v2-append"><span>: 1</span></div>
-        </Form.Group>
+            label="Return on Ad Spend"
+            handleChange={this.updateAttribute}
+            value={objective.target_roas}
+          />
         }
         {fields.includes('pixel_notes') &&
         <Form.Group controlId="pixel_notes">

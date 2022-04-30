@@ -4,6 +4,8 @@ import Select from 'react-select';
 import PropTypes from 'prop-types';
 import FormUtils from '../../common/FormUtils';
 import NumberInput from '../../components/NumberInput';
+import TextInput from '../../components/TextInput';
+import UrlInput from '../../components/UrlInput';
 
 let industryOptions = [];
 let businessTypeOptions = [];
@@ -150,20 +152,13 @@ export default class AdvertiserForm extends Component {
           <div className="col-6">
             <div className="form-v2">
               <Form noValidate validated={validated} onSubmit={this.handleSubmit}>
-                <Form.Group controlId="name">
-                  <Form.Label className="label-v2">Advertiser Name</Form.Label>
-                  <Form.Control
-                    className="input-v2"
-                    required
-                    name="name"
-                    type="text"
-                    onChange={this.handleChange}
-                    value={name}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Advertiser Name is required
-                  </Form.Control.Feedback>
-                </Form.Group>
+
+                <TextInput
+                  name="name"
+                  label="Advertiser name"
+                  handleChange={this.updateState}
+                  value={name}
+                />
 
                 <Form.Group controlId="industry">
                   <Form.Label className="label-v2">Industry</Form.Label>
@@ -177,20 +172,12 @@ export default class AdvertiserForm extends Component {
                   />
                 </Form.Group>
 
-                <Form.Group controlId="website_url">
-                  <Form.Label className="label-v2">Website URL</Form.Label>
-                  <Form.Control
-                    className="input-v2"
-                    required
-                    name="website_url"
-                    type="url"
-                    onChange={this.handleChange}
-                    value={websiteUrl}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Website URL is invalid
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <UrlInput
+                  name="website_url"
+                  label="Website URL"
+                  handleChange={this.updateState}
+                  value={websiteUrl}
+                />
 
                 <NumberInput
                   name="annual_revenue"

@@ -46,25 +46,25 @@ export default class NumberInput extends Component {
     const {
       name,
       label,
-      handleChange,
-      value
+      value,
+      allowDecimal,
+      className,
+      prepend
     } = this.props;
 
     return (
-      <Form.Group controlId={name}>
+      <Form.Group controlId={name} className={className}>
         <Form.Label className="label-v2">{label}</Form.Label>
         <Form.Control
-          className="input-v2"
+          className={`input-v2 ${prepend ? "right" : ""}`}
           required
           name={name}
-          onKeyDown={FormUtils.blockNonNum}
+          onKeyDown={allowDecimal ? FormUtils.blockE : FormUtils.blockNonNum}
           type="text"
           onChange={this.handleNumberChange}
           value={FormUtils.formatNumber(value)}
         />
-        <Form.Control.Feedback type="invalid">
-          {label} is required
-        </Form.Control.Feedback>
+        {prepend && <div className="input-v2-prepend"><span>{prepend}</span></div>}
       </Form.Group>
     )
   }
@@ -74,5 +74,16 @@ NumberInput.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired,
+  allowDecimal: PropTypes.bool,
+  className: PropTypes.string,
+  prepend: PropTypes.string
 };
+
+NumberInput.defaultProps = {
+  allowDecimal: false,
+  className: ""
+}
