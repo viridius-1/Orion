@@ -5,6 +5,7 @@ import Select, { components } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import Slider from '@material-ui/core/Slider';
 import FormUtils from '../../../common/FormUtils';
+import SwitchInput from '../../../components/SwitchInput';
 
 const getSelectButtonClass = (selected) => (selected ? 'btn-primary-v2 slim no-focus' : 'btn-secondary-v2 slim no-focus');
 
@@ -44,6 +45,7 @@ export default class CampaignDemographicsFormFragment extends Component {
       handleSubmit,
       handleSwitchChange,
       handleChange,
+      updateState,
       male_selected: maleSelected,
       onSelectButtonPressed,
       validated,
@@ -172,42 +174,30 @@ export default class CampaignDemographicsFormFragment extends Component {
                   />
                   <span style={{ fontSize: '12px' }}>Points of interest or business locations/names.</span>
                 </Form.Group>
-                <Form.Group controlId="footfall_analysis">
-                  <Form.Label className="label-v2 default-position">Footfall Analysis</Form.Label>
-                  <Form.Switch
-                    type="switch"
-                    id="footfall_analysis"
-                    defaultChecked={footfallAnalysis}
-                    onChange={(value) => handleSwitchChange(value, { name: 'footfall_analysis' })}
-                  />
-                </Form.Group>
-                <Form.Group controlId="crm_data">
-                  <Form.Label className="label-v2 default-position">CRM Data</Form.Label>
-                  <Form.Switch
-                    type="switch"
-                    id="crm_data"
-                    defaultChecked={crmData}
-                    onChange={(value) => handleSwitchChange(value, { name: 'crm_data' })}
-                  />
-                </Form.Group>
-                <Form.Group controlId="brand_safety">
-                  <Form.Label className="label-v2 default-position">Brand Safety</Form.Label>
-                  <Form.Switch
-                    type="switch"
-                    id="brand_safety"
-                    defaultChecked={brandSafety}
-                    onChange={(value) => handleSwitchChange(value, { name: 'brand_safety' })}
-                  />
-                </Form.Group>
-                <Form.Group controlId="contextual_targeting">
-                  <Form.Label className="label-v2 default-position">Contextual Targeting</Form.Label>
-                  <Form.Switch
-                    type="switch"
-                    id="contextual_targeting"
-                    defaultChecked={contextualTargeting}
-                    onChange={(value) => handleSwitchChange(value, { name: 'contextual_targeting' })}
-                  />
-                </Form.Group>
+                <SwitchInput
+                  name="footfall_analysis"
+                  label="Footfall Analysis"
+                  handleChange={updateState}
+                  value={footfallAnalysis}
+                />
+                <SwitchInput
+                  name="crm_data"
+                  label="CRM Data"
+                  handleChange={updateState}
+                  value={crmData}
+                />
+                <SwitchInput
+                  name="brand_safety"
+                  label="Brand Safety"
+                  handleChange={updateState}
+                  value={brandSafety}
+                />
+                <SwitchInput
+                  name="contextual_targeting"
+                  label="Contextual Targeting"
+                  handleChange={updateState}
+                  value={contextualTargeting}
+                />
                 <Form.Group controlId="targeting_notes">
                    <Form.Label className="label-v2 default-position">Demographic Notes</Form.Label>
                    <Form.Control
@@ -261,6 +251,7 @@ CampaignDemographicsFormFragment.propTypes = {
   handleSwitchChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
+  updateState: PropTypes.func.isRequired,
   male_selected: PropTypes.bool,
   onSelectButtonPressed: PropTypes.func.isRequired,
   validated: PropTypes.bool,
