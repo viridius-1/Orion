@@ -24,7 +24,7 @@ export default class SwitchInput extends Component {
 
     return (
       <Form.Group controlId={name} title={tooltip}>
-        <InputLabel label={label} tooltip={tooltip}/>
+        <InputLabel label={label} tooltip={tooltip} className="default-position"/>
         <Form.Switch
           type="switch"
           id={label}

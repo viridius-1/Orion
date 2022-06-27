@@ -245,7 +245,7 @@ export default class ObjectiveFormFragment extends Component {
         }
         { objective.kpi &&
         <Form.Group controlId="end_date" className="col-6" title="Date your campaign is scheduled to end">
-          <InputLabel label="Start Date" tooltip="Date your campaign is scheduled to launch"/>
+          <InputLabel label="End Date" tooltip="Date your campaign is scheduled to end"/>
           <Form.Control
             className="input-v2"
             required
@@ -257,10 +257,12 @@ export default class ObjectiveFormFragment extends Component {
         </Form.Group>
         }
         </div>
+        <div className="row" inputwrapper="true" key="budget_wrapper">
         {fields.includes('budget') &&
           <NumberInput
             name="budget"
             label="Budget"
+            tooltip="Your desired spend for this campaign"
             handleChange={this.updateAttribute}
             value={objective.budget}
             allowDecimal={true}
@@ -272,6 +274,7 @@ export default class ObjectiveFormFragment extends Component {
           <NumberInput
             name="desired_dcpm"
             label="Desired dCPM"
+            tooltip="Your target cost per thousand impressions; note: this may not be possible due to reach and targeting requirements"
             handleChange={this.updateAttribute}
             value={objective.desired_dcpm}
             allowDecimal={true}
@@ -279,9 +282,10 @@ export default class ObjectiveFormFragment extends Component {
             prepend="$"
           />
         }
+        </div>
         {(fields.includes('budget') && fields.includes('desired_dcpm')) &&
-        <Form.Group controlId="impressions">
-          <Form.Label className="label-v2">Impressions</Form.Label>
+        <Form.Group controlId="impressions" title="Projected impressions based on desired dCPM and Budget">
+          <InputLabel label="Impressions" tooltip="Projected impressions based on desired dCPM and Budget"/>
           <Form.Control
             className="input-v2"
             name="impressions"

@@ -8,14 +8,15 @@ export default class InputLabel extends Component {
     const {
       label,
       tooltip,
-      prepend
+      prepend,
+      className
     } = this.props;
 
-    const padding = prepend ? '25px': '5px';
+    const left = prepend ? "25px" :"";
     return (
-      <div className="label-v2">
+      <div className={`label-v2 ${className}`} style={{paddingLeft: left}}>
         <Form.Label>{label}</Form.Label>
-        {tooltip ? <i className="fas fa-info-circle info-icon" style={{paddingLeft: padding}} title={tooltip}/> : <></>}
+        {tooltip ? <i className="fas fa-info-circle info-icon" style={{paddingLeft: '5px'}} title={tooltip}/> : <></>}
       </div>
     )
   }
@@ -23,6 +24,7 @@ export default class InputLabel extends Component {
 
 InputLabel.propTypes = {
   label: PropTypes.string.isRequired,
+  className: PropTypes.string,
   tooltip: PropTypes.string,
-  prepend: PropTypes.string
+  prepend: PropTypes.bool
 };
