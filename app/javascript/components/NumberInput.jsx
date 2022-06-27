@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FormUtils from '../common/FormUtils';
 import PropTypes from 'prop-types';
 import { Form } from 'react-bootstrap';
+import InputLabel from "./InputLabel";
 
 export default class NumberInput extends Component {
   handleNumberChange = (event) => {
@@ -49,12 +50,13 @@ export default class NumberInput extends Component {
       value,
       allowDecimal,
       className,
-      prepend
+      prepend,
+      tooltip
     } = this.props;
 
     return (
-      <Form.Group controlId={name} className={className}>
-        <Form.Label className="label-v2">{label}</Form.Label>
+      <Form.Group controlId={name} className={className} title={tooltip}>
+        <InputLabel label={label} tooltip={tooltip} prepend={prepend}/>
         <Form.Control
           className={`input-v2 ${prepend ? "right" : ""}`}
           required
@@ -73,6 +75,7 @@ export default class NumberInput extends Component {
 NumberInput.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  tooltip: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.string,

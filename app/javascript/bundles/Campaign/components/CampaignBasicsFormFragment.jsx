@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { Form } from 'react-bootstrap';
 import Select from 'react-select';
 import OrionForm from '../../../components/OrionForm';
+import SelectInput from "../../../components/SelectInput";
+import TextInput from "../../../components/TextInput";
+import UrlInput from "../../../components/UrlInput";
 
 export default class CampaignBasicsFormFragment extends Component {
   render() {
@@ -35,50 +38,36 @@ export default class CampaignBasicsFormFragment extends Component {
                 errors={errors}
               >
                 <div className={hideAdvertiser ? "hidden" : ""}>
-                  <Form.Group controlId="advertiser_id">
-                    <Form.Label className="label-v2">Advertiser</Form.Label>
-                    <Select
-                      className="selectV2"
-                      classNamePrefix="selectV2"
-                      options={advertiserOptions}
-                      name="advertiser_id"
-                      onChange={handleSelectChange}
-                      value={advertiserId}
-                    />
-                  </Form.Group>
+                  <SelectInput
+                    name="advertiser_id"
+                    label="Advertiser"
+                    tooltip="Select advertiser which this campaign belongs to"
+                    options={advertiserOptions}
+                    handleChange={handleSelectChange}
+                    value={advertiserId}
+                  />
                 </div>
-                <Form.Group controlId="campaign_type">
-                  <Form.Label className="label-v2">Campaign Activation</Form.Label>
-                  <Select
-                    className="selectV2"
-                    classNamePrefix="selectV2"
-                    options={campaignTypeOptions}
-                    name="campaign_type"
-                    onChange={handleSelectChange}
-                    value={campaignType}
-                  />
-                </Form.Group>
-                <Form.Group controlId="name">
-                  <Form.Label className="label-v2">Campaign Name</Form.Label>
-                  <Form.Control
-                    className="input-v2"
-                    name="name"
-                    type="text"
-                    onChange={handleChange}
-                    value={name}
-                  />
-                </Form.Group>
-                <Form.Group controlId="campaign_url">
-                  <Form.Label className="label-v2">Campaign URL</Form.Label>
-                  <Form.Control
-                    className="input-v2"
-                    required
-                    name="campaign_url"
-                    type="url"
-                    onChange={handleChange}
-                    value={campaignUrl}
-                  />
-                </Form.Group>
+                <SelectInput
+                  name="campaign_type"
+                  label="Campaign Activation"
+                  tooltip="Service type of this campaign as contracted to Version2"
+                  options={campaignTypeOptions}
+                  handleChange={handleSelectChange}
+                  value={campaignType}
+                />
+                <TextInput
+                  name="name"
+                  label="Campaign Name"
+                  handleChange={handleChange}
+                  value={name}
+                />
+                <UrlInput
+                  name="campaign_url"
+                  label="Campaign URL"
+                  tooltip="Click-Through URL for this campaign"
+                  handleChange={handleChange}
+                  value={campaignUrl}
+                />
                 <div className="form-group">
                   <button className="btn btn-secondary-v2" type="button" onClick={handleCancel}>Cancel</button>
                   <button className="btn btn-primary-v2 float-right" type="submit" style={{ width: '61%' }}>

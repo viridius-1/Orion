@@ -2,32 +2,28 @@ import React, { Component } from 'react';
 import FormUtils from '../common/FormUtils';
 import PropTypes from 'prop-types';
 import { Form } from 'react-bootstrap';
+import InputLabel from "./InputLabel";
 
 export default class UrlInput extends Component {
-  handleTextChange = (event) => {
-    const {
-      handleChange
-    } = this.props
-
-    handleChange(event.target.name, event.target.value);
-  }
 
   render() {
     const {
       name,
       label,
-      value
+      tooltip,
+      value,
+      handleChange
     } = this.props;
 
     return (
-      <Form.Group controlId={name}>
-        <Form.Label className="label-v2">{label}</Form.Label>
+      <Form.Group controlId={name} title={tooltip}>
+        <InputLabel label={label} tooltip={tooltip}/>
         <Form.Control
           className="input-v2"
           required
           name={name}
           type="url"
-          onChange={this.handleTextChange}
+          onChange={handleChange}
           value={value}
         />
         <Form.Control.Feedback type="invalid">
@@ -41,6 +37,7 @@ export default class UrlInput extends Component {
 UrlInput.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  tooltip: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired
 };

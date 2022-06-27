@@ -35,7 +35,8 @@ export default class AdvertiserCardComponent extends Component {
       <div className="advertiser-card-container">
         <div className="content-center">
           <LinkButton
-            text="Create campaigns"
+            tooltip="Enter any additional details to launch a new campaign"
+            text="Create campaign"
             icon="fas fa-plus-circle icon"
             buttonClass="create-campaigns-btn"
             link={`/vendors/${id}/campaigns/new`}

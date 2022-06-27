@@ -131,6 +131,7 @@ export default class CampaignIndexComponent extends Component {
               link={`${link}new`}
               icon="fas fa-plus-circle icon"
               buttonClass="btn btn-primary btn-primary-v2 ht-50"
+              tooltip="Enter any additional details to launch a new campaign"
             />
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import FormUtils from '../common/FormUtils';
 import PropTypes from 'prop-types';
 import { Form } from 'react-bootstrap';
+import InputLabel from "./InputLabel";
 
 export default class SwitchInput extends Component {
   handleSwitchChange = () => {
@@ -18,12 +18,13 @@ export default class SwitchInput extends Component {
     const {
       name,
       label,
-      value
+      value,
+      tooltip
     } = this.props;
 
     return (
-      <Form.Group controlId={name}>
-        <Form.Label className="label-v2 default-position">{label}</Form.Label>
+      <Form.Group controlId={name} title={tooltip}>
+        <InputLabel label={label} tooltip={tooltip}/>
         <Form.Switch
           type="switch"
           id={label}
@@ -38,6 +39,7 @@ export default class SwitchInput extends Component {
 SwitchInput.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  tooltip: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
   value: PropTypes.bool.isRequired
 };

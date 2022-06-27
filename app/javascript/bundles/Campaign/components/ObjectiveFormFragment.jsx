@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Form } from 'react-bootstrap';
-import Select from 'react-select';
 import PropTypes from 'prop-types';
 import FormUtils from '../../../common/FormUtils';
 import OrionForm from '../../../components/OrionForm';
 import NumberInput from '../../../components/NumberInput';
+import SelectInput from "../../../components/SelectInput";
+import InputLabel from "../../../components/InputLabel";
 
 export default class ObjectiveFormFragment extends Component {
   constructor(props) {
@@ -203,47 +204,35 @@ export default class ObjectiveFormFragment extends Component {
         errors={objective.errors || {}}
         handleSubmit={handleSubmit}
       >
-        <Form.Group controlId="media_channel">
-          <Form.Label className="label-v2">Media Channel</Form.Label>
-          <Select
-            className="selectV2"
-            classNamePrefix="selectV2"
-            options={FormUtils.buildOptions(mediaChannelOptions)}
-            name="media_channel"
-            onChange={this.handleSelectChange}
-            value={ { label: objective.media_channel, value: objective.media_channel }}
-          />
-        </Form.Group>
+        <SelectInput
+          name="media_channel"
+          label="Media Channel"
+          options={FormUtils.buildOptions(mediaChannelOptions)}
+          handleChange={this.handleSelectChange}
+          value={{ label: objective.media_channel, value: objective.media_channel }}
+        />
         {objective.media_channel &&
-        <Form.Group controlId="goal">
-          <Form.Label className="label-v2">Overall Goal</Form.Label>
-          <Select
-            className="selectV2"
-            classNamePrefix="selectV2"
-            options={FormUtils.buildOptions(goalOptions)}
+          <SelectInput
             name="goal"
-            onChange={this.handleSelectChange}
-            value={ { label: objective.goal, value: objective.goal }}
+            label="Overall Goal"
+            options={FormUtils.buildOptions(goalOptions)}
+            handleChange={this.handleSelectChange}
+            value={{ label: objective.goal, value: objective.goal }}
           />
-        </Form.Group>
         }
         {objective.goal &&
-        <Form.Group controlId="kpi">
-          <Form.Label className="label-v2">KPI</Form.Label>
-          <Select
-            className="selectV2"
-            classNamePrefix="selectV2"
-            options={FormUtils.buildOptions(kpiOptions)}
+          <SelectInput
             name="kpi"
-            onChange={this.handleSelectChange}
-            value={ { label: objective.kpi, value: objective.kpi } }
+            label="KPI"
+            options={FormUtils.buildOptions(kpiOptions)}
+            handleChange={this.handleSelectChange}
+            value={{ label: objective.kpi, value: objective.kpi }}
           />
-        </Form.Group>
         }
         <div className="row" inputwrapper="true" key="date_wrapper">
         { objective.kpi &&
-        <Form.Group controlId="start_date" className="col-6">
-          <Form.Label className="label-v2">Start Date</Form.Label>
+        <Form.Group controlId="start_date" className="col-6" title="Date your campaign is scheduled to launch">
+          <InputLabel label="Start Date" tooltip="Date your campaign is scheduled to launch"/>
           <Form.Control
             className="input-v2"
             required
@@ -255,8 +244,8 @@ export default class ObjectiveFormFragment extends Component {
         </Form.Group>
         }
         { objective.kpi &&
-        <Form.Group controlId="end_date" className="col-6">
-          <Form.Label className="label-v2">End Date</Form.Label>
+        <Form.Group controlId="end_date" className="col-6" title="Date your campaign is scheduled to end">
+          <InputLabel label="Start Date" tooltip="Date your campaign is scheduled to launch"/>
           <Form.Control
             className="input-v2"
             required
@@ -268,7 +257,6 @@ export default class ObjectiveFormFragment extends Component {
         </Form.Group>
         }
         </div>
-        <div className="row" inputwrapper="true" key="date_wrapper">
         {fields.includes('budget') &&
           <NumberInput
             name="budget"
@@ -291,9 +279,8 @@ export default class ObjectiveFormFragment extends Component {
             prepend="$"
           />
         }
-        </div>
         {(fields.includes('budget') && fields.includes('desired_dcpm')) &&
-        <Form.Group controlId="impressions">  
+        <Form.Group controlId="impressions">
           <Form.Label className="label-v2">Impressions</Form.Label>
           <Form.Control
             className="input-v2"
@@ -304,7 +291,7 @@ export default class ObjectiveFormFragment extends Component {
             />
         </Form.Group>
         }
-        {fields.includes('target_ctr') && 
+        {fields.includes('target_ctr') &&
         <Form.Group controlId="target_ctr">
           <Form.Label className="label-v2">Click Through Rate</Form.Label>
           <Form.Control
@@ -319,7 +306,7 @@ export default class ObjectiveFormFragment extends Component {
           <div className="input-v2-append"><span>%</span></div>
         </Form.Group>
         }
-        {fields.includes('video_completion_rate') && 
+        {fields.includes('video_completion_rate') &&
         <Form.Group controlId="video_completion_rate">
           <Form.Label className="label-v2">Video Completion Rate</Form.Label>
           <Form.Control
