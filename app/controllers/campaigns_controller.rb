@@ -112,7 +112,7 @@ class CampaignsController < ApplicationController
 
   def flight_params
     params.require(:campaign).permit(
-      :advertiser_id, :name, :campaign_url, :campaign_type
+      :advertiser_id, :name, :campaign_url, :campaign_type, :demand_side_platform
     )
   end
 

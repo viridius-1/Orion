@@ -8,6 +8,7 @@ module CampaignsHelper
       media_channel_options: media_channel_options,
       education_options: education_options,
       parental_options: parental_options,
+      dsp_options: dsp_options,
       advertiser_options: current_user.advertisers.map do |advertiser|
         { value: advertiser.id, label: advertiser.name }
       end
@@ -69,5 +70,9 @@ module CampaignsHelper
 
   def income_options
     %w[<$50k $50-100k $100-200k $200-500k $500k+ N/A]
+  end
+
+  def dsp_options
+    ['DV 360', 'Zeta DSP', 'Basis DSP']
   end
 end
