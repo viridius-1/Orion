@@ -166,12 +166,11 @@ GEM
       addressable (~> 2.7)
     letter_opener (1.7.0)
       launchy (~> 2.2)
-    libv8-node (16.10.0.0)
+    libv8-node (16.10.0.0-x86_64-darwin)
     libv8-node (16.10.0.0-x86_64-linux)
-    listen (3.1.5)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
-      ruby_dep (~> 1.2)
+    listen (3.7.1)
+      rb-fsevent (~> 0.10, >= 0.10.3)
+      rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.13.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -261,7 +260,7 @@ GEM
       thor (>= 0.20.3, < 2.0)
     rainbow (3.1.1)
     rake (13.0.6)
-    rb-fsevent (0.11.0)
+    rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rbtree3 (0.7.0)
@@ -281,7 +280,6 @@ GEM
     rollbar (3.3.0)
     ruby-vips (2.1.4)
       ffi (~> 1.12)
-    ruby_dep (1.5.0)
     rubyzip (2.3.2)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -351,7 +349,7 @@ GEM
     zeitwerk (2.5.4)
 
 PLATFORMS
-  ruby
+  x86_64-darwin-21
   x86_64-linux
 
 DEPENDENCIES
@@ -368,7 +366,7 @@ DEPENDENCIES
   fog-aws
   jbuilder (~> 2.7)
   letter_opener (~> 1.7)
-  listen (>= 3.0.5, < 3.2)
+  listen (~> 3.2)
   mini_magick
   mini_racer (~> 0.6.2)
   petergate
@@ -393,7 +391,7 @@ DEPENDENCIES
   webpacker (~> 4.0)
 
 RUBY VERSION
-   ruby 2.7.0p0
+   ruby 3.0.3p157
 
 BUNDLED WITH
-   2.3.6
+   2.3.20
