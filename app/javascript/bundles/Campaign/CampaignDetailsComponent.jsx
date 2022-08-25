@@ -46,14 +46,13 @@ export default class CampaignDetailsComponent extends Component {
   actionItemsNeeded(tabs) {
     const {
       campaign: {
-        footfall_analysis,
         crm_data,
         brand_safety,
         contextual_targeting
       },
     } = this.props;
 
-    const itemsValue = [footfall_analysis, crm_data, brand_safety, contextual_targeting];
+    const itemsValue = [ crm_data, brand_safety, contextual_targeting];
     const {campaign: {campaign_type}} = this.props;
 
     if (itemsValue.some(v => v === true) || campaign_type === 'self_service_auto_setup') {
@@ -78,11 +77,9 @@ export default class CampaignDetailsComponent extends Component {
     const {
       campaign: {
         id,
-        footfall_analysis,
         crm_data,
         brand_safety,
         contextual_targeting,
-        footfall_analysis_text,
         crm_data_checked,
         brand_safety_text,
         contextual_targeting_text,
@@ -94,11 +91,9 @@ export default class CampaignDetailsComponent extends Component {
 
     return (
       <CampaignActionItemsFormFragment
-        footfallAnalysis={footfall_analysis}
         crmData={crm_data}
         brandSafety={brand_safety}
         contextualTargeting={contextual_targeting}
-        footfallAnalysisText={footfall_analysis_text}
         crmDataChecked={crm_data_checked}
         brandSafetyText={brand_safety_text}
         contextualTargetingText={contextual_targeting_text}

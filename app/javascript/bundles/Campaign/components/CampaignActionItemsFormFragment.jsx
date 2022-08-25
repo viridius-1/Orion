@@ -10,11 +10,9 @@ export default class CampaignActionItemsFormFragment extends Component {
   _initialState() {
     const {
       campaignId,
-      footfallAnalysis,
       crmData,
       brandSafety,
       contextualTargeting,
-      footfallAnalysisText,
       crmDataChecked,
       brandSafetyText,
       contextualTargetingText,
@@ -23,11 +21,9 @@ export default class CampaignActionItemsFormFragment extends Component {
 
     const initialState = {
       campaign_id: campaignId,
-      footfall_analysis: footfallAnalysis,
       crm_data: crmData,
       brand_safety: brandSafety,
       contextual_targeting: contextualTargeting,
-      footfall_analysis_text: footfallAnalysisText || '',
       crm_data_checked: crmDataChecked || '',
       brand_safety_text: brandSafetyText || '',
       contextual_targeting_text: contextualTargetingText || '',
@@ -105,7 +101,6 @@ export default class CampaignActionItemsFormFragment extends Component {
 
   _getSubmitBody(event) {
     const {
-      footfall_analysis_text,
       crm_data_checked,
       brand_safety_text,
       contextual_targeting_text,
@@ -113,7 +108,6 @@ export default class CampaignActionItemsFormFragment extends Component {
     } = this.state;
 
     const submitState = {
-      footfall_analysis_text,
       crm_data_checked,
       brand_safety_text,
       contextual_targeting_text,
@@ -133,11 +127,9 @@ export default class CampaignActionItemsFormFragment extends Component {
 
   render() {
     const {
-      footfall_analysis,
       crm_data,
       brand_safety,
       contextual_targeting,
-      footfall_analysis_text,
       crm_data_checked,
       brand_safety_text,
       contextual_targeting_text,
@@ -161,29 +153,6 @@ export default class CampaignActionItemsFormFragment extends Component {
                     validated={validated}
                     onSubmit={this.handleComplete}
                   >
-                    {footfall_analysis &&
-                      <Form.Group controlId="footfall_analysis_text" className="col-md-6">
-                        <Form.Label className="label-v2 default-position">
-                          <li><b>Footfall Analysis</b> - Your Version2 Campaign Specialist will work with you and <a
-                            href="https://www.placed.com/ui/login" target="_blank">Placed</a> on creating an account and
-                            providing you tracking pixels for visitation measurement.
-                          </li>
-                        </Form.Label>
-                        <Form.Control
-                          className="input-v2 textarea"
-                          name="footfall_analysis_text"
-                          type="text"
-                          as="textarea"
-                          rows={3}
-                          required
-                          value={footfall_analysis_text}
-                          onChange={this.handleChange}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          Footfall Analysis is required
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                    }
                     {crm_data &&
                       <Form.Group controlId="crm_data_checked" className="col-md-6">
                         <Form.Check
