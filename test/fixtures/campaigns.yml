@@ -25,7 +25,6 @@ first:
   status: :under_review
   languages: nil
   budget_used: nil
-  footfall_analysis_text: nil
   crm_data_checked: nil
   brand_safety_text: nil
   contextual_targeting_text: nil
