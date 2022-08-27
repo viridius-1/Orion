@@ -152,7 +152,6 @@ class CampaignsController < ApplicationController
 
   def action_items_params
     params.require(:campaign).permit(
-      :footfall_analysis_text,
       :crm_data_checked,
       :brand_safety_text,
       :contextual_targeting_text,

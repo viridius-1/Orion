@@ -337,7 +337,7 @@ export default class ObjectiveFormFragment extends Component {
         {fields.includes('average_order_value') &&
           <NumberInput
             name="average_order_value"
-            label="AOV"
+            label="Average Order Value"
             handleChange={this.updateAttribute}
             value={objective.average_order_value}
             allowDecimal={true}
@@ -347,7 +347,7 @@ export default class ObjectiveFormFragment extends Component {
         {fields.includes('target_cpa') &&
           <NumberInput
             name="target_cpa"
-            label="CPA"
+            label="Cost Per Acquisition Goal"
             handleChange={this.updateAttribute}
             value={objective.target_cpa}
             allowDecimal={true}
@@ -357,7 +357,7 @@ export default class ObjectiveFormFragment extends Component {
         {fields.includes('target_roas') &&
           <NumberInput
             name="target_roas"
-            label="Return on Ad Spend"
+            label="Return on Ad Spend Goal"
             handleChange={this.updateAttribute}
             value={objective.target_roas}
           />
