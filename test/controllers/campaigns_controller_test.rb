@@ -349,10 +349,10 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:advertiser_user)
 
     put "/campaigns/#{campaigns(:first).id}/action_items",
-          params: { campaign: { footfall_analysis_text: 'Updated' } }
+          params: { campaign: { contextual_targeting_text: 'Updated' } }
     
     assert_response :redirect
-    assert_equal "Updated", assigns(:campaign).reload.footfall_analysis_text
+    assert_equal "Updated", assigns(:campaign).reload.contextual_targeting_text
   end
 
   test 'should send email and redirect on action items complete' do
@@ -360,7 +360,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     
     assert_emails 1 do
       put "/campaigns/#{campaigns(:first).id}/complete_action_items",
-            params: { campaign: { footfall_analysis_text: 'Updated' } }
+            params: { campaign: { contextual_targeting_text: 'Updated' } }
     end
     
     assert_redirected_to campaign_path(campaigns(:first).id)
