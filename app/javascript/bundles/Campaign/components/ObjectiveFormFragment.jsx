@@ -224,6 +224,7 @@ export default class ObjectiveFormFragment extends Component {
           <SelectInput
             name="kpi"
             label="KPI"
+            tooltip="How you're measuring the performance of the goal"
             options={FormUtils.buildOptions(kpiOptions)}
             handleChange={this.handleSelectChange}
             value={{ label: objective.kpi, value: objective.kpi }}

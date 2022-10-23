@@ -162,7 +162,7 @@ export default class AdvertiserForm extends Component {
                 <SelectInput
                   name="industry"
                   label="Industry"
-                  tooltip="The vertical/subvertical that best fits your advertiser"
+                  tooltip="The industry that best fits your advertiser"
                   handleChange={this.handleSelectChange}
                   value={industry}
                   options={industryOptions}
