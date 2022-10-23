@@ -6,6 +6,7 @@ import CreatableSelect from 'react-select/creatable';
 import Slider from '@material-ui/core/Slider';
 import FormUtils from '../../../common/FormUtils';
 import SwitchInput from '../../../components/SwitchInput';
+import InputLabel from "../../../components/InputLabel";
 
 const getSelectButtonClass = (selected) => (selected ? 'btn-primary-v2 slim no-focus' : 'btn-secondary-v2 slim no-focus');
 
@@ -65,7 +66,11 @@ export default class CampaignDemographicsFormFragment extends Component {
                 onKeyPress={(event) => FormUtils.submitEnter(event, this.formId, handleSubmit)}
               >
                 <Form.Group controlId="gender">
-                  <Form.Label className="label-v2 default-position">Gender</Form.Label>
+                  <InputLabel
+                    label="Gender"
+                    tooltip="Your desired gender target for this campaign"
+                    className="default-position"
+                  />
                   <div>
                     <button
                       className={getSelectButtonClass(maleSelected)}
@@ -95,7 +100,11 @@ export default class CampaignDemographicsFormFragment extends Component {
                   </div>
                 </Form.Group>
                 <Form.Group controlId="age_range_male">
-                  <Form.Label className="label-v2 default-position">Male Age Range</Form.Label>
+                  <InputLabel
+                    label="Male Age Range"
+                    tooltip="Select if you only want to target men of a certain age range"
+                    className="default-position"
+                  />
                   <div className="slider-group row col-8">
                     <div className="before-label">
                       <span>{ageRangeMale[0]}</span>
@@ -116,7 +125,11 @@ export default class CampaignDemographicsFormFragment extends Component {
                   </div>
                 </Form.Group>
                 <Form.Group controlId="age_range_female">
-                  <Form.Label className="label-v2 default-position">Female Age Range</Form.Label>
+                  <InputLabel
+                    label="Female Age Range"
+                    tooltip="Select if you only want to target women of a certain age range"
+                    className="default-position"
+                  />
                   <div className="slider-group row col-8">
                     <div className="before-label">
                       <span>{ageRangeFemale[0]}</span>
@@ -136,8 +149,8 @@ export default class CampaignDemographicsFormFragment extends Component {
                     </div>
                   </div>
                 </Form.Group>
-                <Form.Group controlId="geography">
-                  <Form.Label className="label-v2">Geography</Form.Label>
+                <Form.Group controlId="geography" title="Your geographic target for this campaign">
+                  <InputLabel label="Geography" tooltip="Your geographic target for this campaign"/>
                   <CreatableSelect
                     className="multiSelectV2"
                     classNamePrefix="multiSelectV2"
@@ -155,8 +168,8 @@ export default class CampaignDemographicsFormFragment extends Component {
                   />
                   <span style={{ fontSize: '12px' }}>Enter countries, states, provinces, DMAs, cities, or ZIP/postal codes.</span>
                 </Form.Group>
-                <Form.Group controlId="geo_fence">
-                  <Form.Label className="label-v2">Geo Fence</Form.Label>
+                <Form.Group controlId="geo_fence" title="Your geographic target for this campaign">
+                  <InputLabel label="Geo Fence" tooltip="Creates a target radius around a point of interest"/>
                   <CreatableSelect
                     className="multiSelectV2"
                     classNamePrefix="multiSelectV2"
@@ -177,24 +190,28 @@ export default class CampaignDemographicsFormFragment extends Component {
                 <SwitchInput
                   name="footfall_analysis"
                   label="Footfall Analysis"
+                  tooltip="Select if you're looking to track in-store visitation to a point of interest"
                   handleChange={updateState}
                   value={footfallAnalysis}
                 />
                 <SwitchInput
                   name="crm_data"
                   label="CRM Data"
+                  tooltip="Select if you're looking to bring on your first party data for targeting/anti targeting in your campaign"
                   handleChange={updateState}
                   value={crmData}
                 />
                 <SwitchInput
                   name="brand_safety"
                   label="Brand Safety"
+                  tooltip="Select if you're looking to apply brand safety segments from partners like DoubleVerify, IAS, and MOAT"
                   handleChange={updateState}
                   value={brandSafety}
                 />
                 <SwitchInput
                   name="contextual_targeting"
                   label="Contextual Targeting"
+                  tooltip="Select if you would like to target content based on a keyword list"
                   handleChange={updateState}
                   value={contextualTargeting}
                 />

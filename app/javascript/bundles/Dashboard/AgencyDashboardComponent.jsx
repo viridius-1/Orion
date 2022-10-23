@@ -33,6 +33,7 @@ const AgencyDashboardComponent = ({
               link={addAdvertiserLink}
               icon="fas fa-plus-circle icon"
               buttonClass="btn btn-primary btn-primary-v2 ht-50"
+              tooltip="Click here to build a new advertiser"
             />
           </div>
         </div>

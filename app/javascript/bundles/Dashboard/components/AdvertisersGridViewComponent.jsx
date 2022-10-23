@@ -96,6 +96,7 @@ export default class AdvertisersGridViewComponent extends Component {
           <div className="col-md-4 col-sm-6 col-xs-12 grid-item">
             <LinkButton
               text="Add Advertiser"
+              tooltip="Click here to build a new advertiser"
               link={addAdvertiserLink}
               icon="fas fa-plus-circle icon"
               buttonClass="btn btn-primary btn-primary-v2 ht-50"

@@ -9,8 +9,6 @@ const FileUpload = (props) => {
     return {url: `/campaigns/${campaignId}/creatives`}
   }
 
-
-
   const {
     creatives,
     campaignId,

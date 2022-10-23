@@ -2,41 +2,45 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Form} from 'react-bootstrap';
 import InputLabel from "./InputLabel";
+import Select from "react-select";
 
-export default class TextInput extends Component {
+export default class MultiSelectInput extends Component {
 
   render() {
     const {
       name,
       label,
+      options,
       value,
       tooltip,
-      handleChange
+      handleChange,
+      menuPlacement
     } = this.props;
 
     return (
       <Form.Group controlId={name} title={tooltip}>
         <InputLabel label={label} tooltip={tooltip}/>
-        <Form.Control
-          className="input-v2"
-          required
+        <Select
+          className="multiSelectV2"
+          classNamePrefix="multiSelectV2"
+          options={options}
           name={name}
-          type="text"
           onChange={handleChange}
           value={value}
+          isMulti
+          menuPlacement={menuPlacement}
         />
-        <Form.Control.Feedback type="invalid">
-          {label} is required
-        </Form.Control.Feedback>
       </Form.Group>
     )
   }
 }
 
-TextInput.propTypes = {
+MultiSelectInput.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  options: PropTypes.array.isRequired,
   tooltip: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.object.isRequired,
+  menuPlacement: PropTypes.string.isRequired
 };

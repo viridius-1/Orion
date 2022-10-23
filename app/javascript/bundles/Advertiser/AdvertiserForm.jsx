@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
-import { Form } from 'react-bootstrap';
+import React, {Component} from 'react';
+import {Form} from 'react-bootstrap';
 import Select from 'react-select';
 import PropTypes from 'prop-types';
 import FormUtils from '../../common/FormUtils';
 import NumberInput from '../../components/NumberInput';
 import TextInput from '../../components/TextInput';
 import UrlInput from '../../components/UrlInput';
+import SelectInput from "../../components/SelectInput";
+import MultiSelectInput from "../../components/MultiSelectInput";
 
 let industryOptions = [];
 let businessTypeOptions = [];
@@ -48,7 +50,7 @@ export default class AdvertiserForm extends Component {
       }
       const requestOptions = {
         body: this._getSubmitBody(),
-        headers: { 'Content-Type': 'application/json' },
+        headers: {'Content-Type': 'application/json'},
         method,
       };
 
@@ -59,13 +61,11 @@ export default class AdvertiserForm extends Component {
           }
         });
     }
-    this.setState({ validated: true });
+    this.setState({validated: true});
   }
 
   handleChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   updateState = (name, value) => {
@@ -74,13 +74,13 @@ export default class AdvertiserForm extends Component {
     })
   }
 
-  handleSelectChange = (selectedOption, { name }) => {
-    this.setState({ [name]: selectedOption });
+  handleSelectChange = (selectedOption, {name}) => {
+    this.setState({[name]: selectedOption});
   }
 
   _getSubmitBody() {
-    const { token } = this.props;
-    const submitState = { ...this.state };
+    const {token} = this.props;
+    const submitState = {...this.state};
     const {
       industry,
       business_type: businessType,
@@ -152,74 +152,61 @@ export default class AdvertiserForm extends Component {
           <div className="col-6">
             <div className="form-v2">
               <Form noValidate validated={validated} onSubmit={this.handleSubmit}>
-
                 <TextInput
                   name="name"
                   label="Advertiser name"
-                  handleChange={this.updateState}
+                  tooltip="Enter the name of the brand you're looking to launch a campaign for"
+                  handleChange={this.handleChange}
                   value={name}
                 />
-
-                <Form.Group controlId="industry">
-                  <Form.Label className="label-v2">Industry</Form.Label>
-                  <Select
-                    className="selectV2"
-                    classNamePrefix="selectV2"
-                    options={industryOptions}
-                    name="industry"
-                    onChange={this.handleSelectChange}
-                    value={industry}
-                  />
-                </Form.Group>
-
+                <SelectInput
+                  name="industry"
+                  label="Industry"
+                  tooltip="The vertical/subvertical that best fits your advertiser"
+                  handleChange={this.handleSelectChange}
+                  value={industry}
+                  options={industryOptions}
+                />
                 <UrlInput
                   name="website_url"
                   label="Website URL"
-                  handleChange={this.updateState}
+                  tooltip="Enter the primary domain of your advertiser"
+                  handleChange={this.handleChange}
                   value={websiteUrl}
                 />
-
                 <NumberInput
                   name="annual_revenue"
                   label="Annual Revenue"
+                  tooltip="Advertisers estimated ad spend for the year"
                   handleChange={this.updateState}
                   value={annualRevenue}
                 />
-
                 <NumberInput
                   name="monthly_unique_visitors"
                   label="Monthly Unique Visitors"
+                  tooltip="The advertiser's estimated monthly site traffic "
                   handleChange={this.updateState}
                   value={monthlyUniqueVisitors}
                 />
-
-                <Form.Group controlId="business_type">
-                  <Form.Label className="label-v2">Business Type</Form.Label>
-                  <Select
-                    className="selectV2"
-                    classNamePrefix="selectV2"
-                    options={businessTypeOptions}
-                    name="business_type"
-                    onChange={this.handleSelectChange}
-                    value={businessType}
-                  />
-                </Form.Group>
-
-                <Form.Group>
-                  <Form.Label className="label-v2">Current Media Mix</Form.Label>
-                  <Select
-                    className="multiSelectV2"
-                    classNamePrefix="multiSelectV2"
-                    options={mediaMixOptions}
-                    onChange={this.handleSelectChange}
-                    name="current_media_mix"
-                    value={currentMediaMix}
-                    isMulti
-                    menuPlacement="top"
-                  />
-                </Form.Group>
+                <SelectInput
+                  name="business_type"
+                  label="Business Type"
+                  tooltip="Who is this advertiser's target?"
+                  options={businessTypeOptions}
+                  handleChange={this.handleSelectChange}
+                  value={businessType}
+                />
+                <MultiSelectInput
+                  name="current_media_mix"
+                  label="Current Media Mix"
+                  tooltip="What channels are this advertiser currently running? (Select all that apply)"
+                  options={mediaMixOptions}
+                  handleChange={this.handleSelectChange}
+                  value={currentMediaMix}
+                  menuPlacement="top"
+                />
                 <div className="form-group">
-                  <button className="btn btn-primary-v2 float-right" type="submit" style={{ width: '61%' }}>
+                  <button className="btn btn-primary-v2 float-right" type="submit" style={{width: '61%'}}>
                     Finish
                   </button>
                   <button className="btn btn-secondary-v2" type="button" onClick={handleCancel}>Cancel</button>
