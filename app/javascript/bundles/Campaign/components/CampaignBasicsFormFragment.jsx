@@ -6,6 +6,7 @@ import OrionForm from '../../../components/OrionForm';
 import SelectInput from "../../../components/SelectInput";
 import TextInput from "../../../components/TextInput";
 import UrlInput from "../../../components/UrlInput";
+import FormUtils from "../../../common/FormUtils";
 
 export default class CampaignBasicsFormFragment extends Component {
   render() {
@@ -13,6 +14,7 @@ export default class CampaignBasicsFormFragment extends Component {
       advertiser_id: advertiserId,
       hide_advertiser: hideAdvertiser,
       campaign_type: campaignType,
+      demand_side_platform: demandSidePlatform,
       campaign_url: campaignUrl,
       handleSelectChange,
       handleCancel,
@@ -21,7 +23,8 @@ export default class CampaignBasicsFormFragment extends Component {
       name,
       options: {
         advertiser_options: advertiserOptions,
-        campaign_type_options: campaignTypeOptions
+        campaign_type_options: campaignTypeOptions,
+        dsp_options: dspOptions
       },
       errors
     } = this.props;
@@ -55,6 +58,15 @@ export default class CampaignBasicsFormFragment extends Component {
                   handleChange={handleSelectChange}
                   value={campaignType}
                 />
+                {campaignType.value === 'self_service_auto_setup' &&
+                  <SelectInput
+                  name="demand_side_platform"
+                  label="Demand Side Platform"
+                  options={FormUtils.buildOptions(dspOptions)}
+                  handleChange={handleSelectChange}
+                  value={demandSidePlatform}
+                  />
+                }
                 <TextInput
                   name="name"
                   label="Campaign Name"
@@ -89,6 +101,10 @@ CampaignBasicsFormFragment.propTypes = {
     value: PropTypes.number,
   }),
   campaign_type: PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.string
+  }),
+  demand_side_platform: PropTypes.shape({
     label: PropTypes.string,
     value: PropTypes.string
   }),

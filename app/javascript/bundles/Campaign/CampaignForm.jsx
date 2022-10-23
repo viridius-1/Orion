@@ -47,6 +47,7 @@ export default class CampaignForm extends Component {
   }
 
   handleSelectChange = (selectedOption, { name }) => {
+    console.log(this.state);
     this.setState({ [name]: selectedOption });
   }
 
@@ -118,6 +119,7 @@ export default class CampaignForm extends Component {
     const {
       advertiser_id: advertiserId,
       campaign_type: campaignType,
+      demand_side_platform: demandSidePlatform,
       male_selected: maleSelected,
       age_range_male: ageRangeMale,
       female_selected: femaleSelected,
@@ -136,6 +138,7 @@ export default class CampaignForm extends Component {
       age_range_female: femaleSelected ? ageRangeFemale : null,
       age_range_male: maleSelected ? ageRangeMale : null,
       campaign_type: campaignType?.value,
+      demand_side_platform: demandSidePlatform?.value,
       geography: geography?.map((option) => option.value),
       geo_fence: geoFence?.map((option) => option.value),
       advertiser_id: advertiserId?.value,
@@ -194,6 +197,7 @@ export default class CampaignForm extends Component {
         advertiser_id: advertiserId,
         name,
         campaign_type: campaignType,
+        demand_side_platform: demandSidePlatform,
         campaign_url: campaignUrl,
         age_range_male: ageRangeMale,
         age_range_female: ageRangeFemale,
@@ -210,7 +214,8 @@ export default class CampaignForm extends Component {
       },
       options: {
         advertiser_options: advertiserOptions,
-        campaign_type_options: campaignTypeOptions
+        campaign_type_options: campaignTypeOptions,
+        dsp_options: dspOptions
       },
       hide_advertiser: hideAdvertiser,
       current_step: currentStep
@@ -225,6 +230,7 @@ export default class CampaignForm extends Component {
       age_range_male: ageRangeMale || [18, 99],
       campaign_url: campaignUrl || 'https://',
       campaign_type: FormUtils.buildEnumOption(campaignType, campaignTypeOptions),
+      demand_side_platform: FormUtils.buildOption(demandSidePlatform, dspOptions),
       female_selected: !!ageRangeFemale,
       geography: geography ? FormUtils.buildOptions(geography) : [],
       geography_input: '',
@@ -272,6 +278,7 @@ export default class CampaignForm extends Component {
       age_range_female: ageRangeFemale,
       age_range_male: ageRangeMale,
       campaign_type: campaignType,
+      demand_side_platform: demandSidePlatform,
       campaign_url: campaignUrl,
       current_step: currentStep,
       female_selected: femaleSelected,
@@ -301,6 +308,7 @@ export default class CampaignForm extends Component {
             errors={errors || {}}
             advertiser_id={advertiserId}
             campaign_type={campaignType}
+            demand_side_platform={demandSidePlatform}
             hide_advertiser={hideAdvertiser}
             options={options}
             name={name}
